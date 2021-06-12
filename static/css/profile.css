@@ -1,0 +1,78 @@
+body{
+     background-image: url('BG2.jpg');
+     background-size: 100% 100%;
+     background-attachment: fixed;
+     overflow-x: hidden;
+     height: 1000px;
+     margin:0px;
+   }
+*{
+	font-family: 'Poppins', sans-serif;
+}
+.container {
+    width: 100%;
+    height: 100%;
+    min-height: 100vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+ .row { 
+    display: flex; 
+}
+.img-icon{  
+  position: center; 
+  margin-top: 120px; 
+  background-color: white;
+  border-radius: 50%;
+  border: 5px solid black;
+  padding: 10px;
+  display: inline;
+}
+
+.r1{
+	margin-top: 15px;
+	margin-bottom: 15px;
+
+}
+.r2{
+	margin-top: 15px;
+	margin-bottom: 15px;
+}
+.r3{
+	margin-top: 15px;
+	margin-bottom: 15px;
+}
+
+.curve{
+  border-radius: 15px;
+  border: 1px solid rgb(220,220,220);
+  padding-left: 8px;
+}
+
+.curve:focus {
+  outline: none;
+  box-shadow: 0px 0px 2px black;
+}
+
+.fa-2x{
+	float: left;
+}
+.btn-edit.btn-md{
+  border-radius: 15px;
+  background-color: #06BDF6;
+}
+h5{
+	color: black;
+}
+.fa.fa-plus.fa-2x{
+	color: black;
+}
+.d-flex.justify-content-center.formy{
+	margin-top: 15px;
+	margin-bottom: 15px;
+}
+.col-md-4.col-xs-12.row1{
+	padding-top: 15px;
+	padding-bottom: 15px;
+}

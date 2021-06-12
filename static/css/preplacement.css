@@ -1,0 +1,103 @@
+body{
+     background-image: url('../../images/theme.jpg');
+     background-size: cover;
+     background-attachment: fixed;
+     overflow-x: hidden;
+     height: 1000px;
+     margin:0px;
+
+
+}
+
+*{
+  font-family: 'Poppins', sans-serif;
+
+}
+.btn-link, .btn-link:hover, .btn-link:active, .btn-link:visited, .btn-link:focus, .btn-link:active:focus{
+   color: black ;
+
+}
+
+
+.btn-edit.btn-md{
+  border-radius: 15px;
+  background-color: #06BDF6;
+}
+
+
+.btn-link.dropdown-toggle{
+  color: black ;
+
+}
+
+p {
+  line-height: 0.8 ;
+  margin-top: 0 ;
+  margin-bottom: 0 ;
+}
+
+
+i{
+
+  float: center;
+  margin-top: 0px;
+  margin-right: 6px;
+
+}
+.btn-link:hover{
+  color: black;
+}
+
+.btn-group{  
+  position: center; 
+  margin-top: 100px; 
+}
+.container-fluid {
+    width: 100%;
+    height: 100%;
+    min-height: 100vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;  
+}
+
+ .row { 
+    display: flex; 
+}
+
+
+.card-body{
+
+
+  position: center;
+  border-radius: 25px;
+  border: none;
+  padding: 20px; 
+  width: 650px;
+  height: 100px;  
+  box-shadow: 0px 0px 2px 2px black;
+
+
+}
+.btn-link{
+      float:right;
+      margin-top: 0rem;
+      background-color: white;
+      color: black;
+      border: 0;
+
+
+
+}
+
+
+
+@media (max-width: 576px){
+  .card-body{
+  height: 120px;  
+}
+
+
+
+}
