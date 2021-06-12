@@ -1,18 +1,6 @@
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Index</title>
-    <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</head>
-<body style="background-image:url('../static/images/indeximage.jpg'); background-repeat:no-repeat; background-size:cover; background-attachment:fixed">
+{% extends 'student/base.html' %}
+{% block title %} Index {% endblock %}
+{% block content %}
 
 <br>
 <div class="container mt-5">
@@ -139,7 +127,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="col-sm-4 mb-4">
             <div class="container rounded-lg" style="height:180px; background-image:linear-gradient(to top right,rgba(6,189,246,0.5),white); box-shadow:3px 3px 6px rgb(180,180,180); text-shadow:0 0 4px white">
             <div class="clear-fix">
@@ -165,9 +153,6 @@
         </div>
     </div>
 
-
-
-
 </div>
-</body>
-</html>
+
+{% endblock %}
