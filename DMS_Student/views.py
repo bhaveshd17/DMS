@@ -1,6 +1,8 @@
 from django.shortcuts import render
+from .models import *
 
 def index(request):
+    # job_obj = job()
     content = {}
     return render(request, 'student/index.html', content)
 
