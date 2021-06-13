@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4172ca37-156d-4d05-b4a9-9053490e2e05" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DMS/.gitignore" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/DMS/DMS/__init__.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/DMS/DMS/asgi.py" beforeDir="false" />
@@ -45,13 +46,9 @@
       <change beforePath="$PROJECT_DIR$/DMS/static/images/theme.jpg" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/DMS/static/images/vitw.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/DMS/static/images/vitwhite.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DMS_Student/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/DMS_Student/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DMS_Student/templates/student/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/DMS_Student/templates/student/base.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DMS_Student/templates/student/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/DMS_Student/templates/student/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DMS_Student/templates/student/nav.html" beforeDir="false" afterPath="$PROJECT_DIR$/DMS_Student/templates/student/nav.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DMS_Student/templates/student/preplacement.html" beforeDir="false" afterPath="$PROJECT_DIR$/DMS_Student/templates/student/preplacement.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DMS_Student/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/DMS_Student/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DMS_Student/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/DMS_Student/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

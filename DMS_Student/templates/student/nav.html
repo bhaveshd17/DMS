@@ -10,13 +10,13 @@
         <a class="nav-link" href="{% url 'index'%}">Home</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="internship">Internships</a>
+        <a class="nav-link" href="{% url 'internship'%}">Internships</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="job">Jobs</a>
+        <a class="nav-link" href="{% url 'job'%}">Jobs</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link " href="preplacement">Preplacements</a>
+        <a class="nav-link " href="{% url 'preplacement'%}">Preplacements</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">{{request.user.username}}</a>
