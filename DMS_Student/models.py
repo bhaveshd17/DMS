@@ -63,7 +63,7 @@ class Int_user(models.Model):
     int_id = models.ForeignKey(Intership, on_delete=models.CASCADE, null=False)
 
     def __str__(self):
-        return self.roll_no
+        return str(self.roll_no)
 
 class Job(models.Model):
     comp_name = models.CharField(max_length=40, null=False)
@@ -89,7 +89,7 @@ class Job_user(models.Model):
     job_id = models.ForeignKey(Job, on_delete=models.CASCADE, null=False)
 
     def __str__(self):
-        return self.roll_no
+        return str(self.roll_no)
 
 class Login(models.Model):
     roll_no = models.CharField(primary_key=True, max_length=30, null=False)

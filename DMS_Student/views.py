@@ -20,10 +20,12 @@ def internship(request):
     return render(request, 'student/internship.html', content)
 
 def preplacement(request):
-    content = {}
+    mock_test= Mock_test.objects.all()
+    content = {'mock_test':mock_test}
     return render(request, 'student/preplacement.html', content)
 
 def job(request):
-    content = {}
+    job_obj = Job.objects.all()
+    content = {'job_obj':job_obj}
     return render(request, 'student/job.html', content)
 
