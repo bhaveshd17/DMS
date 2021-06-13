@@ -29,3 +29,12 @@ def job(request):
     content = {'job_obj':job_obj}
     return render(request, 'student/job.html', content)
 
+def details(request,id,type):
+    if type==1:
+        job_obj = Job.objects.get(id=id)
+        content={'details':job_obj}
+    elif type==2:
+        internship_obj = Intership.objects.get(id=id)
+        content={'details':internship_obj}
+
+    return render(request,"student/details.html",content)

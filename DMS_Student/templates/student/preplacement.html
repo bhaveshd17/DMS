@@ -3,24 +3,26 @@
 {% block content %}
 
 {% for test in mock_test %}
-    <div class="mx-auto mt-3 mb-5 bg-white rounded-lg p-3 clear-fix shadow " >
-      <h6 class="float-right"><strong>Date : </strong>{{test.date}}</h6>
-      <h4 style="text-transform:capitalize">{{test.name}}</h4>
-      <div class="row">
-        <div class="col-4">
-          <p><strong>From : </strong>{{test.from_time}}</p>
-          <p><strong>To : </strong>{{test.to_time}}</p>
-        </div>
-        <div class="col-4">
-          <p><strong>Placed by : </strong><h6>{{test.adm_id}}</h6></p>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col">
-          <p>{{test.details}}</p>
-        </div>
-      </div>
+<div class="mx-auto mt-3 mb-5 bg-white rounded-lg p-3 clear-fix shadow ">
+  <h6 class="float-right"><strong>Date : </strong>{{test.date}}</h6>
+  <h4 style="text-transform:capitalize">{{test.name}}</h4>
+  <div class="row">
+    <div class="col-4">
+      <p><strong>From : </strong>{{test.from_time}}</p>
+      <p><strong>To : </strong>{{test.to_time}}</p>
     </div>
-    {% endfor %}
+    <div class="col-4">
+      <p><strong>Placed by : </strong>
+      <h6>{{test.adm_id}}</h6>
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <p>{{test.details}}</p>
+    </div>
+  </div>
+</div>
+{% endfor %}
 
 {% endblock %}
