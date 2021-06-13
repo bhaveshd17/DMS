@@ -15,7 +15,8 @@ def index(request):
     return render(request, 'student/index.html', content)
 
 def internship(request):
-    content = {}
+    int_obj = Intership.objects.all()
+    content = {'int_obj':int_obj}
     return render(request, 'student/internship.html', content)
 
 def preplacement(request):

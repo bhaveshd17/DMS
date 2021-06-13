@@ -30,20 +30,20 @@
                 <div class="clear-fix">
                     <a href="#" class="btn btn-link btn-3 float-right" data-toggle='modal' data-target='#mymodal'
                         style="color:black; text-shadow:0 0 4px white">View Details &raquo;</a>
-                    <h4><i>Capgemini</i></h4>
-                    <p>Web developer</p>
+                    <h4><i>{{job.comp_name}}</i></h4>
+                    <p>{{job.domain}}</p>
                     <div class="row">
                         <div class="col">
                             <p class='text-left mt-3'><strong>Stipend</strong></p>
-                            <p class='text-left mt-n3'>Rs 2000</p>
+                            <p class='text-left mt-n3'>Rs {{job.sal}}</p>
                         </div>
                         <div class="col">
                             <p class='text-left mt-3'><strong>Start Date</strong></p>
-                            <p class='text-left mt-n3'>15/09/2020</p>
+                            <p class='text-left mt-n3'>{{job.start_date}}</p>
                         </div>
                         <div class="col">
                             <p class='text-left mt-3'><strong>Apply by</strong></p>
-                            <p class='text-left mt-n3'>10/09/2020</p>
+                            <p class='text-left mt-n3'>{{job.apply_by}}</p>
                         </div>
                     </div>
                 </div>
@@ -67,15 +67,15 @@
                     <div class="row">
                         <div class="col">
                             <p class='text-left mt-3'><strong>Stipend</strong></p>
-                            <p class='text-left mt-n3'>Rs 2000</p>
+                            <p class='text-left mt-n3'>Rs {{internship.sal}}</p>
                         </div>
                         <div class="col">
                             <p class='text-left mt-3'><strong>Start Date</strong></p>
-                            <p class='text-left mt-n3'>15/09/2020</p>
+                            <p class='text-left mt-n3'>{{internship.start_date}}</p>
                         </div>
                         <div class="col">
                             <p class='text-left mt-3'><strong>Apply by</strong></p>
-                            <p class='text-left mt-n3'>10/09/2020</p>
+                            <p class='text-left mt-n3'>{{internship.apply_by}}</p>
                         </div>
                     </div>
                 </div>
