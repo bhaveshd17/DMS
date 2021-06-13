@@ -17,7 +17,7 @@ def index(request):
     int_list = []
     for intern in int_obj:
         int_list.append(intern)
-
+    
     content = {'job_list':job_list[:3], 'int_list': int_list[:3]}
     return render(request, 'student/index.html', content)
 
@@ -31,13 +31,15 @@ def internship(request):
 
 @login_required(login_url='login')
 def preplacement(request):
-    content = {}
+    mock_test= Mock_test.objects.all()
+    content = {'mock_test':mock_test}
     return render(request, 'student/preplacement.html', content)
 
 
 @login_required(login_url='login')
 def job(request):
-    content = {}
+    job_obj = Job.objects.all()
+    content = {'job_obj':job_obj}
     return render(request, 'student/job.html', content)
 
 

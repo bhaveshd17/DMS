@@ -20,18 +20,15 @@
 </div>
 
 <!-- Jobs -->
-
-
 <div class="container mt-5">
     <h3 style="text-align:center" class="mb-4">Jobs</h3>
     <div class="row mb-3">
-
-        {% for job in job_list %}
+{% for job in job_list %}
         <div class="col-sm-4 mb-4">
             <div class="container rounded-lg"
-                style="height:180px; background-image:linear-gradient(to top right,rgba(6,189,246,0.5),white); box-shadow:3px 3px 6px rgb(180,180,180) ; text-shadow:0 0 4px white; ">
+                style="height:180px; background-image:linear-gradient(to top right,rgba(6,189,246,0.5),white); box-shadow:3px 3px 6px rgb(180,180,180); text-shadow:0 0 4px white">
                 <div class="clear-fix">
-                    <a href="{{job.link}}" class="btn btn-link btn-3 float-right"
+                    <a href="#" class="btn btn-link btn-3 float-right" data-toggle='modal' data-target='#mymodal'
                         style="color:black; text-shadow:0 0 4px white">View Details &raquo;</a>
                     <h4><i>{{job.comp_name}}</i></h4>
                     <p>{{job.domain}}</p>
@@ -54,8 +51,7 @@
         </div>
         {% endfor %}
     </div>
-
-    <!-- internship -->
+    <!-- Intership -->
     <h3 style="text-align:center" class="mb-4">Internships</h3>
     <div class="row">
 
@@ -64,8 +60,8 @@
             <div class="container rounded-lg"
                 style="height:180px; background-image:linear-gradient(to top right,rgba(6,189,246,0.5),white); box-shadow:3px 3px 6px rgb(180,180,180); text-shadow:0 0 4px white">
                 <div class="clear-fix">
-                    <a href="{{internship.link}}" class="btn btn-link btn-3 float-right"
-                        style="color:black; text-shadow:0 0 4px white;">View Details &raquo;</a>
+                    <a href="{{internship.link}}" class="btn btn-link btn-3 float-right" data-toggle='modal'
+                         style="color:black; text-shadow:0 0 4px white">View Details &raquo;</a>
                     <h4><i>{{internship.comp_name}}</i></h4>
                     <p>{{internship.domain}}</p>
                     <div class="row">
@@ -86,9 +82,7 @@
             </div>
         </div>
         {% endfor %}
-
     </div>
 
-</div>
 
-{% endblock %}
+    {% endblock %}
