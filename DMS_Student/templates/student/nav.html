@@ -19,10 +19,11 @@
         <a class="nav-link " href="preplacement">Preplacements</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Roll No.</a>
+        <a class="nav-link" href="#">{{request.user.username}}</a>
       </li>
+
       <li class="nav-item">
-        <a class="nav-link" href="logout.php">Logout</a>
+        <a href="{% url 'logout' %}" class="nav-link">Logout</a>
       </li>
 
     </ul>

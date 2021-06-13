@@ -1,0 +1,233 @@
+@media only screen and (max-width:1600px) and (min-width:500px) {
+    body {
+        background-image: url('../images/login.png');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+    }
+
+    .card-body {
+
+        /* background-color: #f2f2f2; */
+        background-color: white;
+        box-shadow: 2px 2px 5px gray;
+        padding: 2% 5%;
+
+        margin-top: 45%;
+        margin-left: 40%;
+        border-radius: 10px;
+        width: 45%;
+    }
+
+    .card {
+        padding: 2%;
+
+        margin-top: 40%;
+        margin-left: 20%;
+        border-radius: 10px;
+        width: 100%;
+    }
+
+    .column2 {
+        float: left;
+        width: 40%;
+        padding: 5px;
+        height: 5%;
+    }
+
+    /* Clear floats after the columns */
+    .row:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+
+    input {
+        width: 100%;
+
+        border: 2px solid #bfbfbf;
+        border-radius: 8px;
+        margin: 8px 0px;
+        padding: 8px;
+
+        box-sizing: border-box;
+        outline: none;
+
+    }
+
+    input:focus {
+        border-color: #0066cc;
+        box-shadow: 0 0 8px 0 #0066cc;
+    }
+
+    .inputWithIcon input {
+        padding-left: 40px;
+    }
+
+    .inputWithIcon {
+        position: relative;
+    }
+
+    .inputWithIcon i {
+        position: absolute;
+        left: 0;
+        top: 8px;
+        padding: 8px;
+    }
+
+    .inputWithIcon i+input {
+        color: dodgerBlue;
+    }
+
+
+
+    .Button a {
+        border-radius: 20px;
+        font-family: "Amiri";
+
+        background-image: linear-gradient(to bottom, #3498db, #a8d3f0);
+        color: #fff;
+        padding: 5px 30px;
+        border: none;
+        text-align: center;
+        text-decoration: none;
+        margin: 0 0 0 0px;
+    }
+
+    .Button a:hover {
+        background: #088bf0;
+        color: #fff;
+    }
+
+    .your {
+        font-size: 55px;
+        font-family: Copperplate Gothic Bold;
+        color: #ffffff;
+    }
+
+    .future {
+        font-size: 120px;
+        font-family: Copperplate Gothic Bold;
+        color: #ffffff;
+    }
+
+    .start {
+        font-size: 55px;
+        font-family: Copperplate Gothic Bold;
+        margin-left: 17%;
+        color: #ffffff;
+
+    }
+}
+
+
+@media only screen and (max-width:500px) {
+    body {
+        background-image: url(../images/login.png);
+        background-size: cover;
+        background-repeat: no-repeat;
+
+
+    }
+
+    .card-body {
+
+        /* background-color: #f2f2f2; */
+        background-color: white;
+        box-shadow: 2px 2px 5px gray;
+        padding: 2% 5%;
+
+        margin-top: 15%;
+        margin-left: 15%;
+        border-radius: 10px;
+        width: 60%;
+    }
+
+    .card {
+
+        padding: 2%;
+
+        margin-top: 10%;
+        margin-left: 20%;
+        border-radius: 10px;
+        width: 100%;
+    }
+
+
+    input {
+        width: 100%;
+
+        border: 2px solid #bfbfbf;
+        border-radius: 8px;
+        margin: 8px 0px;
+        padding: 8px;
+
+        box-sizing: border-box;
+        outline: none;
+
+    }
+
+    input:focus {
+        border-color: #0066cc;
+        box-shadow: 0 0 8px 0 #0066cc;
+    }
+
+    .inputWithIcon input {
+        padding-left: 40px;
+    }
+
+    .inputWithIcon {
+        position: relative;
+    }
+
+    .inputWithIcon i {
+        position: absolute;
+        left: 0;
+        top: 8px;
+        padding: 8px;
+    }
+
+    .inputWithIcon i+input {
+        color: dodgerBlue;
+    }
+
+
+
+    .Button a {
+        border-radius: 20px;
+        font-family: "Amiri";
+
+        background-image: linear-gradient(to bottom, #3498db, #a8d3f0);
+        color: #fff;
+        padding: 5px 30px;
+        border: none;
+        text-align: center;
+        text-decoration: none;
+        margin: 0 0 0 0px;
+    }
+
+    .Button a:hover {
+        background: #088bf0;
+        color: #fff;
+    }
+
+    .your {
+        font-size: 25px;
+        font-family: Copperplate Gothic Bold;
+        color: #ffffff;
+    }
+
+    .future {
+        font-size: 45px;
+        font-family: Copperplate Gothic Bold;
+        color: #ffffff;
+    }
+
+    .start {
+        font-size: 25px;
+        font-family: Copperplate Gothic Bold;
+        margin-left: 17%;
+        color: #ffffff;
+
+    }
+}
