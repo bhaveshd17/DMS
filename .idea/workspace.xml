@@ -45,6 +45,7 @@
       <change beforePath="$PROJECT_DIR$/DMS/static/images/theme.jpg" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/DMS/static/images/vitw.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/DMS/static/images/vitwhite.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DMS_Student/templates/student/job.html" beforeDir="false" afterPath="$PROJECT_DIR$/DMS_Student/templates/student/job.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
