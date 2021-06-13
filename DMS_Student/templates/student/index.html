@@ -1,90 +1,105 @@
 {% extends 'student/base.html' %}
 {% block title %} Index {% endblock %}
 {% block content %}
+<!-- Issue -->
 <br>
-<!-- Search box and Slider -->
-<div class="input-group">
-    <div class="form-outline">
-      <input type="search" id="form1" class="form-control" />
-      <label class="form-label" for="form1">Search</label>
+<br>
+<br>
+<!-- Search box -->
+    <div class="input-group" style="width: 75%; margin: auto;">
+        <div class="input-group-prepend">
+            <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">Search</button>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="#">Intership</a>
+                <a class="dropdown-item" href="#">Job</a>
+                <!-- <a class="dropdown-item" href="#">Something else here</a>
+        <div role="separator" class="dropdown-divider"></div>
+        <a class="dropdown-item" href="#">Separated link</a> -->
+            </div>
+        </div>
+        <input type="text" class="form-control" aria-label="Text input with dropdown button">
     </div>
-    <button type="button" class="btn btn-primary">
-      <i class="fas fa-search"></i>
-    </button>
-  </div>
+
 <!-- Jobs -->
 <div class="container mt-5">
     <h3 style="text-align:center" class="mb-4">Jobs</h3>
     <div class="row mb-3">
 
         <div class="col-sm-4 mb-4">
-            <div class="container rounded-lg" style="height:180px; background-image:linear-gradient(to top right,rgba(6,189,246,0.5),white); box-shadow:3px 3px 6px rgb(180,180,180) ; text-shadow:0 0 4px white; ">
-            <div class="clear-fix">
-            <a href="#" class="btn btn-link btn-3 float-right" data-toggle='modal' data-target='#mymodal' style="color:black; text-shadow:0 0 4px white">View Details &raquo;</a>
+            <div class="container rounded-lg"
+                style="height:180px; background-image:linear-gradient(to top right,rgba(6,189,246,0.5),white); box-shadow:3px 3px 6px rgb(180,180,180) ; text-shadow:0 0 4px white; ">
+                <div class="clear-fix">
+                    <a href="#" class="btn btn-link btn-3 float-right" data-toggle='modal' data-target='#mymodal'
+                        style="color:black; text-shadow:0 0 4px white">View Details &raquo;</a>
                     <h4><i>Capgemini</i></h4>
-                     <p>Web developer</p>
-                     <div class="row">
-                     <div class="col">
-                            <p class = 'text-left mt-3'><strong>Stipend</strong></p>
-                            <p class = 'text-left mt-n3'>Rs 2000</p>
+                    <p>Web developer</p>
+                    <div class="row">
+                        <div class="col">
+                            <p class='text-left mt-3'><strong>Stipend</strong></p>
+                            <p class='text-left mt-n3'>Rs 2000</p>
                         </div>
                         <div class="col">
-                            <p class = 'text-left mt-3'><strong>Start Date</strong></p>
-                            <p class = 'text-left mt-n3'>15/09/2020</p>
+                            <p class='text-left mt-3'><strong>Start Date</strong></p>
+                            <p class='text-left mt-n3'>15/09/2020</p>
                         </div>
                         <div class="col">
-                            <p class = 'text-left mt-3'><strong>Apply by</strong></p>
-                            <p class = 'text-left mt-n3'>10/09/2020</p>
+                            <p class='text-left mt-3'><strong>Apply by</strong></p>
+                            <p class='text-left mt-n3'>10/09/2020</p>
                         </div>
-                     </div>
+                    </div>
                 </div>
             </div>
         </div>
 
         <div class="col-sm-4 mb-4">
-            <div class="container rounded-lg" style="height:180px; background-image:linear-gradient(to top right,rgba(6,189,246,0.5),white); box-shadow:3px 3px 6px rgb(180,180,180) ; text-shadow:0 0 4px white; ">
-            <div class="clear-fix">
-            <a href="#" class="btn btn-link btn-3 float-right" data-toggle='modal' data-target='#mymodal' style="color:black; text-shadow:0 0 4px white">View Details &raquo;</a>
+            <div class="container rounded-lg"
+                style="height:180px; background-image:linear-gradient(to top right,rgba(6,189,246,0.5),white); box-shadow:3px 3px 6px rgb(180,180,180) ; text-shadow:0 0 4px white; ">
+                <div class="clear-fix">
+                    <a href="#" class="btn btn-link btn-3 float-right" data-toggle='modal' data-target='#mymodal'
+                        style="color:black; text-shadow:0 0 4px white">View Details &raquo;</a>
                     <h4><i>Capgemini</i></h4>
-                     <p>Web developer</p>
-                     <div class="row">
-                     <div class="col">
-                            <p class = 'text-left mt-3'><strong>Stipend</strong></p>
-                            <p class = 'text-left mt-n3'>Rs 2000</p>
+                    <p>Web developer</p>
+                    <div class="row">
+                        <div class="col">
+                            <p class='text-left mt-3'><strong>Stipend</strong></p>
+                            <p class='text-left mt-n3'>Rs 2000</p>
                         </div>
                         <div class="col">
-                            <p class = 'text-left mt-3'><strong>Start Date</strong></p>
-                            <p class = 'text-left mt-n3'>15/09/2020</p>
+                            <p class='text-left mt-3'><strong>Start Date</strong></p>
+                            <p class='text-left mt-n3'>15/09/2020</p>
                         </div>
                         <div class="col">
-                            <p class = 'text-left mt-3'><strong>Apply by</strong></p>
-                            <p class = 'text-left mt-n3'>10/09/2020</p>
+                            <p class='text-left mt-3'><strong>Apply by</strong></p>
+                            <p class='text-left mt-n3'>10/09/2020</p>
                         </div>
-                     </div>
+                    </div>
                 </div>
             </div>
         </div>
 
         <div class="col-sm-4 mb-4">
-            <div class="container rounded-lg" style="height:180px; background-image:linear-gradient(to top right,rgba(6,189,246,0.5),white); box-shadow:3px 3px 6px rgb(180,180,180); text-shadow:0 0 4px white">
-            <div class="clear-fix">
-            <a href="#" class="btn btn-link btn-3 float-right" data-toggle='modal' data-target='#mymodal' style="color:black; text-shadow:0 0 4px white">View Details &raquo;</a>
+            <div class="container rounded-lg"
+                style="height:180px; background-image:linear-gradient(to top right,rgba(6,189,246,0.5),white); box-shadow:3px 3px 6px rgb(180,180,180); text-shadow:0 0 4px white">
+                <div class="clear-fix">
+                    <a href="#" class="btn btn-link btn-3 float-right" data-toggle='modal' data-target='#mymodal'
+                        style="color:black; text-shadow:0 0 4px white">View Details &raquo;</a>
                     <h4><i>Capgemini</i></h4>
-                     <p>Web developer</p>
-                     <div class="row">
-                     <div class="col">
-                            <p class = 'text-left mt-3'><strong>Stipend</strong></p>
-                            <p class = 'text-left mt-n3'>Rs 2000</p>
+                    <p>Web developer</p>
+                    <div class="row">
+                        <div class="col">
+                            <p class='text-left mt-3'><strong>Stipend</strong></p>
+                            <p class='text-left mt-n3'>Rs 2000</p>
                         </div>
                         <div class="col">
-                            <p class = 'text-left mt-3'><strong>Start Date</strong></p>
-                            <p class = 'text-left mt-n3'>15/09/2020</p>
+                            <p class='text-left mt-3'><strong>Start Date</strong></p>
+                            <p class='text-left mt-n3'>15/09/2020</p>
                         </div>
                         <div class="col">
-                            <p class = 'text-left mt-3'><strong>Apply by</strong></p>
-                            <p class = 'text-left mt-n3'>10/09/2020</p>
+                            <p class='text-left mt-3'><strong>Apply by</strong></p>
+                            <p class='text-left mt-n3'>10/09/2020</p>
                         </div>
-                     </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -92,72 +107,78 @@
     <h3 style="text-align:center" class="mb-4">Internships</h3>
     <div class="row">
         <div class="col-sm-4 mb-4">
-            <div class="container rounded-lg" style="height:180px; background-image:linear-gradient(to top right,rgba(6,189,246,0.5),white); box-shadow:3px 3px 6px rgb(180,180,180); text-shadow:0 0 4px white">
-            <div class="clear-fix">
-            <a href="#" class="btn btn-link btn-3 float-right" data-toggle='modal' data-target='#mymodal' style="color:black; text-shadow:0 0 4px white">View Details &raquo;</a>
+            <div class="container rounded-lg"
+                style="height:180px; background-image:linear-gradient(to top right,rgba(6,189,246,0.5),white); box-shadow:3px 3px 6px rgb(180,180,180); text-shadow:0 0 4px white">
+                <div class="clear-fix">
+                    <a href="#" class="btn btn-link btn-3 float-right" data-toggle='modal' data-target='#mymodal'
+                        style="color:black; text-shadow:0 0 4px white">View Details &raquo;</a>
                     <h4><i>Capgemini</i></h4>
-                     <p>Web developer</p>
-                     <div class="row">
-                     <div class="col">
-                            <p class = 'text-left mt-3'><strong>Stipend</strong></p>
-                            <p class = 'text-left mt-n3'>Rs 2000</p>
+                    <p>Web developer</p>
+                    <div class="row">
+                        <div class="col">
+                            <p class='text-left mt-3'><strong>Stipend</strong></p>
+                            <p class='text-left mt-n3'>Rs 2000</p>
                         </div>
                         <div class="col">
-                            <p class = 'text-left mt-3'><strong>Start Date</strong></p>
-                            <p class = 'text-left mt-n3'>15/09/2020</p>
+                            <p class='text-left mt-3'><strong>Start Date</strong></p>
+                            <p class='text-left mt-n3'>15/09/2020</p>
                         </div>
                         <div class="col">
-                            <p class = 'text-left mt-3'><strong>Apply by</strong></p>
-                            <p class = 'text-left mt-n3'>10/09/2020</p>
+                            <p class='text-left mt-3'><strong>Apply by</strong></p>
+                            <p class='text-left mt-n3'>10/09/2020</p>
                         </div>
-                     </div>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="col-sm-4 mb-4">
-            <div class="container rounded-lg" style="height:180px; background-image:linear-gradient(to top right,rgba(6,189,246,0.5),white); box-shadow:3px 3px 6px rgb(180,180,180) ; text-shadow:0 0 4px white; ">
-            <div class="clear-fix">
-            <a href="#" class="btn btn-link btn-3 float-right" data-toggle='modal' data-target='#mymodal' style="color:black; text-shadow:0 0 4px white">View Details &raquo;</a>
+            <div class="container rounded-lg"
+                style="height:180px; background-image:linear-gradient(to top right,rgba(6,189,246,0.5),white); box-shadow:3px 3px 6px rgb(180,180,180) ; text-shadow:0 0 4px white; ">
+                <div class="clear-fix">
+                    <a href="#" class="btn btn-link btn-3 float-right" data-toggle='modal' data-target='#mymodal'
+                        style="color:black; text-shadow:0 0 4px white">View Details &raquo;</a>
                     <h4><i>Capgemini</i></h4>
-                     <p>Web developer</p>
-                     <div class="row">
-                     <div class="col">
-                            <p class = 'text-left mt-3'><strong>Stipend</strong></p>
-                            <p class = 'text-left mt-n3'>Rs 2000</p>
+                    <p>Web developer</p>
+                    <div class="row">
+                        <div class="col">
+                            <p class='text-left mt-3'><strong>Stipend</strong></p>
+                            <p class='text-left mt-n3'>Rs 2000</p>
                         </div>
                         <div class="col">
-                            <p class = 'text-left mt-3'><strong>Start Date</strong></p>
-                            <p class = 'text-left mt-n3'>15/09/2020</p>
+                            <p class='text-left mt-3'><strong>Start Date</strong></p>
+                            <p class='text-left mt-n3'>15/09/2020</p>
                         </div>
                         <div class="col">
-                            <p class = 'text-left mt-3'><strong>Apply by</strong></p>
-                            <p class = 'text-left mt-n3'>10/09/2020</p>
+                            <p class='text-left mt-3'><strong>Apply by</strong></p>
+                            <p class='text-left mt-n3'>10/09/2020</p>
                         </div>
-                     </div>
+                    </div>
                 </div>
             </div>
         </div>
 
         <div class="col-sm-4 mb-4">
-            <div class="container rounded-lg" style="height:180px; background-image:linear-gradient(to top right,rgba(6,189,246,0.5),white); box-shadow:3px 3px 6px rgb(180,180,180); text-shadow:0 0 4px white">
-            <div class="clear-fix">
-            <a href="#" class="btn btn-link btn-3 float-right" data-toggle='modal' data-target='#mymodal' style="color:black; text-shadow:0 0 4px white">View Details &raquo;</a>
+            <div class="container rounded-lg"
+                style="height:180px; background-image:linear-gradient(to top right,rgba(6,189,246,0.5),white); box-shadow:3px 3px 6px rgb(180,180,180); text-shadow:0 0 4px white">
+                <div class="clear-fix">
+                    <a href="#" class="btn btn-link btn-3 float-right" data-toggle='modal' data-target='#mymodal'
+                        style="color:black; text-shadow:0 0 4px white">View Details &raquo;</a>
                     <h4><i>Capgemini</i></h4>
-                     <p>Web developer</p>
-                     <div class="row">
-                     <div class="col">
-                            <p class = 'text-left mt-3'><strong>Stipend</strong></p>
-                            <p class = 'text-left mt-n3'>Rs 2000</p>
+                    <p>Web developer</p>
+                    <div class="row">
+                        <div class="col">
+                            <p class='text-left mt-3'><strong>Stipend</strong></p>
+                            <p class='text-left mt-n3'>Rs 2000</p>
                         </div>
                         <div class="col">
-                            <p class = 'text-left mt-3'><strong>Start Date</strong></p>
-                            <p class = 'text-left mt-n3'>15/09/2020</p>
+                            <p class='text-left mt-3'><strong>Start Date</strong></p>
+                            <p class='text-left mt-n3'>15/09/2020</p>
                         </div>
                         <div class="col">
-                            <p class = 'text-left mt-3'><strong>Apply by</strong></p>
-                            <p class = 'text-left mt-n3'>10/09/2020</p>
+                            <p class='text-left mt-3'><strong>Apply by</strong></p>
+                            <p class='text-left mt-n3'>10/09/2020</p>
                         </div>
-                     </div>
+                    </div>
                 </div>
             </div>
         </div>
