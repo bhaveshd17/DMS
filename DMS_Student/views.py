@@ -11,3 +11,8 @@ def internship(request):
 def preplacement(request):
     content = {}
     return render(request, 'student/preplacement.html', content)
+
+def job(request):
+    content = {}
+    return render(request, 'student/job.html', content)
+
