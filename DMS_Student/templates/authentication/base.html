@@ -12,13 +12,15 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <script src="https://use.fontawesome.com/3e8afc82e9.js"></script>
 </head>
 
 <body
   style="background-image:url('../static/images/indeximage.jpg'); background-repeat:no-repeat; background-size:cover; background-attachment:fixed">
+
+  <nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top">
+    <img class="navbar-brand" src="../static/images/vitwhite.png" height="45" width="150">
+  </nav>
 <!-- Header -->
-{% include 'student/nav.html' %}
   <div class="container mt-5 pt-5">
     {% block content %}
     {% endblock %}
