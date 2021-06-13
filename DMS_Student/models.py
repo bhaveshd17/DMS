@@ -71,13 +71,13 @@ class Job(models.Model):
     start_date = models.DateField(null=False)
     apply_by = models.DateField(null=True)
     sal = models.IntegerField(null=False)
-    skill = models.TextField(max_length=500, null=False)
+    skills = models.TextField(max_length=500, null=False)
     domain = models.CharField(max_length=100)
     adm_id = models.ForeignKey(AdminDma, on_delete=models.CASCADE, null=False)
     about_comp = models.TextField(max_length=500, null=False)
     about_work = models.TextField(max_length=500, null=False)
     who_can_apply = models.TextField(max_length=500, null=False)
-    perk = models.TextField(max_length=500, null=False)
+    perks = models.TextField(max_length=500, null=False)
     additional = models.TextField(max_length=500, null=False)
 
     def __str__(self):
