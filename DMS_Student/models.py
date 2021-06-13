@@ -17,7 +17,7 @@ class Add_edu(models.Model):
     end_year = models.DateField(null=False)
     roll_no = models.ForeignKey(Student, on_delete=models.CASCADE, null=False)
 
-    def _str_(self):
+    def __str__(self):
         return self.clg_name
 
 class Add_exp(models.Model):
@@ -54,7 +54,7 @@ class Intership(models.Model):
     perks=models.TextField(max_length=500, null=False)
     additional=models.TextField(max_length=500, null=False)
 
-    def _str_(self):
+    def __str__(self):
         return self.comp_name
 
 class Int_user(models.Model):
