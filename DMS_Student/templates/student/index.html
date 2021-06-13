@@ -1,8 +1,18 @@
 {% extends 'student/base.html' %}
 {% block title %} Index {% endblock %}
 {% block content %}
-
 <br>
+<!-- Search box and Slider -->
+<div class="input-group">
+    <div class="form-outline">
+      <input type="search" id="form1" class="form-control" />
+      <label class="form-label" for="form1">Search</label>
+    </div>
+    <button type="button" class="btn btn-primary">
+      <i class="fas fa-search"></i>
+    </button>
+  </div>
+<!-- Jobs -->
 <div class="container mt-5">
     <h3 style="text-align:center" class="mb-4">Jobs</h3>
     <div class="row mb-3">
