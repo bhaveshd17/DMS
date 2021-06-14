@@ -81,7 +81,7 @@
 
 
 
-    .Button a {
+    .Button{
         border-radius: 20px;
         font-family: "Amiri";
 
@@ -94,7 +94,7 @@
         margin: 0 0 0 0px;
     }
 
-    .Button a:hover {
+    .Button:hover {
         background: #088bf0;
         color: #fff;
     }
@@ -193,7 +193,7 @@
 
 
 
-    .Button a {
+    .Button{
         border-radius: 20px;
         font-family: "Amiri";
 
@@ -206,7 +206,7 @@
         margin: 0 0 0 0px;
     }
 
-    .Button a:hover {
+    .Button:hover {
         background: #088bf0;
         color: #fff;
     }
