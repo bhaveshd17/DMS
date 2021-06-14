@@ -13,4 +13,6 @@ urlpatterns = [
     path('student/UpdateSkills',views.UpdateSkills,name='UpdateSkills'),
     path('student/apply/', views.apply, name='apply'),
     path('student/search',views.search,name='search'),
+    path('student/updateEdu',views.updateEdu,name="updateEdu"),
+    path('student/updateExp',views.updateExp,name="updateExp"),
 ]
