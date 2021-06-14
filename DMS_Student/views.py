@@ -6,6 +6,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from .decorators import unauthenticated_user
 
+from .form import SkillsForm
+
 @login_required(login_url='login')
 def index(request):
     job_obj = Job.objects.all()
@@ -51,6 +53,41 @@ def details(request,id,type):
         content={'details':internship_obj}
 
     return render(request,"student/details.html",content)
+
+@login_required(login_url='login')
+def profile(request):
+    rollNo=request.user.username
+    student=Student.objects.get(roll_no=rollNo)
+    form=SkillsForm(instance=student)
+    yearOfJoining='20'+rollNo[0:2]
+    if rollNo[2:5]=="101":
+        branch="INFT"
+    elif rollNo[2:5]=="102":
+        branch="CMPN"
+    elif rollNo[2:5]=="103":
+        branch="ETRX"
+    else:
+        branch="Invalid User"
+
+    div=rollNo[5]
+    studentId=rollNo[6:]
+    name=Student.objects.get(roll_no=request.user.username).name
+    skills=Student.objects.get(roll_no=request.user.username).skills
+    content={'rollNo':rollNo,'yearOfJoining':yearOfJoining,'branch':branch,'div':div,'studentId':studentId,"name":name,"skills":skills,'form':form}
+
+    return render(request,"student/profile.html",content)
+
+def UpdateSkills(request):
+    rollNo=request.user.username
+    student=Student.objects.get(roll_no=rollNo)
+    if request.method=="POST":
+        form=SkillsForm(request.POST,instance=student)
+        if form.is_valid():
+            form.save()
+            return redirect('/student/profile')
+        else:
+            messages.error(request, 'Invalid Update')
+
 
 # authentication
 @unauthenticated_user
