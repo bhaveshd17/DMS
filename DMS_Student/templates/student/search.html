@@ -30,10 +30,18 @@
             <p class="mt-4"><strong>Apply By:</strong></p>
             <p>{{result.apply_by}}</p>
           </div>
+
+          {% if type == 1 %}
+          <div class="col-3">
+            <p class="mt-4"><strong>Duration:</strong></p>
+            <p>-</p>
+          </div>
+          {% elif type == 2 %}
           <div class="col-3">
             <p class="mt-4"><strong>Duration:</strong></p>
             <p>{{result.duration}}</p>
           </div>
+          {% endif %}
         </div>
         <div class="row bg-primary mx-1 rounded-lg text-white p-1 px-3" style="text-align:center">
           {{result.skills}}
