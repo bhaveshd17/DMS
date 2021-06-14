@@ -84,6 +84,40 @@ def profile(request):
     return render(request,"student/profile.html",content)
 
 @login_required(login_url='login')
+def updateEdu(request):
+    student=Student.objects.get(roll_no=request.user.username)
+    if request.method=="POST":
+        clgname=request.POST['clgname']
+        degree=request.POST['degree']
+        marks=request.POST['marks']
+        startyear=request.POST['startyear']
+        endyear=request.POST['endyear']
+        add,created=Add_edu.objects.get_or_create(clg_name=clgname,degree=degree,marks=marks,start_year=startyear,end_year=endyear,roll_no=student)
+        add.save()
+        messages.success(request, 'Successfully Added')
+        return redirect('/student/profile')
+    else:
+        messages.error(request, 'Invalid Addition')
+        return redirect('/student/profile')
+
+@login_required(login_url='login')
+def updateExp(request):
+    student=Student.objects.get(roll_no=request.user.username)
+    if request.method=="POST":
+        compname=request.POST['compname']
+        domain=request.POST['role']
+        joindate=request.POST['joindate']
+        duration=request.POST['duration']
+        add,created=Add_exp.objects.get_or_create(comp_name=compname,role=domain,duration=duration,roll_no=student,start_date=joindate)
+        add.save()
+        messages.success(request, 'Successfully Added')
+        return redirect('/student/profile')
+    else:
+        messages.error(request, 'Invalid Addition')
+        return redirect('/student/profile')
+
+
+@login_required(login_url='login')
 def UpdateSkills(request):
     rollNo=request.user.username
     student=Student.objects.get(roll_no=rollNo)

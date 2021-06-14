@@ -42,12 +42,13 @@
         <!-- Modal body -->
         <div class="modal-body">
           <div class="row d-flex justify-content-center">
-          <form class="" method="post" action="addedu.php">
+          <form class="" method="POST" action="{% url 'updateEdu' %}">
+            {% csrf_token %}
             <input type="text" name="clgname" placeholder="School/College name" class="rounded-lg mb-2 p-2"><br>
             <input type="text" name="degree" placeholder="Degree" class="rounded-lg mb-2 p-2"><br>
             <input type="text" name="marks" placeholder="Percentage/ CGPA" class="rounded-lg mb-2 p-2"><br>
-            <input type="text" name="startyear" placeholder="Starting year" class="rounded-lg mb-2 p-2"><br>
-            <input type="text" name="endyear" placeholder="Ending year" class="rounded-lg mb-2 p-2"><br>
+            <input type="date" name="startyear" placeholder="Starting year" class="rounded-lg mb-2 p-2 mx-2"><br>
+            <input type="date" name="endyear" placeholder="Ending year" class="rounded-lg mb-2 p-2 mx-2"><br>
           </div>
           </div>
         
@@ -73,14 +74,15 @@
         <!-- Modal body -->
         <div class="modal-body">
           <div class="row d-flex justify-content-center">
-          <form class="" method="post" action="addexp.php">
-            <label for="compname" class="mr-4">Company</label>
+          <form class="" method="post" action="{% url 'updateExp' %}">
+            {% csrf_token %}
+            
             <input type="text" id="compname" name="compname" placeholder="Company name" class="rounded-lg mb-2 p-2"><br>
-            <label for="domain" class="mr-4">Domain</label>
-            <input type="text" id="domain" name="role" placeholder="Domain" class="rounded-lg mb-2 p-2 ml-2"><br>
-            <label for="joindate" class="mr-1">Joining date</label>
-            <input type="date" id="joindate" name="joindate" placeholder="Date of joining" class="rounded-lg mb-2 p-2"><br>
-            <label for="duration" class="mr-4">Duration</label>
+           
+            <input type="text" id="domain" name="role" placeholder="Domain" class="rounded-lg mb-2 p-2"><br>
+            
+            <input type="date" id="joindate" name="joindate" placeholder="Date of joining" class="rounded-lg mb-2 p-2 mx-3"><br>
+            
             <input type="text" id="duration" name="duration" placeholder="Duration(months)" class="rounded-lg mb-2 p-2"><br>
           </div>
           </div>
