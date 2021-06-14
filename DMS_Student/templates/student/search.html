@@ -1,18 +1,27 @@
 {% extends 'student/base.html' %}
 {% block title %} Search {% endblock %}
 {% block content %}
-<h3><strong>Search Result:</strong></h3>
+{% if search_list %}
+<h3 class="text-center"><strong>Search Result: </strong>"{{query}}"</h3>
 
-{% for result in search_list %}
+{% for result, type in search_list.items %}
       <div class="mx-auto mt-5 bg-white rounded-lg p-3 clear-fix shadow internship" >
         <a href="details/{{result.id}}/2" class="float-right">View details</a>
         <h4>{{result.comp_name}}</h4>
         <h6>{{result.domain}}</h6>
         <div class="row">
+          {% if type == 1 %}
+          <div class="col-3">
+            <p class="mt-4"><strong>Salary:</strong></p>
+            <p>Rs. {{result.sal}}</p>
+          </div>
+          {% elif type == 2 %}
           <div class="col-3">
             <p class="mt-4"><strong>Stipend:</strong></p>
             <p>Rs. {{result.sal}}</p>
           </div>
+          {% endif %}
+
           <div class="col-3">
             <p class="mt-4"><strong>Start Date:</strong></p>
             <p>{{result.start_date}}</p>
@@ -31,5 +40,8 @@
         </div>
       </div>
 {% endfor %}
+{% else%}
+<h3 class="text-center"><strong>No Result found for : </strong>"{{query}}"</h3>
+{% endif %}
 
 {% endblock %}

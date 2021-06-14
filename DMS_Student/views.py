@@ -1,4 +1,7 @@
+import operator
+
 from django.contrib import messages
+from django.db.models import Q
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -126,23 +129,23 @@ def UpdateSkills(request):
             messages.error(request, 'Invalid Update')
             return redirect('/student/profile')
 
+
+@login_required(login_url='login')
 def search(request):
-    search_list=[]
-    comp_list=[]
+    search_list = {}
     search=request.GET['to_search']
-    search=search.lower()
-    internships=Intership.objects.all()
-    jobs = Job.objects.all()
-    for internship in internships:
-        comp_list.append(internship)
+    query=search.lower()
+    jobs = Job.objects.filter(Q(skills__icontains=query) | Q(comp_name__icontains=query))
+    internships = Intership.objects.filter(Q(skills__icontains=query) | Q(comp_name__icontains=query))
     for job in jobs:
-        comp_list.append(job)
-    
-    for i in comp_list:
-        if i.comp_name.lower()==search:
-            search_list.append(i)
+        search_list[job] = 1
+    for internship in internships:
+        search_list[internship] = 2
+
+    search_list = dict(sorted(search_list.items(), key=operator.itemgetter(1), reverse=True))
+
             
-    content = {"search_list":search_list}
+    content = {"search_list":search_list, "query":query}
     return render(request,"student/search.html",content)
 
 # authentication
@@ -154,6 +157,7 @@ def handleLogin(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
+            request.session.set_expiry(60*60*24)
             return redirect('/student/')
         else:
             messages.error(request, 'Wrong username or password')

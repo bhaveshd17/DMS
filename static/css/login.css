@@ -85,18 +85,13 @@
         border-radius: 20px;
         font-family: "Amiri";
 
-        background-image: linear-gradient(to bottom, #3498db, #a8d3f0);
+        background-color: #088bf0;
         color: #fff;
         padding: 5px 30px;
         border: none;
         text-align: center;
         text-decoration: none;
         margin: 0 0 0 0px;
-    }
-
-    .Button:hover {
-        background: #088bf0;
-        color: #fff;
     }
 
     .your {
@@ -197,18 +192,13 @@
         border-radius: 20px;
         font-family: "Amiri";
 
-        background-image: linear-gradient(to bottom, #3498db, #a8d3f0);
+        background-color: #088bf0;
         color: #fff;
         padding: 5px 30px;
         border: none;
         text-align: center;
         text-decoration: none;
         margin: 0 0 0 0px;
-    }
-
-    .Button:hover {
-        background: #088bf0;
-        color: #fff;
     }
 
     .your {
