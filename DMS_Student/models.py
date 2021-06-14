@@ -99,7 +99,7 @@ class Login(models.Model):
         return self.roll_no
 
 class Mock_test(models.Model):
-    name = models.CharField(max_length=30, null=False)
+    name = models.CharField(max_length=30, null=True)
     date = models.DateField(null=False)
     adm_id = models.ForeignKey(AdminDma, on_delete=models.CASCADE, null=False)
     from_time = models.TimeField()
