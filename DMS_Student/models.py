@@ -98,14 +98,15 @@ class Login(models.Model):
     def __str__(self):
         return self.roll_no
 
-class Mock_test(models.Model):
-    name = models.CharField(max_length=30, null=False)
-    date = models.DateField(null=False)
-    adm_id = models.ForeignKey(AdminDma, on_delete=models.CASCADE, null=False)
-    from_time = models.TimeField()
-    to_time = models.TimeField()
-    details = models.TextField(max_length=500, null=False)
-
-    def __str__(self):
-        return self.name
+# class Mock_test(models.Model):
+#     name = models.CharField(max_length=30, null=True)
+#     date = models.DateField(null=False)
+#     # link = models.CharField(max_length=50,default="None",null=False)
+#     adm_id = models.ForeignKey(AdminDma, on_delete=models.CASCADE, null=False)
+#     from_time = models.TimeField()
+#     to_time = models.TimeField()
+#     details = models.TextField(max_length=500, null=False)
+    
+#     def __str__(self):
+#         return self.name
 
