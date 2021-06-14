@@ -37,12 +37,22 @@ def job(request):
 
 @login_required(login_url='login')
 def details(request,id,type):
+    content = {}
     if type==1:
         job_obj = Job.objects.get(id=id)
-        content={'details':job_obj}
+        try:
+            job_user_obj = Job_user.objects.get(job_id=id)
+        except:
+            job_user_obj = Job_user.objects.none()
+        content={'details':job_obj, 'user_details':job_user_obj}
+        
     elif type==2:
         internship_obj = Intership.objects.get(id=id)
-        content={'details':internship_obj}
+        try:
+            internship_user_obj = Int_user.objects.get(int_id=id)
+        except:
+            internship_user_obj = Int_user.objects.none(int_id=id)
+        content={'details':internship_obj, 'user_details':internship_user_obj}
 
     return render(request,"student/details.html",content)
 
