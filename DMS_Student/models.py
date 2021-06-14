@@ -105,6 +105,8 @@ class Mock_test(models.Model):
     from_time = models.TimeField()
     to_time = models.TimeField()
     details = models.TextField(max_length=500, null=False)
+    link = models.CharField(max_length=50, null=False, default="https")
+
 
     def __str__(self):
         return self.name
