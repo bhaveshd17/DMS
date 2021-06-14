@@ -2,11 +2,14 @@ from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 
 from .models import *
 from .decorators import unauthenticated_user
 from .form import SkillsForm
 from .utils import IntershipJobLogic
+
+import json
 
 @login_required(login_url='login')
 def index(request):
@@ -41,20 +44,46 @@ def details(request,id,type):
     if type==1:
         job_obj = Job.objects.get(id=id)
         try:
-            job_user_obj = Job_user.objects.get(job_id=id)
+            job_user_obj = Job_user.objects.get(job_id=id, roll_no=request.user.username)
+            status = job_user_obj.status
+
         except:
-            job_user_obj = Job_user.objects.none()
-        content={'details':job_obj, 'user_details':job_user_obj}
+            status = '0'
+        content={'details':job_obj, 'status':status, 'type':type, 'pay':'Salary'}
         
     elif type==2:
         internship_obj = Intership.objects.get(id=id)
         try:
-            internship_user_obj = Int_user.objects.get(int_id=id)
+            internship_user = Int_user.objects.get(roll_no=request.user.username, int_id=id)
+            status = internship_user.status
         except:
-            internship_user_obj = Int_user.objects.none(int_id=id)
-        content={'details':internship_obj, 'user_details':internship_user_obj}
+            status = '0'
+
+        content={'details':internship_obj, 'status':status, 'type':type, 'pay': 'Stipend'}
 
     return render(request,"student/details.html",content)
+
+
+@login_required(login_url='login')
+def apply(request):
+    data = json.loads(request.body)
+    type = data['user_details']['type']
+    id = data['user_details']['id']
+    status = data['user_details']['status']
+    student = Student.objects.get(roll_no=request.user.username)
+    if request.user.is_authenticated:
+        if type == '1':
+            job = Job.objects.get(id=id)
+            job_user = Job_user(roll_no=student, job_id=job, status=status)
+            job_user.save()
+
+        elif type == '2':
+            internship = Intership.objects.get(id=id)
+            int_user = Int_user(roll_no=student, int_id=internship, status=status)
+            int_user.save()
+
+    return JsonResponse('Done', safe=False)
+
 
 @login_required(login_url='login')
 def profile(request):
