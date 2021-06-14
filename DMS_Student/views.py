@@ -8,7 +8,20 @@ from .decorators import unauthenticated_user
 
 @login_required(login_url='login')
 def index(request):
-    job_obj = Job.objects.all()
+    roll_no = request.user.username
+    student_obj = Student.objects.get(roll_no=roll_no)
+    skills = student_obj.skills
+    sk_list = skills.split(',')
+    sk_set = set()
+    for skill in sk_list:
+        job = Job.objects.filter(skills__icontains=skill)
+        if not job.count():
+            continue
+        sk_set.add(job[0].skills)
+    print(sk_set)
+
+    job_obj = Job.objects.filter(skills__icontains=skills)
+    print(job_obj)
     job_list = []
     for job in job_obj:
         job_list.append(job)
@@ -18,7 +31,7 @@ def index(request):
     for intern in int_obj:
         int_list.append(intern)
     
-    content = {'job_list':job_list[:3], 'int_list': int_list[:3]}
+    content = {'job_list':job_list, 'int_list': int_list[:3]}
     return render(request, 'student/index.html', content)
 
 
