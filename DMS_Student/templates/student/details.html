@@ -117,7 +117,6 @@
         e.preventDefault()
         document.getElementById('apply').disabled = true;
         if (status == '1') {
-            console.log(status)
             document.getElementById('apply').innerHTML = "Applied";
         }
         else if (status == '2') {
@@ -147,7 +146,7 @@
         })
             .then((response) => response.json())
             .then((data) => {
-                console.log(data)
+                console.log()
             })
 
     }

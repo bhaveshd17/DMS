@@ -141,7 +141,7 @@ def search(request):
     for i in comp_list:
         if i.comp_name.lower()==search:
             search_list.append(i)
-    
+            
     content = {"search_list":search_list}
     return render(request,"student/search.html",content)
 
