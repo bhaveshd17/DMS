@@ -68,6 +68,10 @@ def profile(request):
         branch="CMPN"
     elif rollNo[2:5]=="103":
         branch="ETRX"
+    elif rollNo[2:5]=="104":
+        branch="EXTC"
+    elif rollNo[2:5]=="105":
+        branch="BIOMED"
     else:
         branch="Invalid User"
 
