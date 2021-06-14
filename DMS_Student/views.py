@@ -87,6 +87,24 @@ def UpdateSkills(request):
             messages.error(request, 'Invalid Update')
             return redirect('/student/profile')
 
+def search(request):
+    search_list=[]
+    comp_list=[]
+    search=request.GET['to_search']
+    search=search.lower()
+    internships=Intership.objects.all()
+    jobs = Job.objects.all()
+    for internship in internships:
+        comp_list.append(internship)
+    for job in jobs:
+        comp_list.append(job)
+    
+    for i in comp_list:
+        if i.comp_name.lower()==search:
+            search_list.append(i)
+    
+    content = {"search_list":search_list}
+    return render(request,"student/search.html",content)
 
 # authentication
 @unauthenticated_user

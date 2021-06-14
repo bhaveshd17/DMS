@@ -1,32 +1,33 @@
 {% extends 'student/base.html' %}
-{% block title %}internship{% endblock %}
+{% block title %} Search {% endblock %}
 {% block content %}
+<h3><strong>Search Result:</strong></h3>
 
-{% for internship in related_int_list %}
+{% for result in search_list %}
       <div class="mx-auto mt-5 bg-white rounded-lg p-3 clear-fix shadow internship" >
-        <a href="details/{{internship.id}}/2" class="float-right">View details</a>
-        <h4>{{internship.comp_name}}</h4>
-        <h6>{{internship.domain}}</h6>
+        <a href="details/{{result.id}}/2" class="float-right">View details</a>
+        <h4>{{result.comp_name}}</h4>
+        <h6>{{result.domain}}</h6>
         <div class="row">
           <div class="col-3">
             <p class="mt-4"><strong>Stipend:</strong></p>
-            <p>Rs. {{internship.sal}}</p>
+            <p>Rs. {{result.sal}}</p>
           </div>
           <div class="col-3">
             <p class="mt-4"><strong>Start Date:</strong></p>
-            <p>{{internship.start_date}}</p>
+            <p>{{result.start_date}}</p>
           </div>
           <div class="col-3">
             <p class="mt-4"><strong>Apply By:</strong></p>
-            <p>{{internship.apply_by}}</p>
+            <p>{{result.apply_by}}</p>
           </div>
           <div class="col-3">
             <p class="mt-4"><strong>Duration:</strong></p>
-            <p>{{internship.duration}}</p>
+            <p>{{result.duration}}</p>
           </div>
         </div>
         <div class="row bg-primary mx-1 rounded-lg text-white p-1 px-3" style="text-align:center">
-          {{internship.skills}}
+          {{result.skills}}
         </div>
       </div>
 {% endfor %}
