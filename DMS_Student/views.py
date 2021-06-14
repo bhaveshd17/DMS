@@ -10,17 +10,56 @@ from .form import SkillsForm
 
 @login_required(login_url='login')
 def index(request):
-    job_obj = Job.objects.all()
-    job_list = []
-    for job in job_obj:
-        job_list.append(job)
+    roll_no = request.user.username
+    if roll_no[2:5] == "101":
+        branch = "INFT"
+    elif roll_no[2:5] == "102":
+        branch = "CMPN"
+    elif roll_no[2:5] == "103":
+        branch = "ETRX"
+    else:
+        branch = "Invalid User"
 
+    admin_int = AdminDma.objects.filter(department=branch)
+    job_list = []
+    for admin in admin_int:
+        jobs = Job.objects.filter(adm_id=admin.id)
+        for job in jobs:
+            job_list.append(job)
+
+   
+
+
+    student = Student.objects.get(roll_no=roll_no)
+    student_skills = student.skills
+    student_skills_split = student_skills.split(',')
+    student_skills_list = []
+    for skills in student_skills_split:
+        student_skills_list.append(skills.strip().lower())
+
+    job_skills_list = []
+    for jobs in job_list:
+        job_split = jobs.skills.split(',')
+        for job in job_split:
+            job_skills_list.append(job.strip().lower())
+
+
+    count = 0
+    allJob = {}
+    for skills in student_skills_list:
+        for job in job_skills_list:
+            if job == skills:
+                count = count + 1
+        score = (count * 100) / len(job_skills_list)
+        allJob[job_list.id]=score
+    
+    sorted(allJob)
     int_obj = Intership.objects.all()
     int_list = []
     for intern in int_obj:
         int_list.append(intern)
     
-    content = {'job_list':job_list[:3], 'int_list': int_list[:3]}
+    content = {'job_list':allJob[:3], 'int_list': int_list[:3]}
     return render(request, 'student/index.html', content)
 
 
@@ -66,6 +105,10 @@ def profile(request):
         branch="CMPN"
     elif rollNo[2:5]=="103":
         branch="ETRX"
+    elif rollNo[2:5]=="104":
+        branch="EXTC"
+    elif rollNo[2:5]=="105":
+        branch="BIOMED"
     else:
         branch="Invalid User"
 
