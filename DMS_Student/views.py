@@ -24,7 +24,7 @@ def index(request):
 @login_required(login_url='login')
 def internship(request):
     data = IntershipJobLogic(request)
-    content = {'related_int_list': data['related_int_list']}
+    content = {'related_int_list': data['related_int_list'], 'skill_set':data['skill_set']}
     return render(request, 'student/internship.html', content)
 
 
@@ -181,6 +181,19 @@ def search(request):
             
     content = {"search_list":search_list, "query":query}
     return render(request,"student/search.html",content)
+
+@login_required(login_url='login')
+def userApplication(request):
+    student = Student.objects.get(roll_no=request.user.username)
+    job_user = Job_user.objects.filter(roll_no=student)
+    int_user = Int_user.objects.filter(roll_no=student)
+    applied_dict = {}
+    for job in job_user:
+        applied_dict[job] = 1
+    for intern in int_user:
+        applied_dict[intern] = 2
+    content = {}
+    return render(request, "student/userApplication.html", content)
 
 # authentication
 @unauthenticated_user
