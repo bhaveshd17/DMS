@@ -4,6 +4,8 @@
 <br>
 <div class="container ">
 
+<h3 class="text-center h3">All Currently Active Jobs</h3> 
+
 {% for job in related_job_list %}
     <div class="mx-auto mt-5 bg-white rounded-lg p-3 clear-fix shadow internship">
         <a href="details/{{job.id}}/1" class="float-right">View details</a>
@@ -23,6 +25,9 @@
                 <p>{{job.apply_by}}</p>
             </div>
 
+        </div>
+        <div class="">
+        <p><strong>Skills:</strong><p>
         </div>
         <div class="row bg-primary mx-1 rounded-lg text-white p-1 pl-3" style="text-align:center">
             {{job.skills}}
