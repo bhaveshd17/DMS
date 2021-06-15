@@ -10,14 +10,14 @@
 
   <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
     {% for skills in skill_set %}
-    <a class="dropdown-item" href="/student/filter/{{skills}}">{{skills}}</a>
+    <a class="dropdown-item" href="/student/internshipFilter/{{skills}}">{{skills}}</a>
     {% endfor %}
   </div>
 </div>
 
 {% for internship in related_int_list %}
       <div class="mx-auto mt-5 bg-white rounded-lg p-3 clear-fix shadow internship" >
-        <a href="/student/details/{{internship.id}}/2" class="float-right">View details</a>
+        <a href="details/{{internship.id}}/2" class="float-right">View details</a>
         <h4>{{internship.comp_name}}</h4>
         <h6>{{internship.domain}}</h6>
         <div class="row">
