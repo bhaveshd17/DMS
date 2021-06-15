@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="b149b025-268a-471e-a2a7-f9c9ba9100d6" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/DMS/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DMS/DMS/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DMS/DMS/asgi.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DMS/DMS/settings.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DMS/DMS/urls.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DMS/DMS/wsgi.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DMS/DMS_Student/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DMS/DMS_Student/admin.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DMS/DMS_Student/apps.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DMS/DMS_Student/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DMS/DMS_Student/migrations/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DMS/DMS_Student/models.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DMS/DMS_Student/templates/student/base.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DMS/DMS_Student/templates/student/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DMS/DMS_Student/templates/student/internship.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DMS/DMS_Student/templates/student/job.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DMS/DMS_Student/templates/student/nav.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DMS/DMS_Student/templates/student/preplacement.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DMS/DMS_Student/tests.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DMS/DMS_Student/urls.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DMS/DMS_Student/views.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DMS/db.sqlite3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DMS/manage.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DMS/requirements.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DMS/static/css/jobinternship.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DMS/static/css/nav.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DMS/static/css/preplacement.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DMS/static/css/profile.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DMS/static/images/VITB.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DMS/static/images/VITlogo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DMS/static/images/home.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DMS/static/images/home1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DMS/static/images/home2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DMS/static/images/home3.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DMS/static/images/icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DMS/static/images/indeximage.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DMS/static/images/login.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DMS/static/images/logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DMS/static/images/navimage.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DMS/static/images/person.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DMS/static/images/theme.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DMS/static/images/vitw.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DMS/static/images/vitwhite.png" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+  <component name="ProjectId" id="1tvG1ouZt53HpCfP0uaz84STI1X" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="b149b025-268a-471e-a2a7-f9c9ba9100d6" name="Default Changelist" comment="" />
+      <created>1623641948779</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1623641948779</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
