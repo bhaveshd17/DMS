@@ -81,8 +81,21 @@ def IntershipJobLogic(request):
     for id in sorted_related_int.keys():
         related_int_list.append(Intership.objects.get(id=id))
 
+    #total avaialable skills
+    skill_set = set()
+    for job in job_list:
+        job_split = job.skills.split(',')
+        for i in job_split:
+            skill_set.add(i.strip().upper())
+    for intern in int_list:
+        intern_split = intern.skills.split(',')
+        for i in intern_split:
+            skill_set.add(i.strip().upper())
+
+
 
     content = {'related_job_list': related_job_list,
                'related_int_list': related_int_list,
-               'mock_list':mock_list}
+               'mock_list':mock_list,
+               'skill_set':skill_set,}
     return content

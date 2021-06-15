@@ -24,7 +24,7 @@ def index(request):
 @login_required(login_url='login')
 def internship(request):
     data = IntershipJobLogic(request)
-    content = {'related_int_list': data['related_int_list']}
+    content = {'related_int_list': data['related_int_list'], 'skill_set':data['skill_set']}
     return render(request, 'student/internship.html', content)
 
 
