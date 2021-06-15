@@ -5,7 +5,7 @@
 
 {% for result, type in applied_dict.items %}
       <div class="mx-auto mt-5 bg-white rounded-lg p-3 clear-fix shadow internship" >
-        <a href="details/{{result.id}}/2" class="float-right">View details</a>
+        <a href="details/{{result.id}}/{{type}}" class="float-right">View details</a>
         <h4>{{result.comp_name}}</h4>
         <h6>{{result.domain}}</h6>
         <div class="row">
