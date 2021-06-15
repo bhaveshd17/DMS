@@ -184,15 +184,16 @@ def search(request):
 
 @login_required(login_url='login')
 def userApplication(request):
-    student = Student.objects.get(roll_no=request.user.username)
-    job_user = Job_user.objects.filter(roll_no=student)
-    int_user = Int_user.objects.filter(roll_no=student)
+    job_user = Job_user.objects.filter(roll_no=request.user.username)
+    int_user = Int_user.objects.filter(roll_no=request.user.username)
     applied_dict = {}
-    for job in job_user:
+    for job_u in job_user:
+        job = Job.objects.get(id=job_u.job_id.id)
         applied_dict[job] = 1
-    for intern in int_user:
-        applied_dict[intern] = 2
-    print(applied_dict)
+    for intern_u in int_user:
+        internship = Intership.objects.get(id=intern_u.int_id.id)
+        applied_dict[internship] = 2
+
     content = {"applied_dict":applied_dict}
     return render(request,'student/userApplication.html',content)
 

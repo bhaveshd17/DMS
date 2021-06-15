@@ -91,7 +91,6 @@ def IntershipJobLogic(request):
         intern_split = intern.skills.split(',')
         for i in intern_split:
             skill_set.add(i.strip().upper())
-    print(skill_set)
 
 
 

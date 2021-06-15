@@ -1,7 +1,7 @@
 {% extends 'student/base.html' %}
 {% block title %} Applied {% endblock %}
 {% block content %}
-<h3 class="text-center"><strong>All Applied Jobs/Intertership by:</strong>"{{request.user.username}}"</h3>
+<h3 class="text-center h3">All Applied Jobs/Intertership by: <strong class="text-muted">{{request.user.username}}</strong></h3>
 
 {% for result, type in applied_dict.items %}
       <div class="mx-auto mt-5 bg-white rounded-lg p-3 clear-fix shadow internship" >
