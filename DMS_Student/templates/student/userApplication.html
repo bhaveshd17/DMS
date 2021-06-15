@@ -1,7 +1,7 @@
 {% extends 'student/base.html' %}
 {% block title %} Applied {% endblock %}
 {% block content %}
-<h3 class="text-center"><strong>All Applied Jobs/Intertership by:</strong>"{{request.user.username}}"</h3>
+<h3 class="text-center">All Applied Jobs/Intertership by:"{{request.user.username}}"</h3>
 
 {% for result, type in applied_dict.items %}
       <div class="mx-auto mt-5 bg-white rounded-lg p-3 clear-fix shadow internship" >
@@ -33,7 +33,7 @@
           {% if type == 1 %}
           <div class="col-3">
             <p class="mt-4"><strong>Duration:</strong></p>
-            <p>-</p>
+            <p>---</p>
           </div>
           {% elif type == 2 %}
           <div class="col-3">
