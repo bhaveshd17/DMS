@@ -1,0 +1,52 @@
+{% extends 'student/base.html' %}
+{% block title %} Applied {% endblock %}
+{% block content %}
+<h3 class="text-center"><strong>All Applied Jobs/Intertership by:</strong>"{{request.user.username}}"</h3>
+
+{% for result, type in applied_dict.items %}
+      <div class="mx-auto mt-5 bg-white rounded-lg p-3 clear-fix shadow internship" >
+        <a href="details/{{result.id}}/2" class="float-right">View details</a>
+        <h4>{{result.comp_name}}</h4>
+        <h6>{{result.domain}}</h6>
+        <div class="row">
+          {% if type == 1 %}
+          <div class="col-3">
+            <p class="mt-4"><strong>Salary:</strong></p>
+            <p>Rs. {{result.sal}}</p>
+          </div>
+          {% elif type == 2 %}
+          <div class="col-3">
+            <p class="mt-4"><strong>Stipend:</strong></p>
+            <p>Rs. {{result.sal}}</p>
+          </div>
+          {% endif %}
+
+          <div class="col-3">
+            <p class="mt-4"><strong>Start Date:</strong></p>
+            <p>{{result.start_date}}</p>
+          </div>
+          <div class="col-3">
+            <p class="mt-4"><strong>Apply By:</strong></p>
+            <p>{{result.apply_by}}</p>
+          </div>
+
+          {% if type == 1 %}
+          <div class="col-3">
+            <p class="mt-4"><strong>Duration:</strong></p>
+            <p>-</p>
+          </div>
+          {% elif type == 2 %}
+          <div class="col-3">
+            <p class="mt-4"><strong>Duration:</strong></p>
+            <p>{{result.duration}}</p>
+          </div>
+          {% endif %}
+        </div>
+        <div class="row bg-primary mx-1 rounded-lg text-white p-1 px-3" style="text-align:center">
+          {{result.skills}}
+        </div>
+      </div>
+{% endfor %}
+
+
+{% endblock %}

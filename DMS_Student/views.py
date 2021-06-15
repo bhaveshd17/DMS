@@ -182,6 +182,24 @@ def search(request):
     content = {"search_list":search_list, "query":query}
     return render(request,"student/search.html",content)
 
+@login_required(login_url='login')
+def userApplication(request):
+    student = Student.objects.get(roll_no=request.user.username)
+    job_user = Job_user.objects.filter(roll_no=student)
+    int_user = Int_user.objects.filter(roll_no=student)
+    applied_dict = {}
+    for job in job_user:
+        applied_dict[job] = 1
+    for intern in int_user:
+        applied_dict[intern] = 2
+    print(applied_dict)
+    content = {"applied_dict":applied_dict}
+    return render(request,'student/userApplication.html',content)
+
+
+
+
+
 # authentication
 @unauthenticated_user
 def handleLogin(request):
