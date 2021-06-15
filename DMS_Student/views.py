@@ -192,8 +192,13 @@ def userApplication(request):
         applied_dict[job] = 1
     for intern in int_user:
         applied_dict[intern] = 2
-    content = {}
-    return render(request, "student/userApplication.html", content)
+    print(applied_dict)
+    content = {"applied_dict":applied_dict}
+    return render(request,'student/userApplication.html',content)
+
+
+
+
 
 # authentication
 @unauthenticated_user
