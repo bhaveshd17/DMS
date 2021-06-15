@@ -27,6 +27,19 @@ def internship(request):
     content = {'related_int_list': data['related_int_list'], 'skill_set':data['skill_set']}
     return render(request, 'student/internship.html', content)
 
+@login_required(login_url='login')
+def internshipFilter(request, skills):
+    data = IntershipJobLogic(request)
+    filtered_list = []
+
+    for int_obj in data['related_int_list']:
+        int_split = int_obj.skills.split(',')
+        for intern in int_split:
+            if intern.strip().lower() == skills.lower():
+                filtered_list.append(int_obj)
+
+    content = {'related_int_list': filtered_list, 'skill_set': data['skill_set']}
+    return render(request, 'student/internship.html', content)
 
 @login_required(login_url='login')
 def preplacement(request):
@@ -40,6 +53,7 @@ def job(request):
     data = IntershipJobLogic(request)
     content = {'related_job_list': data['related_job_list']}
     return render(request, 'student/job.html', content)
+
 
 @login_required(login_url='login')
 def details(request,id,type):
