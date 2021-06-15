@@ -3,20 +3,6 @@
 {% block content %}
 
 
-<div class="dropdown text-center">
-  <!--Trigger-->
-  <button class="btn btn-primary dropdown-toggle" type="button" id="dropdown_filter"
-    data-toggle="dropdown">Filter by Skills</button>
-
-  <!--Menu-->
-  <div class="dropdown-menu dropdown-primary" id="dropdown_menu">
-    <select class="selectpicker" multiple title='Choose one of the following...'>
-      <option>Mustard</option>
-       <option>Ketchup</option>
-       <option>Relish</option>
-   </select>
-  </div>
-</div>
 
 {% for internship in related_int_list %}
       <div class="mx-auto mt-5 bg-white rounded-lg p-3 clear-fix shadow internship" >
