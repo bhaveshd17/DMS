@@ -6,6 +6,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
+from django.template.loader import render_to_string
 
 from .models import *
 from .decorators import unauthenticated_user
@@ -13,6 +14,7 @@ from .form import SkillsForm
 from .utils import IntershipJobLogic
 
 import json
+from datetime import datetime
 
 @login_required(login_url='login')
 def index(request):
@@ -24,29 +26,69 @@ def index(request):
 @login_required(login_url='login')
 def internship(request):
     data = IntershipJobLogic(request)
-    content = {'related_int_list': data['related_int_list'], 'skill_set':data['skill_set']}
+
+    content = {'related_int_list': data['related_int_list'],
+               'skill_set':data['skill_set'],
+               'duration':[1, 2, 3, 4, 6, 12, 24, 36],
+                'stipend':{'0':'1', '2':'3', '4':'5', '6':'7', '8':'9'},
+               }
     return render(request, 'student/internship.html', content)
 
 @login_required(login_url='login')
-def internshipFilter(request, skills):
+def internshipFilter(request):
     data = IntershipJobLogic(request)
-    filtered_list = []
+    skills = request.GET.getlist('skills[]')
+    duration = request.GET.getlist('duration[]')
+    stipend = request.GET.getlist('stipend[]')
+    starting_from = request.GET['starting_from']
+    internship = data['related_int_list']
 
-    for int_obj in data['related_int_list']:
-        int_split = int_obj.skills.split(',')
-        for intern in int_split:
-            if intern.strip().lower() == skills.lower():
-                filtered_list.append(int_obj)
+    if skills[0] != 'e.g. JAVA':
+        temp_list = []
+        for int_obj in internship:
+            int_split = int_obj.skills.split(',')
+            for intern in int_split:
+                if intern.strip().lower() == skills[0].lower():
+                    temp_list.append(int_obj)
+        internship = temp_list
 
-    content = {'related_int_list': filtered_list, 'skill_set': data['skill_set']}
-    return render(request, 'student/internship.html', content)
+    if stipend[0] != 'choose stipend':
+        list = stipend[0].split(',')
+        temp_list = []
+        for int_obj in internship:
+            try:
+                if int_obj.sal >= int(list[0])*1000 and int_obj.sal <= int(list[1])*1000:
+                    temp_list.append(int_obj)
+            except:
+                temp_list.append(int_obj)
 
-@login_required(login_url='login')
-def preplacement(request):
-    data = IntershipJobLogic(request)
-    content = {'mock_test':data['mock_list']}
-    return render(request, 'student/preplacement.html', content)
+        internship = temp_list
 
+    if duration[0] != 'choose duration':
+        temp_list = []
+        for int_obj in internship:
+            if duration[0] in int_obj.duration:
+                temp_list.append(int_obj)
+        internship = temp_list
+
+
+    if starting_from != '':
+        temp_list = []
+        for int_obj in internship:
+            if int_obj.start_date == datetime.strptime(starting_from, "%Y-%m-%d").date():
+                temp_list.append(int_obj)
+        internship = temp_list
+
+
+
+
+    template = render_to_string('student/ajax_temp/internship.html',
+                                {'related_int_list': internship,
+                                 'skill_set':data['skill_set'],
+                                 'duration':[1, 2, 3, 4, 6, 12, 24, 36],
+                                 'stipend':{'0':'1', '2':'3', '4':'5', '6':'7', '8':'9'}
+                                 })
+    return JsonResponse({'data':template})
 
 @login_required(login_url='login')
 def job(request):
@@ -54,6 +96,12 @@ def job(request):
     content = {'related_job_list': data['related_job_list']}
     return render(request, 'student/job.html', content)
 
+
+@login_required(login_url='login')
+def preplacement(request):
+    data = IntershipJobLogic(request)
+    content = {'mock_test':data['mock_list']}
+    return render(request, 'student/preplacement.html', content)
 
 @login_required(login_url='login')
 def details(request,id,type):
