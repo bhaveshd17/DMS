@@ -75,7 +75,7 @@ def internshipFilter(request):
     if starting_from != '':
         temp_list = []
         for int_obj in internship:
-            if int_obj.start_date == datetime.strptime(starting_from, "%Y-%m-%d").date():
+            if int_obj.start_date >= datetime.strptime(starting_from, "%Y-%m-%d").date():
                 temp_list.append(int_obj)
         internship = temp_list
 
