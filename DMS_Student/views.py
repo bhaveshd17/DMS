@@ -37,11 +37,12 @@ def internship(request):
 @login_required(login_url='login')
 def internshipFilter(request):
     data = IntershipJobLogic(request)
+    internship = data['related_int_list']
     skills = request.GET.getlist('skills[]')
     duration = request.GET.getlist('duration[]')
-    stipend = request.GET.getlist('stipend[]')
-    starting_from = request.GET['starting_from']
-    internship = data['related_int_list']
+    stipend = request.GET.get('stipend')
+    starting_from = request.GET.get('starting_from')
+    sort_by_date = request.GET.get('sort_by_date')
 
     if skills[0] != 'e.g. JAVA':
         temp_list = []
@@ -52,15 +53,12 @@ def internshipFilter(request):
                     temp_list.append(int_obj)
         internship = temp_list
 
-    if stipend[0] != 'choose stipend':
-        list = stipend[0].split(',')
+    if stipend != '0':
         temp_list = []
         for int_obj in internship:
-            try:
-                if int_obj.sal >= int(list[0])*1000 and int_obj.sal <= int(list[1])*1000:
-                    temp_list.append(int_obj)
-            except:
+            if int_obj.sal >= int(stipend)*2*1000:
                 temp_list.append(int_obj)
+        temp_list.sort(key=lambda x: x.sal)
 
         internship = temp_list
 
@@ -79,6 +77,9 @@ def internshipFilter(request):
                 temp_list.append(int_obj)
         internship = temp_list
 
+    if sort_by_date == 'true':
+        int_list = data['int_list']
+        internship = int_list
 
 
 
@@ -86,7 +87,7 @@ def internshipFilter(request):
                                 {'related_int_list': internship,
                                  'skill_set':data['skill_set'],
                                  'duration':[1, 2, 3, 4, 6, 12, 24, 36],
-                                 'stipend':{'0':'1', '2':'3', '4':'5', '6':'7', '8':'9'}
+                                 'stipend':{'1':'2', '3':'4', '5':'6', '7':'8', '9':'10'}
                                  })
     return JsonResponse({'data':template})
 

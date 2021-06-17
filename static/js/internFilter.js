@@ -1,8 +1,38 @@
+var filter_obj={
+	"skills":["e.g. JAVA"],
+	"stipend":"0",
+	"starting_from":"",
+	"duration":["choose duration"],
+	"sort_by_date":false,
+};
+const ajax_method = {
+	url:'/student/internshipFilter',
+	data:filter_obj,
+	dataType:'json',
+	beforeSend:function(){
+		$(".ajaxLoader").show();
+	},
+	success:function(res){
+		console.log(res);
+		$("#filter_internships").html(res.data);
+		$(".ajaxLoader").hide();
+	}
+}
 
 $(document).ready(function(){
 	$(".ajaxLoader").hide();
+	$(".sort_by_date").delegate("p", "click", function(){
+		filter_obj.sort_by_date = true
+		$.ajax(ajax_method);
+
+	  });
+	$("#stipend").on('click', function(){
+		var stipend = $('#stipend').val()
+		filter_obj.stipend = stipend
+		$.ajax(ajax_method);
+	})
+
 	$(".filter_data").on('change',function(){
-		var filter_obj={};
         var starting_from = $('#starting_from').val();
         filter_obj.starting_from = starting_from;
 		
@@ -13,21 +43,6 @@ $(document).ready(function(){
 			 	return e.value;
 			});
 		});
-        
-        console.log(filter_obj)
-
-		$.ajax({
-			url:'/student/internshipFilter',
-			data:filter_obj,
-			dataType:'json',
-			beforeSend:function(){
-				$(".ajaxLoader").show();
-			},
-			success:function(res){
-				console.log(res);
-				$("#filter_internships").html(res.data);
-				$(".ajaxLoader").hide();
-			}
-		});
+		$.ajax(ajax_method);
     });
 });

@@ -2,6 +2,16 @@
 {% load static %}
 {% block title %}internship{% endblock %}
 {% block content %}
+<style>
+  .sort_by_date p {
+    cursor: pointer;
+    color: #088bf0;
+  }
+
+  .sort_by_date p:hover {
+    color: #1b38db;
+  }
+</style>
 <h3 class="text-center h3 mb-5">All Currently Active Internships</h3>
 
 
@@ -9,55 +19,67 @@
   <div class="col-md-3 col-xs-3 col-lg-3">
     <div class="card card-body">
       <h5 class="card-title text-center">
-        <i class="fas fa-filter"></i>
-        Filter
+        <i class="fas fa-filter text-primary"></i>
+        Filters
       </h5>
       <div class="card-text">
-        <form action="" method="POST">
-          {% csrf_token %}
-          <div class="mb-3">
-            <label for="skills" class="form-label">Skills</label>
-            <select class="custom-select filter_data" id="skills" name="skills" data-filter="skills">
-              <option selected disabled hidden>e.g. JAVA</option>
-              {% for skills in skill_set %}
-              <option value="{{skills}}">{{skills}}</option>
-              {% endfor %}
-            </select>
-          </div>
+        <div class="mb-3">
+          <label for="skills" class="form-label">Skills</label>
+          <select class="custom-select filter_data" id="skills" name="skills" data-filter="skills">
+            <option selected disabled hidden>e.g. JAVA</option>
+            {% for skills in skill_set %}
+            <option value="{{skills}}">{{skills}}</option>
+            {% endfor %}
+          </select>
+        </div>
 
-          <div class="mb-3">
-            <label for="stipend" class="form-label">Stipend</label>
-            <select class="custom-select filter_data" id="stipend" name="stipend" data-filter="stipend">
-              <option selected disabled hidden>choose stipend</option>
-              {% for i, j in stipend.items %}
-              <option value="{{i}},{{j}}">{{i}}K-{{j}}K</option>
-              {% endfor %}
-              <option value="10">10K+</option>
-            </select>
-            
-          </div>
+        <!-- <div class="mb-3">
+          <label for="stipend" class="form-label">Stipend</label>
+          <select class="custom-select filter_data" id="stipend" name="stipend" data-filter="stipend">
+            <option selected disabled hidden>choose stipend</option>
+            <option value="0">unpaid</option>
+            {% for i, j in stipend.items %}
+            <option value="{{i}},{{j}}">{{i}}K-{{j}}K</option>
+            {% endfor %}
+            <option value="10">10K+</option>
+          </select>
 
-  
+        </div> -->
 
-          <div class="mb-3">
-            <label for="starting_from" class="form-label">Starting from (or after)</label>
-            <input type="date" class="form-control filter_data" name="starting_from" id="starting_from" placeholder="choose date" data-filter="starting_from">
+        <div class="mb-3">
+          <label for="stipend">Desired min stipend</label>
+          <input type="range" value="0" class="custom-range" min="0" max="5" onchange="updateTextInput(this.value)" id="stipend">
+          <div class="d-flex justify-content-center">
+            <span id="stipend_value" class="text-primary">0K</span>
           </div>
+        </div>
 
-          <div class="mb-3">
-            <label for="duration" class="form-label">Max Duration (months)</label>
-            <select class="custom-select filter_data" id="duration" name="duration" data-filter="duration">
-              <option selected disabled hidden>choose duration</option>
-              {% for d in duration %}
-              <option value="{{d}}">{{d}} months</option>
-              {% endfor %}
-            </select>
-          </div>
-          
-          <div class="mb-3 d-flex justify-content-center">
-            <button class="btn btn-secondary btn-small" onclick="reset_form()">Reset</button>
-          </div>
-        </form>
+
+
+        <div class="mb-3">
+          <label for="starting_from" class="form-label">Starting from (or after)</label>
+          <input type="date" class="form-control filter_data" name="starting_from" id="starting_from"
+            placeholder="choose date" data-filter="starting_from">
+        </div>
+
+
+        <div class="mb-3">
+          <label for="duration" class="form-label">Max Duration (months)</label>
+          <select class="custom-select filter_data" id="duration" name="duration" data-filter="duration">
+            <option selected disabled hidden>choose duration</option>
+            {% for d in duration %}
+            <option value="{{d}}">{{d}} months</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="mb-3 sort_by_date">
+          <p class="float-right">sort by date</p>
+        </div>
+
+        <div class="mb-3">
+          <button class="btn btn-secondary w-100" onclick="reset_form()">Reset</button>
+        </div>
       </div>
     </div>
 
@@ -101,22 +123,26 @@
       </div>
     </div>
     {% endfor %}
-    </div>
+  </div>
 
 </div>
 
-<script src="{% static 'js/internFilter.js'%}"></script>
-<script>
-  function rest_form(e){
-    e.pre
 
-    document.getElementById("myForm").reset();
+<script>
+  function reset_form() {
+    location.reload();
+  }
+
+  function updateTextInput(val) {
+    document.getElementById('stipend_value').innerText = String(2*Number(val)) +'K (monthly)';
   }
 
 
+
+
+
+
 </script>
+<script src="{% static 'js/internFilter.js'%}"></script>
 
 {% endblock %}
-
-
-

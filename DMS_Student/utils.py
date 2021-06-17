@@ -97,5 +97,7 @@ def IntershipJobLogic(request):
     content = {'related_job_list': related_job_list,
                'related_int_list': related_int_list,
                'mock_list':mock_list,
-               'skill_set':skill_set,}
+               'skill_set':skill_set,
+               'job_list':job_list,
+               'int_list':int_list}
     return content
