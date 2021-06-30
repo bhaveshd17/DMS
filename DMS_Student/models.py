@@ -1,12 +1,12 @@
-from django.contrib.auth.models import User
 from django.db import models
+from django.contrib.auth.models import User
 
 class Student(models.Model):
-    roll_no =models.CharField(primary_key=True, null=False, max_length=100)
+    roll_no = models.CharField(primary_key=True ,max_length=20, null=False)
     name = models.CharField(max_length=50, null=False)
     skills = models.TextField(max_length=500, null=False)
 
-    def __str__(self):
+    def _str_(self):
         return self.roll_no
 
 class Add_edu(models.Model):
@@ -17,7 +17,7 @@ class Add_edu(models.Model):
     end_year = models.DateField(null=False)
     roll_no = models.ForeignKey(Student, on_delete=models.CASCADE, null=False)
 
-    def __str__(self):
+    def _str_(self):
         return self.clg_name
 
 class Add_exp(models.Model):
@@ -27,14 +27,14 @@ class Add_exp(models.Model):
     roll_no = models.ForeignKey(Student, on_delete=models.CASCADE, null=False)
     start_date = models.DateField(null=False)
 
-    def __str__(self):
+    def _str_(self):
         return str(self.id)
 
 class AdminDma(models.Model):
     name = models.CharField(max_length=30, null=False)
     department = models.CharField(max_length=30, null=False)
 
-    def __str__(self):
+    def _str_(self):
         return self.name
 
 
@@ -54,7 +54,7 @@ class Intership(models.Model):
     perks=models.TextField(max_length=500, null=False)
     additional=models.TextField(max_length=500, null=False)
 
-    def __str__(self):
+    def _str_(self):
         return self.comp_name
 
 class Int_user(models.Model):
@@ -62,13 +62,13 @@ class Int_user(models.Model):
     roll_no = models.ForeignKey(Student, on_delete=models.CASCADE, null=False)
     int_id = models.ForeignKey(Intership, on_delete=models.CASCADE, null=False)
     date = models.DateTimeField(auto_now_add=True, null=True)
-    def __str__(self):
+    def _str_(self):
         return str(self.roll_no)
 
 class Job(models.Model):
     comp_name = models.CharField(max_length=40, null=False)
     location = models.CharField(max_length=100)
-    link = models.URLField(max_length=150, null=False)
+    link = models.CharField(max_length=150, null=False)
     start_date = models.DateField(null=False)
     apply_by = models.DateField(null=True)
     sal = models.IntegerField(null=False)
@@ -81,7 +81,7 @@ class Job(models.Model):
     perks = models.TextField(max_length=500, null=False)
     additional = models.TextField(max_length=500, null=False)
 
-    def __str__(self):
+    def _str_(self):
         return self.comp_name
 
 class Job_user(models.Model):
@@ -90,13 +90,9 @@ class Job_user(models.Model):
     job_id = models.ForeignKey(Job, on_delete=models.CASCADE, null=False)
     date = models.DateTimeField(auto_now_add=True, null=True)
 
-    def __str__(self):
+    def _str_(self):
         return str(self.roll_no)
 
-<<<<<<< HEAD
-
-=======
->>>>>>> af3390a810c00e5483d40990746a32c795673ac1
 
 class Mock_test(models.Model):
     name = models.CharField(max_length=30, null=True)
@@ -108,5 +104,5 @@ class Mock_test(models.Model):
     link = models.CharField(max_length=50, null=False, default="https")
 
 
-    def __str__(self):
+    def _str_(self):
         return self.name
