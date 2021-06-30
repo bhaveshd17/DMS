@@ -4,317 +4,311 @@
 {% block content %}
 
 <div class="container emp-profile">
-    <form method="post">
-        <div class="row">
-            <div class="col-md-4">
-                <div class="profile-img">
-                    <img src="{% static 'images/person.jpg'%}" alt="" />
-
-                    <input type="submit" class="profile-edit-btn btn btn-primary my-3" name="skillsubmit" value="Update">
-                </div>
-            </div>
-            <div class="col-md-8">
-                <div class="profile-head">
-                    <h5><strong>{{name}}</strong></h5>
-                    <h6><strong>Branch: </strong>{{branch}}</h6>
-                    <h6><strong>Roll Number: </strong>{{rollNo}}</h6>
-                    <h6><strong>Email:</strong> </h6>
-                    <h6><strong>Skills: </strong>{{skills}}</h6>
-                    <!-- <form class="mx-1" method="POST" action="UpdateSkills"> -->
-                    <!-- {% csrf_token %} -->
-                    <!-- <label><strong>Skills: </strong></label> -->
-                    <!-- <input type="text" value="{{form.skills}}"> -->
-                    <!-- <input type="submit" class="btn btn-primary btn-edit btn-md " name="skillsubmit" value="Update"> -->
-
-                    <!-- <p class="proile-rating">RANKINGS : <span>8/10</span></p> -->
-                    <ul class="nav nav-tabs" id="myTab" role="tablist">
-                        <li class="nav-item">
-                            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab"
-                                aria-controls="home" aria-selected="true">Personal Details</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="edu-tab" data-toggle="tab" href="#edu" role="tab"
-                                aria-controls="edu" aria-selected="false">Education Details</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#exp" role="tab"
-                                aria-controls="profile" aria-selected="false">Experience</a>
-                        </li>
-                    </ul>
-                </div>
+    <div class="row mb-5">
+        <div class="col-md-4">
+            <div class="profile-img">
+                <img src="{% static 'images/person.jpg'%}" alt="" />
+                <form method="post">
+                    <input type="submit" class="profile-edit-btn btn btn-primary my-3" name="skillsubmit"
+                        value="Update">
+                </form>
             </div>
         </div>
-    </form>
-</div>
-<div class="row">
-    <div class="col-md-4">
-        <div class="profile-work">
-            <p>LINK</p>
-            <a href=""><i class="fas fa-globe"></i> Personal Website</a><br>
-            <a href=""><i class="fab fa-linkedin"></i> Linkedin</a><br>
-            <a href=""><i class="fab fa-github"></i> GitHub</a><br>
+        <div class="col-md-8">
+            <div class="profile-head">
+                <h5><strong>{{name}}</strong></h5>
+                <h6><strong>Branch: </strong>{{branch}}</h6>
+                <h6><strong>Roll Number: </strong>{{rollNo}}</h6>
+                <h6><strong>Email:</strong> </h6>
+                <h6><strong>Skills: </strong>{{skills}}</h6>
+                <!-- <form class="mx-1" method="POST" action="UpdateSkills"> -->
+                <!-- {% csrf_token %} -->
+                <!-- <label><strong>Skills: </strong></label> -->
+                <!-- <input type="text" value="{{form.skills}}"> -->
+                <!-- <input type="submit" class="btn btn-primary btn-edit btn-md " name="skillsubmit" value="Update"> -->
+
+                <!-- <p class="proile-rating">RANKINGS : <span>8/10</span></p> -->
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab"
+                            aria-controls="home" aria-selected="true">Personal Details</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="edu-tab" data-toggle="tab" href="#edu" role="tab" aria-controls="edu"
+                            aria-selected="false">Education Details</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#exp" role="tab"
+                            aria-controls="profile" aria-selected="false">Experience</a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
-
-    <div class="col-md-8">
-        <div class="tab-content profile-tab" id="myTabContent">
-            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                <div class="row">
-                    <div class="col-md-6">
-                        <label>User Id</label>
-                    </div>
-                    <div class="col-md-6">
-                        <p>Kshiti123</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <label>Name</label>
-                    </div>
-                    <div class="col-md-6">
-                        <p>Kshiti Ghelani</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <label>Email</label>
-                    </div>
-                    <div class="col-md-6">
-                        <p>kshitighelani@gmail.com</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <label>Phone</label>
-                    </div>
-                    <div class="col-md-6">
-                        <p>123 456 7890</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <label>Profession</label>
-                    </div>
-                    <div class="col-md-6">
-                        <p>Web Developer and Designer</p>
-                    </div>
-                </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="profile-work">
+                <p>LINK</p>
+                <a href=""><i class="fas fa-globe"></i> Personal Website</a><br>
+                <a href=""><i class="fab fa-linkedin"></i> Linkedin</a><br>
+                <a href=""><i class="fab fa-github"></i> GitHub</a><br>
             </div>
-            <div class="tab-pane fade" id="edu" role="tabpanel" aria-labelledby="profile-tab">
-                
-                {% for edu in edu_list%}
-                <div class="card card-body mb-3">
-                    <h4 class="card-title h4">Previous Education</h4>
-                    <div class="card-text">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>College Name</label>
-                            </div>
-                            <div class="col-md-6">
-                                <p>{{edu.clg_name}}</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>Degree</label>
-                            </div>
-                            <div class="col-md-6">
-                                <p>{{edu.degree}}</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>Marks(%)</label>
-                            </div>
-                            <div class="col-md-6">
-                                <p>{{edu.marks}}</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>Start Year</label>
-                            </div>
-                            <div class="col-md-6">
-                                <p>{{edu.start_year}}</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>Ending Year</label>
-                            </div>
-                            <div class="col-md-6">
-                                <p>{{edu.end_year}}</p>
-                            </div>
-                    </div>
-                </div>
-                
-                </div>
-                {% endfor %}
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="border p-2 my-4 btn btn-primary" data-toggle="modal"
-                            data-target="#addedu">Add Education</div>
-                        <div class="modal fade" id="addedu">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-
-                                    <!-- Modal Header -->
-                                    <div class="modal-header">
-                                        <h4 class="modal-title">Add Education</h4>
-                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    </div>
-
-                                    <!-- Modal body -->
-                                    <div class="modal-body">
-                                        <div class="row d-flex justify-content-center">
-                                            <form class="" method="POST" action="{% url 'updateEdu' %}">
-                                                {% csrf_token %}
+        </div>
     
-                                                <div class="mb-3">
-                                                    <input type="text" id="clgname" name="clgname" placeholder="School/College name"
-                                                    class="form-control " >
-                                                </div>
-                                                <div class="mb-3">
-                                                    <input type="text" name="degree" placeholder="Degree"
-                                                    class="form-control">
-                                                </div>
-                                                <div class="mb-3"><input type="text" name="marks" placeholder="Percentage/ CGPA"
-                                                    class="form-control">
-                                                </div>
-                                                <div class="mb-3">
-                                                    <input type="date" name="startyear" placeholder="Starting year"
-                                                    class="form-control">
-                                                </div>
-                                                <div class="mb-3">
-                                                    <input type="date" name="endyear" placeholder="Ending year"
-                                                    class="form-control">
-                                                </div>
-                                                
+        <div class="col-md-8">
+            <div class="tab-content profile-tab" id="myTabContent">
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>User Id</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p>Kshiti123</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Name</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p>Kshiti Ghelani</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Email</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p>kshitighelani@gmail.com</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Phone</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p>123 456 7890</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Profession</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p>Web Developer and Designer</p>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="tab-pane fade" id="edu" role="tabpanel" aria-labelledby="profile-tab">
+                    {% for edu in edu_list%}
+                    <div class="card card-body mb-3">
+                        <h4 class="card-title h4">Previous Education</h4>
+                        <div class="card-text">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>College Name</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <p>{{edu.clg_name}}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Degree</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <p>{{edu.degree}}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Marks(%)</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <p>{{edu.marks}}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Start Year</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <p>{{edu.start_year}}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Ending Year</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <p>{{edu.end_year}}</p>
+                                </div>
+                            </div>
+                        </div>
+    
+                    </div>
+                    {% endfor %}
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="border p-2 my-4 btn btn-primary" data-toggle="modal" data-target="#addedu">Add
+                                Education</div>
+                            <div class="modal fade" id="addedu">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+    
+                                        <!-- Modal Header -->
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Add Education</h4>
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
                                         </div>
+    
+                                        <!-- Modal body -->
+                                        <div class="modal-body">
+                                            <div class="row d-flex justify-content-center">
+                                                <form class="" method="POST" action="{% url 'updateEdu' %}">
+                                                    {% csrf_token %}
+    
+                                                    <div class="mb-3">
+                                                        <input type="text" id="clgname" name="clgname"
+                                                            placeholder="School/College name" class="form-control ">
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <input type="text" name="degree" placeholder="Degree"
+                                                            class="form-control">
+                                                    </div>
+                                                    <div class="mb-3"><input type="text" name="marks"
+                                                            placeholder="Percentage/ CGPA" class="form-control">
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <input type="date" name="startyear" placeholder="Starting year"
+                                                            class="form-control">
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <input type="date" name="endyear" placeholder="Ending year"
+                                                            class="form-control">
+                                                    </div>
+    
+                                            </div>
+                                        </div>
+    
+    
+    
+                                        <!-- Modal footer -->
+                                        <div class="modal-footer">
+                                            <input type="submit" value="Add" name="add_edu" class="btn btn-primary">
+                                            </form>
+                                        </div>
+    
                                     </div>
-
-                                    
-
-                                    <!-- Modal footer -->
-                                    <div class="modal-footer">
-                                        <input type="submit" value="Add" name="add_edu" class="btn btn-primary">
-                                        </form>
-                                    </div>
-
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="tab-pane fade" id="exp" role="tabpanel" aria-labelledby="profile-tab">
-                {% for exp in exp_list %}
-                <div class="row">
-                    <div class="col-md-6">
-                        <label>Experience</label>
-                    </div>
-                    <div class="col-md-6">
-                        <p></p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <label>Company Name</label>
-                    </div>
-                    <div class="col-md-6">
-                        <p>{{exp.comp_name}}</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <label>Domain</label>
-                    </div>
-                    <div class="col-md-6">
-                        <p>{{exp.role}}</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <label>Join Date</label>
-                    </div>
-                    <div class="col-md-6">
-                        <p>{{exp.start_date}}</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <label>Duration</label>
-                    </div>
-                    <div class="col-md-6">
-                        <p>{{exp.duration}}</p>
-                    </div>
-                </div>
-                {% endfor%}
-                <div class="row">
-                    <div class="col-md-12">
-                        <label>Your Bio</label><br />
-                        <div class="border p-2 mx-2 rounded-lg bg-default btn btn-outline-secondary" data-toggle="modal"
-                            data-target="#addexp">Add Experience</div>
-                        <div class="modal fade" id="addexp">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
 
-                                    <!-- Modal Header -->
-                                    <div class="modal-header">
-                                        <h4 class="modal-title">Add Experience</h4>
-                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    </div>
 
-                                    <!-- Modal body -->
-                                    <div class="modal-body">
-                                        <div class="row d-flex justify-content-center">
-                                            <form class="" method="post" action="{% url 'updateExp' %}">
-                                                {% csrf_token %}
+                <div class="tab-pane fade" id="exp" role="tabpanel" aria-labelledby="profile-tab">
+                    {% for exp in exp_list %}
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Experience</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Company Name</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p>{{exp.comp_name}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Domain</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p>{{exp.role}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Join Date</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p>{{exp.start_date}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Duration</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p>{{exp.duration}}</p>
+                        </div>
+                    </div>
+                    {% endfor%}
 
-                                                <input type="text" id="compname" name="compname"
-                                                    placeholder="Company name" class="rounded-lg mb-2 p-2"><br>
-
-                                                <input type="text" id="domain" name="role" placeholder="Domain"
-                                                    class="rounded-lg mb-2 p-2"><br>
-
-                                                <input type="date" id="joindate" name="joindate"
-                                                    placeholder="Date of joining" class="rounded-lg mb-2 p-2 mx-3"><br>
-
-                                                <input type="text" id="duration" name="duration"
-                                                    placeholder="Duration(months)" class="rounded-lg mb-2 p-2"><br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="border p-2 mx-2 rounded-lg bg-default btn btn-outline-secondary" data-toggle="modal"
+                                data-target="#addexp">Add Experience</div>
+                            <div class="modal fade" id="addexp">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+    
+                                        <!-- Modal Header -->
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Add Experience</h4>
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
                                         </div>
+    
+                                        <!-- Modal body -->
+                                        <div class="modal-body">
+                                            <div class="row d-flex justify-content-center">
+                                                <form class="" method="post" action="{% url 'updateExp' %}">
+                                                    {% csrf_token %}
+    
+                                                    <input type="text" id="compname" name="compname"
+                                                        placeholder="Company name" class="rounded-lg mb-2 p-2"><br>
+    
+                                                    <input type="text" id="domain" name="role" placeholder="Domain"
+                                                        class="rounded-lg mb-2 p-2"><br>
+    
+                                                    <input type="date" id="joindate" name="joindate"
+                                                        placeholder="Date of joining" class="rounded-lg mb-2 p-2 mx-3"><br>
+    
+                                                    <input type="text" id="duration" name="duration"
+                                                        placeholder="Duration(months)" class="rounded-lg mb-2 p-2"><br>
+                                            </div>
+                                        </div>
+    
+                                        <!-- Modal footer -->
+                                        <div class="modal-footer">
+                                            <input type="submit" value="Update" name="add_exp" class="btn btn-primary">
+                                            </form>
+                                        </div>
+    
                                     </div>
-
-                                    <!-- Modal footer -->
-                                    <div class="modal-footer">
-                                        <input type="submit" value="Update" name="add_exp" class="btn btn-primary">
-                                        </form>
-                                    </div>
-
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            
 
+            </div>
         </div>
     </div>
-</div>
-</form>
-</div>
 </div>
 
 
 
 <style>
-    /* body{
-    background: -webkit-linear-gradient(left, #3931af, #00c6ff);
-} */
     .emp-profile {
-        padding: 3%;
-        margin-top: 3%;
         margin-bottom: 3%;
         border-radius: 0.5rem;
         background: #fff;
