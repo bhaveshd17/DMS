@@ -1,8 +1,8 @@
+from django.contrib.auth.models import User
 from django.db import models
-# from django.contrib.auth.models import User
 
 class Student(models.Model):
-    roll_no = models.CharField(primary_key=True ,max_length=20, null=False)
+    roll_no =models.CharField(primary_key=True, null=False, max_length=100)
     name = models.CharField(max_length=50, null=False)
     skills = models.TextField(max_length=500, null=False)
 
@@ -68,7 +68,7 @@ class Int_user(models.Model):
 class Job(models.Model):
     comp_name = models.CharField(max_length=40, null=False)
     location = models.CharField(max_length=100)
-    link = models.CharField(max_length=150, null=False)
+    link = models.URLField(max_length=150, null=False)
     start_date = models.DateField(null=False)
     apply_by = models.DateField(null=True)
     sal = models.IntegerField(null=False)
@@ -93,12 +93,7 @@ class Job_user(models.Model):
     def __str__(self):
         return str(self.roll_no)
 
-class Login(models.Model):
-    roll_no = models.CharField(primary_key=True, max_length=30, null=False)
-    password = models.CharField(max_length=30, null=False)
 
-    def __str__(self):
-        return self.roll_no
 
 class Mock_test(models.Model):
     name = models.CharField(max_length=30, null=True)
