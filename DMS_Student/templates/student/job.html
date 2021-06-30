@@ -27,7 +27,7 @@
                 <div class="mb-3">
                     <label for="skills" class="form-label">Skills</label>
                     <select class="custom-select filter_data" id="skills" name="skills" data-filter="skills">
-                        <option selected disabled hidden>e.g. JAVA</option>
+                        <option selected disabled hidden value="e.g. JAVA">e.g. JAVA</option>
                         {% for skills in skill_set %}
                         <option value="{{skills}}">{{skills}}</option>
                         {% endfor %}
@@ -47,8 +47,10 @@
                 <div class="mb-3">
                     <label for="location" class="form-label">Location</label>
                     <select class="custom-select filter_data" id="location" name="location" data-filter="location">
-                        <option selected disabled hidden>e.g. Mumbai</option>
-                        <option value="Mumbai">Mumbai</option>
+                        <option selected disabled hidden value="e.g. Mumbai">e.g. Mumbai</option>
+                        {% for city in cities %}
+                        <option value="{{city}}">{{city}}</option>
+                        {% endfor %}
                     </select>
                 </div>
 

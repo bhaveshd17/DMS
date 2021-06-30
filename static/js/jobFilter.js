@@ -42,7 +42,7 @@ $(document).ready(function(){
 			filter_obj[filter_key]=Array.from(document.querySelectorAll('#'+filter_key)).map(function(e){
 			 	return e.value;
 			});
-            console.log(filter_obj)
+            // console.log(filter_obj)
 		});
 		$.ajax(ajax_method);
     });
