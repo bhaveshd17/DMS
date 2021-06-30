@@ -146,7 +146,17 @@ def profile(request):
     studentId=rollNo[6:]
     name=Student.objects.get(roll_no=request.user.username).name
     skills=Student.objects.get(roll_no=request.user.username).skills
-    content={'rollNo':rollNo,'yearOfJoining':yearOfJoining,'branch':branch,'div':div,'studentId':studentId,"name":name,"skills":skills,'form':form}
+
+    edu_list=[]
+    exp_list=[]
+    edu=Add_edu.objects.filter(roll_no=rollNo)
+    exp=Add_exp.objects.filter(roll_no=rollNo)
+    for e in edu:
+        edu_list.append(e)
+    for e in exp:
+        exp_list.append(e)
+    content={'rollNo':rollNo,'yearOfJoining':yearOfJoining,'branch':branch,'div':div,
+    'studentId':studentId,"name":name,"skills":skills,'form':form,'edu_list':edu_list,'exp_list':exp_list}
 
     return render(request,"student/profile.html",content)
 

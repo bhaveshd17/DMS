@@ -17,7 +17,7 @@ class Add_edu(models.Model):
     end_year = models.DateField(null=False)
     roll_no = models.ForeignKey(Student, on_delete=models.CASCADE, null=False)
 
-    def _str_(self):
+    def __str__(self):
         return self.clg_name
 
 class Add_exp(models.Model):
