@@ -1,43 +1,141 @@
 {% extends 'student/base.html' %}
+{% load static %}
 {% block title %}Jobs{% endblock %}
 {% block content %}
-<br>
-<div class="container ">
+<style>
+    .sort_by_date p {
+        cursor: pointer;
+        color: #088bf0;
+    }
 
-<h3 class="text-center h3">All Currently Active Jobs</h3> 
+    .sort_by_date p:hover {
+        color: #1b38db;
+    }
+</style>
 
-{% for job in related_job_list %}
-    <div class="mx-auto mt-5 bg-white rounded-lg p-3 clear-fix shadow internship">
-        <a href="details/{{job.id}}/1" class="float-right" style="text-decoration: none;">View details</a>
-        <h4>{{job.comp_name}}</h4>
-        <h6>{{job.domain}}</h6>
-        <div class="row">
-            <div class="col-4">
-                <p class="mt-4"><strong>Salary:</strong></p>
-                <p>Rs. {{job.sal}}</p>
-            </div>
-            <div class="col-4">
-                <p class="mt-4"><strong>Start Date:</strong></p>
-                <p>{{job.start_date}}</p>
-            </div>
-            <div class="col-4">
-                <p class="mt-4"><strong>Apply By:</strong></p>
-                <p>{{job.apply_by}}</p>
-            </div>
 
+<h3 class="text-center h3 mb-5">All Currently Active Jobs</h3>
+
+<div class="row">
+    <div class="col-md-3 col-xs-3 col-lg-3">
+        <div class="card card-body">
+            <h5 class="card-title text-center">
+                <i class="fas fa-filter text-primary"></i>
+                Filters
+            </h5>
+            <div class="card-text">
+                <div class="mb-3">
+                    <label for="skills" class="form-label">Skills</label>
+                    <select class="custom-select filter_data" id="skills" name="skills" data-filter="skills">
+                        <option selected disabled hidden>e.g. JAVA</option>
+                        {% for skills in skill_set %}
+                        <option value="{{skills}}">{{skills}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+
+                <div class="mb-3">
+                    <label for="salary">Desired min Salary</label>
+                    <input type="range" value="3" class="custom-range" min="3" max="8"
+                        onchange="updateTextInput(this.value)" id="salary">
+                    <div class="d-flex justify-content-center">
+                        <span id="salary_value" class="text-primary">3 LPA</span>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="location" class="form-label">Location</label>
+                    <select class="custom-select filter_data" id="location" name="location" data-filter="location">
+                        <option selected disabled hidden>e.g. Mumbai</option>
+                        <option value="Mumbai">Mumbai</option>
+                    </select>
+                </div>
+
+
+                <div class="mb-3">
+                    <label for="starting_from" class="form-label">Starting from (or after)</label>
+                    <input type="date" class="form-control filter_data" name="starting_from" id="starting_from"
+                        placeholder="choose date" data-filter="starting_from">
+                </div>
+
+                <div class="mb-3 sort_by_date">
+                    <p class="float-right">sort by date</p>
+                </div>
+
+                <div class="mb-3">
+                    <button class="btn btn-secondary w-100" onclick="reset_form()">Reset</button>
+                </div>
+            </div>
         </div>
-        <div class="">
-        <p><strong>Skills:</strong><p>
-        </div>
-        <div class="row bg-primary mx-1 rounded-lg text-white p-1 pl-3" style="text-align:center">
-            {{job.skills}}
-        </div>
+
     </div>
 
-    {% endfor%}
-
-
-
+    <div class="col-md-9 col-xs-9 col-lg-9" id="filter_jobs">
+        <div class="d-flex justify-content-center">
+            <div class="spinner-border text-primary  ajaxLoader  mt-5" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+        {% for job in related_job_list %}
+        <div class="mx-auto mb-5 bg-white rounded-lg p-3 clear-fix shadow internship">
+            <a href="/student/details/{{job.id}}/2" class="float-right" style="text-decoration: none;">View
+                details</a>
+            <h4>{{job.comp_name}}</h4>
+            <h6>{{job.domain}}</h6>
+            <div class="row">
+                <div class="col-3">
+                    <p class="mt-4"><strong>Salary:</strong></p>
+                    <p>Rs. {{job.sal}} LPA</p>
+                </div>
+                <div class="col-3">
+                    <p class="mt-4"><strong>Location</strong></p>
+                    <p>{{job.location}}</p>
+                </div>
+                <div class="col-3">
+                    <p class="mt-4"><strong>Start Date:</strong></p>
+                    <p>{{job.start_date}}</p>
+                </div>
+                <div class="col-3">
+                    <p class="mt-4"><strong>Apply By:</strong></p>
+                    <p>{{job.apply_by}}</p>
+                </div>
+            </div>
+            <div class="">
+                <p><strong>Skills:</strong>
+                <p>
+            </div>
+            <div class="row bg-primary mx-1 rounded-lg text-white p-1 px-3" style="text-align:center">
+                {{job.skills}}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
 
 </div>
+
+
+
+<script>
+    function reset_form() {
+        location.reload();
+    }
+
+    function updateTextInput(val) {
+        if(Number(val) == 3){
+            document.getElementById('salary_value').innerText = String(Number(val)) + ' LPA';
+        }
+        else{
+            document.getElementById('salary_value').innerText = String(2 * Number(val)) + ' LPA';
+        }
+        
+    }
+
+
+
+
+
+
+</script>
+<script src="{% static 'js/jobFilter.js'%}"></script>
 {% endblock %}
