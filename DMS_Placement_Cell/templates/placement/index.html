@@ -1,0 +1,87 @@
+{% extends 'placement/base.html' %}
+{% load static %}
+{% block title %} Placement Cell {% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/placement_cell/index.css' %}">
+<div class="row mb-5">
+    <div class="col-md-3">
+        <div class="card" id="card-box-1">
+            <h5 class="card-header text-center" style="color: #ebe9e9;">Total Student</h5>
+            <div class="card-body">
+                <div class="card-text d-flex justify-content-center">
+                    <span><strong>378</strong></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card" id="card-box-2">
+            <h5 class="card-header text-center" style="color: #ebe9e9;">Total Placed</h5>
+            <div class="card-body">
+                <div class="card-text d-flex justify-content-center">
+                    <span><strong>100</strong></span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-md-3">
+        <div class="card" id="card-box-3">
+            <h5 class="card-header text-center" style="color: #ebe9e9;">Highest Package</h5>
+            <div class="card-body">
+                <div class="card-text d-flex justify-content-center">
+                    <span><strong>37 LPA</strong></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card" id="card-box-4">
+            <h5 class="card-header text-center" style="color: #ebe9e9;">Total Student</h5>
+            <div class="card-body">
+                <div class="card-text d-flex justify-content-center">
+                    <span><strong>560</strong></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <button class="btn btn-primary ml-5 my-3" onclick="exportexcel()">Convert to XL</button>
+    </div>
+    <div class="card-body">
+        <table class="table table-hover" id="convert">
+            <thead>
+                <th scpoe="col">Topic</th>
+                <th scpoe="col">Topic</th>
+                <th scpoe="col">Topic</th>
+                <th scpoe="col">Topic</th>
+            </thead>
+            <tr>
+                <td>asl</td>
+                <td>asl</td>
+                <td>asl</td>
+                <td>asl</td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+
+
+<script>
+    function exportexcel() {
+        $("#convert").table2excel({
+            name: "Table2Excel",
+            filename: "myFileName",
+            fileext: ".xls"
+        });
+    }
+</script>
+
+{% endblock %}

@@ -1,0 +1,19 @@
+{% load static %}
+<nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top">
+    <img class="navbar-brand" src="{% static 'images/vitwhite.png'%}" height="45" width="150">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav clear-fix">
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'index' %}">Home</a>
+            </li>
+
+
+        </ul>
+
+
+        <!-- <p>Entered Course name: <span id="txtHint"></span></p> -->
+    </div>
+</nav>

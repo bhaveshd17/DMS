@@ -1,0 +1,85 @@
+{%extends "placement/base.html" %}
+{% load static %}
+{% block title %} Add Job {% endblock %}
+{% block content %}
+<div class="card">
+    <div class="card-heade text-center">
+    <h1>Add New Job</h1>
+    </div>
+    <div class="card-body">
+        <form method="POST" action="#">
+            <div class="mb-3">
+                <label class="form-control"><strong>Company Name:</strong></label>
+                {{form.comp_name}}
+            </div>
+            <div class="mb-3">
+                <label class="form-control"><strong>Company Site:</strong></label>
+                {{form.link}}
+            </div>
+            <div class="mb-3">
+                <label class="form-control"><strong>Start Date</strong></label>
+                {{form.start_date}}
+            </div>
+            <div class="mb-3">
+                <label class="form-control"><strong>Apply By</strong></label>
+                {{form.apply_by}}
+            </div>
+            <div class="mb-3">
+                <label class="form-control"><strong>Stipend</strong></label>
+                {{form.sal}}
+            </div>
+            <div class="mb-3">
+                <label class="form-control"><strong>Skills</strong></label>
+                {{form.skills}}
+            </div>
+            <div class="mb-3">
+                <label class="form-control"><strong>Duration</strong></label>
+                {{form.duration}}
+            </div>
+            <div class="mb-3">
+                <label class="form-control"><strong>Admin Id</strong></label>
+                {{form.adm_id}}
+            </div>
+            <div class="mb-3">
+                <label class="form-control"><strong>Domain</strong></label>
+                {{form.domain}}
+            </div>
+            <div class="mb-3">
+                <label class="form-control"><strong>About Company</strong></label>
+                {{form.about_comp}}
+            </div>
+            <div class="mb-3">
+                <label class="form-control"><strong>About Work</strong></label>
+                {{form.about_work}}
+            </div>
+            <div class="mb-3">
+                <label class="form-control"><strong>Eligible</strong></label>
+                {{form.who_can_apply}}
+            </div>
+            <div class="mb-3">
+                <label class="form-control"><strong>Perks</strong></label>
+                {{form.perks}}
+            </div>
+            <div class="mb-3">
+                <label class="form-control"><strong>Additional Information</strong></label>
+                {{form.additional}}
+            </div>
+            <div class="text-center mb-3">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    $("input").addClass("form-control")
+    $("textarea").addClass("form-control")
+    $("#id_start_date").prop('type', 'date')
+    $("#id_apply_by").prop('type', 'date')
+
+    ad="{{request.user}}"
+    $(document).ready(function(){
+        $("#id_adm_id").val(ad)
+    })
+
+</script>
+{% endblock %}
