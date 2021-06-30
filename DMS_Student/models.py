@@ -61,7 +61,7 @@ class Int_user(models.Model):
     status = models.CharField(max_length=10, null=False)
     roll_no = models.ForeignKey(Student, on_delete=models.CASCADE, null=False)
     int_id = models.ForeignKey(Intership, on_delete=models.CASCADE, null=False)
-
+    date = models.DateTimeField(auto_now_add=True, null=True)
     def __str__(self):
         return str(self.roll_no)
 
@@ -88,6 +88,7 @@ class Job_user(models.Model):
     status = models.CharField(max_length=10, null=False)
     roll_no = models.ForeignKey(Student, on_delete=models.CASCADE, null=False)
     job_id = models.ForeignKey(Job, on_delete=models.CASCADE, null=False)
+    date = models.DateTimeField(auto_now_add=True, null=True)
 
     def __str__(self):
         return str(self.roll_no)

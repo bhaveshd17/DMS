@@ -1,0 +1,179 @@
+{% extends 'placement/base.html' %}
+{% load static %}
+{% block title %} Placement Cell {% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/placement_cell/index.css' %}">
+<div class="row mb-5">
+    <div class="col-md-3">
+        <div class="card" id="card-box-1">
+            <h5 class="card-header text-center" style="color: #ebe9e9;">Total Student</h5>
+            <div class="card-body">
+                <div class="card-text d-flex justify-content-center">
+                    <span><strong>378</strong></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card" id="card-box-2">
+            <h5 class="card-header text-center" style="color: #ebe9e9;">Total Placed</h5>
+            <div class="card-body">
+                <div class="card-text d-flex justify-content-center">
+                    <span><strong>100</strong></span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-md-3">
+        <div class="card" id="card-box-3">
+            <h5 class="card-header text-center" style="color: #ebe9e9;">Highest Package</h5>
+            <div class="card-body">
+                <div class="card-text d-flex justify-content-center">
+                    <span><strong>37 LPA</strong></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card" id="card-box-4">
+            <h5 class="card-header text-center" style="color: #ebe9e9;">Total Student</h5>
+            <div class="card-body">
+                <div class="card-text d-flex justify-content-center">
+                    <span><strong>560</strong></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link active" id="job-tab" data-toggle="tab" href="#job" role="tab" aria-controls="job"
+            aria-selected="true">Job Details</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="intern-tab" data-toggle="tab" href="#intern" role="tab" aria-controls="intern"
+            aria-selected="false">Internship Details</a>
+    </li>
+</ul>
+
+<div class="tab-content profile-tab" id="myTabContent">
+
+    <div class="tab-pane fade show active" id="job" role="tabpanel" aria-labelledby="profile-tab">
+        <div class="card">
+            <div class="card-header">
+                <button class="btn btn-primary btn-sm m-2" onclick="job_xl_conv()"><i class="fas fa-download mr-2"></i>
+                    Download Excel</button>
+            </div>
+            <div class="card-body">
+                <table class="table table-hover table-striped" id="job_convert">
+                    <thead>
+                        <th scpoe="col">Roll No.</th>
+                        <th scpoe="col">Company Name</th>
+                        <th scpoe="col">Domain</th>
+                        <th scpoe="col">Status</th>
+                        <th scpoe="col">Salary (LPA)</th>
+                        <th scpoe="col">Start Date</th>
+                        <th scpoe="col">Location</th>
+                        <th scpoe="col">Required Skills</th>
+                        <th scpoe="col">Application Date</th>
+                    </thead>
+                    <tbody>
+                        {% for job_u in job_user %}
+                        <tr>
+                            <td>{{job_u.roll_no}}</td>
+                            <td>{{job_u.job_id.comp_name}}</td>
+                            <td>{{job_u.job_id.domain}}</td>
+                            {% if job_u.status == '1' %}
+                            <td class="text-primary">Applied</td>
+                            {% elif job_u.status == '2' %}
+                            <td class="text-danger">Rejected</td>
+                            {% elif job_u.status == '3' %}
+                            <td class="text-danger">Accepted</td>
+                            {% endif %}
+                            <td>{{job_u.job_id.sal}}</td>
+                            <td>{{job_u.job_id.start_date}}</td>
+                            <td>{{job_u.job_id.location}}</td>
+                            <td>{{job_u.job_id.skills}}</td>
+                            <td>{{job_u.date}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane fade" id="intern" role="tabpanel" aria-labelledby="profile-tab">
+        <div class="card">
+            <div class="card-header">
+                <button class="btn btn-primary btn-sm m-2" onclick="int_xl_conv()"><i class="fas fa-download mr-2"></i>
+                    Download Excel</button>
+            </div>
+            <div class="card-body">
+                <table class="table table-hover table-striped" id="int_convert">
+                    <thead>
+                        <th scpoe="col">Roll No.</th>
+                        <th scpoe="col">Company Name</th>
+                        <th scpoe="col">Domain</th>
+                        <th scpoe="col">Status</th>
+                        <th scpoe="col">Stipend (in K)</th>
+                        <th scpoe="col">Start Date</th>
+                        <th scpoe="col">Duration</th>
+                        <th scpoe="col">Required Skills</th>
+                        <th scpoe="col">Application Date</th>
+                    </thead>
+                    <tbody>
+                        {% for int_u in int_user %}
+                        <tr>
+                            <td>{{int_u.roll_no}}</td>
+                            <td>{{int_u.roll_no}}</td>
+                            <td>{{int_u.int_id.comp_name}}</td>
+                            <td>{{int_u.int_id.domain}}</td>
+                            {% if int_u.status == '1' %}
+                            <td class="text-primary">Applied</td>
+                            {% elif int_u.status == '2' %}
+                            <td class="text-danger">Rejected</td>
+                            {% elif int_u.status == '3' %}
+                            <td class="text-danger">Accepted</td>
+                            {% endif %}
+                            <td>{{int_u.int_id.sal}}</td>
+                            <td>{{int_u.int_id.start_date}}</td>
+                            <td>{{int_u.int_id.duration}}</td>
+                            <td>{{int_u.int_id.skills}}</td>
+                            <td>{{int_u.date}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<script>
+    let date = new Date()
+    date = date.getDate().toString()+'-'+(date.getMonth()+1)+'-'+date.getFullYear()
+    function job_xl_conv() {
+        $("#job_convert").table2excel({
+            name: "Table2Excel",
+            filename: "job_users_"+date,
+            fileext: ".xls"
+        });
+    }
+
+    function int_xl_conv(){
+        $("#int_convert").table2excel({
+            name: "Table2Excel",
+            filename: "internshi_users_"+date,
+            fileext: ".xls"
+        });
+    }
+</script>
+
+{% endblock %}
