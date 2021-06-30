@@ -9,7 +9,6 @@ admin.site.register(Intership)
 admin.site.register(Int_user)
 admin.site.register(Job)
 admin.site.register(Job_user)
-admin.site.register(Login)
 admin.site.register(Mock_test)
 
 
