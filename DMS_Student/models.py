@@ -93,7 +93,10 @@ class Job_user(models.Model):
     def __str__(self):
         return str(self.roll_no)
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> af3390a810c00e5483d40990746a32c795673ac1
 
 class Mock_test(models.Model):
     name = models.CharField(max_length=30, null=True)
@@ -107,4 +110,3 @@ class Mock_test(models.Model):
 
     def __str__(self):
         return self.name
-
