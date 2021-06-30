@@ -67,6 +67,7 @@ class Int_user(models.Model):
 
 class Job(models.Model):
     comp_name = models.CharField(max_length=40, null=False)
+    location = models.CharField(max_length=100)
     link = models.CharField(max_length=150, null=False)
     start_date = models.DateField(null=False)
     apply_by = models.DateField(null=True)

@@ -12,9 +12,10 @@ from .models import *
 from .decorators import unauthenticated_user
 from .form import SkillsForm
 from .utils import IntershipJobLogic
+from .filter_logic import intern_filters, job_filters
 
 import json
-from datetime import datetime
+
 
 @login_required(login_url='login')
 def index(request):
@@ -30,72 +31,43 @@ def internship(request):
     content = {'related_int_list': data['related_int_list'],
                'skill_set':data['skill_set'],
                'duration':[1, 2, 3, 4, 6, 12, 24, 36],
-                'stipend':{'0':'1', '2':'3', '4':'5', '6':'7', '8':'9'},
                }
     return render(request, 'student/internship.html', content)
 
 @login_required(login_url='login')
 def internshipFilter(request):
-    data = IntershipJobLogic(request)
-    internship = data['related_int_list']
-    skills = request.GET.getlist('skills[]')
-    duration = request.GET.getlist('duration[]')
-    stipend = request.GET.get('stipend')
-    starting_from = request.GET.get('starting_from')
-    sort_by_date = request.GET.get('sort_by_date')
-
-    if skills[0] != 'e.g. JAVA':
-        temp_list = []
-        for int_obj in internship:
-            int_split = int_obj.skills.split(',')
-            for intern in int_split:
-                if intern.strip().lower() == skills[0].lower():
-                    temp_list.append(int_obj)
-        internship = temp_list
-
-    if stipend != '0':
-        temp_list = []
-        for int_obj in internship:
-            if int_obj.sal >= int(stipend)*2*1000:
-                temp_list.append(int_obj)
-        temp_list.sort(key=lambda x: x.sal)
-
-        internship = temp_list
-
-    if duration[0] != 'choose duration':
-        temp_list = []
-        for int_obj in internship:
-            if duration[0] in int_obj.duration:
-                temp_list.append(int_obj)
-        internship = temp_list
-
-
-    if starting_from != '':
-        temp_list = []
-        for int_obj in internship:
-            if int_obj.start_date >= datetime.strptime(starting_from, "%Y-%m-%d").date():
-                temp_list.append(int_obj)
-        internship = temp_list
-
-    if sort_by_date == 'true':
-        int_list = data['int_list']
-        internship = int_list
-
-
-
+    intern_data = intern_filters(request)
+    internship_list = intern_data['internship']
+    skill_set = intern_data['data']['skill_set']
     template = render_to_string('student/ajax_temp/internship.html',
-                                {'related_int_list': internship,
-                                 'skill_set':data['skill_set'],
+                                {'related_int_list': internship_list,
+                                 'skill_set':skill_set,
                                  'duration':[1, 2, 3, 4, 6, 12, 24, 36],
-                                 'stipend':{'1':'2', '3':'4', '5':'6', '7':'8', '9':'10'}
                                  })
     return JsonResponse({'data':template})
+
 
 @login_required(login_url='login')
 def job(request):
     data = IntershipJobLogic(request)
-    content = {'related_job_list': data['related_job_list']}
+    content = {'related_job_list': data['related_job_list'],
+               'skill_set':data['skill_set'],
+               }
     return render(request, 'student/job.html', content)
+
+
+@login_required(login_url='login')
+def jobFilter(request):
+    job_data = job_filters(request)
+    job_list = job_data['job']
+    skill_set = job_data['data']['skill_set']
+    print(skill_set)
+    template = render_to_string('student/ajax_temp/jobs.html',
+                                {'related_job_list': job_list,
+                                 'skill_set':skill_set,
+                                 })
+    return JsonResponse({'data':template})
+
 
 
 @login_required(login_url='login')
