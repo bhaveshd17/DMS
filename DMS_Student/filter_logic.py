@@ -1,6 +1,7 @@
 from .utils import IntershipJobLogic
 from datetime import datetime
 
+
 def intern_filters(request):
     data = IntershipJobLogic(request)
     internship = data['related_int_list']
@@ -58,6 +59,7 @@ def job_filters(request):
     starting_from = request.GET.get('starting_from')
     sort_by_date = request.GET.get('sort_by_date')
 
+
     if skills[0] != 'e.g. JAVA':
         temp_list = []
         for job_obj in job:
@@ -76,7 +78,7 @@ def job_filters(request):
 
         job = temp_list
 
-    if location[0] != "":
+    if location[0] != "e.g. Mumbai":
         temp_list = []
         for job_obj in job:
             if job_obj.location.lower() == location[0].lower():

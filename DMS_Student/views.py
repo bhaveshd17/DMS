@@ -52,6 +52,7 @@ def job(request):
     data = IntershipJobLogic(request)
     content = {'related_job_list': data['related_job_list'],
                'skill_set':data['skill_set'],
+               'cities':"Mumbai,Bangalore,Chennai".split(','),
                }
     return render(request, 'student/job.html', content)
 
@@ -61,10 +62,10 @@ def jobFilter(request):
     job_data = job_filters(request)
     job_list = job_data['job']
     skill_set = job_data['data']['skill_set']
-    print(skill_set)
     template = render_to_string('student/ajax_temp/jobs.html',
                                 {'related_job_list': job_list,
                                  'skill_set':skill_set,
+                                 'cities': "Mumbai,Bangalore,Chennai".split(','),
                                  })
     return JsonResponse({'data':template})
 
