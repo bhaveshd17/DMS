@@ -5,7 +5,8 @@ from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('DMS_Student.urls'))
+    path('', include('DMS_Student.urls')),
+    path('placement_cell/', include('DMS_Placement_Cell.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

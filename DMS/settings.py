@@ -22,6 +22,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'DMS_Student.apps.DmsStudentConfig',
+    'DMS_Placement_Cell.apps.DmsPlacementCellConfig',
 ]
 
 MIDDLEWARE = [
