@@ -2,7 +2,7 @@ import operator
 
 from django.contrib import messages
 from django.db.models import Q
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
@@ -10,12 +10,11 @@ from django.template.loader import render_to_string
 
 from .models import *
 from .decorators import unauthenticated_user
-from .form import SkillsForm
+from .form import SkillsForm, AddEduForm
 from .utils import IntershipJobLogic
 from .filter_logic import intern_filters, job_filters
 
 import json
-
 
 @login_required(login_url='login')
 def index(request):
@@ -128,7 +127,9 @@ def apply(request):
 def profile(request):
     rollNo=request.user.username
     student=Student.objects.get(roll_no=rollNo)
-    form=SkillsForm(instance=student)
+    name = request.user.first_name.upper()+' '+student.father_name.upper()+' '+request.user.last_name.upper()
+    skill_form=SkillsForm(instance=student)
+    edu_form = AddEduForm()
     yearOfJoining='20'+rollNo[0:2]
     if rollNo[2:5]=="101":
         branch="INFT"
@@ -145,42 +146,56 @@ def profile(request):
 
     div=rollNo[5]
     studentId=rollNo[6:]
-    name=Student.objects.get(roll_no=request.user.username).name
-    skills=Student.objects.get(roll_no=request.user.username).skills
-
-    edu_list=[]
-    exp_list=[]
-    edu=Add_edu.objects.filter(roll_no=rollNo)
+    edu=Add_edu.objects.filter(roll_no=rollNo).order_by("degree")
     exp=Add_exp.objects.filter(roll_no=rollNo)
 
-    for e in edu:
-        edu_list.append(e)
-    for e in exp:
-        exp_list.append(e)
     content={'rollNo':rollNo,'yearOfJoining':yearOfJoining,'branch':branch,'div':div,
-    'studentId':studentId,"name":name,"skills":skills,'form':form,'edu_list':edu_list,'exp_list':exp_list}
+    'studentId':studentId,'skill_form':skill_form,'edu_list':edu,'exp_list':exp, 'student_info':student, 'name':name, 'edu_form':edu_form}
 
     return render(request,"student/profile.html",content)
 
-@login_required(login_url='login')
-def updateEdu(request):
-    student=Student.objects.get(roll_no=request.user.username)
-    if request.method=="POST":
-        clgname=request.POST['clgname']
-        degree=request.POST['degree']
-        marks=request.POST['marks']
-        startyear=request.POST['startyear']
-        endyear=request.POST['endyear']
-        add,created=Add_edu.objects.get_or_create(clg_name=clgname,degree=degree,marks=marks,start_year=startyear,end_year=endyear,roll_no=student)
-        add.save()
-        messages.success(request, 'Successfully Added')
-        return redirect('/student/profile')
-    else:
-        messages.error(request, 'Invalid Addition')
-        return redirect('/student/profile')
 
 @login_required(login_url='login')
-def updateExp(request):
+def add_education(request):
+    if request.method=="POST":
+        form = AddEduForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Successfully Added')
+            return redirect('profile')
+        else:
+            messages.error(request, 'Invalid Addition')
+            return redirect('profile')
+
+@login_required(login_url='login')
+def update_education(request, pk):
+    csrf_token_value = request.COOKIES['csrftoken']
+    instance = get_object_or_404(Add_edu, id=pk)
+    form = AddEduForm(instance=instance)
+    if request.method == "POST":
+        form = AddEduForm(request.POST, instance=instance)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Successfully Added')
+            return redirect('profile')
+        else:
+            messages.error(request, 'Invalid Entry')
+            return redirect('profile')
+
+    template = render_to_string('student/ajax_temp/add_edu.html',
+                                {'id':pk, 'csrf_token_value':csrf_token_value, 'form':form})
+    return JsonResponse({'data':template})
+
+
+@login_required(login_url='login')
+def delete_education(request, pk):
+    add_edu = Add_edu.objects.get(id=pk)
+    add_edu.delete()
+    messages.success(request, f"{add_edu} successfully deleted!")
+    return redirect('profile')
+
+@login_required(login_url='login')
+def add_experience(request):
     student=Student.objects.get(roll_no=request.user.username)
     if request.method=="POST":
         compname=request.POST['compname']

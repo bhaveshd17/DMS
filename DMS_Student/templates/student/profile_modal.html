@@ -1,0 +1,89 @@
+<!-- edu model -->
+<div class="modal fade" id="addedu">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Add Education</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body px-5 my-2">
+                <form class="" method="POST" action="{% url 'addEdu' %}">
+                    {% csrf_token %}
+
+                    <div class="mb-3">
+                        <label for="clgname">School/College Name</label>
+                        {{edu_form.clg_name}}
+                    </div>
+                    <div class="mb-3">
+                        <label for="degree">10th/12th/Diploma</label>
+                        {{edu_form.degree}}
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="board">Board</label>
+                        {{edu_form.board}}
+                    </div>
+                    <div class="mb-3">
+                        <label for="percentage">Percentage/CGPA</label>
+                        {{edu_form.percentage}}
+                    </div>
+                    <div class="mb-3">
+                        <label for="startyear">Starting Date</label>
+                        {{edu_form.start_year}}
+                    </div>
+                    <div class="mb-3">
+                        <label for="endyear">Ending Date</label>
+                        {{edu_form.end_year}}
+                    </div>
+                    <div class="mb-3" hidden>
+                        {{edu_form.roll_no}}
+                    </div>
+
+                    <button class="btn btn-primary w-100">
+                        Add
+                    </button>
+                </form>
+            </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+<!-- exp modal -->
+<div class="modal fade" id="addexp">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Add Experience</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div class="row d-flex justify-content-center">
+                    <form class="" method="post" action="{% url 'updateExp' %}">
+                        {% csrf_token %}
+
+                        
+                </div>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <input type="submit" value="Update" name="add_exp" class="btn btn-primary">
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
