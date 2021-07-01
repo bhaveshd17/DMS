@@ -1,0 +1,49 @@
+{%extends "placement/base.html" %}
+{% load static %}
+{% block title %} Recruiting {% endblock %}
+{% block content %}
+
+<div class="container" id="all_table">
+
+    <table class="table table-hover table-striped">
+        <thead>
+            <th scpoe="col">Company</th>
+            <th scpoe="col">Location</th>
+            <th scpoe="col">Joining Date</th>
+            <th scpoe="col">Apply By</th>
+            <th scpoe="col">Salary (LPA)</th>
+            <th scpoe="col">Domain</th>
+            <th scpoe="col">Eligibility</th>
+            <!-- <th scpoe="col">Perks</th> -->
+            <th scpoe="col">Link</th>
+            <th scpoe="col">Hired</th>
+        </thead>
+        <tbody>
+            {% for job in jobs %}
+            <tr class="clickable text-center" onclick=" window.location.href='#'">
+                <td>{{job.comp_name}}</td>
+                <td>{{job.location}}</td>
+                <td>{{job.start_date}}</td>
+                <td>{{job.apply_by}}</td>
+                <td>{{job.sal}}</td>
+                <td>{{job.domain}}</td>
+                <td>{{job.who_can_apply}}</td>
+                <!-- <td>{{job.perks}}</td> -->
+                <td><a href="{{job.link}}">Link</a></td>
+                {% for key, value in hired.items %}
+                <!-- <li>{{key}} - {{value}}</li> -->
+                {% ifequal key job %}
+                <td>{{value}}</td>
+                {%endifequal%}
+                {% endfor %}
+                
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+
+
+{% endblock %}

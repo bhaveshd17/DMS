@@ -7,7 +7,8 @@
     <h1>Add New Intership</h1>
     </div>
     <div class="card-body">
-        <form method="POST" action="#">
+        <form method="POST" action="{% url 'form_intership' %}">
+            {% csrf_token %}
             <div class="mb-3">
                 <label class="form-control"><strong>Company Name:</strong></label>
                 {{form.comp_name}}
@@ -36,7 +37,7 @@
                 <label class="form-control"><strong>Duration</strong></label>
                 {{form.duration}}
             </div>
-            <div class="mb-3">
+            <div class="mb-3" style="display: none;">
                 <label class="form-control"><strong>Admin Id</strong></label>
                 {{form.adm_id}}
             </div>
@@ -70,15 +71,21 @@
         </form>
     </div>
 </div>
+
+
 <script>
     $("input").addClass("form-control")
     $("textarea").addClass("form-control")
+    $("select").addClass("form-control")
     $("#id_start_date").prop('type', 'date')
     $("#id_apply_by").prop('type', 'date')
-    ad="{{request.user}}"
+
+    const ad="{{id}}"
+    
     $(document).ready(function(){
         $("#id_adm_id").val(ad)
-    })
+    }).prop('selected', true)
 
+    
 </script>
 {% endblock %}

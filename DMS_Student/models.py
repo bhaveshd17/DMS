@@ -80,6 +80,7 @@ class Job(models.Model):
     who_can_apply = models.TextField(max_length=500, null=False)
     perks = models.TextField(max_length=500, null=False)
     additional = models.TextField(max_length=500, null=False)
+    status=models.CharField(max_length=10, null=True,default=0)
 
     def __str__(self):
         return self.comp_name
