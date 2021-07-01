@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="{% static 'css/base.css'%}">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>F
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://kit.fontawesome.com/6b2983e729.js" crossorigin="anonymous"></script>
 </head>
 
@@ -21,10 +21,10 @@
   {% include 'student/nav.html' %}
 
 
-  <div class="container my-5 py-5">
+  <div class="container my-5 pt-5">
     {% if messages %}
     {% for message in messages %}
-    <div class="alert alert-{{ message.tags }} alert-dismissible fade show my-3" role="alert">
+    <div class="alert alert-{{ message.tags }} alert-dismissible fade show mb-3" role="alert">
       <strong>{{ message }}</strong>
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>

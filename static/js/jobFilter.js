@@ -13,7 +13,7 @@ const ajax_method = {
 		$(".ajaxLoader").show();
 	},
 	success:function(res){
-		console.log(res);
+		// console.log(res);
 		$("#filter_jobs").html(res.data);
 		$(".ajaxLoader").hide();
 	}

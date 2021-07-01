@@ -3,22 +3,30 @@ from django.db import models
 
 class Student(models.Model):
     roll_no = models.CharField(primary_key=True ,max_length=20, null=False)
-    name = models.CharField(max_length=50, null=False)
+    phone = models.CharField(max_length=10, null=True)
+    father_name = models.CharField(max_length=50, null=True)
     skills = models.TextField(max_length=500, null=False)
 
     def __str__(self):
         return self.roll_no
 
 class Add_edu(models.Model):
+    degree_choice = {
+        ('10', '10th'),
+        ('12', '12th'),
+        ('diploma', 'Diploma')
+    }
     clg_name = models.CharField(max_length=50,null=False)
-    degree = models.CharField(max_length=50,null=False)
-    marks = models.IntegerField(null=False)
+    degree = models.CharField(max_length=50, choices=degree_choice, null=True)
+    board = models.CharField(max_length=50)
+    percentage = models.FloatField(null=False)
     start_year= models.DateField(null=False)
     end_year = models.DateField(null=False)
     roll_no = models.ForeignKey(Student, on_delete=models.CASCADE, null=False)
 
     def __str__(self):
         return self.clg_name
+
 
 class Add_exp(models.Model):
     comp_name = models.CharField(max_length=50, null=False)

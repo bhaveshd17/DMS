@@ -101,3 +101,4 @@ def IntershipJobLogic(request):
                'job_list':job_list,
                'int_list':int_list}
     return content
+

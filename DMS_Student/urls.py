@@ -12,11 +12,16 @@ urlpatterns = [
     path('student/preplacement', views.preplacement, name='preplacement'),
     path('student/job', views.job, name='job'),
     path('student/details/<int:id>/<int:type>', views.details, name='details'),
+    path('student/apply/', views.apply, name='apply'),
+    path('student/search', views.search, name='search'),
+
     path('student/profile',views.profile,name='profile'),
     path('student/UpdateSkills',views.UpdateSkills,name='UpdateSkills'),
-    path('student/apply/', views.apply, name='apply'),
-    path('student/search',views.search,name='search'),
-    path('student/updateEdu',views.updateEdu,name="updateEdu"),
-    path('student/updateExp',views.updateExp,name="updateExp"),
+
+    path('student/addEdu',views.add_education,name="addEdu"),
+    path('student/updateEdu/<int:pk>/', views.update_education,name="updateEdu"),
+    path('student/deleteEdu/<int:pk>/', views.delete_education,name="deleteEdu"),
+
+    path('student/updateExp',views.add_experience,name="updateExp"),
     path('student/userApplication',views.userApplication,name="userApplication"),
 ]
