@@ -1,3 +1,4 @@
+from DMS_Student.views import apply
 from django.contrib import messages
 from django.shortcuts import redirect, render
 from .form import *
@@ -50,6 +51,8 @@ def form_job(request):
 @allowed_users(allowed_roles=['Placement_Cell'])
 def recruiting(request):
     jobs=Job.objects.filter(status=0)
+    curr=Job.objects.filter(status=0,apply_by__gt=date.today())
+    print(curr)
     context={"jobs":jobs}
     return render(request,"placement/recruiting.html",context)
 
