@@ -1,0 +1,171 @@
+{% extends 'placement/base.html' %}
+{% load static %}
+{% block title %} Details {% endblock %}
+{% block content %}
+<style>
+    .row div {
+        background: white;
+    }
+</style>
+<div class="row">
+    <div class="col-8">
+        <div class="card">
+            <div class="card-header">
+                <h1 class="text-center" style="text-transform: uppercase;">{{details.comp_name}}</h1>
+                <h3 class="text-center mb-4 ">{{details.domain}}</h3>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-3 text-center">
+                        <h6>{{pay}}</h6>Rs. {{details.sal}}
+                    </div>
+                    <div class="col-sm-3 text-center">
+                        <h6>Start Date</h6>{{details.start_date}}
+                    </div>
+                    <div class="col-sm-3 text-center">
+                        <h6>Apply by</h6>
+                        {{details.apply_by}}
+                    </div>
+                    <div class="col-sm-3 text-center">
+                        <h6>Placed by</h6>
+                        {{details.adm_id}}
+                    </div>
+                </div>
+                <hr>
+                <h5>About
+                    {{details.comp_name}}
+                </h5>
+                <a href="{{details.link}}" style="text-transform:lowercase">
+                    {{details.comp_name}}.com
+                </a>
+                <p>
+                    {{details.about_comp}}
+                </p>
+                <hr>
+                <h5>About the {{details.domain}} work
+                </h5>
+                <p>
+                    {{details.about_work}}
+                </p>
+                <hr>
+                <h5>Skill(s) required</h5>
+                <p>
+                    {{details.skills}}
+                </p>
+                <hr>
+                <h5>Who can apply</h5>
+                <p>
+                    {{details.who_can_apply}}
+                </p>
+                <hr>
+                <h5>Perks</h5>
+                <p>
+                    {{details.perks}}
+                </p>
+                <hr>
+                <h5>Additional information</h5>
+                <p>
+                    {{details.additional}}
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Side Card -->
+    <div class="col-4">
+        <div class="card">
+            <div class="card-header">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#hired" role="tab"
+                            aria-controls="home" aria-selected="true" style="color: green;">Hired</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="applied-tab" data-toggle="tab" href="#applied" role="tab"
+                            aria-controls="edu" aria-selected="false">Applied</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="rejected-tab" data-toggle="tab" href="#rejected" role="tab"
+                            aria-controls="profile" aria-selected="false" style="color: red;">Rejected</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="tab-content" id="myTabContent">
+
+                <div class="tab-pane fade show active" id="hired" role="tabpanel" aria-labelledby="home-tab">
+                    <div class="card-body">
+    
+                        <table class="table table-hover table-striped">
+                            <thead>
+                                <th scpoe="col">Roll No.</th>
+                                <th scpoe="col">Date</th>
+                            </thead>
+                            <tbody>
+                                {% for a in applied %}
+                                <tr onclick=" window.location.href='/placement_cell/displayProfile/{{a.roll_no}}/'">
+                                    {%ifequal a.status "3" %}
+                                    <td>{{a.roll_no}}</td>
+                                    <td>{{a.date}}</td>
+                                    {% endifequal %}
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+    
+                <div class="tab-pane fade" id="applied" role="tabpanel" aria-labelledby="applied-tab">
+                    <div class="card-body">
+    
+                        <table class="table table-hover table-striped">
+                            <thead>
+                                <th scpoe="col">Roll No.</th>
+                                <th scpoe="col">Date</th>
+                            </thead>
+                            <tbody>
+                                {% for a in applied %}
+                                <tr onclick=" window.location.href='/placement_cell/details/{{job.id}}/1'">
+                                    {%ifequal a.status "1" %}
+                                    <td>{{a.roll_no}}</td>
+                                    <td>{{a.date}}</td>
+                                    {% endifequal %}
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="tab-pane fade" id="rejected" role="tabpanel" aria-labelledby="rejected-tab">
+                    <div class="card-body">
+    
+                        <table class="table table-hover table-striped">
+                            <thead>
+                                <th scpoe="col">Roll No.</th>
+                                <th scpoe="col">Date</th>
+                            </thead>
+                            <tbody>
+                                {% for a in applied %}
+                                <tr onclick=" window.location.href='/placement_cell/details/{{job.id}}/1'">
+                                    {%ifequal a.status "2" %}
+                                    <td>{{a.roll_no}}</td>
+                                    <td>{{a.date}}</td>
+                                    {% endifequal %}
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+</div>
+
+
+
+{% endblock %}
