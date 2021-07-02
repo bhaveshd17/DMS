@@ -23,7 +23,7 @@ urlpatterns = [
     path('student/deleteEdu/<int:pk>/', views.delete_education,name="deleteEdu"),
 
     path('student/addExp',views.add_experience,name="addExp"),
-    path('student/updateExp/<int:pk>/', views.update_experience, name="updateEdu"),
+    path('student/updateExp/<int:pk>/', views.update_experience, name="updateExp"),
     path('student/deleteExp/<int:pk>/', views.delete_experience, name="deleteExp"),
 
 

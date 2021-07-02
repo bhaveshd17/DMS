@@ -2,7 +2,8 @@ body{
     background-image:url('../images/indeximage.jpg');
     background-repeat:no-repeat; 
     background-size:cover; 
-    background-attachment:fixed
+    background-attachment:fixed;
+    scroll-behavior: smooth;
 }
 /* .bg-dark{
 	background-color: #000b6b!important;
