@@ -1,21 +1,24 @@
 from .models import *
 import operator
 
+def branch_logic(rollNo):
+    if rollNo[2:5]=="101":
+        branch="INFT"
+    elif rollNo[2:5]=="102":
+        branch="CMPN"
+    elif rollNo[2:5]=="103":
+        branch="ETRX"
+    elif rollNo[2:5]=="104":
+        branch="EXTC"
+    elif rollNo[2:5]=="105":
+        branch="BIOMED"
+    else:
+        branch="Invalid User"
+    return branch
+
 def IntershipJobLogic(request):
     roll_no = request.user.username
-    if roll_no[2:5] == "101":
-        branch = "INFT"
-    elif roll_no[2:5] == "102":
-        branch = "CMPN"
-    elif roll_no[2:5] == "103":
-        branch = "ETRX"
-    elif roll_no[2:5] == "104":
-        branch = "EXTC"
-    elif roll_no[2:5] == "105":
-        branch = "BIOMED"
-    else:
-        branch = "Invalid User"
-
+    branch = branch_logic(roll_no)
 
     admin_int = AdminDma.objects.filter(department=branch)
     job_list = []

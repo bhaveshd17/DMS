@@ -11,7 +11,7 @@ from django.template.loader import render_to_string
 from .models import *
 from .decorators import unauthenticated_user
 from .form import SkillsForm, AddEduForm, AddExpForm
-from .utils import IntershipJobLogic
+from .utils import IntershipJobLogic, branch_logic
 from .filter_logic import intern_filters, job_filters
 
 import json
@@ -128,27 +128,17 @@ def profile(request):
     rollNo=request.user.username
     student=Student.objects.get(roll_no=rollNo)
     name = request.user.first_name.upper()+' '+student.father_name.upper()+' '+request.user.last_name.upper()
-    skill_form=SkillsForm(instance=student)
-    edu_form = AddEduForm()
-    exp_form = AddExpForm()
     yearOfJoining='20'+rollNo[0:2]
-    if rollNo[2:5]=="101":
-        branch="INFT"
-    elif rollNo[2:5]=="102":
-        branch="CMPN"
-    elif rollNo[2:5]=="103":
-        branch="ETRX"
-    elif rollNo[2:5]=="104":
-        branch="EXTC"
-    elif rollNo[2:5]=="105":
-        branch="BIOMED"
-    else:
-        branch="Invalid User"
-
+    branch = branch_logic(rollNo)
     div=rollNo[5]
     studentId=rollNo[6:]
     edu=Add_edu.objects.filter(roll_no=rollNo).order_by("degree")
     exp=Add_exp.objects.filter(rollNo=rollNo)
+
+    skill_form=SkillsForm(instance=student)
+    edu_form = AddEduForm()
+    exp_form = AddExpForm()
+
 
     content={'rollNo':rollNo,'yearOfJoining':yearOfJoining,'branch':branch,'div':div,
     'studentId':studentId,'skill_form':skill_form,'edu_list':edu,'exp_list':exp,
@@ -236,7 +226,9 @@ def delete_experience(request, pk):
     return redirect('profile')
 
 
-
+@login_required(login_url='login')
+def add_curr_education(request):
+    return redirect('profile')
 
 
 @login_required(login_url='login')

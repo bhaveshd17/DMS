@@ -38,6 +38,44 @@ class Add_exp(models.Model):
     def __str__(self):
         return self.comp_name
 
+class FE(models.Model):
+    roll_no_1 = models.ForeignKey(Student ,on_delete=models.CASCADE)
+    fe_sem1_sgpa = models.FloatField()
+    fe_sem2_sgpa = models.FloatField()
+    fe_cgpa = models.FloatField()
+
+    def __str__(self):
+        return self.roll_no_1
+
+class SE(models.Model):
+    roll_no_2 = models.ForeignKey(Student ,on_delete=models.CASCADE)
+    se_sem1_sgpa = models.FloatField()
+    se_sem2_sgpa = models.FloatField()
+    se_cgpa = models.FloatField()
+
+    def __str__(self):
+        return self.roll_no_2
+
+
+class TE(models.Model):
+    roll_no_3 = models.ForeignKey(Student ,on_delete=models.CASCADE)
+    te_sem1_sgpa = models.FloatField()
+    te_sem2_sgpa = models.FloatField()
+    te_cgpa = models.FloatField()
+
+    def __str__(self):
+        return self.roll_no_3
+
+class BE(models.Model):
+    roll_no_4 = models.ForeignKey(Student ,on_delete=models.CASCADE)
+    be_sem1_sgpa = models.FloatField()
+    be_sem2_sgpa = models.FloatField()
+    be_cgpa = models.FloatField()
+
+    def __str__(self):
+        return self.roll_no_4
+
+
 class AdminDma(models.Model):
     name = models.CharField(max_length=30, null=False)
     department = models.CharField(max_length=30, null=False)
