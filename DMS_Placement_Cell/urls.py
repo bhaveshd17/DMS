@@ -9,4 +9,6 @@ urlpatterns = [
     # path("form_job",views.form_job,name="form_job"),
     path("recruiting/",views.recruiting,name="recruiting"),
     path("recruited/",views.recruited,name="recruited"),
+    path("details/<int:id>/<int:type>/",views.details,name="details"),
+    path("displayProfile/<slug:rollNo>/",views.displayProfile,name="displayProfile"),
 ]

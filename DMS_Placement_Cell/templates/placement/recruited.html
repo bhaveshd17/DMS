@@ -20,7 +20,7 @@
         </thead>
         <tbody>
             {% for job in jobs %}
-            <tr class="clickable text-center" onclick=" window.location.href='#'">
+            <tr class="clickable text-center" onclick=" window.location.href='/placement_cell/details/{{job.id}}/1'">
                 <td>{{job.comp_name}}</td>
                 <td>{{job.location}}</td>
                 <td>{{job.start_date}}</td>
@@ -31,7 +31,6 @@
                 <!-- <td>{{job.perks}}</td> -->
                 <td><a href="{{job.link}}">Link</a></td>
                 {% for key, value in hired.items %}
-                <!-- <li>{{key}} - {{value}}</li> -->
                 {% ifequal key job %}
                 <td>{{value}}</td>
                 {%endifequal%}

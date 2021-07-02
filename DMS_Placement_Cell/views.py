@@ -5,6 +5,7 @@ from .form import *
 from DMS_Student.decorators import allowed_users
 from DMS_Student.models import *
 from datetime import date
+from django.contrib.auth.models import User
 
 @allowed_users(allowed_roles=['Placement_Cell'])
 def index(request):
@@ -19,6 +20,16 @@ def add_intership(request):
     id=AdminDma.objects.get(name=request.user.username).id
     content={"form":form,"id":id}
     return render(request,"placement/add_intership.html",content)
+
+@allowed_users(allowed_roles=['Placement_Cell'])
+def form_intership(request):
+    if request.method=="POST":
+        form=IntershipForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request,"Internship Added Successfully.")
+            return redirect("placementIndex")
+    return redirect("add_intership")
 
 @allowed_users(allowed_roles=['Placement_Cell'])
 def add_job(request):
@@ -37,33 +48,19 @@ def add_job(request):
     return render(request,"placement/add_job.html",content)
 
 @allowed_users(allowed_roles=['Placement_Cell'])
-def form_intership(request):
-    if request.method=="POST":
-        form=IntershipForm(request.POST)
-        if form.is_valid():
-            # print(form)
-            form.save()
-            messages.success(request,"Internship Added Successfully.")
-            return redirect("placementIndex")
-    return redirect("add_intership")
-
-# @allowed_users(allowed_roles=['Placement_Cell'])
-# def form_job(request):
-#     if request.method=="POST":
-#         form=JobForm(request.POST)
-#         if form.is_valid():
-#             print(form)
-#             form.save()
-#             messages.success(request,"Job Added Successfully.")
-#             return redirect("placementIndex")
-#     return redirect("add_job")
-
-@allowed_users(allowed_roles=['Placement_Cell'])
 def recruiting(request):
     jobs=Job.objects.filter(status=0)
     curr=Job.objects.filter(status=0,apply_by__gt=date.today())
-    print(curr)
-    context={"jobs":jobs}
+    placed=Job_user.objects.filter(status=3)
+    hired={}
+    for job in jobs:
+        count=0
+        for p in placed:
+            # print(p.job_id,job)
+            if p.job_id==job:
+                count+=1
+        hired[job]=count
+    context={"jobs":jobs,"curr":curr,"hired":hired}
     return render(request,"placement/recruiting.html",context)
 
 @allowed_users(allowed_roles=['Placement_Cell'])
@@ -74,10 +71,51 @@ def recruited(request):
     for job in jobs:
         count=0
         for p in placed:
-            print(p.job_id,job)
+            # print(p.job_id,job)
             if p.job_id==job:
                 count+=1
         hired[job]=count
-    print(type(jobs),type(hired))
     context={"jobs":jobs,"hired":hired}
     return render(request,"placement/recruited.html",context)
+
+@allowed_users(allowed_roles=['Placement_Cell'])
+def details(request,id,type):
+    if type==1:
+        jobs = Job.objects.get(id=id)
+        applied=Job_user.objects.filter(job_id=id)
+        # print(applied)
+        context={"details":jobs,"pay":"Salary","applied":applied}     
+    elif type==2:
+        internships = Intership.objects.get(id=id)
+        context={"details":internships,"pay":"Stiped"}
+
+    return render(request,"placement/details.html",context)
+
+@allowed_users(allowed_roles=['Placement_Cell'])
+def displayProfile(request,rollNo):
+    student=Student.objects.get(roll_no=rollNo)
+    user=User.objects.get(username=rollNo)
+    name = user.first_name.upper()+' '+student.father_name.upper()+' '+user.last_name.upper()
+    yearOfJoining='20'+rollNo[0:2]
+    if rollNo[2:5]=="101":
+        branch="INFT"
+    elif rollNo[2:5]=="102":
+        branch="CMPN"
+    elif rollNo[2:5]=="103":
+        branch="ETRX"
+    elif rollNo[2:5]=="104":
+        branch="EXTC"
+    elif rollNo[2:5]=="105":
+        branch="BIOMED"
+    else:
+        branch="Invalid User"
+
+    div=rollNo[5]
+    studentId=rollNo[6:]
+    edu=Add_edu.objects.filter(roll_no=rollNo).order_by("degree")
+    exp=Add_exp.objects.filter(rollNo=rollNo)
+
+    context={"rollNo":rollNo,"student":student,"user":user,"name":name,"yearOfJoining":yearOfJoining,
+    "branch":branch,"div":div,"studentId":studentId,"exp_list":exp,"edu_list":edu}
+    return render(request,"placement/displayProfile.html",context) 
+
