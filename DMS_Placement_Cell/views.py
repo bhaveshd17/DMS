@@ -24,6 +24,15 @@ def add_intership(request):
 def add_job(request):
     form=JobForm()
     id=AdminDma.objects.get(name=request.user.username).id
+    if request.method=="POST":
+        form=JobForm(request.POST)
+        if form.is_valid():
+            # print(form)
+            form.save()
+            messages.success(request,"Job Added Successfully.")
+            return redirect("placementIndex")
+        else:
+            messages.error(request,"Form is not valid")
     content={"form":form,"id":id}
     return render(request,"placement/add_job.html",content)
 
@@ -38,15 +47,16 @@ def form_intership(request):
             return redirect("placementIndex")
     return redirect("add_intership")
 
-@allowed_users(allowed_roles=['Placement_Cell'])
-def form_job(request):
-    if request.method=="POST":
-        form=JobForm(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(request,"Job Added Successfully.")
-            return redirect("placementIndex")
-    return redirect("add_job")
+# @allowed_users(allowed_roles=['Placement_Cell'])
+# def form_job(request):
+#     if request.method=="POST":
+#         form=JobForm(request.POST)
+#         if form.is_valid():
+#             print(form)
+#             form.save()
+#             messages.success(request,"Job Added Successfully.")
+#             return redirect("placementIndex")
+#     return redirect("add_job")
 
 @allowed_users(allowed_roles=['Placement_Cell'])
 def recruiting(request):
