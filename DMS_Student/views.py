@@ -10,7 +10,7 @@ from django.template.loader import render_to_string
 
 from .models import *
 from .decorators import unauthenticated_user
-from .form import SkillsForm, AddEduForm
+from .form import SkillsForm, AddEduForm, AddExpForm
 from .utils import IntershipJobLogic
 from .filter_logic import intern_filters, job_filters
 
@@ -130,6 +130,7 @@ def profile(request):
     name = request.user.first_name.upper()+' '+student.father_name.upper()+' '+request.user.last_name.upper()
     skill_form=SkillsForm(instance=student)
     edu_form = AddEduForm()
+    exp_form = AddExpForm()
     yearOfJoining='20'+rollNo[0:2]
     if rollNo[2:5]=="101":
         branch="INFT"
@@ -147,10 +148,11 @@ def profile(request):
     div=rollNo[5]
     studentId=rollNo[6:]
     edu=Add_edu.objects.filter(roll_no=rollNo).order_by("degree")
-    exp=Add_exp.objects.filter(roll_no=rollNo)
+    exp=Add_exp.objects.filter(rollNo=rollNo)
 
     content={'rollNo':rollNo,'yearOfJoining':yearOfJoining,'branch':branch,'div':div,
-    'studentId':studentId,'skill_form':skill_form,'edu_list':edu,'exp_list':exp, 'student_info':student, 'name':name, 'edu_form':edu_form}
+    'studentId':studentId,'skill_form':skill_form,'edu_list':edu,'exp_list':exp,
+    'student_info':student, 'name':name, 'edu_form':edu_form, 'exp_form':exp_form}
 
     return render(request,"student/profile.html",content)
 
@@ -176,7 +178,7 @@ def update_education(request, pk):
         form = AddEduForm(request.POST, instance=instance)
         if form.is_valid():
             form.save()
-            messages.success(request, 'Successfully Added')
+            messages.success(request, 'Successfully Updated!')
             return redirect('profile')
         else:
             messages.error(request, 'Invalid Entry')
@@ -186,7 +188,6 @@ def update_education(request, pk):
                                 {'id':pk, 'csrf_token_value':csrf_token_value, 'form':form})
     return JsonResponse({'data':template})
 
-
 @login_required(login_url='login')
 def delete_education(request, pk):
     add_edu = Add_edu.objects.get(id=pk)
@@ -194,22 +195,45 @@ def delete_education(request, pk):
     messages.success(request, f"{add_edu} successfully deleted!")
     return redirect('profile')
 
+
+
 @login_required(login_url='login')
 def add_experience(request):
-    student=Student.objects.get(roll_no=request.user.username)
     if request.method=="POST":
-        compname=request.POST['compname']
-        domain=request.POST['role']
-        joindate=request.POST['joindate']
-        duration=request.POST['duration']
-        add,created=Add_exp.objects.get_or_create(comp_name=compname,role=domain,duration=duration,roll_no=student,start_date=joindate)
-        add.save()
-        messages.success(request, 'Successfully Added')
-        return redirect('/student/profile')
-    else:
-        messages.error(request, 'Invalid Addition')
-        return redirect('/student/profile')
+        form = AddExpForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Successfully Added')
+            return redirect('profile')
+        else:
+            messages.error(request, 'Invalid Addition')
+            return redirect('profile')
 
+@login_required(login_url='login')
+def update_experience(request, pk):
+    csrf_token_value = request.COOKIES['csrftoken']
+    instance = get_object_or_404(Add_exp, id=pk)
+    form = AddExpForm(instance=instance)
+    if request.method == "POST":
+        form = AddExpForm(request.POST, instance=instance)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Successfully Updated!')
+            return redirect('profile')
+        else:
+            messages.error(request, 'Invalid Entry')
+            return redirect('profile')
+
+    template = render_to_string('student/ajax_temp/add_exp.html',
+                                {'id':pk, 'csrf_token_value':csrf_token_value, 'form':form})
+    return JsonResponse({'data':template})
+
+@login_required(login_url='login')
+def delete_experience(request, pk):
+    add_exp = Add_exp.objects.get(id=pk)
+    add_exp.delete()
+    messages.success(request, f"{add_exp} successfully deleted!")
+    return redirect('profile')
 
 @login_required(login_url='login')
 def UpdateSkills(request):

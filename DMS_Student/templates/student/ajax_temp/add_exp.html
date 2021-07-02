@@ -1,0 +1,41 @@
+<div class="card card-body mb-3">
+    <form action="{% url 'updateEdu' id %}" method="POST">
+        <input type="hidden" name="csrfmiddlewaretoken" value="{{csrf_token_value}}">
+        
+        <div class="card-text">
+            <table class="table table-hover">
+                <tbody>
+                    <tr>
+                        <td><strong>Company Name</strong></td>
+                        <td>{{form.comp_name}}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Role</strong></td>
+                        <td>{{form.role}}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Duration</strong></td>
+                        <td>{{form.duration}}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Start Date</strong></td>
+                        <td>{{form.start_date}}</td>
+                    </tr>
+                    <div hidden>{{form.rollNo}}</div>
+                </tbody>
+            </table>
+        </div>
+        <div class="d-flex justify-content-center">
+            <button type="submit" class="btn btn-primary">Update</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    let form_fields1 = document.getElementsByTagName('input')
+    document.getElementById('id_degree').classList = 'form-control';
+    for (let field in form_fields1) {
+        form_fields1[field].className += ' form-control'
+    }
+    document.getElementById('id_start_date').type = 'date';
+</script>
