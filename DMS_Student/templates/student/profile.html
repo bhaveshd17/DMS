@@ -156,50 +156,41 @@
 
 
             <div class="tab-pane fade" id="exp" role="tabpanel" aria-labelledby="profile-tab">
-                <h4 class="h4 text-center mb-3">Experiences</h4>
-                <!-- {% for exp in exp_list %}
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label>Experience</label>
+                <h4 class="h4 text-center mb-3">Internship Experiences</h4>
+                <div id="exp_cards">
+                    {% for exp in exp_list %}
+                    <div class="card card-body mb-3">
+                        <div class="card-text">
+                            <table class="table table-hover">
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Company Name</strong></td>
+                                        <td>{{exp.comp_name}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Role</strong></td>
+                                        <td>{{exp.role}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Duration</strong></td>
+                                        <td>{{exp.duration}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Start Date</strong></td>
+                                        <td>{{exp.start_date}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
-                        <div class="col-md-6">
-                            <p></p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label>Company Name</label>
-                        </div>
-                        <div class="col-md-6">
-                            <p>{{exp.comp_name}}</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label>Domain</label>
-                        </div>
-                        <div class="col-md-6">
-                            <p>{{exp.role}}</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label>Join Date</label>
-                        </div>
-                        <div class="col-md-6">
-                            <p>{{exp.start_date}}</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label>Duration</label>
-                        </div>
-                        <div class="col-md-6">
-                            <p>{{exp.duration}}</p>
+                        <div class="d-flex justify-content-center">
+                            <p class="mr-2"><i data-id="{{exp.id}}" class="exp_update fas fa-edit"
+                                    style="color: black;cursor: pointer;"></i></p>
+                            <a href="{% url 'deleteExp' exp.id %}" class="ml-2" style="color: black;"><i
+                                    class="fas fa-trash-alt"></i></a>
                         </div>
                     </div>
-                    {% endfor%} -->
-
+                    {% endfor %}
+                </div>
                 <center>
                     <div class="border p-2 my-4 btn btn-secondary" data-toggle="modal" data-target="#addexp">Add
                         Experience</div>
@@ -214,15 +205,18 @@
 
 {% include 'student/profile_modal.html' %}
 <script src="{% static 'js/profile_edu_up.js' %}"></script>
+<script src="{% static 'js/profile_exp_up.js' %}"></script>
 <script>
     let form_fields = document.getElementsByTagName('input')
     document.getElementById('id_degree').classList = 'form-control';
     document.getElementById('id_roll_no').value = '{{request.user}}'
+    document.getElementById('id_rollNo').value = '{{request.user}}'
     for (let field in form_fields) {
         form_fields[field].className += ' form-control'
     }
     document.getElementById('id_percentage').type = 'text';
     document.getElementById('id_start_year').type = 'date';
+    document.getElementById('id_start_date').type = 'date';
     document.getElementById('id_end_year').type = 'date';
 </script>
 {% endblock %}

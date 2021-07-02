@@ -22,8 +22,8 @@ def IntershipJobLogic(request):
     int_list = []
     mock_list = []
     for admin in admin_int:
-        jobs = Job.objects.filter(adm_id=admin.id).order_by("start_date")
-        internships = Intership.objects.filter(adm_id=admin.id).order_by("start_date")
+        jobs = Job.objects.filter(adm_id=admin.id)
+        internships = Intership.objects.filter(adm_id=admin.id).order_by("apply_by")
         mockTests= Mock_test.objects.filter(adm_id=admin.id)
         for job in jobs:
             job_list.append(job)
@@ -91,7 +91,6 @@ def IntershipJobLogic(request):
         intern_split = intern.skills.split(',')
         for i in intern_split:
             skill_set.add(i.strip().upper())
-
 
 
     content = {'related_job_list': related_job_list,

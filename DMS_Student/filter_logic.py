@@ -72,18 +72,20 @@ def job_filters(request):
     if salary != '3':
         temp_list = []
         for job_obj in job:
-            if job_obj.sal >= int(salary) * 3:
+            if job_obj.sal >= int(salary) * 2:
                 temp_list.append(job_obj)
         temp_list.sort(key=lambda x: x.sal)
 
         job = temp_list
 
-    if location[0] != "e.g. Mumbai":
-        temp_list = []
-        for job_obj in job:
-            if job_obj.location.lower() == location[0].lower():
-                temp_list.append(job_obj)
-        job = temp_list
+    print(location)
+
+    # if location[0] != "e.g. Mumbai":
+    #     temp_list = []
+    #     for job_obj in job:
+    #         if job_obj.location.lower() == location[0].lower():
+    #             temp_list.append(job_obj)
+    #     job = temp_list
 
 
     if starting_from != '':

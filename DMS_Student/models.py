@@ -32,11 +32,11 @@ class Add_exp(models.Model):
     comp_name = models.CharField(max_length=50, null=False)
     role = models.CharField(max_length=50, null=False)
     duration = models.CharField(max_length=50, null=False)
-    roll_no = models.ForeignKey(Student, on_delete=models.CASCADE, null=False)
+    rollNo = models.ForeignKey(Student, on_delete=models.CASCADE, null=False)
     start_date = models.DateField(null=False)
 
     def __str__(self):
-        return str(self.id)
+        return self.comp_name
 
 class AdminDma(models.Model):
     name = models.CharField(max_length=30, null=False)

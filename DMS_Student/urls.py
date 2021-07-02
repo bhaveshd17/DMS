@@ -22,6 +22,10 @@ urlpatterns = [
     path('student/updateEdu/<int:pk>/', views.update_education,name="updateEdu"),
     path('student/deleteEdu/<int:pk>/', views.delete_education,name="deleteEdu"),
 
-    path('student/updateExp',views.add_experience,name="updateExp"),
+    path('student/addExp',views.add_experience,name="addExp"),
+    path('student/updateExp/<int:pk>/', views.update_experience, name="updateEdu"),
+    path('student/deleteExp/<int:pk>/', views.delete_experience, name="deleteExp"),
+
+
     path('student/userApplication',views.userApplication,name="userApplication"),
 ]
