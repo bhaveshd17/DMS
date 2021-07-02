@@ -2,7 +2,7 @@ var filter_obj={
 	"skills":["e.g. JAVA"],
 	"salary":"0",
 	"starting_from":"",
-    "location":"",
+    "location":["e.g. Mumbai"],
 	"sort_by_date":false,
 };
 const ajax_method = {
