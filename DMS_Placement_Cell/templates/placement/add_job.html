@@ -7,7 +7,7 @@
     <h1>Add New Job</h1>
     </div>
     <div class="card-body">
-        <form method="POST" action="{% url 'form_job' %}">
+        <form method="POST" action="{% url 'add_job' %}">
             {% csrf_token %}
             <div class="mb-3">
                 <label class="form-control"><strong>Company Name:</strong></label>
@@ -37,7 +37,7 @@
                 <label class="form-control"><strong>Skills:</strong></label>
                 {{form.skills}}
             </div>
-            <div class="mb-3">
+            <div class="mb-3" style="display: none;">
                 <label class="form-control"><strong>Admin Id</strong></label>
                 {{form.adm_id}}
             </div>
@@ -65,6 +65,10 @@
                 <label class="form-control"><strong>Additional Information:</strong></label>
                 {{form.additional}}
             </div>
+            <div class="mb-3" style="display: none;">
+                <label class="form-control"><strong>Status:</strong></label>
+                {{form.status}}
+            </div>
             <div class="text-center mb-3">
                 <button type="submit" class="btn btn-primary">Submit</button>
             </div>
@@ -76,7 +80,7 @@
     $("textarea").addClass("form-control")
     $("#id_start_date").prop('type', 'date')
     $("#id_apply_by").prop('type', 'date')
-
+    $("id_status").val(0)
     const ad="{{id}}"
     
     $(document).ready(function(){
