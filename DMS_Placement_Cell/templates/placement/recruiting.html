@@ -3,29 +3,31 @@
 {% block title %} Recruiting {% endblock %}
 {% block content %}
 
-<div class="btn-group btn-group-toggle float-right mb-4" data-toggle="buttons">
-    <label class="btn btn-secondary active " id="all">
-        <input type="radio" name="options" autocomplete="off" checked value="blog"> All
-    </label>
-    <label class="btn btn-secondary " id="current">
-        <input type="radio" name="options" autocomplete="off" value="update"> Currently Active
-    </label>
-
+<div class="d-flex justify-content-center">
+    <div class="btn-group btn-group-toggle mb-4" data-toggle="buttons">
+        <label class="btn btn-secondary active " id="all">
+            <input type="radio" name="options" autocomplete="off" checked value="blog"> All
+        </label>
+        <label class="btn btn-secondary " id="current">
+            <input type="radio" name="options" autocomplete="off" value="update"> Currently Active
+        </label>
+    
+    </div>
 </div>
 
-<div class="container"  id="all_table">
+<div class="card card-body"  id="all_table">
 
-    <table class="table table-hover table-striped">
+    <table class="table table-hover table-striped table-responsive-sm">
         <thead>
-            <th scpoe="col">Company</th>
-            <th scpoe="col">Location</th>
-            <th scpoe="col">Joining Date</th>
-            <th scpoe="col">Apply By</th>
-            <th scpoe="col">Salary (LPA)</th>
-            <th scpoe="col">Domain</th>
-            <th scpoe="col">Eligibility</th>
+            <th scope="col">Company</th>
+            <th scope="col">Location</th>
+            <th scope="col">Joining Date</th>
+            <th scope="col">Apply By</th>
+            <th scope="col">Salary (LPA)</th>
+            <th scope="col">Domain</th>
+            <th scope="col">Eligibility</th>
             <!-- <th scpoe="col">Perks</th> -->
-            <th scpoe="col">Link</th>
+            <th scope="col">Link</th>
         </thead>
         <tbody>
             {% for job in jobs %}
@@ -45,19 +47,19 @@
     </table>
 </div>
 
-<div class="container" id="current_table" style="display: none;">
-    <table class="table table-hover table-striped" >
+<div class="card card-body" id="current_table" style="display: none;">
+    <table class="table table-hover table-striped table-responsive-sm" >
         <thead>
-            <th scpoe="col">Company</th>
-            <th scpoe="col">Location</th>
-            <th scpoe="col">Joining Date</th>
-            <th scpoe="col">Apply By</th>
-            <th scpoe="col">Salary (LPA)</th>
-            <th scpoe="col">Domain</th>
-            <th scpoe="col">Eligibility</th>
-            <!-- <th scpoe="col">Perks</th> -->
-            <th scpoe="col">Link</th>
-            <th scpoe="col">Hired</th>
+            <th scope="col">Company</th>
+            <th scope="col">Location</th>
+            <th scope="col">Joining Date</th>
+            <th scope="col">Apply By</th>
+            <th scope="col">Salary (LPA)</th>
+            <th scope="col">Domain</th>
+            <th scope="col">Eligibility</th>
+            <!-- <th scope="col">Perks</th> -->
+            <th scope="col">Link</th>
+            <th scope="col">Hired</th>
         </thead>
         <tbody>
             {% for job in curr %}
