@@ -235,6 +235,10 @@ def delete_experience(request, pk):
     messages.success(request, f"{add_exp} successfully deleted!")
     return redirect('profile')
 
+
+
+
+
 @login_required(login_url='login')
 def UpdateSkills(request):
     rollNo=request.user.username
@@ -248,6 +252,7 @@ def UpdateSkills(request):
         else:
             messages.error(request, 'Invalid Update')
             return redirect('/student/profile')
+
 
 
 @login_required(login_url='login')

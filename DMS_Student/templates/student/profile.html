@@ -34,6 +34,10 @@
                             aria-selected="false">Education Details</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" id="curr-edu-tab" data-toggle="tab" href="#curr-edu" role="tab"
+                            aria-controls="curr-edu" aria-selected="false">Current Education Details</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" id="profile-tab" data-toggle="tab" href="#exp" role="tab"
                             aria-controls="profile" aria-selected="false">Experience</a>
                     </li>
@@ -56,150 +60,15 @@
 
         <div class="col-md-8" id="info-col">
             <div class="tab-content profile-tab" id="myTabContent">
-                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                    <div class="card card-body">
-                        <table class="table table-hover">
-                            <tbody>
-                                <tr>
-                                    <td><strong>Username</strong></td>
-                                    <td>{{request.user.username}}</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Email</strong></td>
-                                    <td>{{request.user.email}}</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Phone Number</strong></td>
-                                    <td>{{student_info.phone}}</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Year Of Joining</strong></td>
-                                    <td>{{yearOfJoining}}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+                {% include 'student/profile_tabs/personal.html' %}
+                {% include 'student/profile_tabs/education.html' %}
+                {% include 'student/profile_tabs/current_education.html' %}
+                {% include 'student/profile_tabs/experience.html' %}
 
-
-                <div class="tab-pane fade" id="edu" role="tabpanel" aria-labelledby="profile-tab">
-                    {% if edu_list.count < 2 %} <div class="alert alert-danger" role="alert">
-                        <ol>
-                            <li>Add 10th details</li>
-                            <li>Add 12th/Diploma details</li>
-                        </ol>
-                </div>
-                {% endif %}
-                <h4 class="h4 text-center mb-3">Previous Educations</h4>
-                <div id="edu_cards">
-                    {% for edu in edu_list%}
-                    <div class="card card-body mb-3">
-                        <div class="card-text">
-                            <table class="table table-hover">
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            <strong>
-                                                {% if edu.degree == '10'%}
-                                                School
-                                                {% else %}
-                                                College
-                                                {% endif %}
-                                            </strong>
-                                        </td>
-                                        <td>{{edu.clg_name}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Degree</strong></td>
-                                        <td>{{edu.degree}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Board</strong></td>
-                                        <td>{{edu.board}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Percentage/CGPA</strong></td>
-                                        <td>{% if edu.percentage > 12 %}
-                                            {{edu.percentage}}%
-                                            {% else %}
-                                            {{edu.percentage}} CGPA
-                                            {% endif %}
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Starting Year</strong></td>
-                                        <td>{{edu.start_year}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Ending Year</strong></td>
-                                        <td>{{edu.end_year}}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="d-flex justify-content-center">
-                            <p class="mr-2"><i data-id="{{edu.id}}" class="edu_update fas fa-edit"
-                                    style="color: black;cursor: pointer;"></i></p>
-                            <a href="{% url 'deleteEdu' edu.id %}" class="ml-2" style="color: black;"><i
-                                    class="fas fa-trash-alt"></i></a>
-                        </div>
-                    </div>
-                    {% endfor %}
-                </div>
-                {% if edu_list.count < 2 %} <center>
-                    <div class="border p-2 my-4 btn btn-secondary" data-toggle="modal" data-target="#addedu">Add
-                        Education</div>
-                    </center>
-                    {% endif %}
 
             </div>
-
-
-            <div class="tab-pane fade" id="exp" role="tabpanel" aria-labelledby="profile-tab">
-                <h4 class="h4 text-center mb-3">Internship Experiences</h4>
-                <div id="exp_cards">
-                    {% for exp in exp_list %}
-                    <div class="card card-body mb-3">
-                        <div class="card-text">
-                            <table class="table table-hover">
-                                <tbody>
-                                    <tr>
-                                        <td><strong>Company Name</strong></td>
-                                        <td>{{exp.comp_name}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Role</strong></td>
-                                        <td>{{exp.role}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Duration</strong></td>
-                                        <td>{{exp.duration}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Start Date</strong></td>
-                                        <td>{{exp.start_date}}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="d-flex justify-content-center">
-                            <p class="mr-2"><i data-id="{{exp.id}}" class="exp_update fas fa-edit"
-                                    style="color: black;cursor: pointer;"></i></p>
-                            <a href="{% url 'deleteExp' exp.id %}" class="ml-2" style="color: black;"><i
-                                    class="fas fa-trash-alt"></i></a>
-                        </div>
-                    </div>
-                    {% endfor %}
-                </div>
-                <center>
-                    <div class="border p-2 my-4 btn btn-secondary" data-toggle="modal" data-target="#addexp">Add
-                        Experience</div>
-                </center>
-            </div>
-
         </div>
     </div>
-</div>
 </div>
 
 
