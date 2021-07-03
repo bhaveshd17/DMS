@@ -5,7 +5,22 @@
             <div class="card-text">
                 <table class="table table-hover table-responsive-sm">
                     <tbody>
-
+                        <tr>
+                            <td>
+                                <strong>SEM 1 SGPA
+                                </strong>
+                            </td>
+                            <td>{{fe.0.fe_sem1_sgpa}}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>SEM 2 SGPA</strong></td>
+                            <td>{{fe.0.fe_sem2_sgpa}}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>FE CGPA</strong></td>
+                            <td>{{fe.0.fe_cgpa}}</td>
+                        </tr>
+                
                     </tbody>
                 </table>
             </div>
@@ -17,7 +32,13 @@
     </div>
 
     <center>
-        <div class="border p-2 my-4 btn btn-secondary" data-toggle="modal" data-target="#CurrEduDetails">Add
+        <div class="border p-2 my-4 btn btn-secondary" data-toggle="modal" data-target="#fe_modal">Add
             FE Details</div>
+        <div class="border p-2 my-4 btn btn-secondary" data-toggle="modal" data-target="#se_modal">Add
+            SE Details</div>
+        <div class="border p-2 my-4 btn btn-secondary" data-toggle="modal" data-target="#te_modal">Add
+            TE Details</div>
+        <div class="border p-2 my-4 btn btn-secondary" data-toggle="modal" data-target="#be_modal">Add
+            BE Details</div>
     </center>
 </div>

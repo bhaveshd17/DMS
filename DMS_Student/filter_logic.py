@@ -78,8 +78,6 @@ def job_filters(request):
 
         job = temp_list
 
-    print(location)
-
     if location[0] != "e.g. Mumbai":
         temp_list = []
         for job_obj in job:

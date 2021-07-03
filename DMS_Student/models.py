@@ -49,8 +49,8 @@ class FE(models.Model):
 
 class SE(models.Model):
     roll_no_2 = models.ForeignKey(Student ,on_delete=models.CASCADE)
-    se_sem1_sgpa = models.FloatField()
-    se_sem2_sgpa = models.FloatField()
+    se_sem3_sgpa = models.FloatField()
+    se_sem4_sgpa = models.FloatField()
     se_cgpa = models.FloatField()
 
     def __str__(self):
@@ -59,8 +59,8 @@ class SE(models.Model):
 
 class TE(models.Model):
     roll_no_3 = models.ForeignKey(Student ,on_delete=models.CASCADE)
-    te_sem1_sgpa = models.FloatField()
-    te_sem2_sgpa = models.FloatField()
+    te_sem5_sgpa = models.FloatField()
+    te_sem6_sgpa = models.FloatField()
     te_cgpa = models.FloatField()
 
     def __str__(self):
@@ -68,8 +68,8 @@ class TE(models.Model):
 
 class BE(models.Model):
     roll_no_4 = models.ForeignKey(Student ,on_delete=models.CASCADE)
-    be_sem1_sgpa = models.FloatField()
-    be_sem2_sgpa = models.FloatField()
+    be_sem7_sgpa = models.FloatField()
+    be_sem8_sgpa = models.FloatField()
     be_cgpa = models.FloatField()
 
     def __str__(self):
