@@ -10,8 +10,8 @@ from django.template.loader import render_to_string
 
 from .models import *
 from .decorators import unauthenticated_user
-from .form import SkillsForm, AddEduForm, AddExpForm
-from .utils import IntershipJobLogic
+from .form import SkillsForm, AddEduForm, AddExpForm, FeForm, SeForm, TeForm, BeForm
+from .utils import IntershipJobLogic, branch_logic
 from .filter_logic import intern_filters, job_filters
 
 import json
@@ -128,32 +128,32 @@ def profile(request):
     rollNo=request.user.username
     student=Student.objects.get(roll_no=rollNo)
     name = request.user.first_name.upper()+' '+student.father_name.upper()+' '+request.user.last_name.upper()
-    skill_form=SkillsForm(instance=student)
-    edu_form = AddEduForm()
-    exp_form = AddExpForm()
     yearOfJoining='20'+rollNo[0:2]
-    if rollNo[2:5]=="101":
-        branch="INFT"
-    elif rollNo[2:5]=="102":
-        branch="CMPN"
-    elif rollNo[2:5]=="103":
-        branch="ETRX"
-    elif rollNo[2:5]=="104":
-        branch="EXTC"
-    elif rollNo[2:5]=="105":
-        branch="BIOMED"
-    else:
-        branch="Invalid User"
-
+    branch = branch_logic(rollNo)
     div=rollNo[5]
     studentId=rollNo[6:]
     edu=Add_edu.objects.filter(roll_no=rollNo).order_by("degree")
     exp=Add_exp.objects.filter(rollNo=rollNo)
 
-    content={'rollNo':rollNo,'yearOfJoining':yearOfJoining,'branch':branch,'div':div,
-    'studentId':studentId,'skill_form':skill_form,'edu_list':edu,'exp_list':exp,
-    'student_info':student, 'name':name, 'edu_form':edu_form, 'exp_form':exp_form}
+    skill_form=SkillsForm(instance=student)
+    edu_form = AddEduForm()
+    exp_form = AddExpForm()
+    fe_form = FeForm()
+    se_form = SeForm()
+    te_form = TeForm()
+    be_form = BeForm()
+    fe = FE.objects.filter(roll_no_1=rollNo)
+    se = SE.objects.filter(roll_no_2=rollNo)
+    te = TE.objects.filter(roll_no_3=rollNo)
+    be = BE.objects.filter(roll_no_4=rollNo)
 
+
+
+    content={'rollNo':rollNo,'yearOfJoining':yearOfJoining,'branch':branch,'div':div,
+             'studentId':studentId,'skill_form':skill_form,'edu_list':edu,'exp_list':exp,
+             'student_info':student, 'name':name, 'edu_form':edu_form, 'exp_form':exp_form,
+             'fe_form':fe_form, 'se_form':se_form, 'te_form':te_form, 'be_form':be_form,
+             'fe':fe,'se':se,'te':te,'be':be}
     return render(request,"student/profile.html",content)
 
 
@@ -236,7 +236,10 @@ def delete_experience(request, pk):
     return redirect('profile')
 
 
+@login_required(login_url='login')
+def add_curr_education(request):
 
+    return redirect('profile')
 
 
 @login_required(login_url='login')
