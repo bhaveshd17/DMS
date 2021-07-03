@@ -1,0 +1,40 @@
+<div class="card card-body mb-2" id="fe_card">
+    <h4 class="card-title text-center">FE Details</h4>
+    <form action="/student/update_current_education/{{id}}/fe" method="post">
+        <input type="hidden" name="csrfmiddlewaretoken" value="{{csrf_token_value}}">
+        <div class="card-text">
+            <table class="table table-hover table-responsive-sm">
+                <tbody>
+                    <tr>
+                        <td>
+                            <strong>SEM 1 SGPA
+                            </strong>
+                        </td>
+                        <td>{{form.fe_sem1_sgpa}}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>SEM 2 SGPA</strong></td>
+                        <td>{{form.fe_sem2_sgpa}}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>FE CGPA</strong></td>
+                        <td>{{form.fe_cgpa}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div hidden>
+            {{form.roll_no_1}}
+        </div>
+        <div class="d-flex justify-content-center">
+            <button type="submit" class="btn btn-primary">Update</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    let form_fields_fe = document.getElementsByTagName('input')
+    for (let field in form_fields_fe) {
+        form_fields_fe[field].className += ' form-control'
+    }
+</script>
