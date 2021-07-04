@@ -1,6 +1,7 @@
 {% extends 'student/base.html' %}
 {% block title %} Profile {% endblock %}
 {% load static %}
+
 {% block content %}
 
 <link rel="stylesheet" href="{% static 'css/profile.css' %}">
@@ -18,40 +19,49 @@
                     </div>
                 </form>
             </div>
+        </div>
 
-            <div class="profile-head d-flex flex-column align-items-center mt-3">
+        <div class="col-md-8">
+            <div class="profile-head mt-3">
                 <h5><strong>{{name}}</strong></h5>
                 <h6><strong>Branch: </strong>{{branch}} {{div}}</h6>
                 <h6><strong>Roll Number: </strong>{{rollNo}}</h6>
                 <h6><strong>Skills: </strong>{{student_info.skills}}</h6>
             </div>
         </div>
+    </div>
 
-        <div class="col-md-8" id="info-col">
-            <ul class="nav nav-tabs mt-5 d-flex justify-content-center" id="myTab" role="tablist">
-                <li class="nav-item">
-                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab"
-                        aria-controls="home" aria-selected="true">Personal Details</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" id="edu-tab" data-toggle="tab" href="#edu" role="tab" aria-controls="edu"
-                        aria-selected="false">Education Details</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" id="curr-edu-tab" data-toggle="tab" href="#curr-edu" role="tab"
-                        aria-controls="curr-edu" aria-selected="false">Current Education Details</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#exp" role="tab"
-                        aria-controls="profile" aria-selected="false">Experience</a>
-                </li>
-            </ul>
+    <div class="mt-3" id="info-col">
+        <ul class="nav nav-tabs mt-5 d-flex justify-content-center" id="myTab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home"
+                    aria-selected="true">Personal Details</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="edu-tab" data-toggle="tab" href="#edu" role="tab" aria-controls="edu"
+                    aria-selected="false">Education Details</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="curr-edu-tab" data-toggle="tab" href="#curr-edu" role="tab"
+                    aria-controls="curr-edu" aria-selected="false">Current Education Details</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="certificates-tab" data-toggle="tab" href="#certificates" role="tab" aria-controls="certificates"
+                    aria-selected="false">Certificates</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="exp-tab" data-toggle="tab" href="#exp" role="tab" aria-controls="exp"
+                    aria-selected="false">Experience</a>
+            </li>
+        </ul>
 
+        <div class="w-50 m-auto" id="details_cards">
             <div class="tab-content profile-tab" id="myTabContent">
                 {% include 'student/profile_tabs/personal.html' %}
                 {% include 'student/profile_tabs/education.html' %}
                 {% include 'student/profile_tabs/current_education.html' %}
                 {% include 'student/profile_tabs/experience.html' %}
+                {% include 'student/profile_tabs/certificate.html' %}
 
 
             </div>
@@ -64,20 +74,6 @@
 <script src="{% static 'js/profile_edu_up.js' %}"></script>
 <script src="{% static 'js/profile_exp_up.js' %}"></script>
 <script src="{% static 'js/profile_curr_up.js' %}"></script>
-<script>
-    let form_fields = document.getElementsByTagName('input')
-    document.getElementById('id_degree').classList = 'form-control';
-    document.getElementById('id_roll_no').value = '{{request.user}}'
-    document.getElementById('id_rollNo').value = '{{request.user}}'
-    for(let i=1; i<=4; i++){
-        document.getElementById('id_roll_no_'+String(i)).value = '{{request.user}}'   
-    }
-    for (let field in form_fields) {
-        form_fields[field].className += ' form-control'
-    }
-    document.getElementById('id_percentage').type = 'text';
-    document.getElementById('id_start_year').type = 'date';
-    document.getElementById('id_start_date').type = 'date';
-    document.getElementById('id_end_year').type = 'date';
-</script>
+<script src="{% static 'js/profile.js' %}"></script>
+
 {% endblock %}

@@ -253,7 +253,6 @@ def add_curr_education(request):
 @login_required(login_url='login')
 def update_curr_education(request, pk, year):
     csrf_token_value = request.COOKIES['csrftoken']
-    print(type(pk), type(year))
     if request.method == "POST":
         form_data = be_year_logic(request=request, year=year, pk=pk)
         form = form_data['form']
@@ -269,6 +268,7 @@ def update_curr_education(request, pk, year):
     template = template_data['template']
     return JsonResponse({'data':template})
 
+@login_required(login_url='login')
 def delete_curr_education(request, pk):
     year = request.GET.get('year')
     data = be_year_logic(request=request, year=year, pk=pk)
@@ -276,6 +276,12 @@ def delete_curr_education(request, pk):
     obj.delete()
     messages.success(request, "successfully deleted!")
     return redirect('profile')
+
+
+@login_required(login_url='login')
+def add_certificates(request):
+    return redirect('profile')
+
 
 
 

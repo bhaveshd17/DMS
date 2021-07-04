@@ -1,3 +1,5 @@
+{% load custom_tags %}
+
 <div class="tab-pane fade show mt-3" id="curr-edu" role="tabpanel" aria-labelledby="curr-edu-tab">
     <h4 class="h4 text-center mb-3">Current Educations</h4>
     <div class="current_edu_cards">
@@ -20,7 +22,7 @@
                         </tr>
                         <tr>
                             <td><strong>FE CGPA</strong></td>
-                            <td>{{fe.0.fe_cgpa}}</td>
+                            <td>{{fe.0.fe_cgpa}} ({{fe.0.fe_cgpa|cgpa_percentage_conversion}}%)</td>
                         </tr>
                 
                     </tbody>
@@ -51,7 +53,7 @@
                         </tr>
                         <tr>
                             <td><strong>SE CGPA</strong></td>
-                            <td>{{se.0.se_cgpa}}</td>
+                            <td>{{se.0.se_cgpa}} ({{se.0.se_cgpa|cgpa_percentage_conversion}}%)</td>
                         </tr>
                 
                     </tbody>
@@ -82,7 +84,7 @@
                         </tr>
                         <tr>
                             <td><strong>TE CGPA</strong></td>
-                            <td>{{te.0.te_cgpa}}</td>
+                            <td>{{te.0.te_cgpa}} ({{te.0.te_cgpa|cgpa_percentage_conversion}}%)</td>
                         </tr>
                 
                     </tbody>
@@ -113,7 +115,7 @@
                         </tr>
                         <tr>
                             <td><strong>BE CGPA</strong></td>
-                            <td>{{be.0.be_cgpa}}</td>
+                            <td>{{be.0.be_cgpa}} ({{be.0.be_cgpa|cgpa_percentage_conversion}}%)</td>
                         </tr>
                 
                     </tbody>
