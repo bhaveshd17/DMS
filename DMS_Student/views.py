@@ -289,17 +289,24 @@ def add_certificates(request):
 
 @login_required(login_url='login')
 def UpdateSkills(request):
-    rollNo=request.user.username
-    student=Student.objects.get(roll_no=rollNo)
-    if request.method=="POST":
-        form=SkillsForm(request.POST,instance=student)
+    csrf_token_value = request.COOKIES['csrftoken']
+    rollNo = request.user.username
+    student = Student.objects.get(roll_no=rollNo)
+    form = SkillsForm(instance=student)
+    if request.method == "POST":
+        form = SkillsForm(request.POST, instance=student)
         if form.is_valid():
             form.save()
             messages.success(request, 'Successfully Updated')
-            return redirect('/student/profile')
+            return redirect('profile')
         else:
             messages.error(request, 'Invalid Update')
-            return redirect('/student/profile')
+            return redirect('profile')
+
+    template = render_to_string('student/ajax_temp/update_skills.html',
+                                {'form': form, 'csrf_token_value':csrf_token_value })
+    return JsonResponse({'data': template})
+
 
 
 

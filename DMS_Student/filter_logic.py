@@ -43,7 +43,7 @@ def intern_filters(request):
             if int_obj.start_date >= datetime.strptime(starting_from, "%Y-%m-%d").date():
                 temp_list.append(int_obj)
         internship = temp_list
-    
+
 
     if work_from_home == "true":
         temp_list = []

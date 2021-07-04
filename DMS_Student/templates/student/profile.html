@@ -13,20 +13,21 @@
                 <div class="d-flex justify-content-center">
                     <img src="{% static 'images/person.jpg'%}" class="d-flex align-items-center" alt="" />
                 </div>
-                <form method="post">
-                    <div class="d-flex justify-content-center">
-                        <button type="submit" class="btn btn-outline-primary my-3 w-50">update skills</button>
-                    </div>
-                </form>
+                <div class="d-flex justify-content-center">
+                    <button type="submit" class="btn btn-outline-primary my-3 w-50">Update</button>
+                </div>
             </div>
         </div>
 
         <div class="col-md-8">
-            <div class="profile-head mt-3">
+            <div class="profile-head mt-3" id="update_skills_form">
                 <h5><strong>{{name}}</strong></h5>
                 <h6><strong>Branch: </strong>{{branch}} {{div}}</h6>
                 <h6><strong>Roll Number: </strong>{{rollNo}}</h6>
-                <h6><strong>Skills: </strong>{{student_info.skills}}</h6>
+                <h6><strong>Skills: </strong>{{student_info.skills|upper}}
+                    <i class="fas fa-pen mx-3" id="skills_update" data-skills="{{student_info.skills}}"
+                        style="cursor: pointer;"></i>
+                </h6>
             </div>
         </div>
     </div>
@@ -74,6 +75,7 @@
 <script src="{% static 'js/profile_edu_up.js' %}"></script>
 <script src="{% static 'js/profile_exp_up.js' %}"></script>
 <script src="{% static 'js/profile_curr_up.js' %}"></script>
+<script src="{% static 'js/profile_skills.js' %}"></script>
 <script>
     document.getElementById('id_roll_no').value = '{{request.user}}'
     document.getElementById('id_rollNo').value = '{{request.user}}'
