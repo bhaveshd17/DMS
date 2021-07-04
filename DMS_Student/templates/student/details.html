@@ -31,6 +31,9 @@
                         {{details.adm_id}}
                     </div>
                 </div>
+                {% if details.work_from_home %}
+                <div class=""><i class="fas fa-home mt-3 mr-2"></i><span class="text-muted">Work From Home</span></div>
+                {% endif %}
                 <hr>
                 <h5>About
                     {{details.comp_name}}
@@ -93,7 +96,7 @@
 
 
 <script>
-    
+
 
     // apply
     const status = '1';

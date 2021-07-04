@@ -54,6 +54,10 @@
                 {{form.about_work}}
             </div>
             <div class="mb-3">
+                <label class="form-control"><strong>Work From Home:</strong></label>
+                {{form.work_from_home}}
+            </div>
+            <div class="mb-3">
                 <label class="form-control"><strong>Eligible</strong></label>
                 {{form.who_can_apply}}
             </div>
@@ -79,6 +83,7 @@
     $("select").addClass("form-control")
     $("#id_start_date").prop('type', 'date')
     $("#id_apply_by").prop('type', 'date')
+    $("#id_work_from_home").removeClass("form-control")
 
     const ad="{{id}}"
     

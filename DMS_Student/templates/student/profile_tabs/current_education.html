@@ -130,7 +130,7 @@
     </div>
 
     <center>
-        {% if not fe %}
+        {% if not fe and 'diploma' not in prev_deg %}
         <div class="border p-2 my-4 btn btn-secondary" data-toggle="modal" data-target="#fe_modal">Add
             FE Details</div>
         {% elif not se %}

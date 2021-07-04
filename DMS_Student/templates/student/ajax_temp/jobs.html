@@ -4,6 +4,9 @@
                 details</a>
             <h4>{{job.comp_name}}</h4>
             <h6>{{job.domain}}</h6>
+            {% if job.work_from_home %}
+            <i class="fas fa-home mr-2"></i><span class="text-muted">Work From Home</span>
+            {% endif %}
             <div class="row">
                 <div class="col-3">
                     <p class="mt-4"><strong>Salary:</strong></p>

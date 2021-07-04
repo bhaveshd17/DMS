@@ -130,6 +130,8 @@ def profile(request):
     name = request.user.first_name.upper()+' '+student.father_name.upper()+' '+request.user.last_name.upper()
     yearOfJoining='20'+rollNo[0:2]
     branch = branch_logic(rollNo)
+    prev_edu = Add_edu.objects.filter(roll_no=request.user.username)
+    prev_deg = [edu.degree for edu in prev_edu]
     div=rollNo[5]
     studentId=rollNo[6:]
     edu=Add_edu.objects.filter(roll_no=rollNo).order_by("degree")
@@ -153,7 +155,7 @@ def profile(request):
              'studentId':studentId,'skill_form':skill_form,'edu_list':edu,'exp_list':exp,
              'student_info':student, 'name':name, 'edu_form':edu_form, 'exp_form':exp_form,
              'fe_form':fe_form, 'se_form':se_form, 'te_form':te_form, 'be_form':be_form,
-             'fe':fe,'se':se,'te':te,'be':be}
+             'fe':fe,'se':se,'te':te,'be':be, 'prev_deg':prev_deg}
     return render(request,"student/profile.html",content)
 
 

@@ -1,10 +1,5 @@
 let form_fields = document.getElementsByTagName('input')
 document.getElementById('id_degree').classList = 'form-control';
-document.getElementById('id_roll_no').value = '{{request.user}}'
-document.getElementById('id_rollNo').value = '{{request.user}}'
-for (let i = 1; i <= 4; i++) {
-    document.getElementById('id_roll_no_' + String(i)).value = '{{request.user}}'
-}
 for (let field in form_fields) {
     form_fields[field].className += ' form-control'
 }

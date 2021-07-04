@@ -10,6 +10,7 @@ def intern_filters(request):
     stipend = request.GET.get('stipend')
     starting_from = request.GET.get('starting_from')
     sort_by_date = request.GET.get('sort_by_date')
+    work_from_home = request.GET.get('work_from_home')
 
     if skills[0] != 'e.g. JAVA':
         temp_list = []
@@ -42,6 +43,14 @@ def intern_filters(request):
             if int_obj.start_date >= datetime.strptime(starting_from, "%Y-%m-%d").date():
                 temp_list.append(int_obj)
         internship = temp_list
+    
+
+    if work_from_home == "true":
+        temp_list = []
+        for int_obj in internship:
+            if int_obj.work_from_home == True:
+                temp_list.append(int_obj)
+        internship = temp_list
 
     if sort_by_date == 'true':
         int_list = data['int_list']
@@ -58,6 +67,7 @@ def job_filters(request):
     location = request.GET.getlist('location[]')
     starting_from = request.GET.get('starting_from')
     sort_by_date = request.GET.get('sort_by_date')
+    work_from_home = request.GET.get('work_from_home')
 
 
     if skills[0] != 'e.g. JAVA':
@@ -93,6 +103,12 @@ def job_filters(request):
                 temp_list.append(job_obj)
         job = temp_list
 
+    if work_from_home == "true":
+        temp_list = []
+        for job_obj in job:
+            if job_obj.work_from_home == True:
+                temp_list.append(job_obj)
+        job = temp_list
 
     if sort_by_date == 'true':
         job_list = data['job_list']

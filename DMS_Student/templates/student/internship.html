@@ -36,7 +36,8 @@
 
         <div class="mb-3">
           <label for="stipend">Desired min stipend</label>
-          <input type="range" value="0" class="custom-range" min="0" max="5" onchange="updateTextInput(this.value)" id="stipend">
+          <input type="range" value="0" class="custom-range" min="0" max="5" onchange="updateTextInput(this.value)"
+            id="stipend">
           <div class="d-flex justify-content-center">
             <span id="stipend_value" class="text-primary">0K</span>
           </div>
@@ -59,6 +60,12 @@
             <option value="{{d}}">{{d}} months</option>
             {% endfor %}
           </select>
+        </div>
+        
+        <div class="d-flex justify-content-between mb-3">
+          <label for="work_from_home">Work From Home</label>
+          <input type="checkbox" class="form-check mt-2 filter_data" data-filter="work_from_home" name="work_from_home"
+            id="work_from_home">
         </div>
 
         <div class="mb-3 sort_by_date">
@@ -84,6 +91,9 @@
       <a href="/student/details/{{internship.id}}/2" class="float-right" style="text-decoration: none;">View details</a>
       <h4>{{internship.comp_name}}</h4>
       <h6>{{internship.domain}}</h6>
+      {% if internship.work_from_home %}
+      <i class="fas fa-home mr-2"></i><span class="text-muted">Work From Home</span>
+      {% endif %}
       <div class="row">
         <div class="col-3">
           <p class="mt-4"><strong>Stipend:</strong></p>
@@ -122,7 +132,7 @@
   }
 
   function updateTextInput(val) {
-    document.getElementById('stipend_value').innerText = String(2*Number(val)) +'K (monthly)';
+    document.getElementById('stipend_value').innerText = String(2 * Number(val)) + 'K (monthly)';
   }
 
 

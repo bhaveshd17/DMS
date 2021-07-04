@@ -46,8 +46,8 @@
                     aria-controls="curr-edu" aria-selected="false">Current Education Details</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="certificates-tab" data-toggle="tab" href="#certificates" role="tab" aria-controls="certificates"
-                    aria-selected="false">Certificates</a>
+                <a class="nav-link" id="certificates-tab" data-toggle="tab" href="#certificates" role="tab"
+                    aria-controls="certificates" aria-selected="false">Certificates</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" id="exp-tab" data-toggle="tab" href="#exp" role="tab" aria-controls="exp"
@@ -74,6 +74,13 @@
 <script src="{% static 'js/profile_edu_up.js' %}"></script>
 <script src="{% static 'js/profile_exp_up.js' %}"></script>
 <script src="{% static 'js/profile_curr_up.js' %}"></script>
+<script>
+    document.getElementById('id_roll_no').value = '{{request.user}}'
+    document.getElementById('id_rollNo').value = '{{request.user}}'
+    for (let i = 1; i <= 4; i++) {
+        document.getElementById('id_roll_no_' + String(i)).value = '{{request.user}}'
+    }
+</script>
 <script src="{% static 'js/profile.js' %}"></script>
 
 {% endblock %}
