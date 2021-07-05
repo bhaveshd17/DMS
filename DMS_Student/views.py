@@ -48,8 +48,8 @@ def internshipFilter(request):
 
 @login_required(login_url='login')
 def job(request):
-    data = IntershipJobLogic(request)
     try:
+        data = IntershipJobLogic(request)
         job_list = data['related_job_list']
         student = Student.objects.get(roll_no=request.user.username)
         cgpa = BE.objects.get(roll_no_4=student).be_cgpa
@@ -59,9 +59,34 @@ def job(request):
         drop_4 = BE.objects.get(roll_no_4=student).drop_BE
         drop = int(drop_2) + int(drop_3) + int(drop_4)
         related_job_list = []
-        for job in job_list:
-            if job.cgpa <= cgpa and int(live_kt) <= int(job.live_kt) and int(drop) <= int(job.drop):
-                related_job_list.append(job)
+
+
+        hired=Job_user.objects.filter(roll_no=student,status="3")
+        package=[]
+        for job in hired:
+            package.append(Job.objects.get(id=job.job_id.id).sal)
+    
+        sal=max(package)
+        if sal<3.5:
+            for job in job_list:
+                if job.cgpa <= cgpa and int(live_kt) <= int(job.live_kt) and int(drop) <= int(job.drop):
+                    related_job_list.append(job)
+        elif sal>=3.5 and sal<=5:
+            for job in job_list:
+                if job.cgpa <= cgpa and int(live_kt) <= int(job.live_kt) and int(drop) <= int(job.drop) and job.sal>=5:
+                    related_job_list.append(job)
+        elif sal>5 and sal<=7:
+            for job in job_list:
+                if job.cgpa <= cgpa and int(live_kt) <= int(job.live_kt) and int(drop) <= int(job.drop) and job.sal>5:
+                    related_job_list.append(job)
+        elif sal>7 and sal<=10:
+            for job in job_list:
+                if job.cgpa <= cgpa and int(live_kt) <= int(job.live_kt) and int(drop) <= int(job.drop) and job.sal>7:
+                    related_job_list.append(job)
+        elif sal>10:
+            for job in job_list:
+                if job.cgpa <= cgpa and int(live_kt) <= int(job.live_kt) and int(drop) <= int(job.drop) and job.sal>10:
+                    related_job_list.append(job)
     except:
         related_job_list = []
 

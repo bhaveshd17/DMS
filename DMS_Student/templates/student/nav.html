@@ -18,9 +18,16 @@
       <li class="nav-item">
         <a class="nav-link " href="{% url 'preplacement' %}">Preplacements</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link " href="{% url 'userApplication' %}">Applied</a>
-      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Application
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item " href="{% url 'userApplication' %}">Applied</a>
+          <a class="dropdown-item" href="#">Hired</a>
+        </div>
+    </li>
+     
       <li class="nav-item">
         <a class="nav-link" href="{% url 'profile' %}">{{request.user.username}}</a>
       </li>
