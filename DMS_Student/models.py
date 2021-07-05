@@ -51,7 +51,7 @@ class FE(models.Model):
         ("0",0),("1",1),("2",2),("3",3),("4",4),("5",5),("6",6),("Greater than 6",7)
     },null=True)
     def __str__(self):
-        return self.roll_no_1
+        return str(self.roll_no_1)
 
 class SE(models.Model):
     roll_no_2 = models.ForeignKey(Student ,on_delete=models.CASCADE)
@@ -65,7 +65,7 @@ class SE(models.Model):
         ("0",0),("1",1),("2",2),("Greater than 2",3)
     },null=True)
     def __str__(self):
-        return self.roll_no_2
+        return str(self.roll_no_2)
 
 
 class TE(models.Model):
@@ -80,7 +80,7 @@ class TE(models.Model):
         ("0",0),("1",1),("2",2),("Greater than 2",3)
     },null=True)
     def __str__(self):
-        return self.roll_no_3
+        return str(self.roll_no_3)
 
 class BE(models.Model):
     roll_no_4 = models.ForeignKey(Student ,on_delete=models.CASCADE)
@@ -94,7 +94,7 @@ class BE(models.Model):
         ("0",0),("1",1),("2",2),("Greater than 2",3)
     },null=True)
     def __str__(self):
-        return self.roll_no_4
+        return str(self.roll_no_4)
 
 
 class AdminDma(models.Model):
