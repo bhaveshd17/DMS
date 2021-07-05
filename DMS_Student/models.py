@@ -23,10 +23,18 @@ class Add_edu(models.Model):
     percentage = models.FloatField(null=False)
     start_year= models.DateField(null=False)
     end_year = models.DateField(null=False)
+    marks = models.IntegerField(validators=[MaxValueValidator(999)])
     roll_no = models.ForeignKey(Student, on_delete=models.CASCADE, null=False)
     gap=models.CharField(max_length=15,choices={
         ("0","0"),("1","1"),("2","2"),("3","Greater than 2")
     },null=True)
+
+    diploma_pattern = models.CharField(max_length=20, choices={
+        ("semester pattern","semester pattern"), ("yearly pattern","yearly pattern"), ("NA", "NA")
+    }, default="NA")
+    diploma_aggregate_mw = models.CharField(max_length=100, default="NA")
+    diploma_aggregate_pw = models.CharField(max_length=100, default="NA")
+    no_of_dead_kt = models.CharField(max_length=10, default="NA")
 
     def __str__(self):
         return self.clg_name
@@ -186,3 +194,10 @@ class Mock_test(models.Model):
 
     def __str__(self):
         return self.name
+
+class Certificate(models.Model):
+    certificate_name = models.CharField(max_length=500)
+    domain = models.CharField(max_length=500)
+
+    def __str__(self):
+        return self.certificate_name

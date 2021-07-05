@@ -11,21 +11,22 @@ from django.template.loader import render_to_string
 from .models import *
 from .decorators import unauthenticated_user
 from .form import SkillsForm, AddEduForm, AddExpForm, FeForm, SeForm, TeForm, BeForm
-from .utils import IntershipJobLogic, branch_logic, be_year_logic
+from .utils import branch_logic, be_year_logic, department_sort, jobLogic, internshipLogic
 from .filter_logic import intern_filters, job_filters
 
 import json
 
 @login_required(login_url='login')
 def index(request):
-    data = IntershipJobLogic(request)
-    content = {'related_job_list': data['related_job_list'][:3], 'related_int_list': data['related_int_list'][:3]}
+    internship = internshipLogic(request)
+    job = jobLogic(request)
+    content = {'related_job_list': job['related_job_list'][:3], 'related_int_list': internship['related_int_list'][:3]}
     return render(request, 'student/index.html', content)
 
 
 @login_required(login_url='login')
 def internship(request):
-    data = IntershipJobLogic(request)
+    data = internshipLogic(request)
 
     content = {'related_int_list': data['related_int_list'],
                'skill_set':data['skill_set'],
@@ -48,6 +49,7 @@ def internshipFilter(request):
 
 @login_required(login_url='login')
 def job(request):
+    data = jobLogic(request)
     try:
         data = IntershipJobLogic(request)
         job_list = data['related_job_list']
@@ -113,7 +115,7 @@ def jobFilter(request):
 
 @login_required(login_url='login')
 def preplacement(request):
-    data = IntershipJobLogic(request)
+    data = department_sort(request)
     content = {'mock_test':data['mock_list']}
     return render(request, 'student/preplacement.html', content)
 

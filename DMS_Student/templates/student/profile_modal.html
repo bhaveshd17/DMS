@@ -28,6 +28,10 @@
                         {{edu_form.board}}
                     </div>
                     <div class="mb-3">
+                        <label for="id_marks">Total Marks</label>
+                        {{edu_form.marks}}
+                    </div>
+                    <div class="mb-3">
                         <label for="id_percentage">Percentage/CGPA</label>
                         {{edu_form.percentage}}
                     </div>
@@ -36,12 +40,35 @@
                         <label for="id_gap">Year Drop</label>
                         {{edu_form.gap}}
                     </div>
+
+                    <div id="diploma_div" style="display: none;">
+                        <div class="mb-3">
+                            <label for="id_gap">Pattern</label>
+                            {{edu_form.diploma_pattern}}
+                        </div>
+                        <div class="mb-3">
+                            <label for="id_gap">Diploma Aggregate% (Marks-Wise)</label>
+                            <small class="form-text text-muted mb-2">Diploma Aggregate (Marks-Wise) = ((sum of the marks obtained in all semester/years)/Total Maximum marks)*100</small>
+                            {{edu_form.diploma_aggregate_mw}}
+                        </div>
+                        <div class="mb-3">
+                            <label for="id_gap">Diploma Aggregate% (Percentage-Wise)</label>
+                            <small class="form-text text-muted mb-2">Diploma Aggregate (Percentage-Wise) = (sum of the percentage in all semester/years)/(No. of semesters/years)</small>
+                            {{edu_form.diploma_aggregate_pw}}
+                        </div>
+                        <div class="mb-3">
+                            <label for="id_gap">No. Dead KT/S</label>
+                            <small class="form-text text-muted mb-2">Enter 0 if no KT</small>
+                            {{edu_form.no_of_dead_kt}}
+                        </div>
+                    </div>
+
                     <div class="mb-3">
                         <label for="id_startyear">Starting Date</label>
                         {{edu_form.start_year}}
                     </div>
                     <div class="mb-3">
-                        <label for="id_endyear">Ending Date</label>
+                        <label for="id_endyear">Passing Date</label>
                         {{edu_form.end_year}}
                     </div>
                     <div class="mb-3" hidden>
