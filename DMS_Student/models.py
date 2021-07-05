@@ -76,7 +76,6 @@ class TE(models.Model):
     te_cgpa = models.FloatField(validators=[MaxValueValidator(10)])
     kt_TE=models.CharField(max_length=15,choices={
         ("0","0"),("1","1"),("2","2"),("3","3"),("4","4"),("5","5"),("6","6"),("7","Greater than 6")
-
     },null=True)
     drop_TE=models.CharField(max_length=15,choices={
         ("0","0"),("1","1"),("2","2"),("3","Greater than 2")
