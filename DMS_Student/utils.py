@@ -135,33 +135,38 @@ def jobLogic(request):
         related_job_list = []
 
         hired = Job_user.objects.filter(roll_no=student, status="3")
-        package = []
-        for job in hired:
-            package.append(Job.objects.get(id=job.job_id.id).sal)
-
-        sal = max(package)
-        if sal < 3.5:
+        if len(hired) ==0:
             for job in job_list:
                 if job.cgpa <= cgpa and int(live_kt) <= int(job.live_kt) and int(drop) <= int(job.drop):
                     related_job_list.append(job)
-        elif sal >= 3.5 and sal <= 5:
-            for job in job_list:
-                if job.cgpa <= cgpa and int(live_kt) <= int(job.live_kt) and int(drop) <= int(
-                        job.drop) and job.sal >= 5:
-                    related_job_list.append(job)
-        elif sal > 5 and sal <= 7:
-            for job in job_list:
-                if job.cgpa <= cgpa and int(live_kt) <= int(job.live_kt) and int(drop) <= int(job.drop) and job.sal > 5:
-                    related_job_list.append(job)
-        elif sal > 7 and sal <= 10:
-            for job in job_list:
-                if job.cgpa <= cgpa and int(live_kt) <= int(job.live_kt) and int(drop) <= int(job.drop) and job.sal > 7:
-                    related_job_list.append(job)
-        elif sal > 10:
-            for job in job_list:
-                if job.cgpa <= cgpa and int(live_kt) <= int(job.live_kt) and int(drop) <= int(
-                        job.drop) and job.sal > 10:
-                    related_job_list.append(job)
+        else:
+            package = []
+            for job in hired:
+                package.append(Job.objects.get(id=job.job_id.id).sal)
+
+            sal = max(package)
+            if sal < 3.5:
+                for job in job_list:
+                    if job.cgpa <= cgpa and int(live_kt) <= int(job.live_kt) and int(drop) <= int(job.drop):
+                        related_job_list.append(job)
+            elif sal >= 3.5 and sal <= 5:
+                for job in job_list:
+                    if job.cgpa <= cgpa and int(live_kt) <= int(job.live_kt) and int(drop) <= int(
+                            job.drop) and job.sal >= 5:
+                        related_job_list.append(job)
+            elif sal > 5 and sal <= 7:
+                for job in job_list:
+                    if job.cgpa <= cgpa and int(live_kt) <= int(job.live_kt) and int(drop) <= int(job.drop) and job.sal > 5:
+                        related_job_list.append(job)
+            elif sal > 7 and sal <= 10:
+                for job in job_list:
+                    if job.cgpa <= cgpa and int(live_kt) <= int(job.live_kt) and int(drop) <= int(job.drop) and job.sal > 7:
+                        related_job_list.append(job)
+            elif sal > 10:
+                for job in job_list:
+                    if job.cgpa <= cgpa and int(live_kt) <= int(job.live_kt) and int(drop) <= int(
+                            job.drop) and job.sal > 10:
+                        related_job_list.append(job)
     except:
         related_job_list = []
 

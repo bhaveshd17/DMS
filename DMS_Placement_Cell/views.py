@@ -13,7 +13,16 @@ import json
 def index(request):
     int_user = Int_user.objects.all().order_by("int_id__comp_name")
     job_user = Job_user.objects.all().order_by("job_id__comp_name")
-    content = {'int_user':int_user, 'job_user':job_user}
+    total_student=Student.objects.all().count()
+    total_placed=Job_user.objects.filter(status="3").distinct().count()
+    highest=Job_user.objects.filter(status="3")
+    package=[]
+    for job in highest:
+        package.append(Job.objects.get(id=job.job_id.id).sal)
+    highest_package=max(package)
+    # avg_package=
+    content = {'int_user':int_user, 'job_user':job_user,"total_student":total_student,
+    "total_placed":total_placed,"highest_package":highest_package}
     return render(request, 'placement/index.html', content)
 
 @allowed_users(allowed_roles=['Placement_Cell'])
