@@ -77,7 +77,7 @@
                 <td>{{job.apply_by}}</td>
                 <td>{{job.sal}}</td>
                 <td>{{job.domain}}</td>
-                <td>{{job.who_can_apply}}</td>
+                <td><ol>{{job.who_can_apply|safe}}<ol></ol></td>
                 <!-- <td>{{job.perks}}</td> -->
                 <td><a href="{{job.link}}">Link</a></td>
                 {% for key, value in hired.items %}
