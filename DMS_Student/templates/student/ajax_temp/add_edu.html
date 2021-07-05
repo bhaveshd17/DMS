@@ -1,7 +1,7 @@
 <div class="card card-body mb-3">
     <form action="{% url 'updateEdu' id %}" method="POST">
         <input type="hidden" name="csrfmiddlewaretoken" value="{{csrf_token_value}}">
-        
+
         <div class="card-text">
             <table class="table table-hover table-responsive-sm">
                 <tbody>
@@ -32,6 +32,10 @@
                         <td>{{form.percentage}}</td>
                     </tr>
                     <tr>
+                        <td><strong>Year Gap</strong></td>
+                        <td>{{form.gap}}</td>
+                    </tr>
+                    <tr>
                         <td><strong>Starting Year</strong></td>
                         <td>{{form.start_year}}</td>
                     </tr>
@@ -52,6 +56,7 @@
 <script>
     let form_fields1 = document.getElementsByTagName('input')
     document.getElementById('id_degree').classList = 'form-control';
+    document.getElementById('id_gap').classList = 'form-control';
     for (let field in form_fields1) {
         form_fields1[field].className += ' form-control'
     }

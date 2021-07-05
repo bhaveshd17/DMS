@@ -31,6 +31,11 @@
                         <label for="id_percentage">Percentage/CGPA</label>
                         {{edu_form.percentage}}
                     </div>
+
+                    <div class="mb-3">
+                        <label for="id_gap">Year Drop</label>
+                        {{edu_form.gap}}
+                    </div>
                     <div class="mb-3">
                         <label for="id_startyear">Starting Date</label>
                         {{edu_form.start_year}}
@@ -142,6 +147,10 @@
                         <label for="id_fe_cgpa">FE CGPA</label>
                         {{fe_form.fe_cgpa}}
                     </div>
+                    <div class="mb-3">
+                        <label for="id_kt_FE">KT in FE</label>
+                        {{fe_form.kt_FE}}
+                    </div>
 
                     <div hidden>
                         {{fe_form.roll_no_1}}
@@ -183,6 +192,14 @@
                     <div class="mb-3">
                         <label for="id_se_cgpa">SE CGPA</label>
                         {{se_form.se_cgpa}}
+                    </div>
+                    <div class="mb-3">
+                        <label for="id_kt_SE">KT in SE</label>
+                        {{se_form.kt_SE}}
+                    </div>
+                    <div class="mb-3">
+                        <label for="id_drop_SE">Year Drop between FE AND SE</label>
+                        {{se_form.drop_SE}}
                     </div>
 
                     <div hidden>
@@ -226,7 +243,14 @@
                         <label for="id_te_cgpa">TE CGPA</label>
                         {{te_form.te_cgpa}}
                     </div>
-
+                    <div class="mb-3">
+                        <label for="id_kt_TE">KT in TE</label>
+                        {{te_form.kt_TE}}
+                    </div>
+                    <div class="mb-3">
+                        <label for="id_drop_TE">Year Drop between SE AND TE</label>
+                        {{te_form.drop_TE}}
+                    </div>
                     <div hidden>
                         {{te_form.roll_no_3}}
                     </div>
@@ -269,6 +293,14 @@
                         {{be_form.be_cgpa}}
                     </div>
 
+                    <div class="mb-3">
+                        <label for="id_kt_BE">KT in BE</label>
+                        {{be_form.kt_BE}}
+                    </div>
+                    <div class="mb-3">
+                        <label for="id_drop_BE">Year Drop between TE AND BE</label>
+                        {{be_form.drop_BE}}
+                    </div>
                     <div hidden>
                         {{be_form.roll_no_4}}
                     </div>

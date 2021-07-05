@@ -5,3 +5,7 @@ register = template.Library()
 def cgpa_percentage_conversion(cgpa):
     percentage = cgpa*7.1 + 11
     return round(percentage, 2)
+
+@register.filter(name='to_int')
+def to_int(value):
+    return int(value)

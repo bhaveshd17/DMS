@@ -187,7 +187,7 @@ def update_education(request, pk):
             return redirect('profile')
 
     template = render_to_string('student/ajax_temp/add_edu.html',
-                                {'id':pk, 'csrf_token_value':csrf_token_value, 'form':form})
+                                {'id':pk, 'csrf_token_value':csrf_token_value,'edu':instance, 'form':form})
     return JsonResponse({'data':template})
 
 @login_required(login_url='login')

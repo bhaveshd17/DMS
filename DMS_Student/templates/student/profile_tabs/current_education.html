@@ -24,13 +24,20 @@
                             <td><strong>FE CGPA</strong></td>
                             <td>{{fe.0.fe_cgpa}} ({{fe.0.fe_cgpa|cgpa_percentage_conversion}}%)</td>
                         </tr>
-                
+                        <tr>
+                            <td><strong>KT</strong></td>
+                            <td>{{fe.0.kt_FE}}</td>
+                        </tr>
+
+
                     </tbody>
                 </table>
             </div>
             <div class="d-flex justify-content-center">
-                <p class="mr-2"><i data-id="{{fe.0.id}}" data-year="fe" class="fe_update fas fa-edit" style="color: black;cursor: pointer;"></i></p>
-                <a href="{% url 'deleteCurrEdu' fe.0.id %}?year=fe" class="ml-2" style="color: black;"><i class="fas fa-trash-alt"></i></a>
+                <p class="mr-2"><i data-id="{{fe.0.id}}" data-year="fe" class="fe_update fas fa-edit"
+                        style="color: black;cursor: pointer;"></i></p>
+                <a href="{% url 'deleteCurrEdu' fe.0.id %}?year=fe" class="ml-2" style="color: black;"><i
+                        class="fas fa-trash-alt"></i></a>
             </div>
         </div>
         {% endif %}
@@ -55,13 +62,25 @@
                             <td><strong>SE CGPA</strong></td>
                             <td>{{se.0.se_cgpa}} ({{se.0.se_cgpa|cgpa_percentage_conversion}}%)</td>
                         </tr>
-                
+
+                        <tr>
+                            <td><strong>KT</strong></td>
+                            <td>{{se.0.kt_SE}}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Year Drop</strong></td>
+                            <td>{{se.0.drop_SE}}
+                                {% if se.0.drop_SE|to_int <= 1 %} Year {% else %} Years {% endif %} </td>
+                        </tr>
+
                     </tbody>
                 </table>
             </div>
             <div class="d-flex justify-content-center">
-                <p class="mr-2"><i data-id="{{se.0.id}}" data-year="se" class="se_update fas fa-edit" style="color: black;cursor: pointer;"></i></p>
-                <a href="{% url 'deleteCurrEdu' se.0.id %}?year=se" class="ml-2" style="color: black;"><i class="fas fa-trash-alt"></i></a>
+                <p class="mr-2"><i data-id="{{se.0.id}}" data-year="se" class="se_update fas fa-edit"
+                        style="color: black;cursor: pointer;"></i></p>
+                <a href="{% url 'deleteCurrEdu' se.0.id %}?year=se" class="ml-2" style="color: black;"><i
+                        class="fas fa-trash-alt"></i></a>
             </div>
         </div>
         {% endif %}
@@ -86,13 +105,26 @@
                             <td><strong>TE CGPA</strong></td>
                             <td>{{te.0.te_cgpa}} ({{te.0.te_cgpa|cgpa_percentage_conversion}}%)</td>
                         </tr>
-                
+                        <tr>
+                            <td><strong>KT</strong></td>
+                            <td>{{te.0.kt_TE}}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Year Drop</strong></td>
+                            <td>{{te.0.drop_TE}}
+
+                                {% if te.0.drop_TE|to_int <= 1 %} Year {% else %} Years {% endif %} </td>
+                        </tr>
+
+
                     </tbody>
                 </table>
             </div>
             <div class="d-flex justify-content-center">
-                <p class="mr-2"><i data-id="{{te.0.id}}" data-year="te" class="te_update fas fa-edit" style="color: black;cursor: pointer;"></i></p>
-                <a href="{% url 'deleteCurrEdu' te.0.id %}?year=te" class="ml-2" style="color: black;"><i class="fas fa-trash-alt"></i></a>
+                <p class="mr-2"><i data-id="{{te.0.id}}" data-year="te" class="te_update fas fa-edit"
+                        style="color: black;cursor: pointer;"></i></p>
+                <a href="{% url 'deleteCurrEdu' te.0.id %}?year=te" class="ml-2" style="color: black;"><i
+                        class="fas fa-trash-alt"></i></a>
             </div>
         </div>
         {% endif %}
@@ -117,13 +149,25 @@
                             <td><strong>BE CGPA</strong></td>
                             <td>{{be.0.be_cgpa}} ({{be.0.be_cgpa|cgpa_percentage_conversion}}%)</td>
                         </tr>
-                
+
+                        <tr>
+                            <td><strong>KT</strong></td>
+                            <td>{{be.0.kt_BE}}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Year Drop</strong></td>
+                            <td>{{be.0.drop_BE}}
+                                {% if be.0.drop_BE|to_int <= 1 %} Year {% else %} Years {% endif %} </td>
+                        </tr>
+
                     </tbody>
                 </table>
             </div>
             <div class="d-flex justify-content-center">
-                <p class="mr-2"><i data-id="{{be.0.id}}" data-year="be" class="be_update fas fa-edit" style="color: black;cursor: pointer;"></i></p>
-                <a href="{% url 'deleteCurrEdu' be.0.id %}?year=be" class="ml-2" style="color: black;"><i class="fas fa-trash-alt"></i></a>
+                <p class="mr-2"><i data-id="{{be.0.id}}" data-year="be" class="be_update fas fa-edit"
+                        style="color: black;cursor: pointer;"></i></p>
+                <a href="{% url 'deleteCurrEdu' be.0.id %}?year=be" class="ml-2" style="color: black;"><i
+                        class="fas fa-trash-alt"></i></a>
             </div>
         </div>
         {% endif %}

@@ -1,3 +1,4 @@
+{% load custom_tags %}
 <div class="tab-pane fade mt-3" id="edu" role="tabpanel" aria-labelledby="edu-tab">
     {% if edu_list.count < 2 %} 
     <div class="alert alert-danger" role="alert">
@@ -34,6 +35,16 @@
                         <tr>
                             <td><strong>Board</strong></td>
                             <td>{{edu.board}}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Year Drop</strong></td>
+                            <td>{{edu.gap}} 
+                                {% if edu.gap|to_int <= 1  %}
+                                Year
+                                {% else %}
+                                Years
+                                {% endif %}
+                            </td>
                         </tr>
                         <tr>
                             <td><strong>Percentage/CGPA</strong></td>

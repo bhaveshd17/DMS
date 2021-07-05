@@ -1,5 +1,14 @@
 let form_fields = document.getElementsByTagName('input')
 document.getElementById('id_degree').classList = 'form-control';
+document.getElementById('id_gap').classList = 'form-control';
+document.getElementById('id_kt_FE').classList = 'form-control'
+
+for (let l of ["SE", "TE", "BE"].values()){
+    document.getElementById('id_kt_'+l).classList = 'form-control'
+    document.getElementById('id_drop_'+l).classList = 'form-control'
+
+}
+
 for (let field in form_fields) {
     form_fields[field].className += ' form-control'
 }
