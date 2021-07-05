@@ -1,12 +1,13 @@
 let form_fields = document.getElementsByTagName('input')
-document.getElementById('id_degree').classList = 'form-control';
-document.getElementById('id_gap').classList = 'form-control';
-document.getElementById('id_kt_FE').classList = 'form-control'
+let select_fields = document.getElementsByTagName('select')
 
 for (let l of ["SE", "TE", "BE"].values()){
     document.getElementById('id_kt_'+l).classList = 'form-control'
     document.getElementById('id_drop_'+l).classList = 'form-control'
 
+}
+for (let field in select_fields) {
+    select_fields[field].className += ' form-control'
 }
 
 for (let field in form_fields) {
@@ -31,3 +32,16 @@ window.addEventListener("resize", function () {
 if (window.innerWidth < 982) {
     details_cards.classList.remove("w-50")
 }
+
+
+let degree_select = document.getElementById("id_degree")
+degree_select.addEventListener("change", (event)=>{
+    let deploma_div = document.getElementById("diploma_div")
+    if(event.target.value == 'diploma'){
+        deploma_div.style.display = ""
+        
+    }
+    else{
+        deploma_div.display = "none"
+    }
+})
