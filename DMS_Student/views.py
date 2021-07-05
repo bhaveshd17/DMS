@@ -11,7 +11,7 @@ from django.template.loader import render_to_string
 from .models import *
 from .decorators import unauthenticated_user
 from .form import SkillsForm, AddEduForm, AddExpForm, FeForm, SeForm, TeForm, BeForm
-from .utils import IntershipJobLogic, branch_logic
+from .utils import IntershipJobLogic, branch_logic, be_year_logic
 from .filter_logic import intern_filters, job_filters
 
 import json
@@ -130,6 +130,8 @@ def profile(request):
     name = request.user.first_name.upper()+' '+student.father_name.upper()+' '+request.user.last_name.upper()
     yearOfJoining='20'+rollNo[0:2]
     branch = branch_logic(rollNo)
+    prev_edu = Add_edu.objects.filter(roll_no=request.user.username)
+    prev_deg = [edu.degree for edu in prev_edu]
     div=rollNo[5]
     studentId=rollNo[6:]
     edu=Add_edu.objects.filter(roll_no=rollNo).order_by("degree")
@@ -153,7 +155,7 @@ def profile(request):
              'studentId':studentId,'skill_form':skill_form,'edu_list':edu,'exp_list':exp,
              'student_info':student, 'name':name, 'edu_form':edu_form, 'exp_form':exp_form,
              'fe_form':fe_form, 'se_form':se_form, 'te_form':te_form, 'be_form':be_form,
-             'fe':fe,'se':se,'te':te,'be':be}
+             'fe':fe,'se':se,'te':te,'be':be, 'prev_deg':prev_deg}
     return render(request,"student/profile.html",content)
 
 
@@ -238,23 +240,73 @@ def delete_experience(request, pk):
 
 @login_required(login_url='login')
 def add_curr_education(request):
+    year = request.GET.get('year')
+    if request.method == 'POST':
+        data = be_year_logic(request=request, year=year)
+        form = data['form']
+        if form.is_valid():
+            form.save()
+            messages.success(request, f"successfully added!")
+            return redirect('profile')
+        else:
+            messages.error(request, f"invalid entry!")
+            return redirect('profile')
 
+@login_required(login_url='login')
+def update_curr_education(request, pk, year):
+    csrf_token_value = request.COOKIES['csrftoken']
+    if request.method == "POST":
+        form_data = be_year_logic(request=request, year=year, pk=pk)
+        form = form_data['form']
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Successfully Updated!')
+            return redirect('profile')
+        else:
+            messages.error(request, 'Invalid Entry')
+            return redirect('profile')
+
+    template_data = be_year_logic(request=request, year=year, csrf_token_value=csrf_token_value, pk=pk, template_stat=1)
+    template = template_data['template']
+    return JsonResponse({'data':template})
+
+@login_required(login_url='login')
+def delete_curr_education(request, pk):
+    year = request.GET.get('year')
+    data = be_year_logic(request=request, year=year, pk=pk)
+    obj = data['del_obj']
+    obj.delete()
+    messages.success(request, "successfully deleted!")
     return redirect('profile')
 
 
 @login_required(login_url='login')
+def add_certificates(request):
+    return redirect('profile')
+
+
+
+
+@login_required(login_url='login')
 def UpdateSkills(request):
-    rollNo=request.user.username
-    student=Student.objects.get(roll_no=rollNo)
-    if request.method=="POST":
-        form=SkillsForm(request.POST,instance=student)
+    csrf_token_value = request.COOKIES['csrftoken']
+    rollNo = request.user.username
+    student = Student.objects.get(roll_no=rollNo)
+    form = SkillsForm(instance=student)
+    if request.method == "POST":
+        form = SkillsForm(request.POST, instance=student)
         if form.is_valid():
             form.save()
             messages.success(request, 'Successfully Updated')
-            return redirect('/student/profile')
+            return redirect('profile')
         else:
             messages.error(request, 'Invalid Update')
-            return redirect('/student/profile')
+            return redirect('profile')
+
+    template = render_to_string('student/ajax_temp/update_skills.html',
+                                {'form': form, 'csrf_token_value':csrf_token_value })
+    return JsonResponse({'data': template})
+
 
 
 

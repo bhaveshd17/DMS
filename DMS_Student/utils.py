@@ -1,5 +1,8 @@
+from django.template.loader import render_to_string
+
 from .models import *
 import operator
+from .form import FeForm, SeForm, TeForm, BeForm
 
 def branch_logic(rollNo):
     if rollNo[2:5]=="101":
@@ -15,6 +18,61 @@ def branch_logic(rollNo):
     else:
         branch="Invalid User"
     return branch
+
+def be_year_logic(request, year, pk=None, template_stat=None, csrf_token_value=None):
+    form, obj, template = None, None, None
+    if year == 'fe':
+        form = FeForm(request.POST)
+        if pk:
+            obj = FE.objects.get(id=pk)
+            form = FeForm(instance=obj)
+            if request.method == 'POST':
+                form = FeForm(request.POST, instance=obj)
+            if template_stat:
+                template = render_to_string('student/ajax_temp/curr_edu/fe.html',
+                                            {'id': pk, 'csrf_token_value': csrf_token_value, 'form': form,
+                                             'user': request.user})
+
+    elif year == 'se':
+        form = SeForm(request.POST)
+        if pk:
+            obj = SE.objects.get(id=pk)
+            form = SeForm(instance=obj)
+            if request.method == 'POST':
+                form = SeForm(request.POST, instance=obj)
+            if template_stat:
+                template = render_to_string('student/ajax_temp/curr_edu/se.html',
+                                            {'id': pk, 'csrf_token_value': csrf_token_value, 'form': form,
+                                             'user': request.user})
+
+    elif year == 'te':
+        form = TeForm(request.POST)
+        if pk:
+            obj = TE.objects.get(id=pk)
+            form = TeForm(instance=obj)
+            if request.method == 'POST':
+                form = TeForm(request.POST, instance=obj)
+
+            if template_stat:
+                template = render_to_string('student/ajax_temp/curr_edu/te.html',
+                                            {'id': pk, 'csrf_token_value': csrf_token_value, 'form': form,
+                                             'user': request.user})
+
+    elif year == 'be':
+        form = BeForm(request.POST)
+        if pk:
+            obj = BE.objects.get(id=pk)
+            form = BeForm(instance=obj)
+            if request.method == 'POST':
+                form = BeForm(request.POST, instance=obj)
+            if template_stat:
+                template = render_to_string('student/ajax_temp/curr_edu/be.html',
+                                            {'id': pk, 'csrf_token_value': csrf_token_value, 'form': form,
+                                             'user': request.user})
+
+    return {'form':form, 'del_obj':obj, 'template':template}
+
+
 
 def IntershipJobLogic(request):
     roll_no = request.user.username

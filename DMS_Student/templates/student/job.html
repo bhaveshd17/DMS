@@ -61,6 +61,11 @@
                         placeholder="choose date" data-filter="starting_from">
                 </div>
 
+                <div class="d-flex justify-content-between mb-3">
+                    <label for="work_from_home">Work From Home</label>
+                    <input type="checkbox" class="form-check mt-2 filter_data" data-filter="work_from_home" name="work_from_home" id="work_from_home">
+                </div>
+
                 <div class="mb-3 sort_by_date">
                     <p class="float-right">sort by apply date</p>
                 </div>
@@ -85,6 +90,9 @@
                 details</a>
             <h4>{{job.comp_name}}</h4>
             <h6>{{job.domain}}</h6>
+            {% if job.work_from_home %}
+            <i class="fas fa-home mr-2"></i><span class="text-muted">Work From Home</span>
+            {% endif %}
             <div class="row">
                 <div class="col-3">
                     <p class="mt-4"><strong>Salary:</strong></p>
@@ -124,13 +132,13 @@
     }
 
     function updateTextInput(val) {
-        if(Number(val) == 3){
+        if (Number(val) == 3) {
             document.getElementById('salary_value').innerText = String(Number(val)) + ' LPA';
         }
-        else{
+        else {
             document.getElementById('salary_value').innerText = String(2 * Number(val)) + ' LPA';
         }
-        
+
     }
 
 

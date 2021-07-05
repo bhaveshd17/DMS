@@ -11,7 +11,7 @@
 
             <!-- Modal body -->
             <div class="modal-body px-5 my-2">
-                <form class="" method="POST" action="{% url 'addEdu' %}">
+                <form method="POST" action="{% url 'addEdu' %}">
                     {% csrf_token %}
 
                     <div class="mb-3">
@@ -22,7 +22,7 @@
                         <label for="id_degree">10th/12th/Diploma</label>
                         {{edu_form.degree}}
                     </div>
-                    
+
                     <div class="mb-3">
                         <label for="id_board">Board</label>
                         {{edu_form.board}}
@@ -48,10 +48,10 @@
                     </button>
                 </form>
             </div>
-            </div>
-
         </div>
+
     </div>
+</div>
 </div>
 
 
@@ -70,37 +70,47 @@
 
             <!-- Modal body -->
             <div class="modal-body px-5 my-2">
-                    <form class="" method="post" action="{% url 'addExp' %}">
-                        {% csrf_token %}
-                        <div class="mb-3">
-                            <label for="id_clgname">Company Name</label>
-                            {{exp_form.comp_name}}
-                        </div>
-                        <div class="mb-3">
-                            <label for="id_degree">Role</label>
-                            {{exp_form.role}}
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label for="id_board">Duration</label>
-                            {{exp_form.duration}}
-                        </div>
-                        <div class="mb-3">
-                            <label for="id_percentage">Start Date</label>
-                            {{exp_form.start_date}}
-                        </div>
-                        <div class="mb-3" hidden>
-                            {{exp_form.rollNo}}
-                        </div>
+                <form method="post" action="{% url 'addExp' %}">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="id_comp_name">Company Name</label>
+                        {{exp_form.comp_name}}
+                    </div>
+                    <div class="mb-3">
+                        <label for="id_role">Role</label>
+                        {{exp_form.role}}
+                    </div>
 
-                        <button class="btn btn-primary w-100">
-                            Add
-                        </button>
+                    <div class="mb-3">
+                        <label for="id_duration">Duration</label>
+                        {{exp_form.duration}}
+                    </div>
+                    <div class="mb-3">
+                        <label for="id_start_date">Start Date</label>
+                        {{exp_form.start_date}}
+                    </div>
+                    <div class="mb-3" hidden>
+                        {{exp_form.rollNo}}
+                    </div>
+
+                    <button class="btn btn-primary w-100">
+                        Add
+                    </button>
+                </form>
             </div>
 
         </div>
     </div>
 </div>
+
+
+
+
+
+
+
+
+
 
 
 <!-- curr edu -->
@@ -116,29 +126,30 @@
 
             <!-- Modal body -->
             <div class="modal-body px-5 my-2">
-                    <form class="" method="post" action="">
-                        {% csrf_token %}
-                        
-                        <div class="mb-3">
-                            <label for="id_fe_sem1_sgpa">SEM 1 SGPA</label>
-                            {{fe_form.fe_sem1_sgpa}}
-                        </div>
-                        <div class="mb-3">
-                            <label for="id_fe_sem2_sgpa">SEM 2 SGPA</label>
-                            {{fe_form.fe_sem2_sgpa}}
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label for="id_fe_cgpa">FE CGPA</label>
-                            {{fe_form.fe_cgpa}}
-                        </div>
+                <form method="post" action="{% url 'addCurrEdu' %}?year=fe">
+                    {% csrf_token %}
 
-                        <div hidden>
-                            {{fe_form.roll_no_1}}
-                        </div>
-                        <button class="btn btn-primary w-100">
-                            Add
-                        </button>
+                    <div class="mb-3">
+                        <label for="id_fe_sem1_sgpa">SEM 1 SGPA</label>
+                        {{fe_form.fe_sem1_sgpa}}
+                    </div>
+                    <div class="mb-3">
+                        <label for="id_fe_sem2_sgpa">SEM 2 SGPA</label>
+                        {{fe_form.fe_sem2_sgpa}}
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="id_fe_cgpa">FE CGPA</label>
+                        {{fe_form.fe_cgpa}}
+                    </div>
+
+                    <div hidden>
+                        {{fe_form.roll_no_1}}
+                    </div>
+                    <button class="btn btn-primary w-100">
+                        Add
+                    </button>
+                </form>
             </div>
 
         </div>
@@ -157,29 +168,30 @@
 
             <!-- Modal body -->
             <div class="modal-body px-5 my-2">
-                    <form class="" method="post" action="">
-                        {% csrf_token %}
-                        
-                        <div class="mb-3">
-                            <label for="id_se_sem3_sgpa">SEM 3 SGPA</label>
-                            {{se_form.se_sem3_sgpa}}
-                        </div>
-                        <div class="mb-3">
-                            <label for="id_se_sem4_sgpa">SEM 4 SGPA</label>
-                            {{se_form.se_sem4_sgpa}}
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label for="id_se_cgpa">SE CGPA</label>
-                            {{se_form.se_cgpa}}
-                        </div>
+                <form class="" method="post" action="{% url 'addCurrEdu' %}?year=se">
+                    {% csrf_token %}
 
-                        <div hidden>
-                            {{se_form.roll_no_2}}
-                        </div>
-                        <button class="btn btn-primary w-100">
-                            Add
-                        </button>
+                    <div class="mb-3">
+                        <label for="id_se_sem3_sgpa">SEM 3 SGPA</label>
+                        {{se_form.se_sem3_sgpa}}
+                    </div>
+                    <div class="mb-3">
+                        <label for="id_se_sem4_sgpa">SEM 4 SGPA</label>
+                        {{se_form.se_sem4_sgpa}}
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="id_se_cgpa">SE CGPA</label>
+                        {{se_form.se_cgpa}}
+                    </div>
+
+                    <div hidden>
+                        {{se_form.roll_no_2}}
+                    </div>
+                    <button class="btn btn-primary w-100">
+                        Add
+                    </button>
+                </form>
             </div>
 
         </div>
@@ -198,29 +210,30 @@
 
             <!-- Modal body -->
             <div class="modal-body px-5 my-2">
-                    <form class="" method="post" action="">
-                        {% csrf_token %}
-                        
-                        <div class="mb-3">
-                            <label for="id_te_sem5_sgpa">SEM 5 SGPA</label>
-                            {{te_form.te_sem5_sgpa}}
-                        </div>
-                        <div class="mb-3">
-                            <label for="id_te_sem6_sgpa">SEM 6 SGPA</label>
-                            {{te_form.te_sem6_sgpa}}
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label for="id_te_cgpa">TE CGPA</label>
-                            {{te_form.te_cgpa}}
-                        </div>
+                <form class="" method="post" action="{% url 'addCurrEdu' %}?year=te">
+                    {% csrf_token %}
 
-                        <div hidden>
-                            {{te_form.roll_no_3}}
-                        </div>
-                        <button class="btn btn-primary w-100">
-                            Add
-                        </button>
+                    <div class="mb-3">
+                        <label for="id_te_sem5_sgpa">SEM 5 SGPA</label>
+                        {{te_form.te_sem5_sgpa}}
+                    </div>
+                    <div class="mb-3">
+                        <label for="id_te_sem6_sgpa">SEM 6 SGPA</label>
+                        {{te_form.te_sem6_sgpa}}
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="id_te_cgpa">TE CGPA</label>
+                        {{te_form.te_cgpa}}
+                    </div>
+
+                    <div hidden>
+                        {{te_form.roll_no_3}}
+                    </div>
+                    <button class="btn btn-primary w-100">
+                        Add
+                    </button>
+                </form>
             </div>
 
         </div>
@@ -239,29 +252,30 @@
 
             <!-- Modal body -->
             <div class="modal-body px-5 my-2">
-                    <form class="" method="post" action="">
-                        {% csrf_token %}
-                        
-                        <div class="mb-3">
-                            <label for="id_be_sem7_sgpa">SEM 7 SGPA</label>
-                            {{be_form.be_sem7_sgpa}}
-                        </div>
-                        <div class="mb-3">
-                            <label for="id_be_sem8_sgpa">SEM 8 SGPA</label>
-                            {{be_form.be_sem8_sgpa}}
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label for="id_be_cgpa">BE CGPA</label>
-                            {{be_form.be_cgpa}}
-                        </div>
+                <form method="post" action="{% url 'addCurrEdu' %}?year=be">
+                    {% csrf_token %}
 
-                        <div hidden>
-                            {{be_form.roll_no_4}}
-                        </div>
-                        <button class="btn btn-primary w-100">
-                            Add
-                        </button>
+                    <div class="mb-3">
+                        <label for="id_be_sem7_sgpa">SEM 7 SGPA</label>
+                        {{be_form.be_sem7_sgpa}}
+                    </div>
+                    <div class="mb-3">
+                        <label for="id_be_sem8_sgpa">SEM 8 SGPA</label>
+                        {{be_form.be_sem8_sgpa}}
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="id_be_cgpa">BE CGPA</label>
+                        {{be_form.be_cgpa}}
+                    </div>
+
+                    <div hidden>
+                        {{be_form.roll_no_4}}
+                    </div>
+                    <button class="btn btn-primary w-100">
+                        Add
+                    </button>
+                </form>
             </div>
 
         </div>

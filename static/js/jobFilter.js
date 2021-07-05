@@ -4,6 +4,7 @@ var filter_obj={
 	"starting_from":"",
     "location":["e.g. Mumbai"],
 	"sort_by_date":false,
+	"work_from_home":false,
 };
 const ajax_method = {
 	url:'/student/jobFilter',
@@ -35,7 +36,9 @@ $(document).ready(function(){
 	$(".filter_data").on('change',function(){
         var starting_from = $('#starting_from').val();
         filter_obj.starting_from = starting_from;
-		
+		work_from_home = $('#work_from_home').is(":checked");
+		filter_obj.work_from_home = work_from_home;
+
 		$(".custom-select").each(function(index,elem){
 			var filter_val=$(this).val();
 			var filter_key=$(this).data('filter');

@@ -1,4 +1,6 @@
-
+.fas:hover{
+  font-size: 15px;
+}
 .profile-img img {
   width: 40%;
   height: 100%;

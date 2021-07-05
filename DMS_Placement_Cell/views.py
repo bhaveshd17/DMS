@@ -11,8 +11,8 @@ import json
 
 @allowed_users(allowed_roles=['Placement_Cell'])
 def index(request):
-    int_user = Int_user.objects.all().order_by("id")
-    job_user = Job_user.objects.all().order_by("id")
+    int_user = Int_user.objects.all().order_by("int_id__comp_name")
+    job_user = Job_user.objects.all().order_by("job_id__comp_name")
     content = {'int_user':int_user, 'job_user':job_user}
     return render(request, 'placement/index.html', content)
 

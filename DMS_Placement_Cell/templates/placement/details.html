@@ -17,7 +17,7 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-sm-3 text-center">
-                        <h6>{{pay}}</h6>Rs. {{details.sal}}
+                        <h6>{{pay}}</h6>Rs. {{details.sal}} LPA
                     </div>
                     <div class="col-sm-3 text-center">
                         <h6>Start Date</h6>{{details.start_date}}
@@ -31,6 +31,9 @@
                         {{details.adm_id}}
                     </div>
                 </div>
+                {% if details.work_from_home %}
+                <div class=""><i class="fas fa-home mt-3 mr-2"></i><span class="text-muted">Work From Home</span></div>
+                {% endif %}
                 <hr>
                 <h5>About
                     {{details.comp_name}}

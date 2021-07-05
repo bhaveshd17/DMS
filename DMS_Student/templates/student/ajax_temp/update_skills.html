@@ -1,0 +1,13 @@
+<form method="post" action="{% url 'UpdateSkills'%}">
+    <input type="hidden" name="csrfmiddlewaretoken" value="{{csrf_token_value}}">
+    <div class="mb-3">
+        <label for="id_skills"><strong>Update Skills</strong></label>
+        {{form.skills}}
+    </div>
+    <div>
+        <button type="submit" class="btn btn-outline-primary">update</button>
+    </div>
+</form>
+<script>
+    document.getElementById("id_skills").classList = "form-control w-50 h-10"
+</script>
