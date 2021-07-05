@@ -40,8 +40,18 @@ def add_job(request):
     if request.method=="POST":
         form=JobForm(request.POST)
         if form.is_valid():
-            # print(form)
             form.save()
+            job = Job.objects.filter(adm_id=id).order_by("-id")[0]
+            text = ""
+            if job.cgpa != 0:
+                text = text + f"<li class='text-left'>Minimum {job.cgpa} cgpa required</li>"
+            if job.live_kt != "0":
+                text = text + f"<li class='text-left'>Minimum {job.live_kt} KT </li>"
+            if job.drop != "0":
+                text = text + f"<li class='text-left'>Minimum {job.drop} year drop</li>"
+            if text == "":
+                text = "No Criteria"
+            Job.objects.filter(id=job.id).update(who_can_apply=text)
             messages.success(request,"Job Added Successfully.")
             return redirect("placementIndex")
         else:

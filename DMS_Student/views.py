@@ -49,20 +49,20 @@ def internshipFilter(request):
 @login_required(login_url='login')
 def job(request):
     data = IntershipJobLogic(request)
-    related_job_list=data['related_job_list']
+    job_list=data['related_job_list']
     student=Student.objects.get(roll_no=request.user.username)
-    cgpa=BE.objects.get(roll_no_4=student).be_cgpa
-    live_kt=BE.objects.get(roll_no_4=student).kt_BE
-    drop_2=SE.objects.get(roll_no_2=student).drop_FE
-    drop_3=TE.objects.get(roll_no_3=student).drop_TE
-    drop_4=BE.objects.get(roll_no_4=student).drop_BE
+    cgpa=BE.objects.filter(roll_no_4=student).be_cgpa
+    live_kt=BE.objects.filter(roll_no_4=student)[0].kt_BE
+    drop_2=SE.objects.filter(roll_no_2=student)[0].drop_FE
+    drop_3=TE.objects.filter(roll_no_3=student)[0].drop_TE
+    drop_4=BE.objects.filter(roll_no_4=student)[0].drop_BE
     drop=int(drop_2)+int(drop_3)+int(drop_4)
-    jobs=[]
-    for job in related_job_list:
+    related_job_list=[]
+    for job in job_list:
         if job.cgpa<=cgpa and int(live_kt)<=int(job.live_kt) and int(drop)<=int(job.drop):
-            jobs.append(job)
+            related_job_list.append(job)
 
-    content = {'jobs': jobs,
+    content = {'related_job_list': related_job_list,
                'skill_set':data['skill_set'],
                'cities':"Mumbai,Bangalore,Chennai".split(','),
                }

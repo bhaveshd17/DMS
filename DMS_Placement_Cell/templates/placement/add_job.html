@@ -3,76 +3,100 @@
 {% block title %} Add Job {% endblock %}
 {% block content %}
 <div class="card">
-    <div class="card-heade text-center">
+    <div class="card-header text-center">
     <h1>Add New Job</h1>
     </div>
     <div class="card-body">
         <form method="POST" action="{% url 'add_job' %}">
             {% csrf_token %}
-            <div class="mb-3">
-                <label class="form-control"><strong>Company Name:</strong></label>
-                {{form.comp_name}}
+            <div class="mb-3 form-group row">
+                <div class="col-md-3"><label class="form-control"><strong>Company Name:</strong></label></div>
+                <div class="col-md-9">{{form.comp_name}}</div>
             </div>
-            <div class="mb-3">
-                <label class="form-control"><strong>Company Location:</strong></label>
-                {{form.location}}
+            <div class="mb-3 form-group row">
+                <div class="col-md-3"><label class="form-control"><strong>Company Location:</strong></label></div>
+                <div class="col-md-9">{{form.location}}</div>
             </div>
-            <div class="mb-3">
-                <label class="form-control"><strong>Company Site:</strong></label>
-                {{form.link}}
+            <div class="mb-3 form-group row">
+                <div class="col-md-3"><label class="form-control"><strong>Company Site:</strong></label></div>
+                <div class="col-md-9">{{form.link}}</div>
             </div>
-            <div class="mb-3">
-                <label class="form-control"><strong>Start Date:</strong></label>
-                {{form.start_date}}
+            <div class="mb-3 form-group row">
+                <div class="col-md-3"><label class="form-control"><strong>Start Date:</strong></label></div>
+                <div class="col-md-9">{{form.start_date}}</div>
             </div>
-            <div class="mb-3">
-                <label class="form-control"><strong>Apply By:</strong></label>
-                {{form.apply_by}}
+            <div class="mb-3 form-group row">
+                <div class="col-md-3"><label class="form-control"><strong>Apply By:</strong></label></div>
+                <div class="col-md-9">{{form.apply_by}}</div>
             </div>
-            <div class="mb-3">
-                <label class="form-control"><strong>Salary:</strong></label>
-                {{form.sal}}
+            <div class="mb-3 form-group row">
+                <div class="col-md-3"><label class="form-control"><strong>Salary:</strong></label></div>
+                <div class="col-md-9">{{form.sal}}</div>
             </div>
-            <div class="mb-3">
-                <label class="form-control"><strong>Skills:</strong></label>
-                {{form.skills}}
+            <div class="mb-3 form-group row">
+                <div class="col-md-3"><label class="form-control"><strong>Skills:</strong></label></div>
+                <div class="col-md-9">{{form.skills}}</div>
             </div>
-            <div class="mb-3" style="display: none;">
-                <label class="form-control"><strong>Admin Id</strong></label>
-                {{form.adm_id}}
+            <div class="mb-3 form-group row" style="display: none;">
+                <div class="col-md-3"><label class="form-control"><strong>Admin Id</strong></label></div>
+                <div class="col-md-9">{{form.adm_id}}</div>
             </div>
-            <div class="mb-3">
-                <label class="form-control"><strong>Domain:</strong></label>
-                {{form.domain}}
+            <div class="mb-3 form-group row">
+                <div class="col-md-3"><label class="form-control"><strong>Domain:</strong></label></div>
+                <div class="col-md-9">{{form.domain}}</div>
             </div>
-            <div class="mb-3">
-                <label class="form-control"><strong>About Company:</strong></label>
-                {{form.about_comp}}
+            <div class="mb-3 form-group row">
+                <div class="col-md-3"><label class="form-control"><strong>About Company:</strong></label></div>
+                <div class="col-md-9">{{form.about_comp}}</div>
             </div>
-            <div class="mb-3">
-                <label class="form-control"><strong>About Work:</strong></label>
-                {{form.about_work}}
+            <div class="mb-5 form-group row">
+                <div class="col-md-3"><label class="form-control"><strong>About Work:</strong></label></div>
+                <div class="col-md-9">{{form.about_work}}</div>
             </div>
-            <div class="mb-3">
-                <label class="form-control"><strong>Eligible:</strong></label>
-                {{form.who_can_apply}}
+            <div class="mb-3 form-group row" hidden>
+                <div class="col-md-3"><label class="form-control"><strong>Eligible:</strong></label></div>
+                <div class="col-md-9"> {{form.who_can_apply}}</div>
             </div>
-            <div class="mb-3">
-                <label class="form-control"><strong>Work From Home:</strong></label>
-                {{form.work_from_home}}
+            <div class="mb-3 form-group row">
+                <div class="col-md-3"><label class="form-control"><strong>Eligibilty:</strong></label></div>
+                <div class="col-md-9">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Minimum cgpa required</label>
+                            <div class="my-2"> {{form.cgpa}}</div>
+                        </div>
+                        <div class="col-md-6">
+                            <label>KT</label>
+                            <div class="my-2"> {{form.live_kt}}</div>
+                        </div>
+                 
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Year Drop</label>
+                            <div class="my-2"> {{form.drop}}</div>
+                        </div>
+                        
+                    </div>
+                </div>
             </div>
-            <div class="mb-3">
-                <label class="form-control"><strong>Perks:</strong></label>
-                {{form.perks}}
+            <div class="mb-3 form-group row">
+                <div class="col-md-3"><label class="form-control"><strong>Work From Home:</strong></label></div>
+                <div class="col-md-9">{{form.work_from_home}}</div>
             </div>
-            <div class="mb-3">
-                <label class="form-control"><strong>Additional Information:</strong></label>
-                {{form.additional}}
+            <div class="mb-3 form-group row">
+                <div class="col-md-3"><label class="form-control"><strong>Perks:</strong></label></div>
+                <div class="col-md-9">{{form.perks}}</div>
             </div>
-            <div class="mb-3" style="display: none;">
-                <label class="form-control"><strong>Status:</strong></label>
-                {{form.status}}
+            <div class="mb-3 form-group row">
+                <div class="col-md-3"><label class="form-control"><strong>Additional Information:</strong></label></div>
+                <div class="col-md-9">{{form.additional}}</div>
             </div>
+            <div class="mb-3 form-group row">
+                <div class="col-md-3"><label class="form-control"><strong>Status:</strong></label></div>
+                <div class="col-md-9">{{form.status}}</div>
+            </div>
+ 
             <div class="text-center mb-3">
                 <button type="submit" class="btn btn-primary">Submit</button>
             </div>
@@ -82,9 +106,11 @@
 <script>
     $("input").addClass("form-control")
     $("textarea").addClass("form-control")
+    $("select").addClass("form-control")
     $("#id_start_date").prop('type', 'date')
     $("#id_apply_by").prop('type', 'date')
-    $("id_status").val(0)
+    $("#id_status").val(0)
+    $("#id_who_can_apply").val("Null")
     $("#id_work_from_home").removeClass("form-control")
     const ad="{{id}}"
     
