@@ -50,8 +50,7 @@ def internshipFilter(request):
 @login_required(login_url='login')
 def job(request):
     data = jobLogic(request)
-
-    content = {'related_job_list': data["related_job_list"],
+    content = {'related_job_list': data['related_job_list'],
                'skill_set':data['skill_set'],
                'cities':"Mumbai,Bangalore,Chennai".split(','),
                }

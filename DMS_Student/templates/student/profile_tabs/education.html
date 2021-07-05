@@ -47,6 +47,10 @@
                             </td>
                         </tr>
                         <tr>
+                            <td><strong>Marks</strong></td>
+                            <td>{{edu.marks}}</td>
+                        </tr>
+                        <tr>
                             <td><strong>Percentage/CGPA</strong></td>
                             <td>{% if edu.percentage > 12 %}
                                 {{edu.percentage}}%
@@ -55,6 +59,26 @@
                                 {% endif %}
                             </td>
                         </tr>
+                        {% if edu.degree == 'diploma' %}
+                        <div id="diploma">
+                            <tr>
+                                <td><strong>Pattern</strong></td>
+                                <td>{{edu.diploma_pattern}}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Aggregate (marks-wise)</strong></td>
+                                <td>{{edu.diploma_aggregate_mw}}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Aggregate (percentage-wise)</strong></td>
+                                <td>{{edu.diploma_aggregate_pw}}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>No. of Dead KT/S</strong></td>
+                                <td>{{edu.no_of_dead_kt}}</td>
+                            </tr>
+                        </div>
+                        {% endif %}
                         <tr>
                             <td><strong>Starting Year</strong></td>
                             <td>{{edu.start_year}}</td>

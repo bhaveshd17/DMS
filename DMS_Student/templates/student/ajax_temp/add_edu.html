@@ -1,3 +1,4 @@
+{% load static %}
 <div class="card card-body mb-3">
     <form action="{% url 'updateEdu' id %}" method="POST">
         <input type="hidden" name="csrfmiddlewaretoken" value="{{csrf_token_value}}">
@@ -28,12 +29,32 @@
                         <td>{{form.board}}</td>
                     </tr>
                     <tr>
+                        <td><strong>Marks</strong></td>
+                        <td>{{form.marks}}</td>
+                    </tr>
+                    <tr>
                         <td><strong>Percentage/CGPA</strong></td>
                         <td>{{form.percentage}}</td>
                     </tr>
                     <tr>
                         <td><strong>Year Gap</strong></td>
                         <td>{{form.gap}}</td>
+                    </tr>
+                    <tr id="dip1" style="display: none;">
+                        <td><strong>Pattern</strong></td>
+                        <td>{{form.diploma_pattern}}</td>
+                    </tr>
+                    <tr id="dip2" style="display: none;">
+                        <td><strong>Aggregate (marks-wise)</strong></td>
+                        <td>{{form.diploma_aggregate_mw}}</td>
+                    </tr>
+                    <tr id="dip3" style="display: none;">
+                        <td><strong>Aggregate (percentage-wise)</strong></td>
+                        <td>{{form.diploma_aggregate_pw}}</td>
+                    </tr>
+                    <tr id="dip4" style="display: none;">
+                        <td><strong>No. of Dead KT/S</strong></td>
+                        <td>{{form.no_of_dead_kt}}</td>
                     </tr>
                     <tr>
                         <td><strong>Starting Year</strong></td>
@@ -55,12 +76,30 @@
 
 <script>
     let form_fields1 = document.getElementsByTagName('input')
-    document.getElementById('id_degree').classList = 'form-control';
-    document.getElementById('id_gap').classList = 'form-control';
+    let select_fields_ajax = document.getElementsByTagName('select')
+    for (let field in select_fields_ajax) {
+        select_fields_ajax[field].className += ' form-control'
+    }
     for (let field in form_fields1) {
         form_fields1[field].className += ' form-control'
     }
     document.getElementById('id_percentage').type = 'text';
     document.getElementById('id_start_year').type = 'date';
     document.getElementById('id_end_year').type = 'date';
+
+    let degree_select_ajax = document.getElementById("id_degree")
+    degree_select_ajax.addEventListener("change", (event) => {
+        let = document.getElementById("diploma_div")
+        for (let i = 1; i <= 4; i++) {
+            field = document.getElementById("dip" + String(i))
+            if (event.target.value == 'diploma') {
+                field.style.display = ""
+            }
+            else {
+                field.style.display = "none"
+            }
+
+        }
+
+    })
 </script>

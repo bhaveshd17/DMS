@@ -41,6 +41,6 @@ degree_select.addEventListener("change", (event)=>{
         deploma_div.style.display = ""
     }
     else{
-        deploma_div.display = "none"
+        deploma_div.style.display = "none"
     }
 })
