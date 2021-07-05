@@ -1,9 +1,9 @@
-from .utils import IntershipJobLogic
+from .utils import internshipLogic, department_sort, jobLogic
 from datetime import datetime
 
 
 def intern_filters(request):
-    data = IntershipJobLogic(request)
+    data = internshipLogic(request)
     internship = data['related_int_list']
     skills = request.GET.getlist('skills[]')
     duration = request.GET.getlist('duration[]')
@@ -60,7 +60,7 @@ def intern_filters(request):
 
 
 def job_filters(request):
-    data = IntershipJobLogic(request)
+    data = jobLogic(request)
     job = data['related_job_list']
     skills = request.GET.getlist('skills[]')
     salary = request.GET.get('salary')

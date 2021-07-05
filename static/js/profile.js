@@ -39,7 +39,6 @@ degree_select.addEventListener("change", (event)=>{
     let deploma_div = document.getElementById("diploma_div")
     if(event.target.value == 'diploma'){
         deploma_div.style.display = ""
-        
     }
     else{
         deploma_div.display = "none"
