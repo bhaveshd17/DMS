@@ -29,6 +29,7 @@
             <th scope="col">Eligibility</th>
             <!-- <th scpoe="col">Perks</th> -->
             <th scope="col">Link</th>
+            <th scope="col">Hired</th>
         </thead>
         <tbody>
             {% for job in jobs %}
@@ -42,6 +43,11 @@
                 <td>{{job.who_can_apply}}</td>
                 <!-- <td>{{job.perks}}</td> -->
                 <td><a href="{{job.link}}">Link</a></td>
+                {% for key, value in hired.items %}
+                {% ifequal key job %}
+                <td>{{value}}</td>
+                {%endifequal%}
+                {% endfor %}
             </tr>
             {% endfor %}
         </tbody>

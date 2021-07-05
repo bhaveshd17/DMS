@@ -1,3 +1,4 @@
+from django.http import JsonResponse
 from DMS_Student.views import apply
 from django.contrib import messages
 from django.shortcuts import redirect, render
@@ -6,6 +7,7 @@ from DMS_Student.decorators import allowed_users
 from DMS_Student.models import *
 from datetime import date
 from django.contrib.auth.models import User
+import json
 
 @allowed_users(allowed_roles=['Placement_Cell'])
 def index(request):
@@ -84,7 +86,7 @@ def details(request,id,type):
         jobs = Job.objects.get(id=id)
         applied=Job_user.objects.filter(job_id=id)
         # print(applied)
-        context={"details":jobs,"pay":"Salary","applied":applied}     
+        context={"details":jobs,"pay":"Salary","applied":applied,"id":id,"type":type}     
     elif type==2:
         internships = Intership.objects.get(id=id)
         context={"details":internships,"pay":"Stiped"}
@@ -119,3 +121,11 @@ def displayProfile(request,rollNo):
     "branch":branch,"div":div,"studentId":studentId,"exp_list":exp,"edu_list":edu}
     return render(request,"placement/displayProfile.html",context) 
 
+@allowed_users(allowed_roles=['Placement_Cell'])
+def status(request):
+    data = json.loads(request.body)
+    st=data["status"]
+    id=data["id"]
+    Job_user.objects.filter(id=id).update(status=st)
+    
+    return JsonResponse('Done', safe=False)
