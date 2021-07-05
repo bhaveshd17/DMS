@@ -300,8 +300,22 @@
             <div class="modal-body px-5 my-2">
                 <form method="POST" action="">
                     {% csrf_token %}
-
-                    
+                    <div class="mb-3">
+                        <label >Certificate Name</label>
+                        <input type="text" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label >Domain</label>
+                        <input type="text" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <div class="custom-file">
+                            
+                            <label class="custom-file-label" for="file_input">Upload Certificate</label>
+                            <input type="file" id="file_input" class="custom-file-input">
+                        </div>
+                        
+                    </div>
 
                     <button class="btn btn-primary w-100">
                         Add
