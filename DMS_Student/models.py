@@ -25,7 +25,7 @@ class Add_edu(models.Model):
     end_year = models.DateField(null=False)
     roll_no = models.ForeignKey(Student, on_delete=models.CASCADE, null=False)
     gap=models.CharField(max_length=15,choices={
-        ("0",0),("1",1),("2",2),("Greater than 2",3)
+        ("0","0"),("1","1"),("2","2"),("3","Greater than 2")
     },null=True)
 
     def __str__(self):
@@ -48,7 +48,7 @@ class FE(models.Model):
     fe_sem2_sgpa = models.FloatField(validators=[MaxValueValidator(10)])
     fe_cgpa = models.FloatField(validators=[MaxValueValidator(10)])
     kt_FE=models.CharField(max_length=15,choices={
-        ("0",0),("1",1),("2",2),("3",3),("4",4),("5",5),("6",6),("Greater than 6",7)
+        ("0","0"),("1","1"),("2","2"),("3","3"),("4","4"),("5","5"),("6","6"),("7","Greater than 6")
     },null=True)
     def __str__(self):
         return str(self.roll_no_1)
@@ -59,10 +59,10 @@ class SE(models.Model):
     se_sem4_sgpa = models.FloatField(validators=[MaxValueValidator(10)])
     se_cgpa = models.FloatField()
     kt_SE=models.CharField(max_length=15,choices={
-        ("0",0),("1",1),("2",2),("3",3),("4",4),("5",5),("6",6),("Greater than 6",7)
+        ("0","0"),("1","1"),("2","2"),("3","3"),("4","4"),("5","5"),("6","6"),("7","Greater than 6")
     },null=True)
     drop_FE=models.CharField(max_length=15,choices={
-        ("0",0),("1",1),("2",2),("Greater than 2",3)
+        ("0","0"),("1","1"),("2","2"),("3","Greater than 2")
     },null=True)
     def __str__(self):
         return str(self.roll_no_2)
@@ -74,10 +74,10 @@ class TE(models.Model):
     te_sem6_sgpa = models.FloatField(validators=[MaxValueValidator(10)])
     te_cgpa = models.FloatField(validators=[MaxValueValidator(10)])
     kt_TE=models.CharField(max_length=15,choices={
-        ("0",0),("1",1),("2",2),("3",3),("4",4),("5",5),("6",6),("Greater than 6",7)
+        ("0","0"),("1","1"),("2","2"),("3","3"),("4","4"),("5","5"),("6","6"),("7","Greater than 6")
     },null=True)
     drop_TE=models.CharField(max_length=15,choices={
-        ("0",0),("1",1),("2",2),("Greater than 2",3)
+        ("0","0"),("1","1"),("2","2"),("3","Greater than 2")
     },null=True)
     def __str__(self):
         return str(self.roll_no_3)
@@ -88,10 +88,10 @@ class BE(models.Model):
     be_sem8_sgpa = models.FloatField(validators=[MaxValueValidator(10)])
     be_cgpa = models.FloatField(validators=[MaxValueValidator(10)])
     kt_BE=models.CharField(max_length=15,choices={
-        ("0",0),("1",1),("2",2),("3",3),("4",4),("5",5),("6",6),("Greater than 6",7)
+        ("0","0"),("1","1"),("2","2"),("3","3"),("4","4"),("5","5"),("6","6"),("7","Greater than 6")
     },null=True)
     drop_BE=models.CharField(max_length=15,choices={
-        ("0",0),("1",1),("2",2),("Greater than 2",3)
+       ("0","0"),("1","1"),("2","2"),("3","Greater than 2")
     },null=True)
     def __str__(self):
         return str(self.roll_no_4)
@@ -147,10 +147,10 @@ class Job(models.Model):
     about_work = models.TextField(max_length=500, null=False)
     cgpa=models.FloatField(validators=[MaxValueValidator(10)])
     live_kt=models.CharField(max_length=15,choices={
-        ("0",0),("1",1),("2",2),("3",3),("4",4),("5",5),("6",6),("Greater than 6",7)
+        ("0","0"),("1","1"),("2","2"),("3","3"),("4","4"),("5","5"),("6","6"),("7","Greater than 6")
     },null=True)
     drop=models.CharField(max_length=15,choices={
-        ("0",0),("1",1),("2",2),("Greater than 2",3)
+        ("0","0"),("1","1"),("2","2"),("3","Greater than 2")
     },null=True)
     who_can_apply = models.TextField(max_length=500, null=False)
     perks = models.TextField(max_length=500, null=False)
