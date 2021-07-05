@@ -8,7 +8,7 @@
     }
 </style>
 <div class="row">
-    <div class="col-8">
+    <div class="col-7">
         <div class="card">
             <div class="card-header">
                 <h1 class="text-center" style="text-transform: uppercase;">{{details.comp_name}}</h1>
@@ -17,7 +17,7 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-sm-3 text-center">
-                        <h6>{{pay}}</h6>Rs. {{details.sal}}
+                        <h6>{{pay}}</h6>Rs. {{details.sal}} LPA
                     </div>
                     <div class="col-sm-3 text-center">
                         <h6>Start Date</h6>{{details.start_date}}
@@ -76,29 +76,90 @@
     </div>
 
     <!-- Side Card -->
-    <div class="col-4">
+    <div class="col-5">
         <div class="card">
             <div class="card-header">
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#hired" role="tab"
-                            aria-controls="home" aria-selected="true" style="color: green;">Hired</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="applied-tab" data-toggle="tab" href="#applied" role="tab"
+                        <a class="nav-link active " id="applied-tab" data-toggle="tab" href="#applied" role="tab"
                             aria-controls="edu" aria-selected="false">Applied</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" id="home-tab" data-toggle="tab" href="#hired" role="tab"
+                            aria-controls="home" aria-selected="true" style="color: green;">Hired</a>
+                    </li>
+
+                    <li class="nav-item">
                         <a class="nav-link" id="rejected-tab" data-toggle="tab" href="#rejected" role="tab"
                             aria-controls="profile" aria-selected="false" style="color: red;">Rejected</a>
+                    </li>
+                    <li class="nav-item">
+                        <i class="fas fa-download mt-3 ml-3" onclick="xl_conv()"></i>
                     </li>
                 </ul>
             </div>
             <div class="tab-content" id="myTabContent">
 
-                <div class="tab-pane fade show active" id="hired" role="tabpanel" aria-labelledby="home-tab">
+
+
+                <div class="tab-pane fade  show active" id="applied" role="tabpanel" aria-labelledby="applied-tab">
+
                     <div class="card-body">
-    
+
+                        <table class="table table-hover table-striped">
+                            <thead>
+                                <th scpoe="col">Roll No.</th>
+                                <th scpoe="col">Date</th>
+                                <th scpoe="col">Status</th>
+                            </thead>
+                            <tbody>
+                                {% for a in applied %}
+                                <tr>
+                                    {%ifequal a.status "1" %}
+                                    <td onclick=" window.location.href='/placement_cell/displayProfile/{{a.roll_no}}/'">{{a.roll_no}}</td>
+                                    <td>{{a.date}}</td>
+                                    <td class="d-flex">
+                                            <!-- <button type="button" id="accepted" class="btn btn-primary py-1 px-2 mr-2" 
+                                            value="3"><i class="fas fa-user-plus"></i></button>
+                                            <button type="button" id="rejected" class="btn btn-danger py-1 px-2"
+                                            value="2"><i class="fas fa-user-times"></i></button> -->
+                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                                                Status
+                                              </button>
+                                    </td>
+                                    </form>
+                                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                          <div class="modal-content">
+                                            <div class="modal-header">
+                                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                              </button>
+                                            </div>
+                                            <div class="modal-body">
+                                              <h6>Change Status of student {{a.roll_no}}</h6>  
+                                            </div>
+                                            <div class="modal-footer">
+                                                <form method="POST" action="#">
+                                                <button type="button" id="accepted" class="btn btn-primary py-1 px-2 mr-2" 
+                                            onclick="statusChange('3','{{a.id}}')" ><i class="fas fa-check"> Accepted</i></button>
+                                                <button type="button" id="rejected" class="btn btn-danger py-1 px-2"
+                                                onclick="statusChange('2','{{a.id}}')"><i class="fas fa-times"> Rejected</i></button>
+                                            </form>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    {% endifequal %}
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="hired" role="tabpanel" aria-labelledby="home-tab">
+                    <div class="card-body">
                         <table class="table table-hover table-striped">
                             <thead>
                                 <th scpoe="col">Roll No.</th>
@@ -117,32 +178,10 @@
                         </table>
                     </div>
                 </div>
-    
-                <div class="tab-pane fade" id="applied" role="tabpanel" aria-labelledby="applied-tab">
-                    <div class="card-body">
-    
-                        <table class="table table-hover table-striped">
-                            <thead>
-                                <th scpoe="col">Roll No.</th>
-                                <th scpoe="col">Date</th>
-                            </thead>
-                            <tbody>
-                                {% for a in applied %}
-                                <tr onclick=" window.location.href='/placement_cell/details/{{job.id}}/1'">
-                                    {%ifequal a.status "1" %}
-                                    <td>{{a.roll_no}}</td>
-                                    <td>{{a.date}}</td>
-                                    {% endifequal %}
-                                </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                
+
                 <div class="tab-pane fade" id="rejected" role="tabpanel" aria-labelledby="rejected-tab">
                     <div class="card-body">
-    
+
                         <table class="table table-hover table-striped">
                             <thead>
                                 <th scpoe="col">Roll No.</th>
@@ -150,7 +189,7 @@
                             </thead>
                             <tbody>
                                 {% for a in applied %}
-                                <tr onclick=" window.location.href='/placement_cell/details/{{job.id}}/1'">
+                                <tr onclick=" window.location.href='/placement_cell/displayProfile/{{a.roll_no}}/'">
                                     {%ifequal a.status "2" %}
                                     <td>{{a.roll_no}}</td>
                                     <td>{{a.date}}</td>
@@ -170,5 +209,45 @@
 </div>
 
 
+
+
+<script>
+    let date = new Date()
+    date = date.getDate().toString() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear()
+
+    function xl_conv() {
+        let sel = document.getElementsByClassName("active")[1];
+        console.log(sel)
+        $(sel).table2excel({
+            name: "Table2Excel",
+            filename: "job_users_" + date,
+            fileext: ".xls"
+        });
+    }
+
+
+    function statusChange(status,id){
+        const url ="{% url 'status' %}"
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'X-CSRFToken': csrftoken,
+            },
+            body: JSON.stringify({"status":status,"id":id})
+
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                window.location.href ="/placement_cell/details/{{id}}/{{type}}"
+                
+            })
+    }
+
+
+
+
+</script>
 
 {% endblock %}

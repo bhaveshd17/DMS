@@ -11,4 +11,5 @@ urlpatterns = [
     path("recruited/",views.recruited,name="recruited"),
     path("details/<int:id>/<int:type>/",views.details,name="details"),
     path("displayProfile/<slug:rollNo>/",views.displayProfile,name="displayProfile"),
+    path("status/",views.status,name="status"),
 ]
