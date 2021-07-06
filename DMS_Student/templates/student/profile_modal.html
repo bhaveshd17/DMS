@@ -357,23 +357,25 @@
 
             <!-- Modal body -->
             <div class="modal-body px-5 my-2">
-                <form method="POST" action="">
+                <form method="POST" action="{% url 'addCertificates' %}" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="mb-3">
                         <label >Certificate Name</label>
-                        <input type="text" class="form-control">
+                        {{certificate_form.certificate_name}}
                     </div>
                     <div class="mb-3">
                         <label >Domain</label>
-                        <input type="text" class="form-control">
+                        {{certificate_form.domain}}
                     </div>
                     <div class="mb-3">
                         <div class="custom-file">
-                            
-                            <label class="custom-file-label" for="file_input">Upload Certificate</label>
-                            <input type="file" id="file_input" class="custom-file-input">
+                            <label class="custom-file-label" id="file-upload-label" for="id_file">Upload Certificate</label>
+                            {{certificate_form.file}}
                         </div>
-                        
+                    </div>
+                    
+                    <div class="mb-3" style="display: none;">
+                        {{certificate_form.certificate_issued_to}}
                     </div>
 
                     <button class="btn btn-primary w-100">

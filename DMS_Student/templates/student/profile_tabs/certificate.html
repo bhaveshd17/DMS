@@ -1,6 +1,34 @@
 <div class="tab-pane fade mt-3" id="certificates" role="tabpanel" aria-labelledby="certificates-tab">
     <h4 class="h4 text-center mb-3">Certificates</h4>
     <div id="certificate_cards">
+        {% for certificate in certificate_list %}
+        <div class="card card-body mb-3">
+            <div class="card-text">
+                <table class="table table-hover table-responsive-sm">
+                    <tbody>
+                        <tr>
+                            <td><strong>Certificate Name</strong></td>
+                            <td>{{certificate.certificate_name}}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Domain</strong></td>
+                            <td>{{certificate.domain}}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Certificate</strong></td>
+                            <td><a href="{{certificate.file.url}}">view</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="d-flex justify-content-center">
+                <p class="mr-2"><i data-id="{{certificate.id}}" class="certificate_update fas fa-edit"
+                        style="color: black;cursor: pointer;"></i></p>
+                <a href="{% url 'deleteCertificates' certificate.id %}" class="ml-2" style="color: black;"><i
+                        class="fas fa-trash-alt"></i></a>
+            </div>
+        </div>
+        {% endfor %}
     </div>
     <center>
         <div class="border p-2 my-4 btn btn-secondary" data-toggle="modal" data-target="#addCertificates">Add

@@ -14,5 +14,6 @@ admin.site.register(FE)
 admin.site.register(SE)
 admin.site.register(TE)
 admin.site.register(BE)
+admin.site.register(Certificates)
 
 

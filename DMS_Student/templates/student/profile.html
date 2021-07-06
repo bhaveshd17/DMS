@@ -76,9 +76,11 @@
 <script src="{% static 'js/profile_exp_up.js' %}"></script>
 <script src="{% static 'js/profile_curr_up.js' %}"></script>
 <script src="{% static 'js/profile_skills.js' %}"></script>
+<script src="{% static 'js/profile_certificate.js' %}"></script>
 <script>
     document.getElementById('id_roll_no').value = '{{request.user}}'
     document.getElementById('id_rollNo').value = '{{request.user}}'
+    document.getElementById('id_certificate_issued_to').value = '{{request.user}}'
     for (let i = 1; i <= 4; i++) {
         document.getElementById('id_roll_no_' + String(i)).value = '{{request.user}}'
     }

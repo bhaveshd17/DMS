@@ -195,9 +195,11 @@ class Mock_test(models.Model):
     def __str__(self):
         return self.name
 
-class Certificate(models.Model):
+class Certificates(models.Model):
     certificate_name = models.CharField(max_length=500)
     domain = models.CharField(max_length=500)
+    file = models.FileField(upload_to='documents/%Y-%m-%d')
+    certificate_issued_to = models.ForeignKey(Student, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.certificate_name
