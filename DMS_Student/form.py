@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from .models import  Student, Add_edu, Add_exp, FE, SE, TE, BE
+from .models import  Student, Add_edu, Add_exp, FE, SE, TE, BE, Certificates
 
 class SkillsForm(ModelForm):
     class Meta:
@@ -34,4 +34,9 @@ class TeForm(ModelForm):
 class BeForm(ModelForm):
     class Meta:
         model=BE
+        fields='__all__'
+
+class CertificateForm(ModelForm):
+    class Meta:
+        model=Certificates
         fields='__all__'

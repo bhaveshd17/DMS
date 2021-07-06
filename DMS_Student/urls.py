@@ -31,6 +31,8 @@ urlpatterns = [
     path('student/add_current_education/<int:pk>/', views.delete_curr_education, name="deleteCurrEdu"),
 
     path('student/add_certificates', views.add_certificates, name='addCertificates'),
+    path('student/update_certificate/<int:pk>', views.update_certificate, name='updateCertificate'),
+    path('student/delete_certificates/<int:pk>/', views.delete_certificates, name='deleteCertificates'),
 
     path('student/userApplication',views.userApplication,name="userApplication"),
 ]

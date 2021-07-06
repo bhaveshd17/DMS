@@ -44,3 +44,15 @@ degree_select.addEventListener("change", (event)=>{
         deploma_div.style.display = "none"
     }
 })
+
+let input = document.getElementById( 'id_file' );
+let label = document.getElementById( 'file-upload-label' );
+input.addEventListener( 'change', showFileName );
+function showFileName(event) {
+  let input = event.srcElement;
+  let fileName = input.files[0].name;
+  if(fileName.length > 25){
+    fileName = fileName.slice(0, 25) + '...'
+  }
+  label.textContent = 'file name: ' +fileName;
+}

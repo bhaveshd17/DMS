@@ -10,7 +10,7 @@ from django.template.loader import render_to_string
 
 from .models import *
 from .decorators import unauthenticated_user
-from .form import SkillsForm, AddEduForm, AddExpForm, FeForm, SeForm, TeForm, BeForm
+from .form import SkillsForm, AddEduForm, AddExpForm, FeForm, SeForm, TeForm, BeForm, CertificateForm
 from .utils import branch_logic, be_year_logic, department_sort, jobLogic, internshipLogic
 from .filter_logic import intern_filters, job_filters
 
@@ -145,18 +145,21 @@ def profile(request):
     se_form = SeForm()
     te_form = TeForm()
     be_form = BeForm()
+    certificate_form = CertificateForm()
     fe = FE.objects.filter(roll_no_1=rollNo)
     se = SE.objects.filter(roll_no_2=rollNo)
     te = TE.objects.filter(roll_no_3=rollNo)
     be = BE.objects.filter(roll_no_4=rollNo)
+    certificate_list = Certificates.objects.filter(certificate_issued_to=rollNo)
+
 
 
 
     content={'rollNo':rollNo,'yearOfJoining':yearOfJoining,'branch':branch,'div':div,
              'studentId':studentId,'skill_form':skill_form,'edu_list':edu,'exp_list':exp,
              'student_info':student, 'name':name, 'edu_form':edu_form, 'exp_form':exp_form,
-             'fe_form':fe_form, 'se_form':se_form, 'te_form':te_form, 'be_form':be_form,
-             'fe':fe,'se':se,'te':te,'be':be, 'prev_deg':prev_deg}
+             'fe_form':fe_form, 'se_form':se_form, 'te_form':te_form, 'be_form':be_form,'certificate_form':certificate_form,
+             'fe':fe,'se':se,'te':te,'be':be, 'prev_deg':prev_deg, 'certificate_list':certificate_list}
     return render(request,"student/profile.html",content)
 
 
@@ -283,9 +286,42 @@ def delete_curr_education(request, pk):
 
 @login_required(login_url='login')
 def add_certificates(request):
+    if request.method == "POST":
+        form = CertificateForm(request.POST, request.FILES)
+        print(form)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Successfully Added')
+            return redirect('profile')
+        else:
+            messages.error(request, 'Invalid Addition')
+            return redirect('profile')
+
+@login_required(login_url='login')
+def update_certificate(request, pk):
+    csrf_token_value = request.COOKIES['csrftoken']
+    instance = get_object_or_404(Certificates, id=pk)
+    form = CertificateForm(instance=instance)
+    if request.method == "POST":
+        form = CertificateForm(request.POST, request.FILES, instance=instance)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Successfully Updated!')
+            return redirect('profile')
+        else:
+            messages.error(request, 'Invalid Entry')
+            return redirect('profile')
+
+    template = render_to_string('student/ajax_temp/update_certificate.html',
+                                {'id':pk, 'csrf_token_value':csrf_token_value, 'form':form})
+    return JsonResponse({'data':template})
+
+@login_required(login_url='login')
+def delete_certificates(request, pk):
+    certificate = Certificates.objects.get(id=pk)
+    certificate.delete()
+    messages.success(request, f"successfully deleted!")
     return redirect('profile')
-
-
 
 
 @login_required(login_url='login')
