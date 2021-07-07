@@ -1,16 +1,19 @@
 import operator
 
 from django.contrib import messages
+from django.contrib.auth.forms import UsernameField
+from django.contrib.messages.api import error
 from django.db.models import Q
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.template.loader import render_to_string
+from django.contrib.auth.models import User
 
 from .models import *
 from .decorators import unauthenticated_user
-from .form import SkillsForm, AddEduForm, AddExpForm, FeForm, SeForm, TeForm, BeForm, CertificateForm
+from .form import SkillsForm, AddEduForm, AddExpForm, FeForm, SeForm, StudentForm, TeForm, BeForm, CertificateForm, UserForm
 from .utils import branch_logic, be_year_logic, department_sort, jobLogic, internshipLogic
 from .filter_logic import intern_filters, job_filters
 
@@ -128,7 +131,7 @@ def apply(request):
 def profile(request):
     rollNo=request.user.username
     student=Student.objects.get(roll_no=rollNo)
-    name = request.user.first_name.upper()+' '+student.father_name.upper()+' '+request.user.last_name.upper()
+    name = request.user.first_name.upper()
     yearOfJoining='20'+rollNo[0:2]
     branch = branch_logic(rollNo)
     prev_edu = Add_edu.objects.filter(roll_no=request.user.username)
@@ -406,3 +409,25 @@ def handleLogin(request):
 def handelLogout(request):
     logout(request)
     return redirect('/login/')
+
+
+def register(request):
+    student_form=StudentForm()
+    user_form=UserForm()
+    if request.method=="POST":
+        student_form=StudentForm(request.POST,request.FILES)
+        user_form=UserForm(request.POST)
+        print(student_form,user_form)
+        if student_form.is_valid() and user_form.is_valid():
+            # print(student_form,user_form)
+            student_form.save()
+            user_form.save()
+            username=user_form.cleaned_data.get("username")
+            user=User.objects.get(username=username)
+            login(request,user)
+            messages.success(request," You are Registed.Please fill up all the details")
+            return redirect("profile")
+        else:
+            messages,error(request,"Failed")
+    content={"student_form":student_form,"user_form":user_form}
+    return render(request,"authentication/register.html",content)
