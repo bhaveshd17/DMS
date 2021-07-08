@@ -94,9 +94,17 @@
             field = document.getElementById("dip" + String(i))
             if (event.target.value == 'diploma') {
                 field.style.display = ""
+                document.getElementById("id_diploma_pattern").value = ""
+                document.getElementById("id_diploma_aggregate_mw").value = ""
+                document.getElementById("id_diploma_aggregate_pw").value = ""
+                document.getElementById("id_no_of_dead_kt").value = ""
             }
             else {
                 field.style.display = "none"
+                document.getElementById("id_diploma_pattern").value = "NA"
+                document.getElementById("id_diploma_aggregate_mw").value = "NA"
+                document.getElementById("id_diploma_aggregate_pw").value = "NA"
+                document.getElementById("id_no_of_dead_kt").value = "NA"
             }
 
         }

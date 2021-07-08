@@ -11,7 +11,7 @@
         <div class="col-md-4">
             <div class="profile-img">
                 <div class="d-flex justify-content-center">
-                    <img src="{% static 'images/person.jpg'%}" class="d-flex align-items-center" alt="" />
+                    <img src="{{student_info.profile_photo.url}}" class="d-flex align-items-center" alt="" />
                 </div>
                 <div class="d-flex justify-content-center">
                     <button type="submit" class="btn btn-outline-primary my-3 w-50">Update</button>
@@ -80,10 +80,8 @@
 <script>
     document.getElementById('id_roll_no').value = '{{request.user}}'
     document.getElementById('id_rollNo').value = '{{request.user}}'
+    document.getElementById('id_roll_no_curr').value = '{{request.user}}'
     document.getElementById('id_certificate_issued_to').value = '{{request.user}}'
-    for (let i = 1; i <= 4; i++) {
-        document.getElementById('id_roll_no_' + String(i)).value = '{{request.user}}'
-    }
 </script>
 <script src="{% static 'js/profile.js' %}"></script>
 

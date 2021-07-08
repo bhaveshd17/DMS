@@ -1,193 +1,154 @@
 {% load custom_tags %}
 
-<div class="tab-pane fade show mt-3" id="curr-edu" role="tabpanel" aria-labelledby="curr-edu-tab">
-    <h4 class="h4 text-center mb-3">Current Educations</h4>
-    <div class="current_edu_cards">
-        {% if fe %}
-        <div class="card card-body mb-2" id="fe_card">
-            <h4 class="card-title text-center">FE Details</h4>
-            <div class="card-text">
-                <table class="table table-hover table-responsive-sm">
-                    <tbody>
-                        <tr>
-                            <td>
-                                <strong>SEM 1 SGPA
-                                </strong>
-                            </td>
-                            <td>{{fe.0.fe_sem1_sgpa}}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>SEM 2 SGPA</strong></td>
-                            <td>{{fe.0.fe_sem2_sgpa}}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>FE CGPA</strong></td>
-                            <td>{{fe.0.fe_cgpa}} ({{fe.0.fe_cgpa|cgpa_percentage_conversion}}%)</td>
-                        </tr>
-                        <tr>
-                            <td><strong>KT</strong></td>
-                            <td>{{fe.0.kt_FE}}</td>
-                        </tr>
-
-
-                    </tbody>
-                </table>
-            </div>
-            <div class="d-flex justify-content-center">
-                <p class="mr-2"><i data-id="{{fe.0.id}}" data-year="fe" class="fe_update fas fa-edit"
-                        style="color: black;cursor: pointer;"></i></p>
-                <a href="{% url 'deleteCurrEdu' fe.0.id %}?year=fe" class="ml-2" style="color: black;"><i
-                        class="fas fa-trash-alt"></i></a>
+<div class="tab-pane fade mt-3" id="curr-edu" role="tabpanel" aria-labelledby="curr-edu-tab">
+    {% if curr_edu %}
+    <div id="curr_edu_card">
+        {% if "diploma" not in prev_deg and curr_edu%}
+        <div id="FE" class="mb-3">
+            <div class="card card-body">
+                <div class="card-text">
+                    <h5 class="my-2 text-center">First Year </h5>
+                    <table class="table table-hover table-responsive-sm">
+                        <tbody>
+                            <tr>
+                                <td><strong>SEM1 SGPI</strong></td>
+                                <td>{{curr_edu.0.sgpi1}}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>SEM2 SGPI</strong></td>
+                                <td>{{curr_edu.0.sgpi2}}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>FE CGPA</strong></td>
+                                <td>{{curr_edu.0.cgpa1}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
         {% endif %}
-        {% if se %}
-        <div class="card card-body mb-2" id="se_card">
-            <h4 class="card-title text-center">SE Details</h4>
-            <div class="card-text">
-                <table class="table table-hover table-responsive-sm">
-                    <tbody>
-                        <tr>
-                            <td>
-                                <strong>SEM 3 SGPA
-                                </strong>
-                            </td>
-                            <td>{{se.0.se_sem3_sgpa}}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>SEM 4 SGPA</strong></td>
-                            <td>{{se.0.se_sem4_sgpa}}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>SE CGPA</strong></td>
-                            <td>{{se.0.se_cgpa}} ({{se.0.se_cgpa|cgpa_percentage_conversion}}%)</td>
-                        </tr>
-
-                        <tr>
-                            <td><strong>KT</strong></td>
-                            <td>{{se.0.kt_SE}}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Year Drop</strong></td>
-                            <td>{{se.0.drop_SE}}
-                                {% if se.0.drop_SE|to_int <= 1 %} Year {% else %} Years {% endif %} </td>
-                        </tr>
-
-                    </tbody>
-                </table>
-            </div>
-            <div class="d-flex justify-content-center">
-                <p class="mr-2"><i data-id="{{se.0.id}}" data-year="se" class="se_update fas fa-edit"
-                        style="color: black;cursor: pointer;"></i></p>
-                <a href="{% url 'deleteCurrEdu' se.0.id %}?year=se" class="ml-2" style="color: black;"><i
-                        class="fas fa-trash-alt"></i></a>
+        {% if curr_edu.0.sgpi3 != "NA" and curr_edu%}
+        <div id="SE" class="mb-3">
+            <div class="card card-body mt-3">
+                <div class="card-text">
+                    <h5 class="my-2 text-center">Second Year </h5>
+                    <table class="table table-hover table-responsive-sm">
+                        <tbody>
+                            <tr>
+                                <td><strong>SEM3 SGPI</strong></td>
+                                <td>{{curr_edu.0.sgpi3}}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>SEM4 SGPI</strong></td>
+                                <td>{{curr_edu.0.sgpi4}}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>SE CGPA</strong></td>
+                                <td>{{curr_edu.0.cgpa2}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
         {% endif %}
-        {% if te %}
-        <div class="card card-body mb-2" id="te_card">
-            <div class="card-text">
-                <h4 class="card-title text-center">TE Details</h4>
-                <table class="table table-hover table-responsive-sm">
-                    <tbody>
-                        <tr>
-                            <td>
-                                <strong>SEM 5 SGPA
-                                </strong>
-                            </td>
-                            <td>{{te.0.te_sem5_sgpa}}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>SEM 6 SGPA</strong></td>
-                            <td>{{te.0.te_sem6_sgpa}}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>TE CGPA</strong></td>
-                            <td>{{te.0.te_cgpa}} ({{te.0.te_cgpa|cgpa_percentage_conversion}}%)</td>
-                        </tr>
-                        <tr>
-                            <td><strong>KT</strong></td>
-                            <td>{{te.0.kt_TE}}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Year Drop</strong></td>
-                            <td>{{te.0.drop_TE}}
-
-                                {% if te.0.drop_TE|to_int <= 1 %} Year {% else %} Years {% endif %} </td>
-                        </tr>
 
 
-                    </tbody>
-                </table>
-            </div>
-            <div class="d-flex justify-content-center">
-                <p class="mr-2"><i data-id="{{te.0.id}}" data-year="te" class="te_update fas fa-edit"
-                        style="color: black;cursor: pointer;"></i></p>
-                <a href="{% url 'deleteCurrEdu' te.0.id %}?year=te" class="ml-2" style="color: black;"><i
-                        class="fas fa-trash-alt"></i></a>
+        {% if curr_edu.0.sgpi5 != "NA" and curr_edu%}
+        <div id="TE" class="mb-3">
+            <div class="card card-body mt-3">
+                <div class="card-text">
+                    <h5 class="my-2 text-center">Third Year </h5>
+                    <table class="table table-hover table-responsive-sm">
+                        <tbody>
+                            <tr>
+                                <td><strong>SEM5 SGPI</strong></td>
+                                <td>{{curr_edu.0.sgpi5}}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>SEM6 SGPI</strong></td>
+                                <td>{{curr_edu.0.sgpi6}}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>TE CGPA</strong></td>
+                                <td>{{curr_edu.0.cgpa3}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
         {% endif %}
-        {% if be %}
-        <div class="card card-body mb-2" id="be_card">
-            <h4 class="card-title text-center">BE Details</h4>
+
+        {% if curr_edu.0.sgpi7 != "NA" and curr_edu%}
+        <div id="BE" class="mb-3">
+            <div class="card card-body mt-3">
+                <div class="card-text">
+                    <h5 class="my-2 text-center">Fourth Year </h5>
+                    <table class="table table-hover table-responsive-sm">
+                        <tbody>
+                            <tr>
+                                <td><strong>SEM7 SGPI</strong></td>
+                                <td>{{curr_edu.0.sgpi7}}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>SEM8 SGPI</strong></td>
+                                <td>{{curr_edu.0.sgpi8}}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>BE CGPA</strong></td>
+                                <td>{{curr_edu.0.cgpa4}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+
+        <div class="card card-body mt-3">
             <div class="card-text">
                 <table class="table table-hover table-responsive-sm">
                     <tbody>
                         <tr>
-                            <td>
-                                <strong>SEM 7 SGPA
-                                </strong>
-                            </td>
-                            <td>{{be.0.be_sem7_sgpa}}</td>
+                            <td><strong>Total Grades</strong></td>
+                            <td>{{curr_edu.0.total_grade}}</td>
                         </tr>
                         <tr>
-                            <td><strong>SEM 8 SGPA</strong></td>
-                            <td>{{be.0.be_sem8_sgpa}}</td>
+                            <td><strong>Average SGPI</strong></td>
+                            <td>{{curr_edu.0.average_sgpi}}</td>
                         </tr>
                         <tr>
-                            <td><strong>BE CGPA</strong></td>
-                            <td>{{be.0.be_cgpa}} ({{be.0.be_cgpa|cgpa_percentage_conversion}}%)</td>
-                        </tr>
-
-                        <tr>
-                            <td><strong>KT</strong></td>
-                            <td>{{be.0.kt_BE}}</td>
+                            <td><strong>Live KT(S)</strong></td>
+                            <td>{{curr_edu.0.live_kt}}</td>
                         </tr>
                         <tr>
-                            <td><strong>Year Drop</strong></td>
-                            <td>{{be.0.drop_BE}}
-                                {% if be.0.drop_BE|to_int <= 1 %} Year {% else %} Years {% endif %} </td>
+                            <td><strong>Dead KT(S)</strong></td>
+                            <td>{{curr_edu.0.dead_kt}}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Drop year(s)</strong></td>
+                            <td>{{curr_edu.0.drop}}</td>
                         </tr>
 
                     </tbody>
                 </table>
             </div>
-            <div class="d-flex justify-content-center">
-                <p class="mr-2"><i data-id="{{be.0.id}}" data-year="be" class="be_update fas fa-edit"
-                        style="color: black;cursor: pointer;"></i></p>
-                <a href="{% url 'deleteCurrEdu' be.0.id %}?year=be" class="ml-2" style="color: black;"><i
-                        class="fas fa-trash-alt"></i></a>
-            </div>
         </div>
-        {% endif %}
     </div>
-
+    <div class="d-flex justify-content-center">
+        <p class="mr-2"><i data-id="{{curr_edu.0.id}}" class="curr_edu_update fas fa-edit"
+                style="color: black;cursor: pointer;"></i></p>
+        <a href="{% url 'deleteCurrEdu' curr_edu.0.id %}" class="ml-2" style="color: black;"><i
+                class="fas fa-trash-alt"></i></a>
+    </div>
+    {% endif %}
     <center>
-        {% if not fe and 'diploma' not in prev_deg %}
-        <div class="border p-2 my-4 btn btn-secondary" data-toggle="modal" data-target="#fe_modal">Add
-            FE Details</div>
-        {% elif not se %}
-        <div class="border p-2 my-4 btn btn-secondary" data-toggle="modal" data-target="#se_modal">Add
-            SE Details</div>
-        {% elif not te %}
-        <div class="border p-2 my-4 btn btn-secondary" data-toggle="modal" data-target="#te_modal">Add
-            TE Details</div>
-        {% elif not be %}
-        <div class="border p-2 my-4 btn btn-secondary" data-toggle="modal" data-target="#be_modal">Add
-            BE Details</div>
-
+        {% if not curr_edu %}
+        <div class="border p-2 my-4 btn btn-secondary" data-toggle="modal" data-target="#currEdu">Add Current Education
+        </div>
         {% endif %}
-
     </center>
 </div>
