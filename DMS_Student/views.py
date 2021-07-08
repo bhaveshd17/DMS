@@ -12,7 +12,7 @@ from django.contrib.auth.models import User
 from .models import *
 from .decorators import unauthenticated_user
 from .form import SkillsForm, AddEduForm, AddExpForm, CurrEduForm, StudentForm, CertificateForm, UserForm
-from .utils import branch_logic, department_sort, jobLogic, internshipLogic
+from .utils import department_sort, jobLogic, internshipLogic
 from .filter_logic import intern_filters, job_filters
 
 import json
@@ -133,8 +133,8 @@ def profile(request):
     student=Student.objects.get(roll_no=rollNo)
     name = request.user.first_name.upper()
     yearOfJoining='20'+rollNo[0:2]
-    branch = branch_logic(rollNo)
-    div=rollNo[5]
+    branch = student.branch
+    div=student.div
     studentId=rollNo[6:]
     exp=Add_exp.objects.filter(rollNo=rollNo)
     edu=Add_edu.objects.filter(roll_no=rollNo).order_by("degree")

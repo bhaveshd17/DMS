@@ -1,8 +1,8 @@
 {% load custom_tags %}
 
-<div class="tab-pane fade mt-3" id="curr-edu" role="tabpanel" aria-labelledby="curr-edu-tab">
+<div class="tab-pane fade" id="curr-edu" role="tabpanel" aria-labelledby="curr-edu-tab">
     {% if curr_edu %}
-    <div id="curr_edu_card">
+    <div id="curr_edu_card mt-3">
         {% if "diploma" not in prev_deg and curr_edu%}
         <div id="FE" class="mb-3">
             <div class="card card-body">

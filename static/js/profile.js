@@ -18,14 +18,14 @@ document.getElementById('id_end_year').type = 'date';
 let details_cards = document.getElementById("details_cards")
 window.addEventListener("resize", function () {
     if (window.innerWidth < 982) {
-        details_cards.classList.remove("w-50")
+        details_cards.classList.remove("w-75")
     }
     else {
-        details_cards.classList.add("w-50")
+        details_cards.classList.add("w-75")
     }
 });
 if (window.innerWidth < 982) {
-    details_cards.classList.remove("w-50")
+    details_cards.classList.remove("w-75")
 }
 
 

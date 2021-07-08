@@ -1,7 +1,7 @@
 {% load custom_tags %}
-<div class="tab-pane fade mt-3" id="edu" role="tabpanel" aria-labelledby="edu-tab">
+<div class="tab-pane fade" id="edu" role="tabpanel" aria-labelledby="edu-tab">
     {% if edu_list.count < 2 %} 
-    <div class="alert alert-danger" role="alert">
+    <div class="alert alert-danger mt-2" role="alert">
         <ol>
             <li>Add 10th details</li>
             <li>Add 12th/Diploma details</li>
@@ -9,7 +9,7 @@
     </div>
     {% endif %}
     
-    <h4 class="h4 text-center mb-3">Previous Educations</h4>
+    <h4 class="h4 text-center my-3">Previous Educations</h4>
     <div id="edu_cards">
         {% for edu in edu_list%}
         <div class="card card-body mb-3">

@@ -10,13 +10,13 @@ class Student(models.Model):
     skills = models.TextField(max_length=500, null=False)
     age=models.IntegerField(validators=[MaxValueValidator(99)],null=True)
     gender=models.CharField(max_length=15,choices=sorted({
-        ("0","Male"),("1","Female"),("2","Other")
+        ("Male","Male"),("Female","Female"),("Other","Other")
     }),null=True)
     branch=models.CharField(max_length=12,choices=sorted({
-        ("0", "INFT"),("1","CMPN"),("2","EXTC"),("3","ETRX"),("4","BIOM")
+        ("INFT", "INFT"),("CMPN","CMPN"),("EXTC","EXTC"),("ETRX","ETRX"),("BIOM","BIOM")
     }),null=True)
     div=models.CharField(max_length=12,choices=sorted({
-        ("0","A"),("1","B"),("2","C")
+        ("A","A"),("B","B"),("C","C")
     }),null=True)
     corresponding_address=models.TextField(max_length=500,null=True)
     permanent_address=models.TextField(max_length=500,null=True)
