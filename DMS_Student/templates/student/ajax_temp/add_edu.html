@@ -75,13 +75,13 @@
 </div>
 
 <script>
-    let form_fields1 = document.getElementsByTagName('input')
-    let select_fields_ajax = document.getElementsByTagName('select')
-    for (let field in select_fields_ajax) {
-        select_fields_ajax[field].className += ' form-control'
+    let form_fields_edu = document.getElementsByTagName('input')
+    let select_fields_edu = document.getElementsByTagName('select')
+    for (let field in select_fields_edu) {
+        select_fields_edu[field].className += ' form-control'
     }
-    for (let field in form_fields1) {
-        form_fields1[field].className += ' form-control'
+    for (let field in form_fields_edu) {
+        form_fields_edu[field].className += ' form-control'
     }
     document.getElementById('id_percentage').type = 'text';
     document.getElementById('id_start_year').type = 'date';
