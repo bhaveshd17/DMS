@@ -151,7 +151,7 @@
                             <label><strong>Do you have any Disability:</strong></label>
                             {{student_form.disability}}
                         </div>
-                        <div class="mb-3">
+                        <div class="mb-3" id="disability_block" style="display: none">
                             <label><strong>Type of Disability:</strong></label>
                             {{student_form.type_of_disability}}
                         </div>
@@ -249,7 +249,7 @@
                 let roll_no = $("#id_roll_no").val()
                 let pass1 = $("#id_password1").val()
                 let pass2 = $("#id_password2").val()
-                if (pass1 == pass2 & pass1.length >= 8) {
+                if (pass1 === pass2 && pass1.length >= 8) {
                     $("#id_username").val(roll_no)
                     $("#first").hide()
                     $("#third").hide()
@@ -284,6 +284,19 @@
                 x.attr('type', 'password');
             }
         }
+
+        let disability_d = document.getElementById("id_disability")
+        disability_d.addEventListener("change", (event)=>{
+            let div = document.getElementById("disability_block")
+            if(event.target.value === "true"){
+                div.style.display = ""
+                document.getElementById("id_type_of_disability").value = ""
+            }
+            else {
+                div.style.display = "none"
+                document.getElementById("id_type_of_disability").value = "NA"
+            }
+        })
     </script>
 
 
