@@ -10,6 +10,9 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.template.loader import render_to_string
 from django.contrib.auth.models import User
+from django.contrib.sites.shortcuts import get_current_site
+from django.utils.encoding import force_bytes,force_str,force_text
+
 
 from .models import *
 from .decorators import unauthenticated_user
@@ -387,22 +390,39 @@ def userApplication(request):
 
 
 
+
+# def send_action_email(user,request):
+#     current_site=get_current_site(request)
+#     email_subject="Activate your VPlacement Portal"
+#     email_body=render_to_string("authentication/profile.html",{
+#         'user':user,
+#         'domain':current_site,
+#         'uid':urlsafe_base64_encoder(force_bytes(user.pk)),
+#         # 'token':
+#     })
+
 # authentication
 @unauthenticated_user
 def handleLogin(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
+        
         user = authenticate(request, username=username, password=password)
-        if user is not None:
-            login(request, user)
-            request.session.set_expiry(60*60*24)
-            if user.is_staff:
-                return redirect("placementIndex")
-            return redirect('/student/')
+        
+        student=Student.objects.get(roll_no=username)
+        if not student.is_email_verified:
+            messages.error(request, 'Please Verify the Email')
         else:
-            messages.error(request, 'Wrong username or password')
-            return render(request, 'authentication/login.html')
+            if user is not None:
+                login(request, user)
+                request.session.set_expiry(60*60*24)
+                if user.is_staff:
+                    return redirect("placementIndex")
+                return redirect('/student/')
+            else:
+                messages.error(request, 'Wrong username or password')
+                return render(request, 'authentication/login.html')
 
     return render(request, 'authentication/login.html')
 
@@ -422,6 +442,7 @@ def register(request):
             # print(student_form,user_form)
             student_form.save()
             user_form.save()
+            # send_action_email(student,)
             username=user_form.cleaned_data.get("username")
             user=User.objects.get(username=username)
             login(request,user)
@@ -431,3 +452,8 @@ def register(request):
             messages,error(request,"Failed")
     content={"student_form":student_form,"user_form":user_form}
     return render(request,"authentication/register.html",content)
+
+
+def otp(request):
+    content={}
+    return render(request,"authentication/otp.html",content)

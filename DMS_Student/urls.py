@@ -1,3 +1,4 @@
+from os import name
 from . import views
 from django.urls import path
 
@@ -5,6 +6,7 @@ urlpatterns = [
     path('login/', views.handleLogin, name='login'),
     path('logout/', views.handelLogout, name='logout'),
     path('register/',views.register,name="register"),
+    path('otp/',views.otp,name="otp"),
     
     path('student/', views.index, name='index'),
     path('student/internship', views.internship, name='internship'),

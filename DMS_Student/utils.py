@@ -3,6 +3,7 @@ from django.template.loader import render_to_string
 from .models import *
 import operator
 from .form import FeForm, SeForm, TeForm, BeForm
+from  django.contrib.auth.tokens import PasswordResetTokenGenerator
 
 def branch_logic(rollNo):
     if rollNo[2:5]=="101":
@@ -227,3 +228,8 @@ def internshipLogic(request):
         'skill_set':skill_set,
         'int_list':int_list
     }
+
+# class PasswordGenerator(PasswordResetTokenGenerator):
+
+#     def _make_hash_value(self, user, timestamp: int) -> str:
+#         return super()._make_hash_value(user, timestamp)+student.
