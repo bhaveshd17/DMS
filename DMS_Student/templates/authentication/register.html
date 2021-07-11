@@ -61,11 +61,14 @@
                             <label class="mb-0"><strong>Password:</strong></label>
                             <small class="form-text mb-2" id="id_small"></small>
                             {{user_form.password1}}
-                            <small id="id_show" onclick="showPassword()"><i class="fas fa-eye"></i> Show Password</small>
+                            <small id="id_show1" style="cursor: pointer;" onclick="showPassword()"><i
+                                    class="fas fa-eye"></i> view Password</small>
                         </div>
                         <div class="mb-3">
                             <label><strong>Conform Password:</strong></label>
                             {{user_form.password2}}
+                            <small id="id_show2" style="cursor: pointer;" onclick="showCPassword()"><i
+                                    class="fas fa-eye"></i> view Password</small>
                         </div>
                         <div class="float-right">
                             <button type="button" id="next1" class="btn btn-primary">Next</button>
@@ -248,7 +251,10 @@
                 let pass2 = $("#id_password2").val()
                 if (pass1 == pass2 & pass1.length >= 8) {
                     $("#id_username").val(roll_no)
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1eba8db613279af837af7d5983c78ef9b7a2707d
                     $("#first").hide()
                     $("#third").hide()
                     $("#second").show()
@@ -266,17 +272,22 @@
             })
 
         })
-        // function showPassword() {
-        //     $("#id_show").click(function () {
-        //         let x = $("#id_password1").type()
-        //         if (x.type === "password") {
-        //             x.type = "text";
-        //         } else {
-        //             x.type = "password";
-        //         }
-        //     })
-
-        // }
+        function showPassword() {
+            let x = $("#id_password1")
+            if (x.attr('type') === "password") {
+                x.attr('type', 'text');
+            } else {
+                x.attr('type', 'password');
+            }
+        }
+        function showCPassword(){
+            let x = $("#id_password2")
+            if (x.attr('type') === "password") {
+                x.attr('type', 'text');
+            } else {
+                x.attr('type', 'password');
+            }
+        }
     </script>
 
 

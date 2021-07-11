@@ -1,7 +1,5 @@
-import operator
 
 from django.contrib import messages
-from django.contrib.auth.forms import UsernameField
 from django.contrib.messages.api import error
 from django.db.models import Q
 from django.shortcuts import render, redirect, get_object_or_404
@@ -16,11 +14,13 @@ from django.utils.encoding import force_bytes,force_str,force_text
 
 from .models import *
 from .decorators import unauthenticated_user
-from .form import SkillsForm, AddEduForm, AddExpForm, FeForm, SeForm, StudentForm, TeForm, BeForm, CertificateForm, UserForm
-from .utils import branch_logic, be_year_logic, department_sort, jobLogic, internshipLogic
+from .form import SkillsForm, AddEduForm, AddExpForm, CurrEduForm, StudentForm, CertificateForm, UserForm
+from .utils import department_sort, jobLogic, internshipLogic
 from .filter_logic import intern_filters, job_filters
 
 import json
+import operator
+import re
 
 @login_required(login_url='login')
 def index(request):
@@ -136,26 +136,19 @@ def profile(request):
     student=Student.objects.get(roll_no=rollNo)
     name = request.user.first_name.upper()
     yearOfJoining='20'+rollNo[0:2]
-    branch = branch_logic(rollNo)
-    prev_edu = Add_edu.objects.filter(roll_no=request.user.username)
-    prev_deg = [edu.degree for edu in prev_edu]
-    div=rollNo[5]
+    branch = student.branch
+    div=student.div
     studentId=rollNo[6:]
-    edu=Add_edu.objects.filter(roll_no=rollNo).order_by("degree")
     exp=Add_exp.objects.filter(rollNo=rollNo)
+    edu=Add_edu.objects.filter(roll_no=rollNo).order_by("degree")
+    prev_deg = [edu.degree for edu in edu]
 
     skill_form=SkillsForm(instance=student)
     edu_form = AddEduForm()
     exp_form = AddExpForm()
-    fe_form = FeForm()
-    se_form = SeForm()
-    te_form = TeForm()
-    be_form = BeForm()
+    curr_education_form = CurrEduForm()
     certificate_form = CertificateForm()
-    fe = FE.objects.filter(roll_no_1=rollNo)
-    se = SE.objects.filter(roll_no_2=rollNo)
-    te = TE.objects.filter(roll_no_3=rollNo)
-    be = BE.objects.filter(roll_no_4=rollNo)
+    curr_edu = CurrEdu.objects.filter(roll_no_curr=rollNo)
     certificate_list = Certificates.objects.filter(certificate_issued_to=rollNo)
 
 
@@ -164,8 +157,8 @@ def profile(request):
     content={'rollNo':rollNo,'yearOfJoining':yearOfJoining,'branch':branch,'div':div,
              'studentId':studentId,'skill_form':skill_form,'edu_list':edu,'exp_list':exp,
              'student_info':student, 'name':name, 'edu_form':edu_form, 'exp_form':exp_form,
-             'fe_form':fe_form, 'se_form':se_form, 'te_form':te_form, 'be_form':be_form,'certificate_form':certificate_form,
-             'fe':fe,'se':se,'te':te,'be':be, 'prev_deg':prev_deg, 'certificate_list':certificate_list}
+             'curr_education_form':curr_education_form, 'certificate_form':certificate_form,
+             'prev_deg':prev_deg, 'certificate_list':certificate_list, 'curr_edu':curr_edu}
     return render(request,"student/profile.html",content)
 
 
@@ -250,51 +243,71 @@ def delete_experience(request, pk):
 
 @login_required(login_url='login')
 def add_curr_education(request):
-    year = request.GET.get('year')
     if request.method == 'POST':
-        data = be_year_logic(request=request, year=year)
-        form = data['form']
+        form = CurrEduForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, f"successfully added!")
+            edu = [deg.degree for deg in Add_edu.objects.filter(roll_no=request.user.username)]
+            if "diploma" in edu:
+                sgpi3 = float(form.cleaned_data.get('sgpi3'))
+                sgpi4 = float(form.cleaned_data.get('sgpi4'))
+                CurrEdu.objects.filter(roll_no_curr=request.user.username).update(total_grade=sgpi3 + sgpi4)
+                CurrEdu.objects.filter(roll_no_curr=request.user.username).update(average_sgpi=round((sgpi3 + sgpi4) / 2, 2))
+            else:
+                sgpi1 = float(form.cleaned_data.get('sgpi1'))
+                sgpi2 = float(form.cleaned_data.get('sgpi2'))
+                CurrEdu.objects.filter(roll_no_curr=request.user.username).update(total_grade=sgpi1 + sgpi2)
+                CurrEdu.objects.filter(roll_no_curr=request.user.username).update(average_sgpi=round((sgpi1 + sgpi2) / 2, 2))
+            messages.success(request, 'Successfully Added')
             return redirect('profile')
         else:
-            messages.error(request, f"invalid entry!")
+            messages.error(request, 'Invalid Addition')
             return redirect('profile')
 
+
 @login_required(login_url='login')
-def update_curr_education(request, pk, year):
+def update_curr_education(request, pk):
     csrf_token_value = request.COOKIES['csrftoken']
+    instance = get_object_or_404(CurrEdu, id=pk)
+    form = CurrEduForm(instance=instance)
+    prev_degree = [deg.degree for deg in Add_edu.objects.filter(roll_no=request.user.username)]
     if request.method == "POST":
-        form_data = be_year_logic(request=request, year=year, pk=pk)
-        form = form_data['form']
+        form = CurrEduForm(request.POST, instance=instance)
         if form.is_valid():
             form.save()
+            data = form.cleaned_data
+            sgpi_list = []
+            for key, value in data.items():
+                if re.search('^sgpi', key) and value != "NA":
+                    sgpi_list.append(float(value))
+
+            CurrEdu.objects.filter(id=pk).update(total_grade=sum(sgpi_list))
+            CurrEdu.objects.filter(id=pk).update(average_sgpi=round(sum(sgpi_list)/len(sgpi_list), 2))
+
             messages.success(request, 'Successfully Updated!')
             return redirect('profile')
         else:
             messages.error(request, 'Invalid Entry')
             return redirect('profile')
 
-    template_data = be_year_logic(request=request, year=year, csrf_token_value=csrf_token_value, pk=pk, template_stat=1)
-    template = template_data['template']
-    return JsonResponse({'data':template})
+    template = render_to_string('student/ajax_temp/add_curr_edu.html',
+                                {'id': pk, 'csrf_token_value': csrf_token_value, 'form': form,
+                                 'prev_degree':prev_degree, 'curr_edu':instance})
+    return JsonResponse({'data': template})
 
 @login_required(login_url='login')
 def delete_curr_education(request, pk):
-    year = request.GET.get('year')
-    data = be_year_logic(request=request, year=year, pk=pk)
-    obj = data['del_obj']
-    obj.delete()
-    messages.success(request, "successfully deleted!")
+    curr_edu = CurrEdu.objects.get(id=pk)
+    curr_edu.delete()
+    messages.success(request, f"successfully deleted!")
     return redirect('profile')
+
 
 
 @login_required(login_url='login')
 def add_certificates(request):
     if request.method == "POST":
         form = CertificateForm(request.POST, request.FILES)
-        print(form)
         if form.is_valid():
             form.save()
             messages.success(request, 'Successfully Added')
@@ -446,7 +459,7 @@ def register(request):
             username=user_form.cleaned_data.get("username")
             user=User.objects.get(username=username)
             login(request,user)
-            messages.success(request," You are Registed.Please fill up all the details")
+            messages.success(request," You are successfully registered, Please fill up all the educational details")
             return redirect("profile")
         else:
             messages,error(request,"Failed")

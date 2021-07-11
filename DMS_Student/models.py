@@ -1,3 +1,4 @@
+from operator import itemgetter
 from re import T
 from django.contrib.auth.models import AbstractUser
 from django.db import models
@@ -9,18 +10,18 @@ class Student(models.Model):
     phone = models.CharField(max_length=10, null=True)
     skills = models.TextField(max_length=500, null=False)
     age=models.IntegerField(validators=[MaxValueValidator(99)],null=True)
-    gender=models.CharField(max_length=15,choices={
-        ("0","Male"),("1","Female"),("2","Other")
-    },null=True)
-    branch=models.CharField(max_length=12,choices={
-        ("0","CMPN"),("1","INFT"),("2","EXTC"),("3","ETRX"),("4","BIOM")
-    },null=True)
-    div=models.CharField(max_length=12,choices={
-        ("0","A"),("1","B"),("2","C")
-    },null=True)
+    gender=models.CharField(max_length=15,choices=sorted({
+        ("Male","Male"),("Female","Female"),("Other","Other")
+    }),null=True)
+    branch=models.CharField(max_length=12,choices=sorted({
+        ("INFT", "INFT"),("CMPN","CMPN"),("EXTC","EXTC"),("ETRX","ETRX"),("BIOM","BIOM")
+    }),null=True)
+    div=models.CharField(max_length=12,choices=sorted({
+        ("A","A"),("B","B"),("C","C")
+    }),null=True)
     corresponding_address=models.TextField(max_length=500,null=True)
     permanent_address=models.TextField(max_length=500,null=True)
-    date_of_birth=models.DateField(null=True)
+    date_of_birth = models.DateField(null=True)
     gmail=models.EmailField(null=True)
     residence_phone= models.CharField(max_length=10, null=True)
     pan_card_no=models.CharField(max_length=20,null=True)
@@ -37,7 +38,7 @@ class Student(models.Model):
     extra_curriculum_activities=models.CharField(max_length=100,null=True)
     hobbies=models.CharField(max_length=150,null=True)
     profile_photo=models.ImageField(upload_to="profile/",null=True)
-    resume=models.FileField(null=True)
+    resume=models.FileField(upload_to="Resume/",null=True)
     facebook=models.URLField(null=True)
     linkdin=models.URLField(null=True)
     github=models.URLField(null=True)
@@ -48,11 +49,11 @@ class Student(models.Model):
         return self.roll_no
 
 class Add_edu(models.Model):
-    degree_choice = {
+    degree_choice = sorted({
         ('10', '10th'),
         ('12', '12th'),
         ('diploma', 'Diploma')
-    }
+    })
     clg_name = models.CharField(max_length=50,null=False)
     degree = models.CharField(max_length=50, choices=degree_choice, null=True)
     board = models.CharField(max_length=50)
@@ -61,9 +62,9 @@ class Add_edu(models.Model):
     end_year = models.DateField(null=False)
     marks = models.IntegerField(validators=[MaxValueValidator(999)])
     roll_no = models.ForeignKey(Student, on_delete=models.CASCADE, null=False)
-    gap=models.CharField(max_length=15,choices={
-        ("0","0"),("1","1"),("2","2"),("3","3"),("4","4"),("5","5")
-    },null=True)
+    gap=models.CharField(max_length=15,choices=sorted({
+        ("0", "0 year"), ("1", "1 year"), ("2", "2 years"), ("3", "3 years"), ("4", "4 years"), ("5", "5 years")
+    }),null=True)
 
     diploma_pattern = models.CharField(max_length=20, choices={
         ("semester pattern","semester pattern"), ("yearly pattern","yearly pattern"), ("NA", "NA")
@@ -86,52 +87,30 @@ class Add_exp(models.Model):
     def __str__(self):
         return self.comp_name
 
-class FE(models.Model):
-    roll_no_1 = models.ForeignKey(Student ,on_delete=models.CASCADE)
-    fe_sem1_sgpa = models.FloatField(validators=[MaxValueValidator(10)])
-    fe_sem2_sgpa = models.FloatField(validators=[MaxValueValidator(10)])
-    fe_cgpa = models.FloatField(validators=[MaxValueValidator(10)])
-    
-    def __str__(self):
-        return str(self.roll_no_1)
-
-class SE(models.Model):
-    roll_no_2 = models.ForeignKey(Student ,on_delete=models.CASCADE)
-    se_sem3_sgpa = models.FloatField(validators=[MaxValueValidator(10)])
-    se_sem4_sgpa = models.FloatField(validators=[MaxValueValidator(10)])
-    se_cgpa = models.FloatField()
-
-    def __str__(self):
-        return str(self.roll_no_2)
-
-
-class TE(models.Model):
-    roll_no_3 = models.ForeignKey(Student ,on_delete=models.CASCADE)
-    te_sem5_sgpa = models.FloatField(validators=[MaxValueValidator(10)])
-    te_sem6_sgpa = models.FloatField(validators=[MaxValueValidator(10)])
-    te_cgpa = models.FloatField(validators=[MaxValueValidator(10)])
+class CurrEdu(models.Model):
+    roll_no_curr = models.ForeignKey(Student ,on_delete=models.CASCADE)
+    sgpi1 = models.CharField(max_length=4, default="NA")
+    sgpi2 = models.CharField(max_length=4, default="NA")
+    cgpa1 = models.CharField(max_length=4, default="NA")
+    sgpi3 = models.CharField(max_length=4, default="NA")
+    sgpi4 = models.CharField(max_length=4, default="NA")
+    cgpa2 = models.CharField(max_length=4, default="NA")
+    sgpi5 = models.CharField(max_length=4, default="NA")
+    sgpi6 = models.CharField(max_length=4, default="NA")
+    cgpa3 = models.CharField(max_length=4, default="NA")
+    sgpi7 = models.CharField(max_length=4, default="NA")
+    sgpi8 = models.CharField(max_length=4, default="NA")
+    cgpa4 = models.CharField(max_length=4, default="NA")
     live_kt=models.CharField(max_length=15,null=True)
-    drop=models.CharField(max_length=15,choices={
-        ("0","0"),("1","1"),("2","2"),("3","3"),("4","4"),("5","5")
-    },null=True)
-    dead_kt=models.CharField(max_length=15,null=True)
-    def __str__(self):
-        return str(self.roll_no_3)
+    dead_kt = models.CharField(max_length=15, null=True)
+    drop=models.CharField(max_length=15,choices=sorted({
+        ("0","0 year"),("1","1 year"),("2","2 years"),("3","3 years"),("4","4 years"),("5", "5 years")
+    }),null=True)
+    total_grade = models.FloatField(validators=[MaxValueValidator(100)], null=True, default=0)
+    average_sgpi = models.FloatField(validators=[MaxValueValidator(10)], null=True, default=0)
 
-class BE(models.Model):
-    roll_no_4 = models.ForeignKey(Student ,on_delete=models.CASCADE)
-    be_sem7_sgpa = models.FloatField(validators=[MaxValueValidator(10)])
-    be_sem8_sgpa = models.FloatField(validators=[MaxValueValidator(10)])
-    be_cgpa = models.FloatField(validators=[MaxValueValidator(10)])
-    kt_BE=models.CharField(max_length=15,choices={
-        ("0","0"),("1","1"),("2","2"),("3","3"),("4","4"),("5","5"),("6","6"),("7","Greater than 6")
-
-    },null=True)
-    drop_BE=models.CharField(max_length=15,choices={
-        ("0","0"),("1","1"),("2","2"),("3","Greater than 2")
-    },null=True)
     def __str__(self):
-        return str(self.roll_no_4)
+        return str(self.roll_no_curr)
 
 
 class AdminDma(models.Model):

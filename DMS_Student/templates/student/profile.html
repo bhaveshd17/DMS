@@ -11,23 +11,34 @@
         <div class="col-md-4">
             <div class="profile-img">
                 <div class="d-flex justify-content-center">
-                    <img src="{% static 'images/person.jpg'%}" class="d-flex align-items-center" alt="" />
+                    <img src="{{student_info.profile_photo.url}}" class="d-flex align-items-center" alt="" />
                 </div>
                 <div class="d-flex justify-content-center">
-                    <button type="submit" class="btn btn-outline-primary my-3 w-50">Update</button>
+                    <button type="submit" class="btn btn-outline-primary my-3 w-50">Edit Profile</button>
                 </div>
             </div>
         </div>
 
         <div class="col-md-8">
-            <div class="profile-head mt-3" id="update_skills_form">
+            <div class="w-50 mt-3" id="profile_info">
                 <h5><strong>{{name}}</strong></h5>
-                <h6><strong>Branch: </strong>{{branch}} {{div}}</h6>
-                <h6><strong>Roll Number: </strong>{{rollNo}}</h6>
-                <h6><strong>Skills: </strong>{{student_info.skills|upper}}
-                    <i class="fas fa-pen mx-3" id="skills_update" data-skills="{{student_info.skills}}"
-                        style="cursor: pointer;"></i>
-                </h6>
+                <div class="row">
+                    <div class="col-6 col-md-6">
+                        <h6><strong>Branch: </strong></h6>
+                        <h6><strong>Roll Number: </strong></h6>
+                        <h6><strong>Resume: </strong></h6>
+                        <h6><strong>Skills: </strong></h6>
+                    </div>
+                    <div class="col-6 col-md-6">
+                        <h6>{{branch}} {{div}}</h6>
+                        <h6>{{rollNo}}</h6>
+                        <h6><a href="{{student_info.resume}}" style="text-decoration: none;">view</a></h6>
+                        <h6>{{student_info.skills|upper}}
+                            <i class="fas fa-pen mx-3" id="skills_update" data-skills="{{student_info.skills}}"
+                                style="cursor: pointer;"></i>
+                        </h6>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -56,7 +67,7 @@
             </li>
         </ul>
 
-        <div class="w-50 m-auto" id="details_cards">
+        <div class="w-75 m-auto" id="details_cards">
             <div class="tab-content profile-tab" id="myTabContent">
                 {% include 'student/profile_tabs/personal.html' %}
                 {% include 'student/profile_tabs/education.html' %}
@@ -80,10 +91,8 @@
 <script>
     document.getElementById('id_roll_no').value = '{{request.user}}'
     document.getElementById('id_rollNo').value = '{{request.user}}'
+    document.getElementById('id_roll_no_curr').value = '{{request.user}}'
     document.getElementById('id_certificate_issued_to').value = '{{request.user}}'
-    for (let i = 1; i <= 4; i++) {
-        document.getElementById('id_roll_no_' + String(i)).value = '{{request.user}}'
-    }
 </script>
 <script src="{% static 'js/profile.js' %}"></script>
 

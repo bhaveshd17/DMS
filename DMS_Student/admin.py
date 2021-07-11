@@ -11,10 +11,7 @@ admin.site.register(Int_user)
 admin.site.register(Job)
 admin.site.register(Job_user)
 admin.site.register(Mock_test)
-admin.site.register(FE)
-admin.site.register(SE)
-admin.site.register(TE)
-admin.site.register(BE)
+admin.site.register(CurrEdu)
 admin.site.register(Certificates)
 
 

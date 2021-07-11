@@ -1,0 +1,188 @@
+<div class="card card-body mb-3">
+    <form action="{% url 'updateCurrEdu' id %}" method="POST">
+        <input type="hidden" name="csrfmiddlewaretoken" value="{{csrf_token_value}}">
+        <div class="card-text">
+
+            <div class="mb-3">
+                <label for="year">Choose Year</label>
+                <select class="form-control" name="year" id="year">
+                    <option selected hidden>------</option>
+                    {% if "diploma" not in prev_degree %}
+                    <option value="1">First Year</option>
+                    {% endif %}
+                    {% if "diploma" in prev_degree or curr_edu.cgpa1 != "NA" %}
+                    <option value="2">Second Year</option>
+                    {% endif %}
+                    {% if curr_edu.cgpa2 != "NA" %}
+                    <option value="3">Third Year</option>
+                    {% endif %}
+                    {% if curr_edu.cgpa3 != "NA" %}
+                    <option value="4">Fourth Year</option>
+                    {% endif %}
+                </select>
+            </div>
+
+            <div id="FE" class="mb-3" style="display: none;">
+                <h5 class="my-2 text-center">First Year </h5>
+                <table class="table table-hover table-responsive-sm">
+                    <tbody>
+                        <tr>
+                            <td><strong>SEM1 SGPI</strong></td>
+                            <td>{{form.sgpi1}}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>SEM2 SGPI</strong></td>
+                            <td>{{form.sgpi2}}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>FE CGPA</strong></td>
+                            <td>{{form.cgpa1}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
+            <div id="SE" class="mb-3" style="display: none;">
+                <h5 class="my-2 text-center">Second Year </h5>
+                <table class="table table-hover table-responsive-sm">
+                    <tbody>
+                        <tr>
+                            <td><strong>SEM3 SGPI</strong></td>
+                            <td>{{form.sgpi3}}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>SEM4 SGPI</strong></td>
+                            <td>{{form.sgpi4}}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>SE CGPA</strong></td>
+                            <td>{{form.cgpa2}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
+
+            <div id="TE" class="mb-3" style="display: none;">
+                <h5 class="my-2 text-center">Third Year </h5>
+                <table class="table table-hover table-responsive-sm">
+                    <tbody>
+                        <tr>
+                            <td><strong>SEM5 SGPI</strong></td>
+                            <td>{{form.sgpi5}}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>SEM6 SGPI</strong></td>
+                            <td>{{form.sgpi6}}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>TE CGPA</strong></td>
+                            <td>{{form.cgpa3}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
+
+            <div id="BE" class="mb-3" style="display: none;">
+                <h5 class="my-2 text-center">Fourth Year </h5>
+                <table class="table table-hover table-responsive-sm">
+                    <tbody>
+                        <tr>
+                            <td><strong>SEM7 SGPI</strong></td>
+                            <td>{{form.sgpi7}}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>SEM8 SGPI</strong></td>
+                            <td>{{form.sgpi8}}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>BE CGPA</strong></td>
+                            <td>{{form.cgpa4}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
+
+            <table class="table table-hover table-responsive-sm">
+                <tbody>
+                    <tr>
+                        <td><strong>Live KT(S)</strong></td>
+                        <td>{{form.live_kt}}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Dead KT(S)</strong></td>
+                        <td>{{form.dead_kt}}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Drop year(s)</strong></td>
+                        <td>{{form.drop}}</td>
+                    </tr>
+                    <tr style="display: none;">
+                        <td><strong>Total Grades</strong></td>
+                        <td>{{form.total_grade}}</td>
+                    </tr>
+                    <tr style="display: none;">
+                        <td><strong>Average SGPI</strong></td>
+                        <td>{{form.average_sgpi}}</td>
+                    </tr>
+
+                </tbody>
+            </table>
+            <div style="display: none;">{{form.roll_no_curr}}</div>
+        </div>
+        <div class="my-3 d-flex justify-content-center">
+            <button class="btn btn-primary">update</button>
+        </div>
+    </form>
+</div>
+
+
+<script>
+    let form_fields_curr = document.getElementsByTagName('input')
+    for (let field in form_fields_curr) {
+        form_fields_curr[field].className += ' form-control'
+    }
+    let select_fields_curr = document.getElementsByTagName('select')
+    for (let field in select_fields_curr) {
+        select_fields_curr[field].className += ' form-control'
+    }
+
+
+    let eng_year1 = document.getElementById("year")
+    eng_year1.addEventListener('change', (event) => {
+        let input = event.target.value;
+        if (input === "1"){
+            document.getElementById("FE").style.display = ""
+            document.getElementById("SE").style.display = "none"
+            document.getElementById("TE").style.display = "none"
+            document.getElementById("BE").style.display = "none"
+
+        }
+        if (input === "2"){
+            document.getElementById("FE").style.display = "none"
+            document.getElementById("SE").style.display = ""
+            document.getElementById("TE").style.display = "none"
+            document.getElementById("BE").style.display = "none"
+        }
+        if (input === "3"){
+            document.getElementById("FE").style.display = "none"
+            document.getElementById("SE").style.display = "none"
+            document.getElementById("TE").style.display = ""
+            document.getElementById("BE").style.display = "none"
+
+        }
+        if (input === "4"){
+            document.getElementById("FE").style.display = "none"
+            document.getElementById("SE").style.display = "none"
+            document.getElementById("TE").style.display = "none"
+            document.getElementById("BE").style.display = ""
+
+        }
+    })
+</script>

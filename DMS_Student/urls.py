@@ -30,7 +30,7 @@ urlpatterns = [
     path('student/deleteExp/<int:pk>/', views.delete_experience, name="deleteExp"),
 
     path('student/add_current_education', views.add_curr_education, name="addCurrEdu"),
-    path('student/update_current_education/<int:pk>/<str:year>', views.update_curr_education, name="updateCurrEdu"),
+    path('student/update_current_education/<int:pk>/', views.update_curr_education, name="updateCurrEdu"),
     path('student/add_current_education/<int:pk>/', views.delete_curr_education, name="deleteCurrEdu"),
 
     path('student/add_certificates', views.add_certificates, name='addCertificates'),
