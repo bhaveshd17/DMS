@@ -162,13 +162,11 @@ class Job(models.Model):
     about_comp = models.TextField(max_length=500, null=False)
     about_work = models.TextField(max_length=500, null=False)
     cgpa=models.FloatField(validators=[MaxValueValidator(10)])
-    live_kt=models.CharField(max_length=15,choices={
-        ("0", "0"), ("1", "1"), ("2", "2"), ("3", "3"), ("4", "4"), ("5", "5"), ("6", "6"), ("7", "Greater than 6")
-
-    },null=True)
-    drop=models.CharField(max_length=15,choices={
-        ("0", "0"), ("1", "1"), ("2", "2"), ("3", "Greater than 2")
-    },null=True)
+    live_kt=models.CharField(max_length=15,null=True)
+    dead_kt = models.CharField(max_length=15, null=True)
+    drop=models.CharField(max_length=15,choices=sorted({
+        ("0", "0 year"), ("1", "1 year"), ("2", "2 years"), ("3", "3 years"), ("4", "4 years"), ("5", "5 years")
+    }),null=True)
     who_can_apply = models.TextField(max_length=500, null=False)
     perks = models.TextField(max_length=500, null=False)
     additional = models.TextField(max_length=500, null=False)

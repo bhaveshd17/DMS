@@ -1,36 +1,36 @@
 {% for job in related_job_list %}
-        <div class="mx-auto mb-5 bg-white rounded-lg p-3 clear-fix shadow internship">
-            <a href="/student/details/{{job.id}}/2" class="float-right" style="text-decoration: none;">View
-                details</a>
-            <h4>{{job.comp_name}}</h4>
-            <h6>{{job.domain}}</h6>
-            {% if job.work_from_home %}
-            <i class="fas fa-home mr-2"></i><span class="text-muted">Work From Home</span>
-            {% endif %}
-            <div class="row">
-                <div class="col-3">
-                    <p class="mt-4"><strong>Salary:</strong></p>
-                    <p>Rs. {{job.sal}} LPA</p>
-                </div>
-                <div class="col-3">
-                    <p class="mt-4"><strong>Location</strong></p>
-                    <p>{{job.location}}</p>
-                </div>
-                <div class="col-3">
-                    <p class="mt-4"><strong>Start Date:</strong></p>
-                    <p>{{job.start_date}}</p>
-                </div>
-                <div class="col-3">
-                    <p class="mt-4"><strong>Apply By:</strong></p>
-                    <p>{{job.apply_by|safe}}</p>
-                </div>
-            </div>
-            <div class="">
-                <p><strong>Skills:</strong>
-                <p>
-            </div>
-            <div class="row bg-primary mx-1 rounded-lg text-white p-1 px-3" style="text-align:center">
-                {{job.skills}}
-            </div>
+<div class="mx-auto mb-5 bg-white rounded-lg p-3 clear-fix shadow internship">
+    <a href="/student/details/{{job.id}}/2" class="float-right" style="text-decoration: none;">View
+        details</a>
+    <h4>{{job.comp_name}}</h4>
+    <h6>{{job.domain}}</h6>
+    {% if job.work_from_home %}
+    <i class="fas fa-home mr-2"></i><span class="text-muted">Work From Home</span>
+    {% endif %}
+    <div class="row">
+        <div class="col-3">
+            <p class="mt-4"><strong>Salary:</strong></p>
+            <p>Rs. {{job.sal}} LPA</p>
         </div>
-        {% endfor %}
+        <div class="col-3">
+            <p class="mt-4"><strong>Location</strong></p>
+            <p>{{job.location}}</p>
+        </div>
+        <div class="col-3">
+            <p class="mt-4"><strong>Start Date:</strong></p>
+            <p>{{job.start_date}}</p>
+        </div>
+        <div class="col-3">
+            <p class="mt-4"><strong>Apply By:</strong></p>
+            <p>{{job.apply_by|safe}}</p>
+        </div>
+    </div>
+    <div class="">
+        <p><strong>Skills:</strong>
+        <p>
+    </div>
+    <div class="row bg-primary mx-1 rounded-lg text-white p-1 px-3" style="text-align:center">
+        {{job.skills}}
+    </div>
+</div>
+{% endfor %}

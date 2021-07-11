@@ -29,7 +29,7 @@ import re
 def index(request):
     internship = internshipLogic(request)
     job = jobLogic(request)
-    content = {'related_job_list': job['related_job_list'][:3], 'related_int_list': internship['related_int_list'][:3]}
+    content = {'related_job_list': job['department_wise_job'][:3], 'related_int_list': internship['related_int_list'][:3]}
     return render(request, 'student/index.html', content)
 
 
@@ -78,6 +78,15 @@ def jobFilter(request):
                                  })
     return JsonResponse({'data':template})
 
+
+@login_required(login_url='login')
+def all_job(request):
+    data = jobLogic(request)
+    content = {'related_job_list': data['department_wise_job'],
+               'skill_set':data['skill_set'],
+               'cities':"Mumbai,Bangalore,Chennai".split(','),
+               }
+    return render(request, 'student/all_jobs.html', content)
 
 
 @login_required(login_url='login')
@@ -204,7 +213,6 @@ def delete_education(request, pk):
     return redirect('profile')
 
 
-
 @login_required(login_url='login')
 def add_experience(request):
     if request.method=="POST":
@@ -216,6 +224,7 @@ def add_experience(request):
         else:
             messages.error(request, 'Invalid Addition')
             return redirect('profile')
+
 
 @login_required(login_url='login')
 def update_experience(request, pk):
@@ -488,7 +497,7 @@ def register(request):
             
             user=User.objects.get(username=username)
             login(request,user)
-            messages.success(request," You are successfully registered, Please fill up all the educational details")
+            messages.success(request,f"You are successfully registered with username {username}")
             return redirect("profile")
         else:
             messages,error(request,"Failed")

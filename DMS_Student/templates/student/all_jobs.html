@@ -13,8 +13,8 @@
     }
 </style>
 
-{% if related_job_list %}
-<h3 class="text-center h3 mb-5">Eligible Jobs</h3>
+
+<h3 class="text-center h3 mb-5">All Currently Active Jobs</h3>
 
 <div class="row">
     <!-- Filter -->
@@ -124,13 +124,8 @@
     </div>
 
 </div>
-{% else %}
-<div class="card mt-5">
-    <div class="card-body">
-      <p class="card-text">Sorry, There is no suitable job to show</p>
-    </div>
-  </div>
-  {% endif %}
+
+
 
 <script>
     function reset_form() {
@@ -147,7 +142,6 @@
 
     }
     let url_path = '{{request.path}}';
-
 
 
 </script>

@@ -11,6 +11,9 @@ def intern_filters(request):
     starting_from = request.GET.get('starting_from')
     sort_by_date = request.GET.get('sort_by_date')
     work_from_home = request.GET.get('work_from_home')
+    if sort_by_date == 'true':
+        int_list = data['int_list']
+        internship = int_list
 
     if skills[0] != 'e.g. JAVA':
         temp_list = []
@@ -52,16 +55,17 @@ def intern_filters(request):
                 temp_list.append(int_obj)
         internship = temp_list
 
-    if sort_by_date == 'true':
-        int_list = data['int_list']
-        internship = int_list
 
     return {'internship':internship, 'data':data}
 
 
 def job_filters(request):
     data = jobLogic(request)
-    job = data['related_job_list']
+    url_path = request.GET.get('path')
+    if "all_job" in url_path:
+        job = data['department_wise_job']
+    else:
+        job = data['related_job_list']
     skills = request.GET.getlist('skills[]')
     salary = request.GET.get('salary')
     location = request.GET.getlist('location[]')
@@ -69,6 +73,11 @@ def job_filters(request):
     sort_by_date = request.GET.get('sort_by_date')
     work_from_home = request.GET.get('work_from_home')
 
+    if sort_by_date == 'true':
+        if "all_job" in url_path:
+            job = data['job_list']
+        else:
+            job = data['related_job_list']
 
     if skills[0] != 'e.g. JAVA':
         temp_list = []
@@ -103,6 +112,7 @@ def job_filters(request):
                 temp_list.append(job_obj)
         job = temp_list
 
+
     if work_from_home == "true":
         temp_list = []
         for job_obj in job:
@@ -110,8 +120,6 @@ def job_filters(request):
                 temp_list.append(job_obj)
         job = temp_list
 
-    if sort_by_date == 'true':
-        job_list = data['job_list']
-        job = job_list
 
+    print(job)
     return {'job':job, 'data':data}
