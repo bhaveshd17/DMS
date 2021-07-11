@@ -2,144 +2,148 @@
 {% load static %}
 {% block title %} Details {% endblock %}
 {% block content %}
-<style>
-    .row div {
-        background: white;
-    }
-</style>
+    <style>
+        .row div {
+            background: white;
+        }
+    </style>
 
-<section id="about">
-    <div class="container mb-2">
-        <div id="row" class="row align-items-center">
-            <div class="col-lg-10 mx-auto p-3 mb-5 bg-white rounded mt-5 border">
-                <h1 class="text-center" style="text-transform: uppercase;">{{details.comp_name}}</h1>
-                <h3 class="text-center">{{details.domain}}</h3>
-                <hr>
-                <div class="row">
-                    <div class="col-sm-3 text-center">
-                        <h6>{{pay}}</h6>Rs. {{details.sal}}
+    <section id="about">
+        <div class="container mb-2">
+            <div id="row" class="row align-items-center">
+                <div class="col-lg-10 mx-auto p-3 mb-5 bg-white rounded mt-5 border">
+                    <h1 class="text-center" style="text-transform: uppercase;">{{ details.comp_name }}</h1>
+                    <h3 class="text-center">{{ details.domain }}</h3>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-3 text-center">
+                            <h6>{{ pay }}</h6>Rs. {{ details.sal }}
+                        </div>
+                        <div class="col-sm-3 text-center">
+                            <h6>Start Date</h6>{{ details.start_date }}
+                        </div>
+                        <div class="col-sm-3 text-center">
+                            <h6>Apply by</h6>
+                            {{ details.apply_by }}
+                        </div>
+                        <div class="col-sm-3 text-center">
+                            <h6>Placed by</h6>
+                            {{ details.adm_id }}
+                        </div>
                     </div>
-                    <div class="col-sm-3 text-center">
-                        <h6>Start Date</h6>{{details.start_date}}
-                    </div>
-                    <div class="col-sm-3 text-center">
-                        <h6>Apply by</h6>
-                        {{details.apply_by}}
-                    </div>
-                    <div class="col-sm-3 text-center">
-                        <h6>Placed by</h6>
-                        {{details.adm_id}}
-                    </div>
+                    {% if details.work_from_home %}
+                        <div class=""><i class="fas fa-home mt-3 mr-2"></i><span
+                                class="text-muted">Work From Home</span></div>
+                    {% endif %}
+                    <hr>
+                    <h5>About
+                        {{ details.comp_name }}
+                    </h5>
+                    <a href="{{ details.link }}" style="text-transform:lowercase">
+                        {{ details.comp_name }}.com
+                    </a>
+                    <p>
+                        {{ details.about_comp }}
+                    </p>
+                    <hr>
+                    <h5>About the {{ details.domain }} work
+                    </h5>
+                    <p>
+                        {{ details.about_work }}
+                    </p>
+                    <hr>
+                    <h5>Skill(s) required</h5>
+                    <p>
+                        {{ details.skills }}
+                    </p>
+                    <hr>
+                    <h5>Who can apply</h5>
+                    <ol>
+                        {{ details.who_can_apply|safe }}
+                    </ol>
+                    <hr>
+                    <h5>Perks</h5>
+                    <p>
+                        {{ details.perks }}
+                    </p>
+                    <hr>
+                    <h5>Additional information</h5>
+                    <p>
+                        {{ details.additional }}
+                    </p>
+                    <hr>
+                    {% if details in related_job_list or details in related_int_list %}
+                        <form action="" method="post" id="form">
+                            {% csrf_token %}
+                            <div class="col text-center">
+
+                                {% if status == '1' %}
+
+                                    <button class="btn btn-primary text-center" id="apply" disabled>Applied</button>
+
+                                {% elif status == '2' %}
+                                    <button class="btn btn-danger text-center" id="apply" disabled>Rejected</button>
+                                {% elif status == '3' %}
+                                    <button class="btn btn-success text-center" id="apply" disabled>Accepted</button>
+                                {% else %}
+                                    <button class="btn btn-primary text-center" id="apply"
+                                            onclick="submitFormData('{{ details.id }}' , '{{ type }}')">Apply
+                                    </button>
+
+                                {% endif %}
+
+                            </div>
+                        </form>
+                    {% endif %}
                 </div>
-                {% if details.work_from_home %}
-                <div class=""><i class="fas fa-home mt-3 mr-2"></i><span class="text-muted">Work From Home</span></div>
-                {% endif %}
-                <hr>
-                <h5>About
-                    {{details.comp_name}}
-                </h5>
-                <a href="{{details.link}}" style="text-transform:lowercase">
-                    {{details.comp_name}}.com
-                </a>
-                <p>
-                    {{details.about_comp}}
-                </p>
-                <hr>
-                <h5>About the {{details.domain}} work
-                </h5>
-                <p>
-                    {{details.about_work}}
-                </p>
-                <hr>
-                <h5>Skill(s) required</h5>
-                <p>
-                    {{details.skills}}
-                </p>
-                <hr>
-                <h5>Who can apply</h5>
-                <ol>
-                    {{details.who_can_apply|safe}}
-                </ol>
-                <hr>
-                <h5>Perks</h5>
-                <p>
-                    {{details.perks}}
-                </p>
-                <hr>
-                <h5>Additional information</h5>
-                <p>
-                    {{details.additional}}
-                </p>
-                <hr>
-                <form action="" method="post" id="form">
-                    {% csrf_token %}
-                    <div class="col text-center">
-
-                        {% if status == '1' %}
-
-                        <button class="btn btn-primary text-center" id="apply" disabled>Applied</button>
-
-                        {% elif status == '2' %}
-                        <button class="btn btn-danger text-center" id="apply" disabled>Rejected</button>
-                        {% elif status == '3' %}
-                        <button class="btn btn-success text-center" id="apply" disabled>Accepted</button>
-                        {% else %}
-                        <button class="btn btn-primary text-center" id="apply"
-                            onclick="submitFormData('{{details.id}}' , '{{type}}')">Apply</button>
-
-                        {% endif %}
-
-                    </div>
-                </form>
             </div>
         </div>
-</section>
+    </section>
 
 
-<script>
+    <script>
 
 
-    // apply
-    const status = '1';
-    const form = document.getElementById('form')
+        // apply
+        const status = '1';
+        const form = document.getElementById('form')
 
-    form.addEventListener('submit', function (e) {
-        e.preventDefault()
-        document.getElementById('apply').disabled = true;
-        if (status == '1') {
-            document.getElementById('apply').innerHTML = "Applied";
-        }
-        else if (status == '2') {
-            document.getElementById('apply').innerHTML = "Rejected";
-        }
-    })
-
-
-    const submitFormData = (id, type) => {
-
-
-        const user_details = {
-            'status': status,
-            'id': id,
-            'type': type
-        }
-
-        const url = '/student/apply/'
-        fetch(url, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRFToken': csrftoken,
-            },
-            body: JSON.stringify({ 'user_details': user_details })
-
+        form.addEventListener('submit', function (e) {
+            e.preventDefault()
+            document.getElementById('apply').disabled = true;
+            if (status === '1') {
+                document.getElementById('apply').innerHTML = "Applied";
+            } else if (status === '2') {
+                document.getElementById('apply').innerHTML = "Rejected";
+            }
         })
-            .then((response) => response.json())
-            .then((data) => {
-                console.log()
-            })
 
-    }
-</script>
+
+        const submitFormData = (id, type) => {
+
+
+            const user_details = {
+                'status': status,
+                'id': id,
+                'type': type
+            }
+
+            const url = '/student/apply/'
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrftoken,
+                },
+                body: JSON.stringify({'user_details': user_details})
+
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    console.log()
+                })
+
+        }
+    </script>
 
 {% endblock %}
