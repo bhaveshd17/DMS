@@ -56,7 +56,6 @@ def jobLogic(request):
     for id in sorted_related_jobs.keys():
         job_list.append(Job.objects.get(id=id))
 
-    #################
 
     try:
         student = Student.objects.get(roll_no=request.user.username)
@@ -163,7 +162,3 @@ def internshipLogic(request):
         'int_list': int_list
     }
 
-# class PasswordGenerator(PasswordResetTokenGenerator):
-
-#     def _make_hash_value(self, user, timestamp: int) -> str:
-#         return super()._make_hash_value(user, timestamp)+student.
