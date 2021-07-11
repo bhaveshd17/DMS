@@ -110,6 +110,7 @@
 
         <div class="card card-body mt-3">
             <div class="card-text">
+                <h5 class="my-2 text-center">Status</h5>
                 <table class="table table-hover table-responsive-sm">
                     <tbody>
                         <tr>
@@ -118,7 +119,7 @@
                         </tr>
                         <tr>
                             <td><strong>Average SGPI</strong></td>
-                            <td>{{curr_edu.0.average_sgpi}}</td>
+                            <td>{{curr_edu.0.average_sgpi}} ({{curr_edu.0.average_sgpi|cgpa_percentage_conversion}}%)</td>
                         </tr>
                         <tr>
                             <td><strong>Live KT(S)</strong></td>

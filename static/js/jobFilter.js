@@ -5,6 +5,8 @@ var filter_obj={
     "location":["e.g. Mumbai"],
 	"sort_by_date":false,
 	"work_from_home":false,
+	"path": url_path,
+
 };
 const ajax_method = {
 	url:'/student/jobFilter',

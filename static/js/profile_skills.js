@@ -7,8 +7,8 @@ $(document).ready(function(){
             data:skills_obj,
             dataType:'json',
             success:function(res){
-                // console.log(res);
-                $("#update_skills_form").html(res.data);
+                console.log(res);
+                $("#profile_info").html(res.data);
             }
         });
     });
