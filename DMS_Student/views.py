@@ -1,4 +1,3 @@
-
 from django.contrib import messages
 from django.contrib.messages.api import error
 from django.db.models import Q
@@ -20,11 +19,13 @@ import json
 import operator
 import re
 
+
 @login_required(login_url='login')
 def index(request):
     internship = internshipLogic(request)
     job = jobLogic(request)
-    content = {'related_job_list': job['department_wise_job'][:3], 'related_int_list': internship['related_int_list'][:3]}
+    content = {'related_job_list': job['department_wise_job'][:3],
+               'related_int_list': internship['related_int_list'][:3]}
     return render(request, 'student/index.html', content)
 
 
@@ -33,10 +34,11 @@ def internship(request):
     data = internshipLogic(request)
 
     content = {'related_int_list': data['related_int_list'],
-               'skill_set':data['skill_set'],
-               'duration':[1, 2, 3, 4, 6, 12, 24, 36],
+               'skill_set': data['skill_set'],
+               'duration': [1, 2, 3, 4, 6, 12, 24, 36],
                }
     return render(request, 'student/internship.html', content)
+
 
 @login_required(login_url='login')
 def internshipFilter(request):
@@ -45,18 +47,18 @@ def internshipFilter(request):
     skill_set = intern_data['data']['skill_set']
     template = render_to_string('student/ajax_temp/internship.html',
                                 {'related_int_list': internship_list,
-                                 'skill_set':skill_set,
-                                 'duration':[1, 2, 3, 4, 6, 12, 24, 36],
+                                 'skill_set': skill_set,
+                                 'duration': [1, 2, 3, 4, 6, 12, 24, 36],
                                  })
-    return JsonResponse({'data':template})
+    return JsonResponse({'data': template})
 
 
 @login_required(login_url='login')
 def job(request):
     data = jobLogic(request)
     content = {'related_job_list': data['related_job_list'],
-               'skill_set':data['skill_set'],
-               'cities':"Mumbai,Bangalore,Chennai".split(','),
+               'skill_set': data['skill_set'],
+               'cities': "Mumbai,Bangalore,Chennai".split(','),
                }
     return render(request, 'student/job.html', content)
 
@@ -68,18 +70,18 @@ def jobFilter(request):
     skill_set = job_data['data']['skill_set']
     template = render_to_string('student/ajax_temp/jobs.html',
                                 {'related_job_list': job_list,
-                                 'skill_set':skill_set,
+                                 'skill_set': skill_set,
                                  'cities': "Mumbai,Bangalore,Chennai".split(','),
                                  })
-    return JsonResponse({'data':template})
+    return JsonResponse({'data': template})
 
 
 @login_required(login_url='login')
 def all_job(request):
     data = jobLogic(request)
     content = {'related_job_list': data['department_wise_job'],
-               'skill_set':data['skill_set'],
-               'cities':"Mumbai,Bangalore,Chennai".split(','),
+               'skill_set': data['skill_set'],
+               'cities': "Mumbai,Bangalore,Chennai".split(','),
                }
     return render(request, 'student/all_jobs.html', content)
 
@@ -87,23 +89,34 @@ def all_job(request):
 @login_required(login_url='login')
 def preplacement(request):
     data = department_sort(request)
-    content = {'mock_test':data['mock_list']}
+    content = {'mock_test': data['mock_list']}
     return render(request, 'student/preplacement.html', content)
 
+
 @login_required(login_url='login')
-def details(request,id,type):
+def details(request, id, type):
     content = {}
-    if type==1:
+    if type == 1:
+        data = jobLogic(request)
+        related_job_list = data['related_job_list']
         job_obj = Job.objects.get(id=id)
+
         try:
             job_user_obj = Job_user.objects.get(job_id=id, roll_no=request.user.username)
             status = job_user_obj.status
 
         except:
             status = '0'
-        content={'details':job_obj, 'status':status, 'type':type, 'pay':'Salary'}
-        
-    elif type==2:
+        content = {'details': job_obj,
+                   'status': status,
+                   'type': type,
+                   'pay': 'Salary',
+                   'related_job_list': related_job_list,
+                   'related_int_list':[]}
+
+    elif type == 2:
+        data = internshipLogic(request)
+        related_int_list = data['related_int_list']
         internship_obj = Intership.objects.get(id=id)
         try:
             internship_user = Int_user.objects.get(roll_no=request.user.username, int_id=id)
@@ -111,9 +124,14 @@ def details(request,id,type):
         except:
             status = '0'
 
-        content={'details':internship_obj, 'status':status, 'type':type, 'pay': 'Stipend'}
+        content = {'details': internship_obj,
+                   'status': status,
+                   'type': type,
+                   'pay': 'Stipend',
+                   'related_int_list': related_int_list,
+                   'related_job_list': []}
 
-    return render(request,"student/details.html",content)
+    return render(request, "student/details.html", content)
 
 
 @login_required(login_url='login')
@@ -139,18 +157,18 @@ def apply(request):
 
 @login_required(login_url='login')
 def profile(request):
-    rollNo=request.user.username
-    student=Student.objects.get(roll_no=rollNo)
+    rollNo = request.user.username
+    student = Student.objects.get(roll_no=rollNo)
     name = request.user.first_name.upper()
-    yearOfJoining='20'+rollNo[0:2]
+    yearOfJoining = '20' + rollNo[0:2]
     branch = student.branch
-    div=student.div
-    studentId=rollNo[6:]
-    exp=Add_exp.objects.filter(rollNo=rollNo)
-    edu=Add_edu.objects.filter(roll_no=rollNo).order_by("degree")
+    div = student.div
+    studentId = rollNo[6:]
+    exp = Add_exp.objects.filter(rollNo=rollNo)
+    edu = Add_edu.objects.filter(roll_no=rollNo).order_by("degree")
     prev_deg = [edu.degree for edu in edu]
 
-    skill_form=SkillsForm(instance=student)
+    skill_form = SkillsForm(instance=student)
     edu_form = AddEduForm()
     exp_form = AddExpForm()
     curr_education_form = CurrEduForm()
@@ -158,20 +176,17 @@ def profile(request):
     curr_edu = CurrEdu.objects.filter(roll_no_curr=rollNo)
     certificate_list = Certificates.objects.filter(certificate_issued_to=rollNo)
 
-
-
-
-    content={'rollNo':rollNo,'yearOfJoining':yearOfJoining,'branch':branch,'div':div,
-             'studentId':studentId,'skill_form':skill_form,'edu_list':edu,'exp_list':exp,
-             'student_info':student, 'name':name, 'edu_form':edu_form, 'exp_form':exp_form,
-             'curr_education_form':curr_education_form, 'certificate_form':certificate_form,
-             'prev_deg':prev_deg, 'certificate_list':certificate_list, 'curr_edu':curr_edu}
-    return render(request,"student/profile.html",content)
+    content = {'rollNo': rollNo, 'yearOfJoining': yearOfJoining, 'branch': branch, 'div': div,
+               'studentId': studentId, 'skill_form': skill_form, 'edu_list': edu, 'exp_list': exp,
+               'student_info': student, 'name': name, 'edu_form': edu_form, 'exp_form': exp_form,
+               'curr_education_form': curr_education_form, 'certificate_form': certificate_form,
+               'prev_deg': prev_deg, 'certificate_list': certificate_list, 'curr_edu': curr_edu}
+    return render(request, "student/profile.html", content)
 
 
 @login_required(login_url='login')
 def add_education(request):
-    if request.method=="POST":
+    if request.method == "POST":
         form = AddEduForm(request.POST)
         if form.is_valid():
             form.save()
@@ -180,6 +195,7 @@ def add_education(request):
         else:
             messages.error(request, 'Invalid Addition')
             return redirect('profile')
+
 
 @login_required(login_url='login')
 def update_education(request, pk):
@@ -197,8 +213,9 @@ def update_education(request, pk):
             return redirect('profile')
 
     template = render_to_string('student/ajax_temp/add_edu.html',
-                                {'id':pk, 'csrf_token_value':csrf_token_value,'edu':instance, 'form':form})
-    return JsonResponse({'data':template})
+                                {'id': pk, 'csrf_token_value': csrf_token_value, 'edu': instance, 'form': form})
+    return JsonResponse({'data': template})
+
 
 @login_required(login_url='login')
 def delete_education(request, pk):
@@ -210,7 +227,7 @@ def delete_education(request, pk):
 
 @login_required(login_url='login')
 def add_experience(request):
-    if request.method=="POST":
+    if request.method == "POST":
         form = AddExpForm(request.POST)
         if form.is_valid():
             form.save()
@@ -237,8 +254,9 @@ def update_experience(request, pk):
             return redirect('profile')
 
     template = render_to_string('student/ajax_temp/add_exp.html',
-                                {'id':pk, 'csrf_token_value':csrf_token_value, 'form':form})
-    return JsonResponse({'data':template})
+                                {'id': pk, 'csrf_token_value': csrf_token_value, 'form': form})
+    return JsonResponse({'data': template})
+
 
 @login_required(login_url='login')
 def delete_experience(request, pk):
@@ -259,12 +277,14 @@ def add_curr_education(request):
                 sgpi3 = float(form.cleaned_data.get('sgpi3'))
                 sgpi4 = float(form.cleaned_data.get('sgpi4'))
                 CurrEdu.objects.filter(roll_no_curr=request.user.username).update(total_grade=sgpi3 + sgpi4)
-                CurrEdu.objects.filter(roll_no_curr=request.user.username).update(average_sgpi=round((sgpi3 + sgpi4) / 2, 2))
+                CurrEdu.objects.filter(roll_no_curr=request.user.username).update(
+                    average_sgpi=round((sgpi3 + sgpi4) / 2, 2))
             else:
                 sgpi1 = float(form.cleaned_data.get('sgpi1'))
                 sgpi2 = float(form.cleaned_data.get('sgpi2'))
                 CurrEdu.objects.filter(roll_no_curr=request.user.username).update(total_grade=sgpi1 + sgpi2)
-                CurrEdu.objects.filter(roll_no_curr=request.user.username).update(average_sgpi=round((sgpi1 + sgpi2) / 2, 2))
+                CurrEdu.objects.filter(roll_no_curr=request.user.username).update(
+                    average_sgpi=round((sgpi1 + sgpi2) / 2, 2))
             messages.success(request, 'Successfully Added')
             return redirect('profile')
         else:
@@ -289,7 +309,7 @@ def update_curr_education(request, pk):
                     sgpi_list.append(float(value))
 
             CurrEdu.objects.filter(id=pk).update(total_grade=sum(sgpi_list))
-            CurrEdu.objects.filter(id=pk).update(average_sgpi=round(sum(sgpi_list)/len(sgpi_list), 2))
+            CurrEdu.objects.filter(id=pk).update(average_sgpi=round(sum(sgpi_list) / len(sgpi_list), 2))
 
             messages.success(request, 'Successfully Updated!')
             return redirect('profile')
@@ -299,8 +319,9 @@ def update_curr_education(request, pk):
 
     template = render_to_string('student/ajax_temp/add_curr_edu.html',
                                 {'id': pk, 'csrf_token_value': csrf_token_value, 'form': form,
-                                 'prev_degree':prev_degree, 'curr_edu':instance})
+                                 'prev_degree': prev_degree, 'curr_edu': instance})
     return JsonResponse({'data': template})
+
 
 @login_required(login_url='login')
 def delete_curr_education(request, pk):
@@ -308,7 +329,6 @@ def delete_curr_education(request, pk):
     curr_edu.delete()
     messages.success(request, f"successfully deleted!")
     return redirect('profile')
-
 
 
 @login_required(login_url='login')
@@ -322,6 +342,7 @@ def add_certificates(request):
         else:
             messages.error(request, 'Invalid Addition')
             return redirect('profile')
+
 
 @login_required(login_url='login')
 def update_certificate(request, pk):
@@ -339,8 +360,9 @@ def update_certificate(request, pk):
             return redirect('profile')
 
     template = render_to_string('student/ajax_temp/update_certificate.html',
-                                {'id':pk, 'csrf_token_value':csrf_token_value, 'form':form})
-    return JsonResponse({'data':template})
+                                {'id': pk, 'csrf_token_value': csrf_token_value, 'form': form})
+    return JsonResponse({'data': template})
+
 
 @login_required(login_url='login')
 def delete_certificates(request, pk):
@@ -367,17 +389,15 @@ def UpdateSkills(request):
             return redirect('profile')
 
     template = render_to_string('student/ajax_temp/update_skills.html',
-                                {'form': form, 'csrf_token_value':csrf_token_value })
+                                {'form': form, 'csrf_token_value': csrf_token_value})
     return JsonResponse({'data': template})
-
-
 
 
 @login_required(login_url='login')
 def search(request):
     search_list = {}
-    search=request.GET['to_search']
-    query=search.lower()
+    search = request.GET['to_search']
+    query = search.lower()
     jobs = Job.objects.filter(Q(skills__icontains=query) | Q(comp_name__icontains=query))
     internships = Intership.objects.filter(Q(skills__icontains=query) | Q(comp_name__icontains=query))
     for job in jobs:
@@ -387,9 +407,9 @@ def search(request):
 
     search_list = dict(sorted(search_list.items(), key=operator.itemgetter(1), reverse=True))
 
-            
-    content = {"search_list":search_list, "query":query}
-    return render(request,"student/search.html",content)
+    content = {"search_list": search_list, "query": query}
+    return render(request, "student/search.html", content)
+
 
 @login_required(login_url='login')
 def userApplication(request):
@@ -403,12 +423,8 @@ def userApplication(request):
         internship = Intership.objects.get(id=intern_u.int_id.id)
         applied_dict[internship] = 2
 
-    content = {"applied_dict":applied_dict}
-    return render(request,'student/userApplication.html',content)
-
-
-
-
+    content = {"applied_dict": applied_dict}
+    return render(request, 'student/userApplication.html', content)
 
 
 
@@ -423,7 +439,7 @@ def handleLogin(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
-        
+
         user = authenticate(request, username=username, password=password)
         print(username)
         student=Student.objects.get(roll_no=username)
@@ -442,6 +458,7 @@ def handleLogin(request):
                 return render(request, 'authentication/login.html')
 
     return render(request, 'authentication/login.html')
+
 
 def handelLogout(request):
     logout(request)
@@ -469,9 +486,9 @@ def register(request):
             messages.success(request,f"You are successfully registered with username {username}")
             return redirect("login")
         else:
-            messages,error(request,"Failed")
-    content={"student_form":student_form,"user_form":user_form}
-    return render(request,"authentication/register.html",content)
+            messages, error(request, "Failed")
+    content = {"student_form": student_form, "user_form": user_form}
+    return render(request, "authentication/register.html", content)
 
 
 def activate_user(request,uidb64,token):

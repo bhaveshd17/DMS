@@ -37,8 +37,9 @@ if (window.innerWidth < 982) {
 let degree_select = document.getElementById("id_degree")
 degree_select.addEventListener("change", (event)=>{
     let diploma_div = document.getElementById("diploma_div")
-    if(event.target.value == 'diploma'){
+    if(event.target.value === 'diploma'){
         diploma_div.style.display = ""
+        document.getElementById("no_of_sub").style.display = "none"
         document.getElementById("id_diploma_pattern").value = ""
         document.getElementById("id_diploma_aggregate_mw").value = ""
         document.getElementById("id_diploma_aggregate_pw").value = ""
@@ -46,6 +47,7 @@ degree_select.addEventListener("change", (event)=>{
     }
     else{
         diploma_div.style.display = "none"
+        document.getElementById("no_of_sub").style.display = ""
         document.getElementById("id_diploma_pattern").value = "NA"
         document.getElementById("id_diploma_aggregate_mw").value = "NA"
         document.getElementById("id_diploma_aggregate_pw").value = "NA"

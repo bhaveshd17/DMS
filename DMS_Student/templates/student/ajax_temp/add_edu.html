@@ -32,6 +32,10 @@
                         <td><strong>Marks</strong></td>
                         <td>{{form.marks}}</td>
                     </tr>
+                    <tr id="subject" style="display: none">
+                        <td><strong>Subjects</strong></td>
+                        <td>{{form.no_of_subject}}</td>
+                    </tr>
                     <tr>
                         <td><strong>Percentage/CGPA</strong></td>
                         <td>{{form.percentage}}</td>
@@ -64,9 +68,10 @@
                         <td><strong>Passing Year</strong></td>
                         <td>{{form.end_year}}</td>
                     </tr>
-                    <div hidden>{{form.roll_no}}</div>
+
                 </tbody>
             </table>
+        <div hidden>{{form.roll_no}}</div>
         </div>
         <div class="d-flex justify-content-center">
             <button type="submit" class="btn btn-primary">Update</button>
@@ -86,14 +91,14 @@
     document.getElementById('id_percentage').type = 'text';
     document.getElementById('id_start_year').type = 'date';
     document.getElementById('id_end_year').type = 'date';
-
     let degree_select_ajax = document.getElementById("id_degree")
     degree_select_ajax.addEventListener("change", (event) => {
-        let = document.getElementById("diploma_div")
         for (let i = 1; i <= 4; i++) {
             field = document.getElementById("dip" + String(i))
-            if (event.target.value == 'diploma') {
+            if (event.target.value === 'diploma') {
                 field.style.display = ""
+                document.getElementById("subject").style.display = "none"
+                document.getElementById("id_no_of_subject").value = "0"
                 document.getElementById("id_diploma_pattern").value = ""
                 document.getElementById("id_diploma_aggregate_mw").value = ""
                 document.getElementById("id_diploma_aggregate_pw").value = ""
@@ -101,6 +106,8 @@
             }
             else {
                 field.style.display = "none"
+                document.getElementById("subject").style.display = ""
+                document.getElementById("id_no_of_subject").value = "{{ edu.no_of_subject }}"
                 document.getElementById("id_diploma_pattern").value = "NA"
                 document.getElementById("id_diploma_aggregate_mw").value = "NA"
                 document.getElementById("id_diploma_aggregate_pw").value = "NA"
@@ -110,4 +117,11 @@
         }
 
     })
+    if('{{ edu.degree }}' === 'diploma'){
+        document.getElementById("subject").style.display = "none"
+    }
+    else{
+        document.getElementById("subject").style.display = ""
+    }
+
 </script>

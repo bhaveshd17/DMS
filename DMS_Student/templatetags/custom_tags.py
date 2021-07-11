@@ -9,3 +9,8 @@ def cgpa_percentage_conversion(cgpa):
 @register.filter(name='to_int')
 def to_int(value):
     return int(value)
+
+@register.simple_tag
+def marks_to_percentage(marks, subject):
+    percentage = int(marks)/int(subject)
+    return percentage

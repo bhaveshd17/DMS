@@ -1,5 +1,3 @@
-from operator import itemgetter
-from re import T
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.core.validators import MaxValueValidator
@@ -56,6 +54,7 @@ class Add_edu(models.Model):
     })
     clg_name = models.CharField(max_length=50,null=False)
     degree = models.CharField(max_length=50, choices=degree_choice, null=True)
+    no_of_subject = models.CharField(max_length=20, null=True)
     board = models.CharField(max_length=50)
     percentage = models.FloatField(null=False)
     start_year= models.DateField(null=False)
