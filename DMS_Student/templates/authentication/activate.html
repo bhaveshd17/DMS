@@ -1,0 +1,8 @@
+{% autoescape off %}
+Hi {{student.roll_no}}
+
+Please use the link to verify your account.
+
+http://{{domain}}{% url 'activate_user' uidb64=uid token=token %}
+
+{% endautoescape%}

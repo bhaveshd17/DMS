@@ -1,5 +1,7 @@
 from django.template.loader import render_to_string
+from django.contrib.auth.tokens import PasswordResetTokenGenerator
 
+import six
 from .models import *
 import operator
 
@@ -157,7 +159,8 @@ def internshipLogic(request):
         'int_list':int_list
     }
 
-# class PasswordGenerator(PasswordResetTokenGenerator):
+class TokenGenerator(PasswordResetTokenGenerator):
+    def _make_hash_value(self,student, timestamp):
+        return (six.text_type(student.pk)+six.text_type(timestamp)+six.six.text_type(student.is_email_verified))
 
-#     def _make_hash_value(self, user, timestamp: int) -> str:
-#         return super()._make_hash_value(user, timestamp)+student.
+generate_token=TokenGenerator()
