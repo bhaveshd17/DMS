@@ -5,9 +5,9 @@
 {% block content %}
 
 <link rel="stylesheet" href="{% static 'css/profile.css' %}">
-{% if not edu_list and not curr_edu and not certificate_list and not exp_list%}
+{% if not edu_list or not curr_edu or not certificate_list or not exp_list%}
 <div class="alert alert-warning alert-dismissible fade show" role="alert">
-    <ol>
+    <ol class="mb-0">
         {% if not edu_list%}
         <li>Add Past Educational Details</li>
         {% endif %}

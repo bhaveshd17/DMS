@@ -55,7 +55,7 @@
                             <td>{% if edu.percentage > 12 %}
                                 {{edu.percentage}}%
                                 {% else %}
-                                {{edu.percentage}} CGPA
+                                {{edu.percentage}} CGPA ({% marks_to_percentage edu.marks edu.no_of_subject %} %)
                                 {% endif %}
                             </td>
                         </tr>

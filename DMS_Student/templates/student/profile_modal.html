@@ -31,6 +31,10 @@
                         <label for="id_marks">Total Marks</label>
                         {{edu_form.marks}}
                     </div>
+                    <div class="mb-3" id="no_of_sub" style="display: none">
+                        <label for="id_no_of_subject">Total Subjects</label>
+                        {{edu_form.no_of_subject}}
+                    </div>
                     <div class="mb-3">
                         <label for="id_percentage">Percentage/CGPA</label>
                         {{edu_form.percentage}}
@@ -43,21 +47,21 @@
 
                     <div id="diploma_div" style="display: none;">
                         <div class="mb-3">
-                            <label for="id_gap">Pattern</label>
+                            <label for="id_diploma_pattern">Pattern</label>
                             {{edu_form.diploma_pattern}}
                         </div>
                         <div class="mb-3">
-                            <label for="id_gap">Diploma Aggregate% (Marks-Wise)</label>
+                            <label for="id_diploma_aggregate_mw">Diploma Aggregate% (Marks-Wise)</label>
                             <small class="form-text text-muted mb-2">Diploma Aggregate (Marks-Wise) = ((sum of the marks obtained in all semester/years)/Total Maximum marks)*100</small>
                             {{edu_form.diploma_aggregate_mw}}
                         </div>
                         <div class="mb-3">
-                            <label for="id_gap">Diploma Aggregate% (Percentage-Wise)</label>
+                            <label for="id_diploma_aggregate_pw">Diploma Aggregate% (Percentage-Wise)</label>
                             <small class="form-text text-muted mb-2">Diploma Aggregate (Percentage-Wise) = (sum of the percentage in all semester/years)/(No. of semesters/years)</small>
                             {{edu_form.diploma_aggregate_pw}}
                         </div>
                         <div class="mb-3">
-                            <label for="id_gap">No. Dead KT/S</label>
+                            <label for="id_no_of_dead_kt">No. Dead KT/S</label>
                             <small class="form-text text-muted mb-2">Enter 0 if no KT</small>
                             {{edu_form.no_of_dead_kt}}
                         </div>
