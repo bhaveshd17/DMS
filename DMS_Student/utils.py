@@ -1,5 +1,11 @@
 from django.template.loader import render_to_string
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
+from django.contrib.sites.shortcuts import get_current_site
+from django.utils.encoding import force_bytes,force_str,force_text,DjangoUnicodeDecodeError
+from django.utils.http import urlsafe_base64_encode,urlsafe_base64_decode
+from django.urls import reverse
+from django.core.mail import EmailMessage
+from django.conf import settings
 
 import six
 from .models import *
@@ -58,7 +64,7 @@ def jobLogic(request):
     for id in sorted_related_jobs.keys():
         job_list.append(Job.objects.get(id=id))
 
-#################
+
 
     student = Student.objects.get(roll_no=request.user.username)
     cgpa = CurrEdu.objects.get(roll_no_curr=student).average_sgpi
@@ -163,8 +169,29 @@ def internshipLogic(request):
         'int_list':int_list
     }
 
+
 class TokenGenerator(PasswordResetTokenGenerator):
     def _make_hash_value(self,student, timestamp):
-        return (six.text_type(student.pk)+six.text_type(timestamp)+six.six.text_type(student.is_email_verified))
+        return (six.text_type(student.roll_no)+six.text_type(timestamp)+six.text_type(student.is_email_verified))
 
 generate_token=TokenGenerator()
+
+def send_action_email(student,request):
+    current_site=get_current_site(request)
+    email_subject="Activate your VPlacement Portal"
+    email_body=render_to_string("authentication/activate.html",{
+        'user':student,
+        'domain':current_site,
+        'uid':urlsafe_base64_encode(force_bytes(student.roll_no)),
+        'token':generate_token.make_token(student)
+        
+    })
+
+    email=EmailMessage(subject=email_subject,body=email_body,
+    from_email=settings.EMAIL_HOST_USER,
+    to=[student.gmail]
+    )
+    print("Sending")
+    email.fail_silently = False
+    email.content_subtype = 'html'
+    email.send()

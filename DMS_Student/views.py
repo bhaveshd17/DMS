@@ -7,18 +7,13 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.template.loader import render_to_string
-from django.contrib.auth.models import User
-from django.contrib.sites.shortcuts import get_current_site
-from django.utils.encoding import force_bytes,force_str,force_text,DjangoUnicodeDecodeError
-from django.utils.http import urlsafe_base64_encode,urlsafe_base64_decode
-from django.urls import reverse
-from django.core.mail import EmailMessage
-from django.conf import settings
+from django.utils.http import urlsafe_base64_decode
+from django.utils.encoding import force_text
 
 from .models import *
 from .decorators import unauthenticated_user
 from .form import SkillsForm, AddEduForm, AddExpForm, CurrEduForm, StudentForm, CertificateForm, UserForm
-from .utils import department_sort, jobLogic, internshipLogic,generate_token
+from .utils import *
 from .filter_logic import intern_filters, job_filters
 
 import json
@@ -416,37 +411,10 @@ def userApplication(request):
 
 
 
-def send_action_email(student,request):
-    current_site=get_current_site(request)
-    email_subject="Activate your VPlacement Portal"
-    email_body=render_to_string("authentication/activate.html",{
-        'user':student,
-        'domain':current_site,
-        'uid':urlsafe_base64_encode(force_bytes(student.pk)),
-        'token':generate_token.make_token(student)
-        
-    })
-    EmailMessage(subject=email_subject,body=email_body,
-    from_email=settings.EMAIL_FORM_STUDENT,
-    to=[student.gmail]
-    )
 
 
-def activate_user(request,uidb64,token):
-    try:
-        uid=force_text(urlsafe_base64_decode(uidb64))
-        student=Student.objects.get(pk=uid)
-    except Exception as e:
-        student=None
-    
-    if student and generate_token.check_token(student,token):
-        student.is_email_verified=True
-        student.save()
 
-        messages.success(request,"Email is Verified")
-        return redirect(reverse('login'))
-    content={"student":student}
-    return render(request,'authentication/activate_fail.html',content)
+
 
 
 # authentication
@@ -457,8 +425,9 @@ def handleLogin(request):
         password = request.POST.get('password')
         
         user = authenticate(request, username=username, password=password)
-        
+        print(username)
         student=Student.objects.get(roll_no=username)
+        print(student)
         if not student.is_email_verified:
             messages.error(request, 'Please Verify the Email')
         else:
@@ -485,26 +454,46 @@ def register(request):
     if request.method=="POST":
         student_form=StudentForm(request.POST,request.FILES)
         user_form=UserForm(request.POST)
-        print(student_form,user_form)
+        # print(student_form,user_form)
         if student_form.is_valid() and user_form.is_valid():
             # print(student_form,user_form)
             student_form.save()
             user_form.save()
             username=user_form.cleaned_data.get("username")
-
+            print("Register")
             student=Student.objects.get(roll_no=username)
             send_action_email(student,request)
-            
-            user=User.objects.get(username=username)
-            login(request,user)
+            print("Email Send")
+            # user=User.objects.get(username=username)
+            # login(request,user)
             messages.success(request,f"You are successfully registered with username {username}")
-            return redirect("profile")
+            return redirect("login")
         else:
             messages,error(request,"Failed")
     content={"student_form":student_form,"user_form":user_form}
     return render(request,"authentication/register.html",content)
 
 
+def activate_user(request,uidb64,token):
+    try:
+        uid=force_text(urlsafe_base64_decode(uidb64))
+        student=Student.objects.get(pk=uid)
+    except Exception as e:
+        student=None
+    
+    if student and generate_token.check_token(student,token):
+        student.is_email_verified=True
+        student.save()
+
+        messages.success(request,"Email is Verified")
+        return redirect(reverse('login'))
+    content={"student":student}
+    return render(request,'authentication/activate_fail.html',content)
+
 def otp(request):
     content={}
+    username='19101A0004'
+    student=Student.objects.get(roll_no=username)
+
+    send_action_email(student,request)
     return render(request,"authentication/otp.html",content)
