@@ -6,14 +6,13 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.template.loader import render_to_string
-from django.contrib.auth.models import User
-from django.contrib.sites.shortcuts import get_current_site
-from django.utils.encoding import force_bytes, force_str, force_text
+from django.utils.http import urlsafe_base64_decode
+from django.utils.encoding import force_text
 
 from .models import *
 from .decorators import unauthenticated_user
 from .form import SkillsForm, AddEduForm, AddExpForm, CurrEduForm, StudentForm, CertificateForm, UserForm
-from .utils import department_sort, jobLogic, internshipLogic
+from .utils import *
 from .filter_logic import intern_filters, job_filters
 
 import json
@@ -428,15 +427,11 @@ def userApplication(request):
     return render(request, 'student/userApplication.html', content)
 
 
-# def send_action_email(user,request):
-#     current_site=get_current_site(request)
-#     email_subject="Activate your VPlacement Portal"
-#     email_body=render_to_string("authentication/profile.html",{
-#         'user':user,
-#         'domain':current_site,
-#         'uid':urlsafe_base64_encoder(force_bytes(user.pk)),
-#         # 'token':
-#     })
+
+
+
+
+
 
 # authentication
 @unauthenticated_user
@@ -446,20 +441,21 @@ def handleLogin(request):
         password = request.POST.get('password')
 
         user = authenticate(request, username=username, password=password)
-
-        # student=Student.objects.get(roll_no=username)
-        # if not student.is_email_verified:
-        #     messages.error(request, 'Please Verify the Email')
-        # else:
-        if user is not None:
-            login(request, user)
-            request.session.set_expiry(60 * 60 * 24)
-            if user.is_staff:
-                return redirect("placementIndex")
-            return redirect('/student/')
+        print(username)
+        student=Student.objects.get(roll_no=username)
+        print(student)
+        if not student.is_email_verified:
+            messages.error(request, 'Please Verify the Email')
         else:
-            messages.error(request, 'Wrong username or password')
-            return render(request, 'authentication/login.html')
+            if user is not None:
+                login(request, user)
+                request.session.set_expiry(60*60*24)
+                if user.is_staff:
+                    return redirect("placementIndex")
+                return redirect('/student/')
+            else:
+                messages.error(request, 'Wrong username or password')
+                return render(request, 'authentication/login.html')
 
     return render(request, 'authentication/login.html')
 
@@ -470,28 +466,51 @@ def handelLogout(request):
 
 
 def register(request):
-    student_form = StudentForm()
-    user_form = UserForm()
-    if request.method == "POST":
-        student_form = StudentForm(request.POST, request.FILES)
-        user_form = UserForm(request.POST)
-        print(student_form, user_form)
+    student_form=StudentForm()
+    user_form=UserForm()
+    if request.method=="POST":
+        student_form=StudentForm(request.POST,request.FILES)
+        user_form=UserForm(request.POST)
+        # print(student_form,user_form)
         if student_form.is_valid() and user_form.is_valid():
             # print(student_form,user_form)
             student_form.save()
             user_form.save()
-            # send_action_email(student,)
-            username = user_form.cleaned_data.get("username")
-            user = User.objects.get(username=username)
-            login(request, user)
-            messages.success(request, f"You are successfully registered with username {username}")
-            return redirect("profile")
+            username=user_form.cleaned_data.get("username")
+            print("Register")
+            student=Student.objects.get(roll_no=username)
+            send_action_email(student,request)
+            print("Email Send")
+            # user=User.objects.get(username=username)
+            # login(request,user)
+            messages.success(request,f"You are successfully registered with username {username}")
+            return redirect("login")
         else:
             messages, error(request, "Failed")
     content = {"student_form": student_form, "user_form": user_form}
     return render(request, "authentication/register.html", content)
 
 
+def activate_user(request,uidb64,token):
+    try:
+        uid=force_text(urlsafe_base64_decode(uidb64))
+        student=Student.objects.get(pk=uid)
+    except Exception as e:
+        student=None
+    
+    if student and generate_token.check_token(student,token):
+        student.is_email_verified=True
+        student.save()
+
+        messages.success(request,"Email is Verified")
+        return redirect(reverse('login'))
+    content={"student":student}
+    return render(request,'authentication/activate_fail.html',content)
+
 def otp(request):
-    content = {}
-    return render(request, "authentication/otp.html", content)
+    content={}
+    username='19101A0004'
+    student=Student.objects.get(roll_no=username)
+
+    send_action_email(student,request)
+    return render(request,"authentication/otp.html",content)

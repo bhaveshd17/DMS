@@ -115,6 +115,7 @@ MEDIA_URL = '/images/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+<<<<<<< HEAD
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST_USER = 'vplacement.vit.mumbai@gmail.com'
@@ -122,3 +123,15 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_PASSWORD = 'DMS@12345'
+=======
+# Email Config
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST='smtp.gmail.com'
+EMAIL_HOST_USER='vplacement.vit.mumbai@gmail.com'
+EMAIL_HOST_PASSWORD='DMS@12345'
+EMAIL_USE_TLS=True
+EMAIL_PORT=587
+
+
+
+>>>>>>> 5dca3e4a2fb42f39b178d7a316de8e20333778a5
