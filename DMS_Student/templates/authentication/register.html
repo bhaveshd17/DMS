@@ -219,6 +219,9 @@
                             <label><strong>Other:</strong></label>
                             {{student_form.other}}
                         </div>
+                        <div class="mb-3" style="display: none;">
+                            {{student_form.is_email_verified}}
+                        </div>
 
                         <div class="text-center mb-3">
                             <button type="submit" class="btn btn-primary">Submit</button>
@@ -248,6 +251,10 @@
                 let pass2 = $("#id_password2").val()
                 if (pass1 == pass2 & pass1.length >= 8) {
                     $("#id_username").val(roll_no)
+<<<<<<< HEAD
+
+=======
+>>>>>>> 1eba8db613279af837af7d5983c78ef9b7a2707d
                     $("#first").hide()
                     $("#third").hide()
                     $("#second").show()
