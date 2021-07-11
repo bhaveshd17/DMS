@@ -423,19 +423,19 @@ def handleLogin(request):
         
         user = authenticate(request, username=username, password=password)
         
-        student=Student.objects.get(roll_no=username)
-        if not student.is_email_verified:
-            messages.error(request, 'Please Verify the Email')
+        # student=Student.objects.get(roll_no=username)
+        # if not student.is_email_verified:
+        #     messages.error(request, 'Please Verify the Email')
+        # else:
+        if user is not None:
+            login(request, user)
+            request.session.set_expiry(60*60*24)
+            if user.is_staff:
+                return redirect("placementIndex")
+            return redirect('/student/')
         else:
-            if user is not None:
-                login(request, user)
-                request.session.set_expiry(60*60*24)
-                if user.is_staff:
-                    return redirect("placementIndex")
-                return redirect('/student/')
-            else:
-                messages.error(request, 'Wrong username or password')
-                return render(request, 'authentication/login.html')
+            messages.error(request, 'Wrong username or password')
+            return render(request, 'authentication/login.html')
 
     return render(request, 'authentication/login.html')
 
