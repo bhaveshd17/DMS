@@ -1,7 +1,8 @@
 from django.contrib import messages
+from django.contrib.auth.models import User
 from django.contrib.messages.api import error
 from django.db.models import Q
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
@@ -441,12 +442,13 @@ def handleLogin(request):
         password = request.POST.get('password')
 
         user = authenticate(request, username=username, password=password)
-        print(username)
-        student=Student.objects.get(roll_no=username)
-        print(student)
-        if not student.is_email_verified:
-            messages.error(request, 'Please Verify the Email')
+        student=Student.objects.filter(roll_no=username)
+        if student:
+            flag = student[0].is_email_verified
         else:
+            flag = True
+
+        if flag:
             if user is not None:
                 login(request, user)
                 request.session.set_expiry(60*60*24)
@@ -456,6 +458,9 @@ def handleLogin(request):
             else:
                 messages.error(request, 'Wrong username or password')
                 return render(request, 'authentication/login.html')
+        else:
+            messages.error(request, 'Please Verify the Email')
+
 
     return render(request, 'authentication/login.html')
 
@@ -471,19 +476,13 @@ def register(request):
     if request.method=="POST":
         student_form=StudentForm(request.POST,request.FILES)
         user_form=UserForm(request.POST)
-        # print(student_form,user_form)
         if student_form.is_valid() and user_form.is_valid():
-            # print(student_form,user_form)
             student_form.save()
             user_form.save()
             username=user_form.cleaned_data.get("username")
-            print("Register")
             student=Student.objects.get(roll_no=username)
             send_action_email(student,request)
-            print("Email Send")
-            # user=User.objects.get(username=username)
-            # login(request,user)
-            messages.success(request,f"You are successfully registered with username {username}")
+            messages.success(request,f"your username is {username} please verify email")
             return redirect("login")
         else:
             messages, error(request, "Failed")
@@ -494,7 +493,7 @@ def register(request):
 def activate_user(request,uidb64,token):
     try:
         uid=force_text(urlsafe_base64_decode(uidb64))
-        student=Student.objects.get(pk=uid)
+        student=Student.objects.get(roll_no=uid)
     except Exception as e:
         student=None
     
@@ -507,10 +506,4 @@ def activate_user(request,uidb64,token):
     content={"student":student}
     return render(request,'authentication/activate_fail.html',content)
 
-def otp(request):
-    content={}
-    username='19101A0004'
-    student=Student.objects.get(roll_no=username)
-
-    send_action_email(student,request)
-    return render(request,"authentication/otp.html",content)
+ 

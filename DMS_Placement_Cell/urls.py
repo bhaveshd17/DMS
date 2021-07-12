@@ -12,4 +12,5 @@ urlpatterns = [
     path("details/<int:id>/<int:type>/",views.details,name="details"),
     path("displayProfile/<slug:rollNo>/",views.displayProfile,name="displayProfile"),
     path("status/",views.status,name="status"),
+    # path("accepted_email/<student>/<job_id>/",views.accepted_email,name="accepted_email"),
 ]
