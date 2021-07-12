@@ -38,7 +38,7 @@
                     <img src="{{student_info.profile_photo.url}}" class="d-flex align-items-center" alt="" />
                 </div>
                 <div class="d-flex justify-content-center">
-                    <button type="submit" class="btn btn-outline-primary my-3 w-50">Edit Profile</button>
+                    <a href="{% url 'update_personal' student_info.roll_no %}" class="btn btn-outline-primary my-3 w-50">Edit Profile</a>
                 </div>
             </div>
         </div>

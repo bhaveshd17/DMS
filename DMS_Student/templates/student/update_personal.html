@@ -1,0 +1,241 @@
+{% extends 'student/base.html' %}
+{% load static %}
+{% block title %}update personal{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+        <div class="card">
+            <div class="card-header text-center">
+                <h1>Update Personal Data</h1>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="{% url 'update_personal' user.username%}" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {% if stundent_form.errors and user_form %}
+                    <div class="alert alert-danger" role="alert">
+                        {{form.errors}}
+                    </div>
+                    {% endif %}
+
+                    <div class="container" id="first">
+                        <div class="mb-3">
+                            <label for="username"><strong>Username:</strong></label>
+                            <input type="text" name="username" id="username" value="{{ user.username }}" disabled>
+                        </div>
+                        <div class="mb-3">
+                            <label><strong>Roll Number:</strong></label>
+                            {{student_form.roll_no}}
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="email"><strong>Email Address(@vit.edu.in):</strong></label>
+                            <input type="text" name="email" id="email" value="{{ user.email }}" disabled>
+                        </div>
+                        <div class="mb-3">
+                            <label><strong>Email Address(@gmail.com):</strong></label>
+                            {{student_form.gmail}}
+                        </div>
+                        <div class="mb-3">
+                            <label for="first_name"><strong>Full Name:</strong></label>
+                            <input type="text" name="first_name" id="first_name" value="{{ user.first_name }}" disabled>
+                        </div>
+                        <div class="mb-3">
+                            <label><strong>Gender:</strong></label>
+                            {{student_form.gender}}
+                        </div>
+                        <div class="mb-3">
+                            <label><strong>Branch:</strong></label>
+                            {{student_form.branch}}
+                        </div>
+
+                        <div class="float-right">
+                            <button type="button" id="next1" class="btn btn-primary">Next</button>
+                        </div>
+                    </div>
+
+                    <div class="container mb-3" id="second" style="display: none;">
+                        <div class="mb-3">
+                            <label><strong>Division:</strong></label>
+                            {{student_form.div}}
+                        </div>
+                        <div class="mb-3">
+                            <label><strong>Date Of Birth:</strong></label>
+                            {{student_form.date_of_birth}}
+                        </div>
+                        <div class="mb-3">
+                            <label><strong>Age:</strong></label>
+                            {{student_form.age}}
+                        </div>
+                        <div class="mb-3">
+                            <label><strong>Corresponding Address:</strong></label>
+                            {{student_form.corresponding_address}}
+                        </div>
+                        <div class="mb-3">
+                            <label class="mb-0"><strong>Permanent Address:</strong></label>
+                            <small class="form-text mb-2">If it is same as Correspondence Address then write it as "
+                                Same as
+                                above" If not mention Permanent Address</small>
+                            {{student_form.permanent_address}}
+                        </div>
+
+                        <div class="mb-3">
+                            <label><strong>Landline/Mobile Number of Residence:</strong></label>
+                            {{student_form.residence_phone}}
+                        </div>
+                        <div class="mb-3">
+                            <label><strong>Personal Mobile Number:</strong></label>
+                            {{student_form.phone}}
+                        </div>
+                        <div class="mb-3">
+                            <label class="mb-0"><strong>Pan Card Number:</strong></label>
+                            <small class="form-text mb-2">If you do not have then apply immediately. If you have
+                                applied,
+                                Enter "Applied".
+                            </small>
+                            {{student_form.pan_card_no}}
+                        </div>
+                        <div class="mb-3">
+                            <label><strong>Aadhar Number:</strong></label>
+                            {{student_form.aadhar_no}}
+                        </div>
+                        <div class="mb-3">
+                            <label class="mb-0"><strong>Passport Number:</strong></label>
+                            <small class="form-text mb-2">If you do not have then apply immediately. If you have
+                                applied,
+                                Enter "Applied" . If you dont have passport please mention NA.
+                            </small>
+                            {{student_form.passport_no}}
+                        </div>
+                        <div class="mb-3">
+                            <label><strong>Year Of Graduation:</strong></label>
+                            {{student_form.year_of_graduation}}
+                        </div>
+                        <div class="mb-3">
+                            <label><strong>Do you have any Disability:</strong></label>
+                            {{student_form.disability}}
+                        </div>
+                        <div class="mb-3" id="disability_block" style="display: none">
+                            <label><strong>Type of Disability:</strong></label>
+                            {{student_form.type_of_disability}}
+                        </div>
+                        <div class="mb-3">
+                            <label><strong>Father Name:</strong></label>
+                            {{student_form.father_name}}
+                        </div>
+                        <div class="mb-3">
+                            <label><strong>Father Occupation:</strong></label>
+                            {{student_form.father_occupation}}
+                        </div>
+                        <div class="mb-3">
+                            <label><strong>Mother Name:</strong></label>
+                            {{student_form.mother_name}}
+                        </div>
+                        <div class="mb-3">
+                            <label><strong>Mother Occupation:</strong></label>
+                            {{student_form.mother_occupation}}
+                        </div>
+                        <div class="float-right">
+                            <button type="button" id="next2" class="btn btn-primary">Next</button>
+                        </div>
+                    </div>
+
+                    <div class="container mb-3" id="third" style="display: none;">
+                        <div class="mb-3">
+                            <label><strong>Programming Skills:</strong></label>
+                            {{student_form.skills}}
+                        </div>
+                        <div class="mb-3">
+                            <label><strong>Co-Curriculum Activities:</strong></label>
+                            {{student_form.co_curriculum_activities}}
+                        </div>
+                        <div class="mb-3">
+                            <label><strong>Extra-Curriculum Activities:</strong></label>
+                            {{student_form.extra_curriculum_activities}}
+                        </div>
+                        <div class="mb-3">
+                            <label><strong>Hobbies:</strong></label>
+                            {{student_form.hobbies}}
+                        </div>
+                        <div class="mb-3">
+                            <label class="mb-0"><strong>Profile Photo:</strong></label>
+                            <small class="form-text mb-2">Should be less than 25MB</small>
+                            {{student_form.profile_photo}}
+                        </div>
+                        <div class="mb-3">
+                            <label class="mb-0"><strong>Resume:</strong></label>
+                            <small class="form-text mb-2">Should be less than 25MB</small>
+                            {{student_form.resume}}
+                        </div>
+                        <div class="mb-3">
+                            <label><strong>Facebook:</strong></label>
+                            {{student_form.facebook}}
+                        </div>
+                        <div class="mb-3">
+                            <label><strong>Linkdin:</strong></label>
+                            {{student_form.linkdin}}
+                        </div>
+                        <div class="mb-3">
+                            <label><strong>Github:</strong></label>
+                            {{student_form.github}}
+                        </div>
+                        <div class="mb-3">
+                            <label><strong>Other:</strong></label>
+                            {{student_form.other}}
+                        </div>
+                        <div class="mb-3" style="display: none;">
+                            {{student_form.is_email_verified}}
+                        </div>
+
+                        <div class="text-center mb-3">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </div>
+
+
+
+
+
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        $("input").addClass("form-control")
+        $("textarea").addClass("form-control")
+        $("select").addClass("form-control")
+        $("#id_date_of_birth").prop('type', 'date')
+        $("#id_roll_no").prop("readonly", true)
+        $("#id_gmail").prop("readonly", true)
+
+        $(document).ready(function () {
+            $("#next1").click(function () {
+                $("#first").hide()
+                $("#third").hide()
+                $("#second").show()
+            })
+            $("#next2").click(function () {
+                $("#first").hide()
+                $("#second").hide()
+                $("#third").show()
+            })
+
+        })
+
+        let disability_d = document.getElementById("id_disability")
+        disability_d.addEventListener("change", (event)=>{
+            let div = document.getElementById("disability_block")
+            if(event.target.value === "true"){
+                div.style.display = ""
+                document.getElementById("id_type_of_disability").value = ""
+            }
+            else {
+                div.style.display = "none"
+                document.getElementById("id_type_of_disability").value = "NA"
+            }
+        })
+    </script>
+
+
+{% endblock %}

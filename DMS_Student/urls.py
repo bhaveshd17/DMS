@@ -39,5 +39,6 @@ urlpatterns = [
     path('student/update_certificate/<int:pk>', views.update_certificate, name='updateCertificate'),
     path('student/delete_certificates/<int:pk>/', views.delete_certificates, name='deleteCertificates'),
 
+    path('student/update_personal/<str:pk>/', views.update_personal, name="update_personal"),
     path('student/userApplication',views.userApplication,name="userApplication"),
 ]
