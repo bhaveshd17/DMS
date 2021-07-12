@@ -6,8 +6,8 @@ from django.template.loader import render_to_string
 
 def send_accepted_email(student,job,request):
     current_site=get_current_site(request)
-    email_subject="Activate your VPlacement Portal"
-    email_body=render_to_string("placement/activate.html",{
+    email_subject="Job Offer"
+    email_body=render_to_string("placement/accept.html",{
         'student':student,
         'job':job,
     })
@@ -16,14 +16,13 @@ def send_accepted_email(student,job,request):
     from_email=settings.EMAIL_HOST_USER,
     to=[student.gmail]
     )
-    print("In Utils")
     email.fail_silently = False
     email.content_subtype = 'html'
     email.send()
 
 def send_not_suitable_email(student,job,request):
     current_site=get_current_site(request)
-    email_subject="Activate your VPlacement Portal"
+    email_subject="Job Status."
     email_body=render_to_string("placement/not_suitable.html",{
         'student':student,
         'job':job,
@@ -33,7 +32,7 @@ def send_not_suitable_email(student,job,request):
     from_email=settings.EMAIL_HOST_USER,
     to=[student.gmail]
     )
-    print("In Utils")
+    
     email.fail_silently = False
     email.content_subtype = 'html'
     email.send()
