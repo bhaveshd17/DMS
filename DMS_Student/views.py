@@ -401,7 +401,6 @@ def update_personal(request, pk):
     content = {'student_form':student_form, 'student':student, 'user':user}
     if request.method == 'POST':
         student_form = StudentForm(request.POST, request.FILES, instance=student)
-        print(student_form)
         if student_form.is_valid():
             student_form.save()
             messages.success(request, 'Successfully Updated')
