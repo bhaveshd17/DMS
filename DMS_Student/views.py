@@ -507,3 +507,4 @@ def activate_user(request,uidb64,token):
     content={"student":student}
     return render(request,'authentication/activate_fail.html',content)
 
+ 

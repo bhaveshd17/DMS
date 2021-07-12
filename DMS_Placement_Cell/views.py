@@ -8,6 +8,7 @@ from DMS_Student.models import *
 from datetime import date
 from django.contrib.auth.models import User
 import json
+from .utils import *
 
 @allowed_users(allowed_roles=['Placement_Cell'])
 def index(request):
@@ -145,6 +146,17 @@ def status(request):
     data = json.loads(request.body)
     st=data["status"]
     id=data["id"]
+    comp=data["comp"]
     Job_user.objects.filter(id=id).update(status=st)
-    
+    if st=='3':
+        job=Job.objects.get(id=comp)
+        rollNo=Job_user.objects.get(id=id)
+        student=Student.objects.get(roll_no=rollNo)
+        send_accepted_email(student,job,request)
+    elif st=='2':
+        job=Job.objects.get(id=comp)
+        rollNo=Job_user.objects.get(id=id)
+        student=Student.objects.get(roll_no=rollNo)
+        send_not_suitable_email(student,job,request)
     return JsonResponse('Done', safe=False)
+

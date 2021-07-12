@@ -193,7 +193,6 @@ def send_action_email(student, name, request):
     from_email=settings.EMAIL_HOST_USER,
     to=[student.gmail]
     )
-    print("Sending")
     email.fail_silently = False
     email.content_subtype = 'html'
     email.send()
