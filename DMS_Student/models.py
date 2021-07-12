@@ -160,7 +160,9 @@ class Job(models.Model):
     adm_id = models.ForeignKey(AdminDma, on_delete=models.CASCADE, null=False)
     about_comp = models.TextField(max_length=500, null=False)
     about_work = models.TextField(max_length=500, null=False)
-    cgpa=models.FloatField(validators=[MaxValueValidator(10)])
+    aggregate_sgpi = models.CharField(max_length=15, null=True)
+    ssc_percentage = models.CharField(max_length=15, null=True)
+    hsc_d_percentage = models.CharField(max_length=15, null=True)
     live_kt=models.CharField(max_length=15,null=True)
     dead_kt = models.CharField(max_length=15, null=True)
     drop=models.CharField(max_length=15,choices=sorted({

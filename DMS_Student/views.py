@@ -477,12 +477,12 @@ def register(request):
         student_form=StudentForm(request.POST,request.FILES)
         user_form=UserForm(request.POST)
         if student_form.is_valid() and user_form.is_valid():
+            student_form.save()
+            user_form.save()
             username=user_form.cleaned_data.get("username")
             student=Student.objects.get(roll_no=username)
             name = user_form.cleaned_data.get("first_name")
             send_action_email(student, name, request)
-            student_form.save()
-            user_form.save()
             messages.success(request,f"your username is sent on email")
             return redirect("login")
         else:

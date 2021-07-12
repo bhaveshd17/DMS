@@ -62,18 +62,38 @@
                 <div class="col-md-9">
                     <div class="row">
                         <div class="col-md-6">
-                            <label>Minimum cgpa required</label>
-                            <div class="my-2"> {{form.cgpa}}</div>
+                            <label class="my-0">Minimum 10th percentage</label>
+                            <small class="form-text text-muted mb-2">Enter NA if not a criteria</small>
+                            <div class="my-2"> {{form.ssc_percentage}}</div>
                         </div>
                         <div class="col-md-6">
-                            <label>KT</label>
-                            <div class="my-2"> {{form.live_kt}}</div>
+                            <label class="my-0">Minimum 12/diploma percentage</label>
+                            <small class="form-text text-muted mb-2">Enter NA if not a criteria</small>
+                            <div class="my-2"> {{form.hsc_d_percentage}}</div>
                         </div>
                  
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <label>Year Drop</label>
+                            <label class="my-0">Minimum aggregate sgpi</label>
+                            <small class="form-text text-muted mb-2">Enter NA if not a criteria</small>
+                            <div class="my-2"> {{form.aggregate_sgpi}}</div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="my-0">Minimum no. live KT/S</label>
+                            <small class="form-text text-muted mb-2">Enter NA if not a criteria</small>
+                            <div class="my-2"> {{form.live_kt}}</div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                         <div class="col-md-6">
+                            <label class="my-0">Minimum no. Dead KT/S</label>
+                             <small class="form-text text-muted mb-2">Enter NA if not a criteria</small>
+                            <div class="my-2"> {{form.dead_kt}}</div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="my-0">Minimum no. of Drop</label>
                             <div class="my-2"> {{form.drop}}</div>
                         </div>
                         

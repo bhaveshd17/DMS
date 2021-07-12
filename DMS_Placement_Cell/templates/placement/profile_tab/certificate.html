@@ -1,0 +1,30 @@
+<div class="tab-pane fade" id="certificates" role="tabpanel" aria-labelledby="certificates-tab">
+    <h4 class="h4 text-center my-3">Certificates</h4>
+    <div id="certificate_cards">
+        {% for certificate in certificate_list %}
+        <div class="card card-body mb-3">
+            <div class="card-text">
+                <table class="table table-hover table-responsive-sm">
+                    <tbody>
+                        <tr>
+                            <td><strong>Certificate Name</strong></td>
+                            <td>{{certificate.certificate_name}}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Domain</strong></td>
+                            <td>{{certificate.domain}}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Certificate</strong></td>
+                            <td><a href="{{certificate.file.url}}">view</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+        {% endfor %}
+    </div>
+
+
+</div>

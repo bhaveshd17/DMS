@@ -53,10 +53,16 @@ def add_job(request):
             form.save()
             job = Job.objects.filter(adm_id=id).order_by("-id")[0]
             text = ""
-            if job.cgpa != 0:
-                text = text + f"<li class='text-left'>Minimum {job.cgpa} cgpa required</li>"
-            if job.live_kt != "0":
-                text = text + f"<li class='text-left'>Minimum {job.live_kt} KT </li>"
+            if job.aggregate_sgpi != "NA":
+                text = text + f"<li class='text-left'>Minimum {job.aggregate_sgpi} SGPI required</li>"
+            if job.ssc_percentage != "NA":
+                text = text + f"<li class='text-left'>Minimum {job.ssc_percentage} % of 10th required </li>"
+            if job.hsc_d_percentage != "NA":
+                text = text + f"<li class='text-left'>Minimum {job.hsc_d_percentage} % of 12/diploma required</li>"
+            if job.live_kt != "NA":
+                text = text + f"<li class='text-left'>Minimum {job.live_kt} Live KT </li>"
+            if job.dead_kt != "NA":
+                text = text + f"<li class='text-left'>Minimum {job.dead_kt} Dead KT</li>"
             if job.drop != "0":
                 text = text + f"<li class='text-left'>Minimum {job.drop} year drop</li>"
             if text == "":
@@ -115,31 +121,25 @@ def details(request,id,type):
 
 @allowed_users(allowed_roles=['Placement_Cell'])
 def displayProfile(request,rollNo):
-    student=Student.objects.get(roll_no=rollNo)
-    user=User.objects.get(username=rollNo)
-    name = user.first_name.upper()+' '+student.father_name.upper()+' '+user.last_name.upper()
-    yearOfJoining='20'+rollNo[0:2]
-    if rollNo[2:5]=="101":
-        branch="INFT"
-    elif rollNo[2:5]=="102":
-        branch="CMPN"
-    elif rollNo[2:5]=="103":
-        branch="ETRX"
-    elif rollNo[2:5]=="104":
-        branch="EXTC"
-    elif rollNo[2:5]=="105":
-        branch="BIOMED"
-    else:
-        branch="Invalid User"
+    student = Student.objects.get(roll_no=rollNo)
+    user = User.objects.get(username=student.roll_no)
+    name = user.first_name
+    yearOfJoining = '20' + rollNo[0:2]
+    branch = student.branch
+    div = student.div
+    studentId = rollNo[6:]
+    exp = Add_exp.objects.filter(rollNo=rollNo)
+    edu = Add_edu.objects.filter(roll_no=rollNo).order_by("degree")
+    prev_deg = [edu.degree for edu in edu]
 
-    div=rollNo[5]
-    studentId=rollNo[6:]
-    edu=Add_edu.objects.filter(roll_no=rollNo).order_by("degree")
-    exp=Add_exp.objects.filter(rollNo=rollNo)
+    curr_edu = CurrEdu.objects.filter(roll_no_curr=rollNo)
+    certificate_list = Certificates.objects.filter(certificate_issued_to=rollNo)
 
-    context={"rollNo":rollNo,"student":student,"user":user,"name":name,"yearOfJoining":yearOfJoining,
-    "branch":branch,"div":div,"studentId":studentId,"exp_list":exp,"edu_list":edu}
-    return render(request,"placement/displayProfile.html",context) 
+    content = {'rollNo': rollNo, 'yearOfJoining': yearOfJoining, 'branch': branch, 'div': div,
+               'studentId': studentId, 'edu_list': edu, 'exp_list': exp,
+               'student_info': student, 'name': name,'user':user,
+               'prev_deg': prev_deg, 'certificate_list': certificate_list, 'curr_edu': curr_edu}
+    return render(request, "placement/displayProfile.html", content)
 
 @allowed_users(allowed_roles=['Placement_Cell'])
 def status(request):
