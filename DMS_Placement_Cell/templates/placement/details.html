@@ -137,13 +137,12 @@
                                               <h6>Change Status of student {{a.roll_no}}</h6>  
                                             </div>
                                             <div class="modal-footer">
-                                        <!-- <form method="POST" action="/accepted_email/{{a.roll_no}}/{{a.job_id}}/"> -->
-                                                <button type="button" id="accepted" class="btn btn-primary py-1 px-2 mr-2" 
-                                            onclick="statusChange('3','{{a.id}}','{{details.id}}')"  ><i class="fas fa-check"> Accepted</i></button>
-                                        <!-- </form> -->
                                         <form method="POST" action="#">
+                                                <button type="button" id="accepted" class="btn btn-primary py-1 px-2 mr-2" 
+                                            onclick="statusChange('3','{{a.id}}')"  ><i class="fas fa-check"> Accepted</i></button>
+                                        
                                             <button type="button" id="rejected" class="btn btn-danger py-1 px-2"
-                                        onclick="statusChange('2','{{a.id}}','{{details.id}}')"><i class="fas fa-times"> Not Suitable</i></button>
+                                        onclick="statusChange('2','{{a.id}}')"><i class="fas fa-times"> Not Suitable</i></button>
                                         </form>
                                         
                                             
@@ -165,15 +164,26 @@
                             <thead>
                                 <th scpoe="col">Roll No.</th>
                                 <th scpoe="col">Date</th>
+                                <th scpoe="col">Mail</th>
                             </thead>
                             <tbody>
                                 {% for a in applied %}
-                                <tr onclick=" window.location.href='/placement_cell/displayProfile/{{a.roll_no}}/'">
+                                <tr>
                                     {%ifequal a.status "3" %}
-                                    <td>{{a.roll_no}}</td>
+                                    <td onclick=" window.location.href='/placement_cell/displayProfile/{{a.roll_no}}/'">{{a.roll_no}}</td>
                                     <td>{{a.date}}</td>
+                                    {% if a.is_mail_send %}
+                                    <td>
+                                       <i class="fas fa-check"></i>
+                                    </td>
+                                    {% else %}
+                                    <td>
+                                        <a href="/placement_cell/send_email/{{a.id}}/{{a.job_id.id}}/"><i class="fas fa-envelope"></i></a> 
+                                    </td>
+                                    {% endif%}
                                     {% endifequal %}
                                 </tr>
+                                
                                 {% endfor %}
                             </tbody>
                         </table>
@@ -227,7 +237,7 @@
     }
     
     
-    function statusChange(status,student_id,comp){
+    function statusChange(status,student_id){
         const url ="{% url 'status' %}"
         fetch(url, {
             method: 'POST',
@@ -236,7 +246,7 @@
                 'Accept': 'application/json',
                 'X-CSRFToken': csrftoken,
             },
-            body: JSON.stringify({"status":status,"id":student_id,"comp":comp})
+            body: JSON.stringify({"status":status,"id":student_id})
 
         })
             .then((response) => response.json())

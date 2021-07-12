@@ -146,17 +146,19 @@ def status(request):
     data = json.loads(request.body)
     st=data["status"]
     id=data["id"]
-    comp=data["comp"]
     Job_user.objects.filter(id=id).update(status=st)
-    if st=='3':
-        job=Job.objects.get(id=comp)
-        rollNo=Job_user.objects.get(id=id)
-        student=Student.objects.get(roll_no=rollNo)
-        send_accepted_email(student,job,request)
-    elif st=='2':
-        job=Job.objects.get(id=comp)
-        rollNo=Job_user.objects.get(id=id)
-        student=Student.objects.get(roll_no=rollNo)
-        send_not_suitable_email(student,job,request)
+    
     return JsonResponse('Done', safe=False)
 
+def send_email(request,id,comp):
+    job=Job.objects.get(id=comp)
+    job_user=Job_user.objects.get(id=id)
+    student=Student.objects.get(roll_no=job_user.roll_no)
+
+    if job_user.status=='3':    
+        
+        send_accepted_email(student,job,request)
+        Job_user.objects.filter(id=job_user.id).update(is_mail_send=True)
+    elif job_user.status=='2':
+        send_not_suitable_email(student,job,request)
+    return redirect('/placement_cell/details/'+str(job.id)+"/1")

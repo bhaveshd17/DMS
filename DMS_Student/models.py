@@ -180,6 +180,7 @@ class Job_user(models.Model):
     roll_no = models.ForeignKey(Student, on_delete=models.CASCADE, null=False)
     job_id = models.ForeignKey(Job, on_delete=models.CASCADE, null=False)
     date = models.DateTimeField(auto_now_add=True, null=True)
+    is_mail_send=models.BooleanField(default=False,null=True)
 
     def __str__(self):
         return str(self.roll_no)
