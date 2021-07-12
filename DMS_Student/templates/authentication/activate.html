@@ -1,12 +1,12 @@
 {% autoescape off %}
 
+<strong>Hi, {{ name }}</strong>
 
-Hi {{student.roll_no}}
+<p>your username is {{student.roll_no}}</p>
 
-Please use the link below to verify your account.
+<p>Please use the link below to verify your account.
 
-
-http://{{domain}}{% url 'activate_user' uidb64=uid token=token %}
+http://{{domain}}{% url 'activate_user' uidb64=uid token=token %}</p>
 
 
 {% endautoescape %}

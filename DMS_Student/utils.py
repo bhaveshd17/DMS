@@ -177,11 +177,12 @@ class TokenGenerator(PasswordResetTokenGenerator):
 
 generate_token=TokenGenerator()
 
-def send_action_email(student,request):
+def send_action_email(student, name, request):
     current_site=get_current_site(request)
     email_subject="Activate your VPlacement Portal"
     email_body=render_to_string("authentication/activate.html",{
-        'user':student,
+        'student':student,
+        'name':name,
         'domain':current_site,
         'uid':urlsafe_base64_encode(force_bytes(student.roll_no)),
         'token':generate_token.make_token(student)
