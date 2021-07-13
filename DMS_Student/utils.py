@@ -1,15 +1,27 @@
 from django.template.loader import render_to_string
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.contrib.sites.shortcuts import get_current_site
-from django.utils.encoding import force_bytes,force_str,force_text,DjangoUnicodeDecodeError
-from django.utils.http import urlsafe_base64_encode,urlsafe_base64_decode
-from django.urls import reverse
+from django.utils.encoding import force_bytes, force_str, force_text, DjangoUnicodeDecodeError
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.core.mail import EmailMessage
 from django.conf import settings
+from django.db.models import Max
 
 import six
 from .models import *
 import operator
+import numpy as np
+import math
+
+
+def job_eligibility_logic(job_list, percentage, live_kt, drop, dead_kt, ssc_percentage, hsc_percentage, sal):
+    list_j = []
+    for job in job_list:
+        if float(job.aggregate_sgpi) <= percentage and float(job.ssc_percentage) <= ssc_percentage and float(
+                job.hsc_d_percentage) <= hsc_percentage and live_kt <= int(job.live_kt) and drop <= int(
+                job.drop) and dead_kt <= int(job.dead_kt) and float(job.sal) > sal:
+            list_j.append(job)
+    return list_j
 
 
 def department_sort(request):
@@ -64,52 +76,90 @@ def jobLogic(request):
     for id in sorted_related_jobs.keys():
         job_list.append(Job.objects.get(id=id))
 
-
     try:
         student = Student.objects.get(roll_no=request.user.username)
-        cgpa = CurrEdu.objects.get(roll_no_curr=student).average_sgpi
-        live_kt = CurrEdu.objects.get(roll_no_curr=student).live_kt
-        dead_kt = CurrEdu.objects.get(roll_no_curr=student).dead_kt
-        drop = CurrEdu.objects.get(roll_no_curr=student).drop
+        curr_edu = CurrEdu.objects.get(roll_no_curr=student)
+        cgpa = float(curr_edu.average_sgpi)
+        percentage = float(round(cgpa * 7.1 + 11, 2))
+        live_kt = int(curr_edu.live_kt)
+        dead_kt = int(curr_edu.dead_kt)
+        drop = int(curr_edu.drop)
+        ssc = Add_edu.objects.get(roll_no=student, degree='10')
+        ssc_percentage = round(ssc.marks/int(ssc.no_of_subject), 2)
+        hsc = Add_edu.objects.filter(roll_no=student).exclude(degree='10')[0]
+        if hsc == 'diploma':
+            hsc_percentage = hsc.percentage
+        else:
+            hsc_percentage = round(hsc.marks/int(hsc.no_of_subject))
+        print(hsc_percentage)
 
-        related_job_list = []
         hired = Job_user.objects.filter(roll_no=student, status="3")
         if len(hired) == 0:
-            for job in job_list:
-                if job.cgpa <= cgpa and int(live_kt) <= int(job.live_kt) and int(drop) <= int(job.drop) and int(
-                        dead_kt) <= int(job.dead_kt):
-                    related_job_list.append(job)
+            related_job_list = job_eligibility_logic(job_list=job_list, percentage=percentage,
+                                                     live_kt=live_kt, dead_kt=dead_kt, drop=drop,
+                                                     ssc_percentage=ssc_percentage, hsc_percentage=hsc_percentage, sal=0)
 
         else:
             package = []
             for job in hired:
                 package.append(Job.objects.get(id=job.job_id.id).sal)
-
             sal = max(package)
-            if sal < 3.5:
-                for job in job_list:
-                    if job.cgpa <= cgpa and int(live_kt) <= int(job.live_kt) and int(drop) <= int(job.drop):
-                        related_job_list.append(job)
-            elif sal >= 3.5 and sal <= 5:
-                for job in job_list:
-                    if job.cgpa <= cgpa and int(live_kt) <= int(job.live_kt) and int(drop) <= int(
-                            job.drop) and job.sal >= 5:
-                        related_job_list.append(job)
-            elif sal > 5 and sal <= 7:
-                for job in job_list:
-                    if job.cgpa <= cgpa and int(live_kt) <= int(job.live_kt) and int(drop) <= int(
-                            job.drop) and job.sal > 5:
-                        related_job_list.append(job)
-            elif sal > 7 and sal <= 10:
-                for job in job_list:
-                    if job.cgpa <= cgpa and int(live_kt) <= int(job.live_kt) and int(drop) <= int(
-                            job.drop) and job.sal > 7:
-                        related_job_list.append(job)
-            elif sal > 10:
-                for job in job_list:
-                    if job.cgpa <= cgpa and int(live_kt) <= int(job.live_kt) and int(drop) <= int(
-                            job.drop) and job.sal > 10:
-                        related_job_list.append(job)
+
+            if sal < 3.0:
+                related_job_list = job_eligibility_logic(job_list=job_list, percentage=percentage,
+                                                         live_kt=live_kt, dead_kt=dead_kt, drop=drop,
+                                                         ssc_percentage=ssc_percentage,
+                                                         hsc_percentage=hsc_percentage,
+                                                         sal=3.0)
+            else:
+                max_package = Job.objects.aggregate(Max('sal'))['sal__max']
+                linear_space_package = np.linspace(start=3.0, stop=max_package, num=int(max_package / 2))
+                arranging = zip(linear_space_package, linear_space_package[1:])
+                for i, j in arranging:
+                    if sal >= float(math.ceil(i)) and sal < float(math.ceil(j)):
+                        related_job_list = job_eligibility_logic(job_list=job_list, percentage=percentage,
+                                                                 live_kt=live_kt, dead_kt=dead_kt, drop=drop,
+                                                                 ssc_percentage=ssc_percentage,
+                                                                 hsc_percentage=hsc_percentage,
+                                                                 sal=j)
+
+
+
+            # if sal < 3.5:
+            #     related_job_list = job_eligibility_logic(job_list=job_list, percentage=percentage,
+            #                                              live_kt=live_kt, dead_kt=dead_kt, drop=drop,
+            #                                              ssc_percentage=ssc_percentage,
+            #                                              hsc_percentage=hsc_percentage,
+            #                                              sal=3.5)
+            #
+            # elif sal >= 3.5 and sal < 5:
+            #     related_job_list = job_eligibility_logic(job_list=job_list, percentage=percentage,
+            #                                              live_kt=live_kt, dead_kt=dead_kt, drop=drop,
+            #                                              ssc_percentage=ssc_percentage,
+            #                                              hsc_percentage=hsc_percentage,
+            #                                              sal=5)
+            # elif sal >= 5 and sal < 7:
+            #     related_job_list = job_eligibility_logic(job_list=job_list, percentage=percentage,
+            #                                              live_kt=live_kt, dead_kt=dead_kt, drop=drop,
+            #                                              ssc_percentage=ssc_percentage,
+            #                                              hsc_percentage=hsc_percentage,
+            #                                              sal=7)
+            # elif sal >= 7 and sal < 10:
+            #     related_job_list = job_eligibility_logic(job_list=job_list, percentage=percentage,
+            #                                              live_kt=live_kt, dead_kt=dead_kt, drop=drop,
+            #                                              ssc_percentage=ssc_percentage,
+            #                                              hsc_percentage=hsc_percentage,
+            #                                              sal=10)
+            # else:
+            #     related_job_list = job_eligibility_logic(job_list=job_list, percentage=percentage,
+            #                                              live_kt=live_kt, dead_kt=dead_kt, drop=drop,
+            #                                              ssc_percentage=ssc_percentage,
+            #                                              hsc_percentage=hsc_percentage,
+            #                                              sal=10)
+
+
+
+
     except Exception as e:
         print(e)
         related_job_list = []
@@ -172,27 +222,29 @@ def internshipLogic(request):
 
 
 class TokenGenerator(PasswordResetTokenGenerator):
-    def _make_hash_value(self,student, timestamp):
-        return (six.text_type(student.roll_no)+six.text_type(timestamp)+six.text_type(student.is_email_verified))
+    def _make_hash_value(self, student, timestamp):
+        return (six.text_type(student.roll_no) + six.text_type(timestamp) + six.text_type(student.is_email_verified))
 
-generate_token=TokenGenerator()
+
+generate_token = TokenGenerator()
+
 
 def send_action_email(student, name, request):
-    current_site=get_current_site(request)
-    email_subject="Activate your VPlacement Portal"
-    email_body=render_to_string("authentication/activate.html",{
-        'student':student,
-        'name':name,
-        'domain':current_site,
-        'uid':urlsafe_base64_encode(force_bytes(student.roll_no)),
-        'token':generate_token.make_token(student)
-        
+    current_site = get_current_site(request)
+    email_subject = "Activate your VPlacement Portal"
+    email_body = render_to_string("authentication/activate.html", {
+        'student': student,
+        'name': name,
+        'domain': current_site,
+        'uid': urlsafe_base64_encode(force_bytes(student.roll_no)),
+        'token': generate_token.make_token(student)
+
     })
 
-    email=EmailMessage(subject=email_subject,body=email_body,
-    from_email=settings.EMAIL_HOST_USER,
-    to=[student.gmail]
-    )
+    email = EmailMessage(subject=email_subject, body=email_body,
+                         from_email=settings.EMAIL_HOST_USER,
+                         to=[student.gmail]
+                         )
     email.fail_silently = False
     email.content_subtype = 'html'
     email.send()
