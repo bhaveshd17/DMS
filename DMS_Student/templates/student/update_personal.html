@@ -1,41 +1,15 @@
-<!DOCTYPE html>
+{% extends 'student/base.html' %}
 {% load static %}
-<html lang="en">
+{% block title %}update personal{% endblock %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registration Form</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{% static 'css/base.css'%}">
-    <link rel="shortcut icon" href="{% static  'images/vitwhite.png' %}" type="image/png">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="https://kit.fontawesome.com/6b2983e729.js" crossorigin="anonymous"></script>
-</head>
-
-<body>
-    {% if messages %}
-    {% for message in messages %}
-    <div class="alert alert-{{ message.tags }} alert-dismissible fade show mb-3" role="alert">
-        <strong>{{ message }}</strong>
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    {% endfor %}
-    {% endif %}
-
-    <div class="container mt-5">
+{% block content %}
+<div class="container mt-5">
         <div class="card">
             <div class="card-header text-center">
-                <h1>Registration</h1>
+                <h1>Update Personal Data</h1>
             </div>
             <div class="card-body">
-                <form method="POST" action="{% url 'register' %}" enctype="multipart/form-data">
+                <form method="POST" action="{% url 'update_personal' user.username%}" enctype="multipart/form-data">
                     {% csrf_token %}
                     {% if stundent_form.errors and user_form %}
                     <div class="alert alert-danger" role="alert">
@@ -45,37 +19,26 @@
 
                     <div class="container" id="first">
                         <div class="mb-3">
+                            <label for="username"><strong>Username:</strong></label>
+                            <input type="text" name="username" id="username" value="{{ user.username }}" disabled>
+                        </div>
+                        <div class="mb-3">
                             <label><strong>Roll Number:</strong></label>
                             {{student_form.roll_no}}
                         </div>
-                        <div class="mb-3" style="display: none;">
-                            <label><strong>Username:</strong></label>
-                            {{user_form.username}}
-                        </div>
-                        <div class="mb-3">
-                            <label class="mb-0"><strong>Full Name:</strong></label>
-                            <small class="form-text mb-2">First Name Middle Name Last Name . This is Mandatory</small>
-                            {{user_form.first_name}}
-                        </div>
-                        <div class="mb-3">
-                            <label class="mb-0"><strong>Password:</strong></label>
-                            <small class="form-text mb-2" id="id_small"></small>
-                            {{user_form.password1}}
-                            <small id="id_show1" style="cursor: pointer;" onclick="showPassword()"><i
-                                    class="fas fa-eye"></i> view Password</small>
-                        </div>
-                        <div class="mb-3">
-                            <label><strong>Conform Password:</strong></label>
-                            {{user_form.password2}}
-                            <small id="id_show2" style="cursor: pointer;" onclick="showCPassword()"><i
-                                    class="fas fa-eye"></i> view Password</small>
-                        </div>
-                        <div class="float-right">
-                            <button type="button" id="next1" class="btn btn-primary">Next</button>
-                        </div>
-                    </div>
 
-                    <div class="container mb-3" id="second" style="display: none;">
+                        <div class="mb-3">
+                            <label for="email"><strong>Email Address(@vit.edu.in):</strong></label>
+                            <input type="text" name="email" id="email" value="{{ user.email }}" disabled>
+                        </div>
+                        <div class="mb-3">
+                            <label><strong>Email Address(@gmail.com):</strong></label>
+                            {{student_form.gmail}}
+                        </div>
+                        <div class="mb-3">
+                            <label for="first_name"><strong>Full Name:</strong></label>
+                            <input type="text" name="first_name" id="first_name" value="{{ user.first_name }}" disabled>
+                        </div>
                         <div class="mb-3">
                             <label><strong>Gender:</strong></label>
                             {{student_form.gender}}
@@ -84,6 +47,13 @@
                             <label><strong>Branch:</strong></label>
                             {{student_form.branch}}
                         </div>
+
+                        <div class="float-right">
+                            <button type="button" id="next1" class="btn btn-primary">Next</button>
+                        </div>
+                    </div>
+
+                    <div class="container mb-3" id="second" style="display: none;">
                         <div class="mb-3">
                             <label><strong>Division:</strong></label>
                             {{student_form.div}}
@@ -107,14 +77,7 @@
                                 above" If not mention Permanent Address</small>
                             {{student_form.permanent_address}}
                         </div>
-                        <div class="mb-3">
-                            <label><strong>Email Address(@vit.edu.in):</strong></label>
-                            {{user_form.email}}
-                        </div>
-                        <div class="mb-3">
-                            <label><strong>Email Address(@gmail.com):</strong></label>
-                            {{student_form.gmail}}
-                        </div>
+
                         <div class="mb-3">
                             <label><strong>Landline/Mobile Number of Residence:</strong></label>
                             {{student_form.residence_phone}}
@@ -243,23 +206,14 @@
         $("textarea").addClass("form-control")
         $("select").addClass("form-control")
         $("#id_date_of_birth").prop('type', 'date')
+        $("#id_roll_no").prop("readonly", true)
+        $("#id_gmail").prop("readonly", true)
 
         $(document).ready(function () {
             $("#next1").click(function () {
-                let roll_no = $("#id_roll_no").val()
-                let pass1 = $("#id_password1").val()
-                let pass2 = $("#id_password2").val()
-                if (pass1 === pass2 && pass1.length >= 8) {
-                    $("#id_username").val(roll_no)
-                    $("#first").hide()
-                    $("#third").hide()
-                    $("#second").show()
-                } else {
-                    alert("Password didn't match with Conform Password")
-                    $("#id_small").text("Password Length must be greater than 8 characters.")
-                }
-
-
+                $("#first").hide()
+                $("#third").hide()
+                $("#second").show()
             })
             $("#next2").click(function () {
                 $("#first").hide()
@@ -268,22 +222,6 @@
             })
 
         })
-        function showPassword() {
-            let x = $("#id_password1")
-            if (x.attr('type') === "password") {
-                x.attr('type', 'text');
-            } else {
-                x.attr('type', 'password');
-            }
-        }
-        function showCPassword(){
-            let x = $("#id_password2")
-            if (x.attr('type') === "password") {
-                x.attr('type', 'text');
-            } else {
-                x.attr('type', 'password');
-            }
-        }
 
         let disability_d = document.getElementById("id_disability")
         disability_d.addEventListener("change", (event)=>{
@@ -300,6 +238,4 @@
     </script>
 
 
-</body>
-
-</html>
+{% endblock %}

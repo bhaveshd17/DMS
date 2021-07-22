@@ -393,6 +393,23 @@ def UpdateSkills(request):
                                 {'form': form, 'csrf_token_value': csrf_token_value})
     return JsonResponse({'data': template})
 
+@login_required(login_url='login')
+def update_personal(request, pk):
+    student = Student.objects.get(roll_no=pk)
+    user = User.objects.get(username=pk)
+    student_form = StudentForm(instance=student)
+    content = {'student_form':student_form, 'student':student, 'user':user}
+    if request.method == 'POST':
+        student_form = StudentForm(request.POST, request.FILES, instance=student)
+        if student_form.is_valid():
+            student_form.save()
+            messages.success(request, 'Successfully Updated')
+            return redirect('profile')
+        else:
+            messages.success(request, 'Failed')
+            return redirect('profile')
+
+    return render(request, 'student/update_personal.html', content)
 
 @login_required(login_url='login')
 def search(request):
@@ -481,13 +498,15 @@ def register(request):
             user_form.save()
             username=user_form.cleaned_data.get("username")
             student=Student.objects.get(roll_no=username)
-            send_action_email(student,request)
-            messages.success(request,f"your username is {username} please verify email")
+            name = user_form.cleaned_data.get("first_name")
+            send_action_email(student, name, request)
+            messages.success(request,f"your username is sent on email")
             return redirect("login")
         else:
             messages, error(request, "Failed")
     content = {"student_form": student_form, "user_form": user_form}
     return render(request, "authentication/register.html", content)
+
 
 
 def activate_user(request,uidb64,token):

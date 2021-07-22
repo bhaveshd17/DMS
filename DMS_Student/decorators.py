@@ -4,7 +4,10 @@ from django.shortcuts import redirect,HttpResponse
 def unauthenticated_user(view_function):
     def wrapper_function(request, *args, **kwargs):
         if request.user.is_authenticated:
-            return redirect('/student/')
+            if request.user.is_staff:
+                return redirect('placementIndex')
+            else:
+                return redirect('index')
         else:
             return view_function(request, *args, **kwargs)
 

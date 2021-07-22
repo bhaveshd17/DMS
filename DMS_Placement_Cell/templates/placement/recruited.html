@@ -1,46 +1,45 @@
-{%extends "placement/base.html" %}
+{% extends "placement/base.html" %}
 {% load static %}
 {% block title %} Recruiting {% endblock %}
 {% block content %}
-<h4 class="text-center mb-3">Companies Recruited</h4>
-<div class="card card-body" id="all_table">
+    <h4 class="text-center mb-3">Companies Recruited</h4>
+    <div class="card card-body" id="all_table">
 
-    <table class="table table-hover table-striped table-responsive-sm">
-        <thead>
-            <th scope="col">Company</th>
-            <th scope="col">Location</th>
-            <th scope="col">Joining Date</th>
-            <th scope="col">Apply By</th>
-            <th scope="col">Salary (LPA)</th>
-            <th scope="col">Domain</th>
-            <th scope="col">Eligibility</th>
-            <!-- <th scope="col">Perks</th> -->
-            <th scope="col">Link</th>
-            <th scope="col">Hired</th>
-        </thead>
-        <tbody>
-            {% for job in jobs %}
-            <tr class="clickable text-center" onclick=" window.location.href='/placement_cell/details/{{job.id}}/1'">
-                <td>{{job.comp_name}}</td>
-                <td>{{job.location}}</td>
-                <td>{{job.start_date}}</td>
-                <td>{{job.apply_by}}</td>
-                <td>{{job.sal}}</td>
-                <td>{{job.domain}}</td>
-                <td><ol>{{job.who_can_apply|safe}}</ol></td>
-                <!-- <td>{{job.perks}}</td> -->
-                <td><a href="{{job.link}}">Link</a></td>
-                {% for key, value in hired.items %}
-                {% ifequal key job %}
-                <td>{{value}}</td>
-                {%endifequal%}
-                {% endfor %}
-                
+        <table class="table table-hover table-striped table-responsive-sm">
+            <thead>
+            <tr>
+                <th scope="col">Company</th>
+                <th scope="col">Location</th>
+                <th scope="col">Joining Date</th>
+                <th scope="col">Apply By</th>
+                <th scope="col">Salary (LPA)</th>
+                <th scope="col">Domain</th>
+                <th scope="col">Link</th>
+                <th scope="col">Hired</th>
             </tr>
+            </thead>
+            <tbody>
+            {% for job in jobs %}
+                <tr class="clickable text-center"
+                    onclick=" window.location.href='/placement_cell/details/{{ job.id }}/1'">
+                    <td>{{ job.comp_name }}</td>
+                    <td>{{ job.location }}</td>
+                    <td>{{ job.start_date }}</td>
+                    <td>{{ job.apply_by }}</td>
+                    <td>{{ job.sal }}</td>
+                    <td>{{ job.domain }}</td>
+                    <td><a href="{{ job.link }}">Link</a></td>
+                    {% for key, value in hired.items %}
+                        {% ifequal key job %}
+                            <td>{{ value }}</td>
+                        {% endifequal %}
+                    {% endfor %}
+
+                </tr>
             {% endfor %}
-        </tbody>
-    </table>
-</div>
+            </tbody>
+        </table>
+    </div>
 
 
 

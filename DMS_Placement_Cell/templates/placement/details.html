@@ -2,263 +2,270 @@
 {% load static %}
 {% block title %} Details {% endblock %}
 {% block content %}
-<style>
-    .row div {
-        background: white;
-    }
-</style>
-<div class="row">
-    <div class="col-7">
-        <div class="card">
-            <div class="card-header">
-                <h1 class="text-center" style="text-transform: uppercase;">{{details.comp_name}}</h1>
-                <h3 class="text-center mb-4 ">{{details.domain}}</h3>
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-sm-3 text-center">
-                        <h6>{{pay}}</h6>Rs. {{details.sal}} LPA
-                    </div>
-                    <div class="col-sm-3 text-center">
-                        <h6>Start Date</h6>{{details.start_date}}
-                    </div>
-                    <div class="col-sm-3 text-center">
-                        <h6>Apply by</h6>
-                        {{details.apply_by}}
-                    </div>
-                    <div class="col-sm-3 text-center">
-                        <h6>Placed by</h6>
-                        {{details.adm_id}}
-                    </div>
+    <style>
+        .row div {
+            background: white;
+        }
+    </style>
+    <div class="row">
+        <div class="col-7">
+            <div class="card">
+                <div class="card-header">
+                    <h1 class="text-center" style="text-transform: uppercase;">{{ details.comp_name }}</h1>
+                    <h3 class="text-center mb-4 ">{{ details.domain }}</h3>
                 </div>
-                {% if details.work_from_home %}
-                <div class=""><i class="fas fa-home mt-3 mr-2"></i><span class="text-muted">Work From Home</span></div>
-                {% endif %}
-                <hr>
-                <h5>About
-                    {{details.comp_name}}
-                </h5>
-                <a href="{{details.link}}" style="text-transform:lowercase">
-                    {{details.comp_name}}.com
-                </a>
-                <p>
-                    {{details.about_comp}}
-                </p>
-                <hr>
-                <h5>About the {{details.domain}} work
-                </h5>
-                <p>
-                    {{details.about_work}}
-                </p>
-                <hr>
-                <h5>Skill(s) required</h5>
-                <p>
-                    {{details.skills}}
-                </p>
-                <hr>
-                <h5>Who can apply</h5>
-                <ol>
-                    {{details.who_can_apply|safe}}
-                </ol>
-                <hr>
-                <h5>Perks</h5>
-                <p>
-                    {{details.perks}}
-                </p>
-                <hr>
-                <h5>Additional information</h5>
-                <p>
-                    {{details.additional}}
-                </p>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-3 text-center">
+                            <h6>{{ pay }}</h6>Rs. {{ details.sal }} LPA
+                        </div>
+                        <div class="col-sm-3 text-center">
+                            <h6>Start Date</h6>{{ details.start_date }}
+                        </div>
+                        <div class="col-sm-3 text-center">
+                            <h6>Apply by</h6>
+                            {{ details.apply_by }}
+                        </div>
+                        <div class="col-sm-3 text-center">
+                            <h6>Placed by</h6>
+                            {{ details.adm_id }}
+                        </div>
+                    </div>
+                    {% if details.work_from_home %}
+                        <div class=""><i class="fas fa-home mt-3 mr-2"></i><span
+                                class="text-muted">Work From Home</span></div>
+                    {% endif %}
+                    <hr>
+                    <h5>About
+                        {{ details.comp_name }}
+                    </h5>
+                    <a href="{{ details.link }}" style="text-transform:lowercase">
+                        {{ details.comp_name }}.com
+                    </a>
+                    <p>
+                        {{ details.about_comp }}
+                    </p>
+                    <hr>
+                    <h5>About the {{ details.domain }} work
+                    </h5>
+                    <p>
+                        {{ details.about_work }}
+                    </p>
+                    <hr>
+                    <h5>Skill(s) required</h5>
+                    <p>
+                        {{ details.skills }}
+                    </p>
+                    <hr>
+                    <h5>Who can apply</h5>
+                    <ol>
+                        {{ details.who_can_apply|safe }}
+                    </ol>
+                    <hr>
+                    <h5>Perks</h5>
+                    <p>
+                        {{ details.perks }}
+                    </p>
+                    <hr>
+                    <h5>Additional information</h5>
+                    <p>
+                        {{ details.additional }}
+                    </p>
+                </div>
             </div>
+
         </div>
 
-    </div>
+        <!-- Side Card -->
+        <div class="col-5">
+            <div class="card">
+                <div class="card-header">
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active " id="applied-tab" data-toggle="tab" href="#applied" role="tab"
+                               aria-controls="edu" aria-selected="false">Applied</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="home-tab" data-toggle="tab" href="#hired" role="tab"
+                               aria-controls="home" aria-selected="true" style="color: green;">Hired</a>
+                        </li>
 
-    <!-- Side Card -->
-    <div class="col-5">
-        <div class="card">
-            <div class="card-header">
-                <ul class="nav nav-tabs" id="myTab" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link active " id="applied-tab" data-toggle="tab" href="#applied" role="tab"
-                            aria-controls="edu" aria-selected="false">Applied</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="home-tab" data-toggle="tab" href="#hired" role="tab"
-                            aria-controls="home" aria-selected="true" style="color: green;">Hired</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" id="rejected-tab" data-toggle="tab" href="#rejected" role="tab"
-                            aria-controls="profile" aria-selected="false" style="color: red;">Not Suitable</a>
-                    </li>
-                    <li class="nav-item">
-                        <i class="fas fa-download mt-3 ml-3" onclick="xl_conv()"></i>
-                    </li>
-                </ul>
-            </div>
-            <div class="tab-content" id="myTabContent">
+                        <li class="nav-item">
+                            <a class="nav-link" id="rejected-tab" data-toggle="tab" href="#rejected" role="tab"
+                               aria-controls="profile" aria-selected="false" style="color: red;">Not Suitable</a>
+                        </li>
+                        <li class="nav-item">
+                            <i class="fas fa-download mt-3 ml-3" onclick="xl_conv()"></i>
+                        </li>
+                    </ul>
+                </div>
+                <div class="tab-content" id="myTabContent">
 
 
+                    <div class="tab-pane fade  show active" id="applied" role="tabpanel" aria-labelledby="applied-tab">
 
-                <div class="tab-pane fade  show active" id="applied" role="tabpanel" aria-labelledby="applied-tab">
+                        <div class="card-body">
 
-                    <div class="card-body">
-
-                        <table class="table table-hover table-striped">
-                            <thead>
+                            <table class="table table-hover table-striped">
+                                <thead>
                                 <th scpoe="col">Roll No.</th>
                                 <th scpoe="col">Date</th>
                                 <th scpoe="col">Status</th>
-                            </thead>
-                            <tbody>
+                                </thead>
+                                <tbody>
                                 {% for a in applied %}
-                                <tr>
-                                    {%ifequal a.status "1" %}
-                                    <td onclick=" window.location.href='/placement_cell/displayProfile/{{a.roll_no}}/'">{{a.roll_no}}</td>
-                                    <td>{{a.date}}</td>
-                                    <td class="d-flex">
+                                    <tr>
+                                        {% ifequal a.status "1" %}
+                                            <td onclick=" window.location.href='/placement_cell/displayProfile/{{ a.roll_no }}/'">{{ a.roll_no }}</td>
+                                            <td>{{ a.date }}</td>
+                                            <td class="d-flex">
 
-                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                                                Status
-                                              </button>
-                                    </td>
-                                    </tr>
-                                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog" role="document">
-                                          <div class="modal-content">
-                                            <div class="modal-header">
-                                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                              </button>
+                                                <button type="button" class="btn btn-primary" data-toggle="modal"
+                                                        data-target="#Mymodal{{ a.id }}">
+                                                    Status
+                                                </button>
+                                            </td>
+                                            </tr>
+                                            <div class="modal fade" id="Mymodal{{ a.id }}" tabindex="-1"
+                                                 role="dialog"
+                                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog" id="Mymodal{{ a.id }}">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal"
+                                                                    aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <h6>Change Status of student {{ a.roll_no }}</h6>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <form method="POST" action="#">
+                                                                <button type="button" id="accepted"
+                                                                        class="btn btn-primary py-1 px-2 mr-2"
+                                                                        onclick="statusChange('3','{{ a.id }}')"><i
+                                                                        class="fas fa-check"> Accepted</i></button>
+
+                                                                <button type="button" id="rejected"
+                                                                        class="btn btn-danger py-1 px-2"
+                                                                        onclick="statusChange('2','{{ a.id }}')"><i
+                                                                        class="fas fa-times"> Not Suitable</i></button>
+                                                            </form>
+
+
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="modal-body">
-                                              <h6>Change Status of student {{a.roll_no}}</h6>  
-                                            </div>
-                                            <div class="modal-footer">
-                                        <form method="POST" action="#">
-                                                <button type="button" id="accepted" class="btn btn-primary py-1 px-2 mr-2" 
-                                            onclick="statusChange('3','{{a.id}}')"  ><i class="fas fa-check"> Accepted</i></button>
-                                        
-                                            <button type="button" id="rejected" class="btn btn-danger py-1 px-2"
-                                        onclick="statusChange('2','{{a.id}}')"><i class="fas fa-times"> Not Suitable</i></button>
-                                        </form>
-                                        
-                                            
-                                            </div>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    {% endifequal %}
-                                
+                                        {% endifequal %}
+
                                 {% endfor %}
-                            </tbody>
-                        </table>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                </div>
 
-                <div class="tab-pane fade" id="hired" role="tabpanel" aria-labelledby="home-tab">
-                    <div class="card-body">
-                        <table class="table table-hover table-striped">
-                            <thead>
+                    <div class="tab-pane fade" id="hired" role="tabpanel" aria-labelledby="home-tab">
+                        <div class="card-body">
+                            <table class="table table-hover table-striped">
+                                <thead>
                                 <th scpoe="col">Roll No.</th>
                                 <th scpoe="col">Date</th>
                                 <th scpoe="col">Mail</th>
-                            </thead>
-                            <tbody>
+                                </thead>
+                                <tbody>
                                 {% for a in applied %}
-                                <tr>
-                                    {%ifequal a.status "3" %}
-                                    <td onclick=" window.location.href='/placement_cell/displayProfile/{{a.roll_no}}/'">{{a.roll_no}}</td>
-                                    <td>{{a.date}}</td>
-                                    {% if a.is_mail_send %}
-                                    <td>
-                                       <i class="fas fa-check"></i>
-                                    </td>
-                                    {% else %}
-                                    <td>
-                                        <a href="/placement_cell/send_email/{{a.id}}/{{a.job_id.id}}/"><i class="fas fa-envelope"></i></a> 
-                                    </td>
-                                    {% endif%}
-                                    {% endifequal %}
-                                </tr>
-                                
+                                    <tr>
+                                        {% ifequal a.status "3" %}
+                                            <td onclick=" window.location.href='/placement_cell/displayProfile/{{ a.roll_no }}/'">{{ a.roll_no }}</td>
+                                            <td>{{ a.date }}</td>
+                                            {% if a.is_mail_send %}
+                                                <td>
+                                                    <i class="fas fa-check"></i>
+                                                </td>
+                                            {% else %}
+                                                <td>
+                                                    <a href="/placement_cell/send_email/{{ a.id }}/{{ a.job_id.id }}/"><i
+                                                            class="fas fa-envelope"></i></a>
+                                                </td>
+                                            {% endif %}
+                                        {% endifequal %}
+                                    </tr>
+
                                 {% endfor %}
-                            </tbody>
-                        </table>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                </div>
 
-                <div class="tab-pane fade" id="rejected" role="tabpanel" aria-labelledby="rejected-tab">
-                    <div class="card-body">
+                    <div class="tab-pane fade" id="rejected" role="tabpanel" aria-labelledby="rejected-tab">
+                        <div class="card-body">
 
-                        <table class="table table-hover table-striped">
-                            <thead>
+                            <table class="table table-hover table-striped">
+                                <thead>
                                 <th scpoe="col">Roll No.</th>
                                 <th scpoe="col">Date</th>
-                            </thead>
-                            <tbody>
+                                </thead>
+                                <tbody>
                                 {% for a in applied %}
-                                <tr onclick=" window.location.href='/placement_cell/displayProfile/{{a.roll_no}}/'">
-                                    {%ifequal a.status "2" %}
-                                    <td>{{a.roll_no}}</td>
-                                    <td>{{a.date}}</td>
-                                    {% endifequal %}
-                                </tr>
+                                    <tr onclick=" window.location.href='/placement_cell/displayProfile/{{ a.roll_no }}/'">
+                                        {% ifequal a.status "2" %}
+                                            <td>{{ a.roll_no }}</td>
+                                            <td>{{ a.date }}</td>
+                                        {% endifequal %}
+                                    </tr>
                                 {% endfor %}
-                            </tbody>
-                        </table>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
+
             </div>
 
+
         </div>
-
-
     </div>
-</div>
 
 
 
 
-<script>
-    let date = new Date()
-    date = date.getDate().toString() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear()
+    <script>
+        let date = new Date()
+        date = date.getDate().toString() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear()
 
-    function xl_conv() {
-        let sel = document.getElementsByClassName("active")[1];
-        console.log(sel)
-        $(sel).table2excel({
-            name: "Table2Excel",
-            filename: "job_users_" + date,
-            fileext: ".xls"
-        });
-    }
-    
-    
-    function statusChange(status,student_id){
-        const url ="{% url 'status' %}"
-        fetch(url, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-                'X-CSRFToken': csrftoken,
-            },
-            body: JSON.stringify({"status":status,"id":student_id})
+        function xl_conv() {
+            let sel = document.getElementsByClassName("active")[1];
+            console.log(sel)
+            $(sel).table2excel({
+                name: "Table2Excel",
+                filename: "job_users_" + date,
+                fileext: ".xls"
+            });
+        }
 
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                window.location.href ="/placement_cell/details/{{id}}/{{type}}"
-                
+
+        function statusChange(status, student_id) {
+            const url = "{% url 'status' %}"
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    'X-CSRFToken': csrftoken,
+                },
+                body: JSON.stringify({"status": status, "id": student_id})
+
             })
-    }
+                .then((response) => response.json())
+                .then((data) => {
+                    window.location.href = "/placement_cell/details/{{id}}/{{type}}"
+
+                })
+        }
 
 
-
-
-</script>
+    </script>
 
 {% endblock %}
