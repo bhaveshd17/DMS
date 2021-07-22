@@ -69,11 +69,13 @@ DATABASES = {
     'default': {
         'ENGINE': 'djongo',
         'NAME': 'dmsdb',
-        'HOST':'mongodb+srv://dms:dms@12345@dmsdb.s7zyb.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
+        'HOST':'mongodb+srv://dms:dms@12345@dmsdb.va7ig.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
         'USER':'dms',
         'PASSWORD':'dms@12345',
     }
 }
+
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
