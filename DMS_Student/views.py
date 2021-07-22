@@ -7,6 +7,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.template.loader import render_to_string
+from django.urls import reverse
 from django.utils.http import urlsafe_base64_decode
 from django.utils.encoding import force_text
 

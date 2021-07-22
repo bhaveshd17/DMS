@@ -14,13 +14,21 @@ from .utils import *
 def index(request):
     int_user = Int_user.objects.all().order_by("int_id__comp_name")
     job_user = Job_user.objects.all().order_by("job_id__comp_name")
-    total_student=Student.objects.all().count()
-    total_placed=Job_user.objects.filter(status="3").distinct().count()
-    highest=Job_user.objects.filter(status="3")
+    total_student=Student.objects.all()
+    total_placed=Job_user.objects.filter(status="3").distinct()
     package=[]
+    highest=Job_user.objects.filter(status="3")
     for job in highest:
         package.append(Job.objects.get(id=job.job_id.id).sal)
-    highest_package=max(package)
+
+    if total_student or total_placed:
+        total_placed = total_placed.count()
+        total_student = total_student.count()
+        highest_package = max(package)
+    else:
+        total_placed = 0
+        total_student = 0
+        highest_package = 0
     # avg_package=
     content = {'int_user':int_user, 'job_user':job_user,"total_student":total_student,
     "total_placed":total_placed,"highest_package":highest_package}
