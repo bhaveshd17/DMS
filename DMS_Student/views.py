@@ -485,7 +485,7 @@ def handleLogin(request):
 
 def handelLogout(request):
     logout(request)
-    return redirect('/login/')
+    return redirect('login')
 
 
 def register(request):
