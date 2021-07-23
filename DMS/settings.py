@@ -60,21 +60,22 @@ WSGI_APPLICATION = 'DMS.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
 DATABASES = {
     'default': {
-        'ENGINE': 'djongo',
-        'NAME': 'dmsdb',
-        'HOST':'mongodb+srv://dms:dms@12345@dmsdb.va7ig.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
-        'USER':'dms',
-        'PASSWORD':'dms@12345',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'djongo',
+#         'NAME': 'dmsdb',
+#         'HOST':'mongodb+srv://dms:dms@12345@dmsdb.va7ig.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
+#         'USER':'dms',
+#         'PASSWORD':'dms@12345',
+#     }
+# }
+
 
 
 
