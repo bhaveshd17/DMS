@@ -21,7 +21,7 @@ def index(request):
     for job in highest:
         package.append(Job.objects.get(id=job.job_id.id).sal)
 
-    if total_student or total_placed:
+    if total_student or total_placed or package:
         total_placed = total_placed.count()
         total_student = total_student.count()
         highest_package = max(package)
