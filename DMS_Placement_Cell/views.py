@@ -21,17 +21,23 @@ def index(request):
     for job in highest:
         package.append(Job.objects.get(id=job.job_id.id).sal)
 
-    if total_student or total_placed or package:
+
+    try:
+        highest_package = max(package)
+        average_package = round(highest_package / len(package), 2)
+    except:
+        highest_package = 0
+        average_package = 0
+    if total_student or total_placed:
         total_placed = total_placed.count()
         total_student = total_student.count()
-        highest_package = max(package)
     else:
         total_placed = 0
         total_student = 0
-        highest_package = 0
+
     # avg_package=
     content = {'int_user':int_user, 'job_user':job_user,"total_student":total_student,
-    "total_placed":total_placed,"highest_package":highest_package}
+    "total_placed":total_placed,"highest_package":highest_package, 'average_package':average_package}
     return render(request, 'placement/index.html', content)
 
 @allowed_users(allowed_roles=['Placement_Cell'])

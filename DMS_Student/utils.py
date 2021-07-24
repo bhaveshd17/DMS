@@ -57,6 +57,7 @@ def jobLogic(request):
         student_skills_list.append(skills.strip().lower())
 
     # job logic
+    related_job_list = []
     related_jobs = {}
     for job_obj in job_list1:
         count = 0
@@ -94,68 +95,70 @@ def jobLogic(request):
         print(hsc_percentage)
 
         hired = Job_user.objects.filter(roll_no=student, status="3")
-        if len(hired) == 0:
-            related_job_list = job_eligibility_logic(job_list=job_list, percentage=percentage,
-                                                     live_kt=live_kt, dead_kt=dead_kt, drop=drop,
-                                                     ssc_percentage=ssc_percentage, hsc_percentage=hsc_percentage, sal=0)
-
+        if curr_edu.sgpi5 == "NA":
+            related_job_list = []
         else:
-            package = []
-            for job in hired:
-                package.append(Job.objects.get(id=job.job_id.id).sal)
-            sal = max(package)
-
-            if sal < 3.0:
+            if len(hired) == 0:
                 related_job_list = job_eligibility_logic(job_list=job_list, percentage=percentage,
                                                          live_kt=live_kt, dead_kt=dead_kt, drop=drop,
-                                                         ssc_percentage=ssc_percentage,
-                                                         hsc_percentage=hsc_percentage,
-                                                         sal=3.0)
+                                                         ssc_percentage=ssc_percentage, hsc_percentage=hsc_percentage,
+                                                         sal=0)
+
             else:
-                max_package = Job.objects.aggregate(Max('sal'))['sal__max']
-                linear_space_package = np.linspace(start=3.0, stop=max_package, num=int(max_package / 2))
-                arranging = zip(linear_space_package, linear_space_package[1:])
-                for i, j in arranging:
-                    if sal >= float(math.ceil(i)) and sal < float(math.ceil(j)):
-                        related_job_list = job_eligibility_logic(job_list=job_list, percentage=percentage,
-                                                                 live_kt=live_kt, dead_kt=dead_kt, drop=drop,
-                                                                 ssc_percentage=ssc_percentage,
-                                                                 hsc_percentage=hsc_percentage,
-                                                                 sal=j)
+                package = []
+                for job in hired:
+                    package.append(Job.objects.get(id=job.job_id.id).sal)
+                sal = max(package)
 
+                if sal < 3.0:
+                    related_job_list = job_eligibility_logic(job_list=job_list, percentage=percentage,
+                                                             live_kt=live_kt, dead_kt=dead_kt, drop=drop,
+                                                             ssc_percentage=ssc_percentage,
+                                                             hsc_percentage=hsc_percentage,
+                                                             sal=3.0)
+                else:
+                    max_package = Job.objects.aggregate(Max('sal'))['sal__max']
+                    linear_space_package = np.linspace(start=3.0, stop=max_package, num=int(max_package / 2))
+                    arranging = zip(linear_space_package, linear_space_package[1:])
+                    for i, j in arranging:
+                        if sal >= float(math.ceil(i)) and sal < float(math.ceil(j)):
+                            related_job_list = job_eligibility_logic(job_list=job_list, percentage=percentage,
+                                                                     live_kt=live_kt, dead_kt=dead_kt, drop=drop,
+                                                                     ssc_percentage=ssc_percentage,
+                                                                     hsc_percentage=hsc_percentage,
+                                                                     sal=j)
 
-
-            # if sal < 3.5:
-            #     related_job_list = job_eligibility_logic(job_list=job_list, percentage=percentage,
-            #                                              live_kt=live_kt, dead_kt=dead_kt, drop=drop,
-            #                                              ssc_percentage=ssc_percentage,
-            #                                              hsc_percentage=hsc_percentage,
-            #                                              sal=3.5)
-            #
-            # elif sal >= 3.5 and sal < 5:
-            #     related_job_list = job_eligibility_logic(job_list=job_list, percentage=percentage,
-            #                                              live_kt=live_kt, dead_kt=dead_kt, drop=drop,
-            #                                              ssc_percentage=ssc_percentage,
-            #                                              hsc_percentage=hsc_percentage,
-            #                                              sal=5)
-            # elif sal >= 5 and sal < 7:
-            #     related_job_list = job_eligibility_logic(job_list=job_list, percentage=percentage,
-            #                                              live_kt=live_kt, dead_kt=dead_kt, drop=drop,
-            #                                              ssc_percentage=ssc_percentage,
-            #                                              hsc_percentage=hsc_percentage,
-            #                                              sal=7)
-            # elif sal >= 7 and sal < 10:
-            #     related_job_list = job_eligibility_logic(job_list=job_list, percentage=percentage,
-            #                                              live_kt=live_kt, dead_kt=dead_kt, drop=drop,
-            #                                              ssc_percentage=ssc_percentage,
-            #                                              hsc_percentage=hsc_percentage,
-            #                                              sal=10)
-            # else:
-            #     related_job_list = job_eligibility_logic(job_list=job_list, percentage=percentage,
-            #                                              live_kt=live_kt, dead_kt=dead_kt, drop=drop,
-            #                                              ssc_percentage=ssc_percentage,
-            #                                              hsc_percentage=hsc_percentage,
-            #                                              sal=10)
+                # if sal < 3.5:
+                #     related_job_list = job_eligibility_logic(job_list=job_list, percentage=percentage,
+                #                                              live_kt=live_kt, dead_kt=dead_kt, drop=drop,
+                #                                              ssc_percentage=ssc_percentage,
+                #                                              hsc_percentage=hsc_percentage,
+                #                                              sal=3.5)
+                #
+                # elif sal >= 3.5 and sal < 5:
+                #     related_job_list = job_eligibility_logic(job_list=job_list, percentage=percentage,
+                #                                              live_kt=live_kt, dead_kt=dead_kt, drop=drop,
+                #                                              ssc_percentage=ssc_percentage,
+                #                                              hsc_percentage=hsc_percentage,
+                #                                              sal=5)
+                # elif sal >= 5 and sal < 7:
+                #     related_job_list = job_eligibility_logic(job_list=job_list, percentage=percentage,
+                #                                              live_kt=live_kt, dead_kt=dead_kt, drop=drop,
+                #                                              ssc_percentage=ssc_percentage,
+                #                                              hsc_percentage=hsc_percentage,
+                #                                              sal=7)
+                # elif sal >= 7 and sal < 10:
+                #     related_job_list = job_eligibility_logic(job_list=job_list, percentage=percentage,
+                #                                              live_kt=live_kt, dead_kt=dead_kt, drop=drop,
+                #                                              ssc_percentage=ssc_percentage,
+                #                                              hsc_percentage=hsc_percentage,
+                #                                              sal=10)
+                # else:
+                #     related_job_list = job_eligibility_logic(job_list=job_list, percentage=percentage,
+                #                                              live_kt=live_kt, dead_kt=dead_kt, drop=drop,
+                #                                              ssc_percentage=ssc_percentage,
+                #                                              hsc_percentage=hsc_percentage,
+                #                                              sal=10)
 
 
 
@@ -171,10 +174,15 @@ def jobLogic(request):
         for i in job_split:
             skill_set.add(i.strip().upper())
 
+    cities = set()
+    for job in job_list:
+        cities.add(job.location)
+
     content = {'related_job_list': related_job_list,
                'skill_set': skill_set,
                'job_list': job_list1,
                'department_wise_job': job_list,
+               'cities':cities,
                }
     return content
 
