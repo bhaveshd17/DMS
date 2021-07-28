@@ -6,12 +6,8 @@ from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
-from django.template.loader import render_to_string
 from django.urls import reverse
-from django.utils.http import urlsafe_base64_decode
-from django.utils.encoding import force_text
 
-from .models import *
 from .decorators import unauthenticated_user
 from .form import SkillsForm, AddEduForm, AddExpForm, CurrEduForm, StudentForm, CertificateForm, UserForm
 from .utils import *
@@ -413,6 +409,7 @@ def update_personal(request, pk):
 
     return render(request, 'student/update_personal.html', content)
 
+
 @login_required(login_url='login')
 def search(request):
     search_list = {}
@@ -447,12 +444,6 @@ def userApplication(request):
     return render(request, 'student/userApplication.html', content)
 
 
-
-
-
-
-
-
 # authentication
 @unauthenticated_user
 def handleLogin(request):
@@ -479,7 +470,6 @@ def handleLogin(request):
                 return render(request, 'authentication/login.html')
         else:
             messages.error(request, 'Please Verify the Email')
-
 
     return render(request, 'authentication/login.html')
 
@@ -510,8 +500,7 @@ def register(request):
     return render(request, "authentication/register.html", content)
 
 
-
-def activate_user(request,uidb64,token):
+def activate_user(request, uidb64, token):
     try:
         uid=force_text(urlsafe_base64_decode(uidb64))
         student=Student.objects.get(roll_no=uid)

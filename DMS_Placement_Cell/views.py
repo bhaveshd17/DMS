@@ -1,5 +1,4 @@
 from django.http import JsonResponse
-from DMS_Student.views import apply
 from django.contrib import messages
 from django.shortcuts import redirect, render
 from .form import *
@@ -35,10 +34,10 @@ def index(request):
         total_placed = 0
         total_student = 0
 
-    # avg_package=
     content = {'int_user':int_user, 'job_user':job_user,"total_student":total_student,
     "total_placed":total_placed,"highest_package":highest_package, 'average_package':average_package}
     return render(request, 'placement/index.html', content)
+
 
 @allowed_users(allowed_roles=['Placement_Cell'])
 def add_intership(request):
@@ -122,6 +121,7 @@ def recruited(request):
 
 @allowed_users(allowed_roles=['Placement_Cell'])
 def details(request,id,type):
+    context = None
     if type==1:
         jobs = Job.objects.get(id=id)
         applied=Job_user.objects.filter(job_id=id)

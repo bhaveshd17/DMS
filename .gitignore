@@ -1,2 +1,4 @@
 virtual_env/
 .env
+/.idea
+.idea
