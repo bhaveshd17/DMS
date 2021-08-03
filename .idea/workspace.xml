@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="dfd22187-2b72-4a25-8172-2fa90beaeb32" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/DMS/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DMS/DMS/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DMS/DMS/asgi.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DMS/DMS/settings.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DMS/DMS/urls.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DMS/DMS/wsgi.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DMS/DMS_Student/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DMS/DMS_Student/admin.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DMS/DMS_Student/apps.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DMS/DMS_Student/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DMS/DMS_Student/migrations/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DMS/DMS_Student/models.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DMS/DMS_Student/templates/student/base.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DMS/DMS_Student/templates/student/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DMS/DMS_Student/templates/student/internship.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DMS/DMS_Student/templates/student/job.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DMS/DMS_Student/templates/student/nav.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DMS/DMS_Student/templates/student/preplacement.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DMS/DMS_Student/tests.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DMS/DMS_Student/urls.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DMS/DMS_Student/views.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DMS/db.sqlite3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DMS/manage.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DMS/requirements.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DMS/static/css/jobinternship.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DMS/static/css/nav.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DMS/static/css/preplacement.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DMS/static/css/profile.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DMS/static/images/VITB.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DMS/static/images/VITlogo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DMS/static/images/home.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DMS/static/images/home1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DMS/static/images/home2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DMS/static/images/home3.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DMS/static/images/icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DMS/static/images/indeximage.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DMS/static/images/login.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DMS/static/images/logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DMS/static/images/navimage.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DMS/static/images/person.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DMS/static/images/theme.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DMS/static/images/vitw.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DMS/static/images/vitwhite.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DMS_Student/tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/DMS_Student/tests.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1wDpF5jXQ4X8uyBoGJD9zRPbKs6" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+  </component>
+  <component name="RunManager" selected="Python.tests">
+    <configuration name="tests" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="DMS" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/DMS_Student" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/DMS_Student/tests.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="DMS" type="Python.DjangoServer" factoryName="Django server">
+      <module name="DMS" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <option name="port" value="8000" />
+      <option name="host" value="" />
+      <option name="additionalOptions" value="" />
+      <option name="browserUrl" value="" />
+      <option name="runTestServer" value="false" />
+      <option name="runNoReload" value="false" />
+      <option name="useCustomRunCommand" value="false" />
+      <option name="customRunCommand" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.tests" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="dfd22187-2b72-4a25-8172-2fa90beaeb32" name="Default Changelist" comment="" />
+      <created>1628002942755</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1628002942755</updated>
+      <workItem from="1628002964947" duration="4355000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/DMS$tests.coverage" NAME="tests Coverage Results" MODIFIED="1628006538840" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/DMS_Student" />
+  </component>
+</project>
