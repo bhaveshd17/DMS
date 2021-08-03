@@ -121,5 +121,5 @@ def job_filters(request):
         job = temp_list
 
 
-    print(job)
+    # print(job)
     return {'job':job, 'data':data}

@@ -6,11 +6,8 @@ from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
-from django.template.loader import render_to_string
-from django.utils.http import urlsafe_base64_decode
-from django.utils.encoding import force_text
+from django.urls import reverse
 
-from .models import *
 from .decorators import unauthenticated_user
 from .form import SkillsForm, AddEduForm, AddExpForm, CurrEduForm, StudentForm, CertificateForm, UserForm
 from .utils import *
@@ -59,7 +56,7 @@ def job(request):
     data = jobLogic(request)
     content = {'related_job_list': data['related_job_list'],
                'skill_set': data['skill_set'],
-               'cities': "Mumbai,Bangalore,Chennai".split(','),
+               'cities': data['cities'],
                }
     return render(request, 'student/job.html', content)
 
@@ -69,10 +66,11 @@ def jobFilter(request):
     job_data = job_filters(request)
     job_list = job_data['job']
     skill_set = job_data['data']['skill_set']
+
     template = render_to_string('student/ajax_temp/jobs.html',
                                 {'related_job_list': job_list,
                                  'skill_set': skill_set,
-                                 'cities': "Mumbai,Bangalore,Chennai".split(','),
+                                 'cities': job_data['data']['cities'],
                                  })
     return JsonResponse({'data': template})
 
@@ -82,7 +80,7 @@ def all_job(request):
     data = jobLogic(request)
     content = {'related_job_list': data['department_wise_job'],
                'skill_set': data['skill_set'],
-               'cities': "Mumbai,Bangalore,Chennai".split(','),
+               'cities': data['cities'],
                }
     return render(request, 'student/all_jobs.html', content)
 
@@ -411,6 +409,7 @@ def update_personal(request, pk):
 
     return render(request, 'student/update_personal.html', content)
 
+
 @login_required(login_url='login')
 def search(request):
     search_list = {}
@@ -445,12 +444,6 @@ def userApplication(request):
     return render(request, 'student/userApplication.html', content)
 
 
-
-
-
-
-
-
 # authentication
 @unauthenticated_user
 def handleLogin(request):
@@ -478,13 +471,12 @@ def handleLogin(request):
         else:
             messages.error(request, 'Please Verify the Email')
 
-
     return render(request, 'authentication/login.html')
 
 
 def handelLogout(request):
     logout(request)
-    return redirect('/login/')
+    return redirect('login')
 
 
 def register(request):
@@ -508,8 +500,7 @@ def register(request):
     return render(request, "authentication/register.html", content)
 
 
-
-def activate_user(request,uidb64,token):
+def activate_user(request, uidb64, token):
     try:
         uid=force_text(urlsafe_base64_decode(uidb64))
         student=Student.objects.get(roll_no=uid)

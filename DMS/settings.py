@@ -9,7 +9,7 @@ SECRET_KEY = 'django-insecure-&+m0zlce=4mk9yw-@k#m+^sh)3xm=ygu0mvvwgag*)9u=#50h#
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['vplacement.herokuapp.com', '127.0.0.1']
 
 
 # Application definition
@@ -27,6 +27,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -61,13 +62,20 @@ WSGI_APPLICATION = 'DMS.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'djongo',
-        'NAME': 'dmsdb',
-        'HOST':'mongodb+srv://dms:dms@12345@dmsdb.va7ig.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
-        'USER':'dms',
-        'PASSWORD':'dms@12345',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'djongo',
+#         'NAME': 'dmsdb',
+#         'HOST':'mongodb+srv://dms:dms@12345@dmsdb.va7ig.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
+#         'USER':'dms',
+#         'PASSWORD':'dms@12345',
+#     }
+# }
+
 
 
 
@@ -108,6 +116,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
