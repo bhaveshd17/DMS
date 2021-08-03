@@ -12,5 +12,8 @@ def to_int(value):
 
 @register.simple_tag
 def marks_to_percentage(marks, subject):
-    percentage = int(marks)/int(subject)
+    try:
+        percentage = int(marks)/int(subject)
+    except:
+        percentage=0
     return percentage

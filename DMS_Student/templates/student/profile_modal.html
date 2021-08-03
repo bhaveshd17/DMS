@@ -171,10 +171,9 @@
                             <option selected hidden>------</option>
                             {% if "diploma" not in prev_deg %}
                             <option value="1">First Year</option>
-                            {% endif %}
+                            {% else %}
                             <option value="2">Second Year</option>
-                            <option value="3">Third Year</option>
-                            <option value="4">Fourth Year</option>
+                            {% endif %}
                         </select>
                     </div>
                     <div id="1" style="display: none;">
