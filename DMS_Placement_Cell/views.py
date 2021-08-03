@@ -176,3 +176,7 @@ def send_email(request,id,comp):
     elif job_user.status=='2':
         send_not_suitable_email(student,job,request)
     return redirect('/placement_cell/details/'+str(job.id)+"/1")
+
+def Update_Details(request):
+    context={}
+    return 

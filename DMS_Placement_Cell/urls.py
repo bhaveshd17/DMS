@@ -13,4 +13,5 @@ urlpatterns = [
     path("displayProfile/<slug:rollNo>/",views.displayProfile,name="displayProfile"),
     path("status/",views.status,name="status"),
     path("send_email/<id>/<comp>/",views.send_email,name="send_email"),
+    path("update_details/",views.Update_Details,name="Update_Details"),
 ]
