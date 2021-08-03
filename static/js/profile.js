@@ -53,7 +53,7 @@ degree_select.addEventListener("change", (event)=>{
         document.getElementById("id_diploma_aggregate_mw").value = "NA"
         document.getElementById("id_diploma_aggregate_pw").value = "NA"
         document.getElementById("id_no_of_dead_kt").value = "NA"
-        document.getElementById("id_no_of_subject").value="NA"
+        document.getElementById("id_no_of_subject").value=""
     }
 })
 
