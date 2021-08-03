@@ -14,4 +14,5 @@ urlpatterns = [
     path("status/",views.status,name="status"),
     path("send_email/<id>/<comp>/",views.send_email,name="send_email"),
     path("update_details/<int:id>/",views.Update_Details,name="Update_Details"),
+    path("delete_details/<int:id>",views.delete_details,name="delete_details"),
 ]

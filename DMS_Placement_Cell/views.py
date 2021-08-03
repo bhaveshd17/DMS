@@ -207,3 +207,9 @@ def Update_Details(request,id):
             return redirect('/placement_cell/details/'+str(id)+"/1")
     content={"form":form,"id":id}
     return render(request,"placement/update_details.html",content)
+
+def delete_details(request,id):
+    job =Job.objects.get(id=id)
+    job.delete()
+    messages.success(request, "Successfully deleted!")
+    return redirect('recruiting')
