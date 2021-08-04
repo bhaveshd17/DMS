@@ -73,8 +73,10 @@
                     </p>
                 </div>
                 <div class="card-footer">
-                    <button style="float: right;" type="button" class="btn btn-danger ml-3">Delete</button>
-                    <button style="float: right;" type="button" class="btn btn-warning ">Update</button>
+                    <button type="button" style="float: right;" class="btn btn-danger ml-3" data-toggle="modal" data-target="#exampleModalLong">
+                       Delete
+                    </button>
+                    <a href="{% url 'Update_Details' details.id %}"><button style="float: right;" type="button" class="btn btn-warning ">Update</button></a>
                 </div>
             </div>
 
@@ -232,7 +234,22 @@
         </div>
     </div>
 
-
+    <!-- Model -->
+    <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            
+            <div class="modal-body">
+              Do you want to <span style="color: red;">Delete</span> this Job?
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+              <a href="{% url 'delete_details' id %}"><button type="button" class="btn btn-danger">Yes,Delete</button></a>
+              
+            </div>
+          </div>
+        </div>
+      </div>
 
 
     <script>

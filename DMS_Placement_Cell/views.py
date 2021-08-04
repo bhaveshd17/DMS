@@ -8,6 +8,7 @@ from datetime import date
 from django.contrib.auth.models import User
 import json
 from .utils import *
+from DMS_Placement_Cell import form
 
 @allowed_users(allowed_roles=['Placement_Cell'])
 def index(request):
@@ -177,6 +178,42 @@ def send_email(request,id,comp):
         send_not_suitable_email(student,job,request)
     return redirect('/placement_cell/details/'+str(job.id)+"/1")
 
+def Update_Details(request,id):
+    instance=Job.objects.get(id=id)
+    form=JobForm(instance=instance)
+    if request.method=="POST":
+        form=JobForm(request.POST,instance=instance)
+        if form.is_valid():
+            form.save()
+            job = Job.objects.filter(id=id).order_by("-id")[0]
+            text = ""
+            if job.aggregate_sgpi != "NA":
+                text = text + f"<li class='text-left'>Minimum {job.aggregate_sgpi} SGPI required</li>"
+            if job.ssc_percentage != "NA":
+                text = text + f"<li class='text-left'>Minimum {job.ssc_percentage} % of 10th required </li>"
+            if job.hsc_d_percentage != "NA":
+                text = text + f"<li class='text-left'>Minimum {job.hsc_d_percentage} % of 12/diploma required</li>"
+            if job.live_kt != "NA":
+                text = text + f"<li class='text-left'>Minimum {job.live_kt} Live KT </li>"
+            if job.dead_kt != "NA":
+                text = text + f"<li class='text-left'>Minimum {job.dead_kt} Dead KT</li>"
+            if job.drop != "0":
+                text = text + f"<li class='text-left'>Minimum {job.drop} year drop</li>"
+            if text == "":
+                text = "No Criteria"
+            Job.objects.filter(id=job.id).update(who_can_apply=text)
+            messages.success(request, 'Successfully Updated!')
+            print(form)
+            return redirect('/placement_cell/details/'+str(id)+"/1")
+    content={"form":form,"id":id}
+    return render(request,"placement/update_details.html",content)
+
+def delete_details(request,id):
+    job =Job.objects.get(id=id)
+    job.delete()
+    messages.success(request, "Successfully deleted!")
+    return redirect('recruiting')
+
 
 def student_details(request):
     students = Student.objects.all()
@@ -191,7 +228,3 @@ def student_details(request):
     student_dict = sorted(student_dict.items())
     content = {'student_dict':student_dict}
     return render(request, 'placement/student_details.html', content)
-
-def Update_Details(request):
-    context={}
-    return 
