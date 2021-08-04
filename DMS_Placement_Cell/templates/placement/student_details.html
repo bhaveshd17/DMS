@@ -1,0 +1,104 @@
+{% extends "placement/base.html" %}
+{% load static %}
+{% block title %} Students Details {% endblock %}
+{% block content %}
+<h3 class="text-center mb-3">Students Details</h3>
+<div class="card">
+    <div class="card-header">
+        <button class="btn btn-primary btn-sm m-2" onclick="job_xl_conv()"><i class="fas fa-download mr-2"></i>
+            Download Excel</button>
+    </div>
+    <div class="card-body">
+        <table class="table table-hover table-striped table-responsive-sm table-responsive" id="student_table">
+            <thead>
+                <th scope="col">Roll No</th>
+                <th scope="col">Full Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Gmail</th>
+                <th scope="col">Age</th>
+                <th scope="col">Gender</th>
+                <th scope="col">Branch</th>
+                <th scope="col">Div</th>
+                <th scope="col">Year Of Graduation</th>
+                <th scope="col">Skills</th>
+                <th scope="col">Residence Phone</th>
+                <th scope="col">Mobile Number</th>
+                <th scope="col">DOB</th>
+                <th scope="col">Permanent Address</th>
+                <th scope="col">Corresponding Address</th>
+                <th scope="col">Pan Number</th>
+                <th scope="col">Adhar Number</th>
+                <th scope="col">Passport Number</th>
+                <th scope="col">Disability</th>
+                <th scope="col">Type Of Disability</th>
+                <th scope="col">Father Name</th>
+                <th scope="col">Father Occupation</th>
+                <th scope="col">Mother Name</th>
+                <th scope="col">Mother Occupation</th>
+                <th scope="col">Co curriculum Activities</th>
+                <th scope="col">Extra curriculum Activities</th>
+                <th scope="col">Hobbies</th>
+                <th scope="col">Resume</th>
+                <th scope="col">Photo</th>
+                <th scope="col">Facebook</th>
+                <th scope="col">Linkden</th>
+                <th scope="col">Github</th>
+                <th scope="col">Other</th>
+            </thead>
+            <tbody>
+                {% for roll_no, details in student_dict %}
+                <tr>
+                    <td>{{details.0.0.username}}</td>
+                    <td>{{details.0.0.first_name}}</td>
+                    <td>{{details.0.0.email}}</td>
+                    <td>{{details.1.gmail}}</td>
+                    <td>{{details.1.age}}</td>
+                    <td>{{details.1.gender}}</td>
+                    <td>{{details.1.branch}}</td>
+                    <td>{{details.1.div}}</td>
+                    <td>{{details.1.year_of_graduation}}</td>
+                    <td>{{details.1.skills}}</td>
+                    <td>{{details.1.residence_phone}}</td>
+                    <td>{{details.1.phone}}</td>
+                    <td>{{details.1.date_of_birth}}</td>
+                    <td>{{details.1.permanent_address}}</td>
+                    <td>{{details.1.corresponding_address}}</td>
+                    <td>{{details.1.pan_card_no}}</td>
+                    <td>{{details.1.aadhar_no}}</td>
+                    <td>{{details.1.passport_no}}</td>
+                    <td>{{details.1.disability}}</td>
+                    <td>{{details.1.type_of_disability}}</td>
+                    <td>{{details.1.father_name}}</td>
+                    <td>{{details.1.father_occupation}}</td>
+                    <td>{{details.1.mother_name}}</td>
+                    <td>{{details.1.mother_occupation}}</td>
+                    <td>{{details.1.co_curriculum_activities}}</td>
+                    <td>{{details.1.extra_curriculum_activities}}</td>
+                    <td>{{details.1.hobbies}}</td>
+                    <td><a href="{{details.1.resume.url}}" target="blank">view</a></td>
+                    <td><a href="{{details.1.profile_photo.url}}" target="blank">view</a></td>
+                    <td><a href="{{details.1.facebook}}" target="blank">view</a></td>
+                    <td><a href="{{details.1.linkdin}}" target="blank">view</a></td>
+                    <td><a href="{{details.1.github}}" target="blank">view</a></td>
+                    <td><a href="{{details.1.other}}" target="blank">view</a></td>
+                    
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    let date = new Date()
+    date = date.getDate().toString()+'-'+(date.getMonth()+1)+'-'+date.getFullYear()
+    function job_xl_conv() {
+        $("#student_table").table2excel({
+            name: "Table2Excel",
+            filename: "student_details_"+date,
+            fileext: ".xls"
+        });
+    }
+
+</script>
+{% endblock %}

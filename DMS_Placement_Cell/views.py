@@ -177,6 +177,21 @@ def send_email(request,id,comp):
         send_not_suitable_email(student,job,request)
     return redirect('/placement_cell/details/'+str(job.id)+"/1")
 
+
+def student_details(request):
+    students = Student.objects.all()
+    student_dict = {}
+    for student in students:
+        edu = Add_edu.objects.filter(roll_no=student)
+        curr_edu = CurrEdu.objects.filter(roll_no_curr=student)
+        certificate = Certificates.objects.filter(certificate_issued_to=student)
+        experience = Add_exp.objects.filter(rollNo=student)
+        user = User.objects.filter(username=student.roll_no)
+        student_dict[student.roll_no] = [user, student, edu, curr_edu, certificate, experience]
+    student_dict = sorted(student_dict.items())
+    content = {'student_dict':student_dict}
+    return render(request, 'placement/student_details.html', content)
+
 def Update_Details(request):
     context={}
     return 
