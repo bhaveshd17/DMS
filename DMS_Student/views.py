@@ -488,24 +488,14 @@ def register(request):
         student_form=StudentForm(request.POST,request.FILES)
         user_form=UserForm(request.POST)
         if student_form.is_valid() and user_form.is_valid():
-            pan_no = student_form.cleaned_data.get("pan_card_no")
-            passport_number = student_form.cleaned_data.get("passport_no")
-            if isValidPassportNo(passport_number):
-                if isValidPanCardNo(pan_no):
-                    student_form.save()
-                    user_form.save()
-                    username = user_form.cleaned_data.get("username")
-                    student = Student.objects.get(roll_no=username)
-                    name = user_form.cleaned_data.get("first_name")
-                    send_action_email(student, name, request)
-                    messages.success(request, f"your username is sent on email")
-                    return redirect("login")
-                else:
-                    messages.error(request, f"Invalid pan card number")
-                    return redirect("register")
-            else:
-                messages.warning(request, f"Invalid passport number")
-                return redirect("register")
+            student_form.save()
+            user_form.save()
+            username = user_form.cleaned_data.get("username")
+            student = Student.objects.get(roll_no=username)
+            name = user_form.cleaned_data.get("first_name")
+            send_action_email(student, name, request)
+            messages.success(request, f"your username is sent on email")
+            return redirect("login")
         else:
             messages, error(request, "Failed")
     content = {"student_form": student_form, "user_form": user_form}

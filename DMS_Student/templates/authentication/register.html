@@ -59,7 +59,7 @@
                         </div>
                         <div class="mb-3">
                             <label class="mb-0"><strong>Password:</strong></label>
-                            <small class="form-text mb-2" id="id_small"></small>
+                            <small class="form-text mb-2 text-danger" id="id_small"></small>
                             {{user_form.password1}}
                             <small id="id_show1" style="cursor: pointer;" onclick="showPassword()"><i
                                     class="fas fa-eye"></i> view Password</small>
@@ -239,67 +239,6 @@
         </div>
 
     </div>
-
-    <script>
-        $("input").addClass("form-control")
-        $("textarea").addClass("form-control")
-        $("select").addClass("form-control")
-        $("#id_date_of_birth").prop('type', 'date')
-
-        $(document).ready(function () {
-            $("#next1").click(function () {
-                let roll_no = $("#id_roll_no").val()
-                let pass1 = $("#id_password1").val()
-                let pass2 = $("#id_password2").val()
-                if (pass1 === pass2 && pass1.length >= 8) {
-                    $("#id_username").val(roll_no)
-                    $("#first").hide()
-                    $("#third").hide()
-                    $("#second").show()
-                } else {
-                    alert("Password didn't match with Conform Password")
-                    $("#id_small").text("Password Length must be greater than 8 characters.")
-                }
-
-
-            })
-            $("#next2").click(function () {
-                $("#first").hide()
-                $("#second").hide()
-                $("#third").show()
-            })
-
-        })
-        function showPassword() {
-            let x = $("#id_password1")
-            if (x.attr('type') === "password") {
-                x.attr('type', 'text');
-            } else {
-                x.attr('type', 'password');
-            }
-        }
-        function showCPassword(){
-            let x = $("#id_password2")
-            if (x.attr('type') === "password") {
-                x.attr('type', 'text');
-            } else {
-                x.attr('type', 'password');
-            }
-        }
-
-        let disability_d = document.getElementById("id_disability")
-        disability_d.addEventListener("change", (event)=>{
-            let div = document.getElementById("disability_block")
-            if(event.target.value === "true"){
-                div.style.display = ""
-                document.getElementById("id_type_of_disability").value = ""
-            }
-            else {
-                div.style.display = "none"
-                document.getElementById("id_type_of_disability").value = "NA"
-            }
-        })
-    </script>
     <script src="{% static 'js/validation.js' %}"></script>
 
 
