@@ -10,6 +10,14 @@ def cgpa_percentage_conversion(cgpa):
 def to_int(value):
     return int(value)
 
+@register.filter(name='disability')
+def disability(value):
+    if value == True:
+        text = 'yes'
+    else:
+        text = 'NA'
+    return text
+
 @register.simple_tag
 def marks_to_percentage(marks, subject):
     try:

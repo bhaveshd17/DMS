@@ -17,6 +17,8 @@ import json
 import operator
 import re
 
+from .validation import isValidPassportNo, isValidPanCardNo
+
 
 @login_required(login_url='login')
 def index(request):
@@ -488,11 +490,11 @@ def register(request):
         if student_form.is_valid() and user_form.is_valid():
             student_form.save()
             user_form.save()
-            username=user_form.cleaned_data.get("username")
-            student=Student.objects.get(roll_no=username)
+            username = user_form.cleaned_data.get("username")
+            student = Student.objects.get(roll_no=username)
             name = user_form.cleaned_data.get("first_name")
             send_action_email(student, name, request)
-            messages.success(request,f"your username is sent on email")
+            messages.success(request, f"your username is sent on email")
             return redirect("login")
         else:
             messages, error(request, "Failed")

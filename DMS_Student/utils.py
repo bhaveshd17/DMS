@@ -88,11 +88,10 @@ def jobLogic(request):
         ssc = Add_edu.objects.get(roll_no=student, degree='10')
         ssc_percentage = round(ssc.marks/int(ssc.no_of_subject), 2)
         hsc = Add_edu.objects.filter(roll_no=student).exclude(degree='10')[0]
-        if hsc == 'diploma':
+        if hsc.degree == 'diploma':
             hsc_percentage = hsc.percentage
         else:
             hsc_percentage = round(hsc.marks/int(hsc.no_of_subject))
-        # print(hsc_percentage)
 
         hired = Job_user.objects.filter(roll_no=student, status="3")
         if curr_edu.sgpi5 == "NA":

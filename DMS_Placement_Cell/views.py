@@ -8,7 +8,6 @@ from datetime import date
 from django.contrib.auth.models import User
 import json
 from .utils import *
-from DMS_Placement_Cell import form
 
 @allowed_users(allowed_roles=['Placement_Cell'])
 def index(request):
@@ -66,22 +65,7 @@ def add_job(request):
         if form.is_valid():
             form.save()
             job = Job.objects.filter(adm_id=id).order_by("-id")[0]
-            text = ""
-            if job.aggregate_sgpi != "NA":
-                text = text + f"<li class='text-left'>Minimum {job.aggregate_sgpi} SGPI required</li>"
-            if job.ssc_percentage != "NA":
-                text = text + f"<li class='text-left'>Minimum {job.ssc_percentage} % of 10th required </li>"
-            if job.hsc_d_percentage != "NA":
-                text = text + f"<li class='text-left'>Minimum {job.hsc_d_percentage} % of 12/diploma required</li>"
-            if job.live_kt != "NA":
-                text = text + f"<li class='text-left'>Minimum {job.live_kt} Live KT </li>"
-            if job.dead_kt != "NA":
-                text = text + f"<li class='text-left'>Minimum {job.dead_kt} Dead KT</li>"
-            if job.drop != "0":
-                text = text + f"<li class='text-left'>Minimum {job.drop} year drop</li>"
-            if text == "":
-                text = "No Criteria"
-            Job.objects.filter(id=job.id).update(who_can_apply=text)
+            Job.objects.filter(id=job.id).update(who_can_apply=who_can_apply_text(job))
             messages.success(request,"Job Added Successfully.")
             return redirect("placementIndex")
         else:
@@ -178,6 +162,7 @@ def send_email(request,id,comp):
         send_not_suitable_email(student,job,request)
     return redirect('/placement_cell/details/'+str(job.id)+"/1")
 
+@allowed_users(allowed_roles=['Placement_Cell'])
 def Update_Details(request,id):
     instance=Job.objects.get(id=id)
     form=JobForm(instance=instance)
@@ -186,30 +171,30 @@ def Update_Details(request,id):
         if form.is_valid():
             form.save()
             job = Job.objects.filter(id=id).order_by("-id")[0]
-            text = ""
-            if job.aggregate_sgpi != "NA":
-                text = text + f"<li class='text-left'>Minimum {job.aggregate_sgpi} SGPI required</li>"
-            if job.ssc_percentage != "NA":
-                text = text + f"<li class='text-left'>Minimum {job.ssc_percentage} % of 10th required </li>"
-            if job.hsc_d_percentage != "NA":
-                text = text + f"<li class='text-left'>Minimum {job.hsc_d_percentage} % of 12/diploma required</li>"
-            if job.live_kt != "NA":
-                text = text + f"<li class='text-left'>Minimum {job.live_kt} Live KT </li>"
-            if job.dead_kt != "NA":
-                text = text + f"<li class='text-left'>Minimum {job.dead_kt} Dead KT</li>"
-            if job.drop != "0":
-                text = text + f"<li class='text-left'>Minimum {job.drop} year drop</li>"
-            if text == "":
-                text = "No Criteria"
-            Job.objects.filter(id=job.id).update(who_can_apply=text)
+            Job.objects.filter(id=job.id).update(who_can_apply=who_can_apply_text(job))
             messages.success(request, 'Successfully Updated!')
-            print(form)
             return redirect('/placement_cell/details/'+str(id)+"/1")
     content={"form":form,"id":id}
     return render(request,"placement/update_details.html",content)
 
+@allowed_users(allowed_roles=['Placement_Cell'])
 def delete_details(request,id):
     job =Job.objects.get(id=id)
     job.delete()
     messages.success(request, "Successfully deleted!")
     return redirect('recruiting')
+
+
+def student_details(request):
+    students = Student.objects.all()
+    student_dict = {}
+    for student in students:
+        edu = Add_edu.objects.filter(roll_no=student)
+        curr_edu = CurrEdu.objects.filter(roll_no_curr=student)
+        certificate = Certificates.objects.filter(certificate_issued_to=student)
+        experience = Add_exp.objects.filter(rollNo=student)
+        user = User.objects.filter(username=student.roll_no)
+        student_dict[student.roll_no] = [user, student, edu, curr_edu, certificate, experience]
+    student_dict = sorted(student_dict.items())
+    content = {'student_dict':student_dict}
+    return render(request, 'placement/student_details.html', content)
