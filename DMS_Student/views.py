@@ -17,7 +17,6 @@ import json
 import operator
 import re
 
-from .validation import isValidPassportNo, isValidPanCardNo
 
 
 @login_required(login_url='login')
@@ -417,8 +416,8 @@ def search(request):
     search_list = {}
     search = request.GET['to_search']
     query = search.lower()
-    jobs = Job.objects.filter(Q(skills__icontains=query) | Q(comp_name__icontains=query))
-    internships = Intership.objects.filter(Q(skills__icontains=query) | Q(comp_name__icontains=query))
+    jobs = Job.objects.filter(Q(skills__icontains=query) | Q(comp_name__icontains=query) | Q(domain__icontains=query))
+    internships = Intership.objects.filter(Q(skills__icontains=query) | Q(comp_name__icontains=query) | Q(domain__icontains=query))
     for job in jobs:
         search_list[job] = 1
     for internship in internships:
