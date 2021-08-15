@@ -60,11 +60,7 @@ def add_job(request):
     form=JobForm()
     if request.method=="POST":
         form=JobForm(request.POST)
-        # print(form)
         if form.is_valid():
-            # branches = form.cleaned_data.get("recruiting_from")
-            # for branch in branches.split(','):
-            #     print(branch.strip())
             form.save()
             id = Job.objects.filter(comp_name=form.cleaned_data.get("comp_name")).order_by('-id')[0].id
             Job.objects.filter(id=id).update(who_can_apply=who_can_apply_text(id))
