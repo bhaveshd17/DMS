@@ -24,7 +24,7 @@ import re
 def index(request):
     internship = internshipLogic(request)
     job = jobLogic(request)
-    content = {'related_job_list': job['department_wise_job'][:3],
+    content = {'related_job_list': job['department_wise_job_skill_based'][:3],
                'related_int_list': internship['related_int_list'][:3]}
     return render(request, 'student/index.html', content)
 
@@ -80,7 +80,7 @@ def jobFilter(request):
 @login_required(login_url='login')
 def all_job(request):
     data = jobLogic(request)
-    content = {'related_job_list': data['department_wise_job'],
+    content = {'related_job_list': Job.objects.all(),
                'skill_set': data['skill_set'],
                'cities': data['cities'],
                }

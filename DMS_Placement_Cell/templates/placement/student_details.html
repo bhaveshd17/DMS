@@ -160,23 +160,23 @@
 <div class="d-flex m-0 p-0">
     <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item">
-            <a class="nav-link active" id="inft-tab" data-toggle="tab" href="#inft" role="tab" aria-controls="inft"
+            <a class="nav-link active" id="0-tab" data-toggle="tab" href="#1" role="tab" aria-controls="0"
                 aria-selected="true">INFT</a>
         </li>
         <li class="nav-item" >
-            <a class="nav-link" id="cmpn-tab" data-toggle="tab" href="#cmpn" role="tab" aria-controls="cmpn"
+            <a class="nav-link" id="1-tab" data-toggle="tab" href="#2" role="tab" aria-controls="1"
                 aria-selected="false">CMPN</a>
         </li>
         <li class="nav-item" >
-            <a class="nav-link" id="etrx-tab" data-toggle="tab" href="#etrx" role="tab" aria-controls="etrx"
+            <a class="nav-link" id="2-tab" data-toggle="tab" href="#3" role="tab" aria-controls="2"
                 aria-selected="false">ETRX</a>
         </li>
         <li class="nav-item" >
-            <a class="nav-link" id="extc-tab" data-toggle="tab" href="#extc" role="tab" aria-controls="extc"
+            <a class="nav-link" id="3-tab" data-toggle="tab" href="#4" role="tab" aria-controls="3"
                 aria-selected="false">EXTC</a>
         </li>
         <li class="nav-item" >
-            <a class="nav-link" id="biomed-tab" data-toggle="tab" href="#biomed" role="tab" aria-controls="biomed"
+            <a class="nav-link" id="4-tab" data-toggle="tab" href="#4" role="tab" aria-controls="4"
                 aria-selected="false">BIOMED</a>
         </li>
     </ul>
@@ -188,14 +188,16 @@
 </div>
 
 
-<div class="tab-content profile-tab" id="myTabContent">
+<div class="tab-content student-tab" id="myTabContent">
 
-    <div class="tab-pane fade show active" id="job" role="tabpanel" aria-labelledby="profile-tab">
+    {% for details in student_dict %}
+    <div class="tab-pane fade show active" id="job" role="tabpanel" aria-labelledby="student-tab">
         <div class="card">
             <div class="card-body">
                 <table class="table table-hover table-striped table-responsive-sm">
                     <thead>
                         <tr>
+                            {{forloop.counter0}}
                             <th>Roll Number</th>
                             <th>Name</th>
                             <th>Branch</th>
@@ -216,13 +218,8 @@
             </div>
         </div>
     </div>
-    <div class="tab-pane fade" id="intern" role="tabpanel" aria-labelledby="profile-tab">
-        <div class="card">
-            <div class="card-body">
 
-            </div>
-        </div>
-    </div>
+    {% endfor %}
 
 </div>
 
