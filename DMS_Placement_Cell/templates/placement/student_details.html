@@ -3,7 +3,7 @@
 {% load custom_tags %}
 {% block title %} Students Details {% endblock %}
 {% block content %}
-<h3 class="text-center mb-3">Students Details</h3>
+<h3 class="text-center mb-5">Students Details</h3>
 
 <table class="table table-hover table-striped table-responsive-sm table-responsive" id="student_table"
     style="display: none;">
@@ -196,6 +196,7 @@
                             <th>Name</th>
                             <th>Branch</th>
                             <th>Average Sgpi</th>
+                            <th>Year Of Graduation</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -206,6 +207,7 @@
                             <td>{{details.0.0.first_name}}</td>
                             <td>{{details.1.branch}}</td>
                             <td>{{details.3.0.average_sgpi}}</td>
+                            <td>{{details.1.year_of_graduation}}</td>
                         </tr>
                         {% endif %}
                         {% endfor %}
@@ -226,6 +228,7 @@
                             <th>Name</th>
                             <th>Branch</th>
                             <th>Average Sgpi</th>
+                            <th>Year Of Graduation</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -236,6 +239,7 @@
                             <td>{{details.0.0.first_name}}</td>
                             <td>{{details.1.branch}}</td>
                             <td>{{details.3.0.average_sgpi}}</td>
+                            <td>{{details.1.year_of_graduation}}</td>
                         </tr>
                         {% endif %}
                         {% endfor %}
@@ -256,6 +260,7 @@
                             <th>Name</th>
                             <th>Branch</th>
                             <th>Average Sgpi</th>
+                            <th>Year Of Graduation</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -266,6 +271,7 @@
                             <td>{{details.0.0.first_name}}</td>
                             <td>{{details.1.branch}}</td>
                             <td>{{details.3.0.average_sgpi}}</td>
+                            <td>{{details.1.year_of_graduation}}</td>
                         </tr>
                         {% endif %}
                         {% endfor %}
@@ -286,6 +292,7 @@
                             <th>Name</th>
                             <th>Branch</th>
                             <th>Average Sgpi</th>
+                            <th>Year Of Graduation</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -296,6 +303,7 @@
                             <td>{{details.0.0.first_name}}</td>
                             <td>{{details.1.branch}}</td>
                             <td>{{details.3.0.average_sgpi}}</td>
+                            <td>{{details.1.year_of_graduation}}</td>
                         </tr>
                         {% endif %}
                         {% endfor %}
@@ -316,6 +324,7 @@
                             <th>Name</th>
                             <th>Branch</th>
                             <th>Average Sgpi</th>
+                            <th>Year Of Graduation</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -326,6 +335,7 @@
                             <td>{{details.0.0.first_name}}</td>
                             <td>{{details.1.branch}}</td>
                             <td>{{details.3.0.average_sgpi}}</td>
+                            <td>{{details.1.year_of_graduation}}</td>
                         </tr>
                         {% endif %}
                         {% endfor %}
