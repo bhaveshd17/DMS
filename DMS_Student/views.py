@@ -493,7 +493,7 @@ def register(request):
             student = Student.objects.get(roll_no=username)
             name = user_form.cleaned_data.get("first_name")
             send_action_email(student, name, request)
-            messages.success(request, f"your username is sent on email")
+            messages.success(request, f"your credentials are sent on email")
             return redirect("login")
         else:
             messages, error(request, "Failed")

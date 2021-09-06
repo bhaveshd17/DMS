@@ -2,7 +2,7 @@ function validatePan() {
     var pan_no = document.getElementById("id_pan_card_no").value;
     var regex = /([A-Z]){5}([0-9]){4}([A-Z]){1}$/;
     var regex1 = /([A-Z]){3}([0-9]){6}([A-Z]){1}$/;
-    if (regex.test(pan_no.toUpperCase()) || regex1.test(pan_no.toUpperCase())) {
+    if (regex.test(pan_no.toUpperCase()) || regex1.test(pan_no.toUpperCase()) || pan_no==='Applied') {
         document.getElementById("pan_error").style.display = 'none'
         return true
     } else {
@@ -12,14 +12,27 @@ function validatePan() {
 }
 
 function validatePassport() {
-    var patt = new RegExp("^([A-Z a-z]){1}([0-9]){7}$")
+    var patt = new RegExp("^[A-PR-WYa-pr-wy][1-9]\\d\\s?\\d{4}[1-9]$")
     var pass_no = document.getElementById("id_passport_no").value;
-    if (patt.test(pass_no)) {
+    if (patt.test(pass_no) || pass_no === 'Applied') {
         document.getElementById("pass_error").style.display = 'none'
         return true
     }
     else {
         document.getElementById("pass_error").style.display = ''
+        return false
+    }
+}
+
+function aadharValidation(){
+    var aad = new RegExp("^([0-9]){12}$")
+    var aadhar_no = document.getElementById("id_aadhar_no").value;
+    if(aad.test(aadhar_no)){
+        document.getElementById("aadhar_error").style.display = 'none'
+        return true
+    }
+    else{
+        document.getElementById("aadhar_error").style.display = ''
         return false
     }
 }
@@ -35,6 +48,9 @@ $(document).ready(function () {
     });
     $("#id_passport_no").change(function() {
         validatePassport()
+    });
+    $("#id_aadhar_no").change(function() {
+        aadharValidation()
     });
     $("#next1").click(function () {
         let roll_no = $("#id_roll_no").val()
@@ -59,11 +75,24 @@ $(document).ready(function () {
         else if(!validatePassport()){
             alert("Enter Valid Passport Number")
         }
+        else if(!aadharValidation()){
+            alert("Enter Valid Aadhar Number")
+        }
         else{
             $("#first").hide()
             $("#second").hide()
             $("#third").show()
         }
+    })
+    $("#back2").click(function(){
+        $("#first").show()
+        $("#third").hide()
+        $("#second").hide()
+    })
+    $("#back3").click(function(){
+        $("#first").hide()
+        $("#third").hide()
+        $("#second").show()
     })
 
 })
