@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.messages.api import error
+from django.core.mail import send_mail
 from django.db.models import Q
 from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
 from django.contrib.auth import authenticate, login, logout
@@ -417,8 +418,8 @@ def search(request):
     search_list = {}
     search = request.GET['to_search']
     query = search.lower()
-    jobs = Job.objects.filter(Q(skills__icontains=query) | Q(comp_name__icontains=query))
-    internships = Intership.objects.filter(Q(skills__icontains=query) | Q(comp_name__icontains=query))
+    jobs = Job.objects.filter(Q(skills__icontains=query) | Q(comp_name__icontains=query) | Q(domain__icontains=query))
+    internships = Intership.objects.filter(Q(skills__icontains=query) | Q(comp_name__icontains=query)  | Q(domain__icontains=query))
     for job in jobs:
         search_list[job] = 1
     for internship in internships:
@@ -518,4 +519,26 @@ def activate_user(request, uidb64, token):
     content={"student":student}
     return render(request,'authentication/activate_fail.html',content)
 
- 
+def forgot_password(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        student=Student.objects.get(roll_no=username)
+        forgot_password_email(student,request)
+        messages.success(request,"Email is send")
+        return redirect(reverse('login'))
+    return render(request,'authentication/forgot.html')
+
+def reset_password(request,uidb64):
+    try:
+        uid=force_text(urlsafe_base64_decode(uidb64))
+        student=Student.objects.get(roll_no=uid)
+    except Exception as e:
+        student=None
+    if request.method == 'POST':
+        password = request.POST.get('password1')
+        user=User.objects.get(username=student.roll_no)
+        user.set_password(password)  
+        user.save()
+        messages.success(request,"Password Changed")
+        return redirect(reverse('login'))
+    return render(request,"authentication/change_password.html")

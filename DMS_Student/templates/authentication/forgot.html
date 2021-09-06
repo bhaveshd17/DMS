@@ -25,7 +25,7 @@
 </div>
 <div class="column2">
     <div class="card-body bg-white shadow">
-        <h2 style="color:#1aa3ff;font-family:Copperplate Gothic Bold;text-align:center;"><b>Welcome</b></h2>
+        <h2 style="color:#1aa3ff;font-family:Copperplate Gothic Bold;text-align:center;"><b>Forgot Password</b></h2>
         <form method="post" action="">
             {% csrf_token %}
             <div class="inputWithIcon">
@@ -34,10 +34,7 @@
 
             </div>
 
-            <div class="inputWithIcon inputIconBg">
-                <input type="password" name="password" size="30" placeholder="Password...">
-                <i class=" fa fa-lock fa-lg fa-fw"></i>
-            </div>
+           
 
             {% if messages %}
                 {% for message in messages %}
@@ -51,11 +48,7 @@
             <input type="submit" name="submit" class="Button" value="Login"
                    style="text-align:center;font-size:22px;">
         </form>
-        <p style="text-align:center;"><a href="{% url 'forgot_password' %}" style="text-decoration:none;color: #000000;">Forgot Password ?</a>
-
-        </p>
-        <p style="text-align: center"><a href="{% url 'register' %}" style="text-decoration:none;color: #0066cc;">Register
-            on Portal</a></p>
+       
 
     </div>
 </div>
