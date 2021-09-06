@@ -18,7 +18,6 @@ import json
 import operator
 import re
 
-from .validation import isValidPassportNo, isValidPanCardNo
 
 
 @login_required(login_url='login')
@@ -419,7 +418,7 @@ def search(request):
     search = request.GET['to_search']
     query = search.lower()
     jobs = Job.objects.filter(Q(skills__icontains=query) | Q(comp_name__icontains=query) | Q(domain__icontains=query))
-    internships = Intership.objects.filter(Q(skills__icontains=query) | Q(comp_name__icontains=query)  | Q(domain__icontains=query))
+    internships = Intership.objects.filter(Q(skills__icontains=query) | Q(comp_name__icontains=query) | Q(domain__icontains=query))
     for job in jobs:
         search_list[job] = 1
     for internship in internships:
@@ -495,7 +494,7 @@ def register(request):
             student = Student.objects.get(roll_no=username)
             name = user_form.cleaned_data.get("first_name")
             send_action_email(student, name, request)
-            messages.success(request, f"your username is sent on email")
+            messages.success(request, f"your credentials are sent on email")
             return redirect("login")
         else:
             messages, error(request, "Failed")

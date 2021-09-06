@@ -112,12 +112,12 @@ class CurrEdu(models.Model):
         return str(self.roll_no_curr)
 
 
-class AdminDma(models.Model):
-    name = models.CharField(max_length=30, null=False)
-    department = models.CharField(max_length=30, null=False)
-
-    def __str__(self):
-        return self.name
+# class AdminDma(models.Model):
+#     name = models.CharField(max_length=30, null=False)
+#     department = models.CharField(max_length=30, null=False)
+#
+#     def __str__(self):
+#         return self.name
 
 
 class Intership(models.Model):
@@ -128,7 +128,7 @@ class Intership(models.Model):
     sal =models.IntegerField(null=False)
     skills=models.TextField(max_length=500, null=False)
     duration =models.CharField(max_length=20, null=False)
-    adm_id = models.ForeignKey(AdminDma, on_delete=models.CASCADE, null=False)
+    # adm_id = models.ForeignKey(AdminDma, on_delete=models.CASCADE, null=False)
     domain=models.CharField(max_length=100,null=False)
     about_comp=models.TextField(max_length=500, null=False)
     about_work =models.TextField(max_length=500, null=False)
@@ -151,13 +151,14 @@ class Int_user(models.Model):
 class Job(models.Model):
     comp_name = models.CharField(max_length=40, null=False)
     location = models.CharField(max_length=100)
+    recruiting_from = models.CharField(max_length=500, null=True, default="NA")
     link = models.CharField(max_length=150, null=False)
     start_date = models.DateField(null=False)
     apply_by = models.DateField(null=True)
     sal = models.FloatField(null=False,validators=[MaxValueValidator(99)])
     skills = models.TextField(max_length=500, null=False)
     domain = models.CharField(max_length=100)
-    adm_id = models.ForeignKey(AdminDma, on_delete=models.CASCADE, null=False)
+    # adm_id = models.ForeignKey(AdminDma, on_delete=models.CASCADE, null=False)
     about_comp = models.TextField(max_length=500, null=False)
     about_work = models.TextField(max_length=500, null=False)
     aggregate_sgpi = models.CharField(max_length=15, null=True)
@@ -191,7 +192,7 @@ class Job_user(models.Model):
 class Mock_test(models.Model):
     name = models.CharField(max_length=30, null=True)
     date = models.DateField(null=False)
-    adm_id = models.ForeignKey(AdminDma, on_delete=models.CASCADE, null=False)
+    # adm_id = models.ForeignKey(AdminDma, on_delete=models.CASCADE, null=False)
     from_time = models.TimeField()
     to_time = models.TimeField()
     details = models.TextField(max_length=500, null=False)

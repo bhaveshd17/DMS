@@ -19,7 +19,7 @@ def job_eligibility_logic(job_list, percentage, live_kt, drop, dead_kt, ssc_perc
     for job in job_list:
         if float(job.aggregate_sgpi) <= percentage and float(job.ssc_percentage) <= ssc_percentage and float(
                 job.hsc_d_percentage) <= hsc_percentage and live_kt <= int(job.live_kt) and drop <= int(
-                job.drop) and dead_kt <= int(job.dead_kt) and float(job.sal) > sal:
+            job.drop) and dead_kt <= int(job.dead_kt) and float(job.sal) > sal:
             list_j.append(job)
     return list_j
 
@@ -28,23 +28,13 @@ def department_sort(request):
     roll_no = request.user.username
     student = Student.objects.get(roll_no=roll_no)
     branch = student.branch
+    jobs = Job.objects.filter(recruiting_from__icontains=branch)
+    internships = Intership.objects.all()
+    mockTests = Mock_test.objects.all()
 
-    admin_int = AdminDma.objects.filter(department=branch)
-    job_list = []
-    int_list = []
-    mock_list = []
-    for admin in admin_int:
-        jobs = Job.objects.filter(adm_id=admin.id)
-        internships = Intership.objects.filter(adm_id=admin.id).order_by("apply_by")
-        mockTests = Mock_test.objects.filter(adm_id=admin.id)
-        for job in jobs:
-            job_list.append(job)
-        for internship in internships:
-            int_list.append(internship)
-        for mockTest in mockTests:
-            mock_list.append(mockTest)
 
-    return {'job_list': job_list, 'int_list': int_list, 'mock_list': mock_list}
+    return {'job_list': jobs, 'int_list': internships, 'mock_list': mockTests}
+
 
 
 def jobLogic(request):
@@ -86,12 +76,12 @@ def jobLogic(request):
         dead_kt = int(curr_edu.dead_kt)
         drop = int(curr_edu.drop)
         ssc = Add_edu.objects.get(roll_no=student, degree='10')
-        ssc_percentage = round(ssc.marks/int(ssc.no_of_subject), 2)
+        ssc_percentage = round(ssc.marks / int(ssc.no_of_subject), 2)
         hsc = Add_edu.objects.filter(roll_no=student).exclude(degree='10')[0]
         if hsc.degree == 'diploma':
             hsc_percentage = hsc.percentage
         else:
-            hsc_percentage = round(hsc.marks/int(hsc.no_of_subject))
+            hsc_percentage = round(hsc.marks / int(hsc.no_of_subject))
 
         hired = Job_user.objects.filter(roll_no=student, status="3")
         if curr_edu.sgpi5 == "NA":
@@ -127,41 +117,6 @@ def jobLogic(request):
                                                                      hsc_percentage=hsc_percentage,
                                                                      sal=j)
 
-                # if sal < 3.5:
-                #     related_job_list = job_eligibility_logic(job_list=job_list, percentage=percentage,
-                #                                              live_kt=live_kt, dead_kt=dead_kt, drop=drop,
-                #                                              ssc_percentage=ssc_percentage,
-                #                                              hsc_percentage=hsc_percentage,
-                #                                              sal=3.5)
-                #
-                # elif sal >= 3.5 and sal < 5:
-                #     related_job_list = job_eligibility_logic(job_list=job_list, percentage=percentage,
-                #                                              live_kt=live_kt, dead_kt=dead_kt, drop=drop,
-                #                                              ssc_percentage=ssc_percentage,
-                #                                              hsc_percentage=hsc_percentage,
-                #                                              sal=5)
-                # elif sal >= 5 and sal < 7:
-                #     related_job_list = job_eligibility_logic(job_list=job_list, percentage=percentage,
-                #                                              live_kt=live_kt, dead_kt=dead_kt, drop=drop,
-                #                                              ssc_percentage=ssc_percentage,
-                #                                              hsc_percentage=hsc_percentage,
-                #                                              sal=7)
-                # elif sal >= 7 and sal < 10:
-                #     related_job_list = job_eligibility_logic(job_list=job_list, percentage=percentage,
-                #                                              live_kt=live_kt, dead_kt=dead_kt, drop=drop,
-                #                                              ssc_percentage=ssc_percentage,
-                #                                              hsc_percentage=hsc_percentage,
-                #                                              sal=10)
-                # else:
-                #     related_job_list = job_eligibility_logic(job_list=job_list, percentage=percentage,
-                #                                              live_kt=live_kt, dead_kt=dead_kt, drop=drop,
-                #                                              ssc_percentage=ssc_percentage,
-                #                                              hsc_percentage=hsc_percentage,
-                #                                              sal=10)
-
-
-
-
     except Exception as e:
         print(e)
         related_job_list = []
@@ -181,7 +136,7 @@ def jobLogic(request):
                'skill_set': skill_set,
                'job_list': job_list1,
                'department_wise_job': job_list,
-               'cities':cities,
+               'cities': cities,
                }
     return content
 

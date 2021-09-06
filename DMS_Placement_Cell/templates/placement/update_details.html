@@ -4,7 +4,7 @@
 {% block content %}
 <div class="card">
     <div class="card-header text-center">
-    <h1>Add New Job</h1>
+    <h1>Update Job</h1>
     </div>
     <div class="card-body">
         <form method="POST" action="{% url 'Update_Details' id %}">
@@ -37,10 +37,11 @@
                 <div class="col-md-3"><label class="form-control"><strong>Skills:</strong></label></div>
                 <div class="col-md-9">{{form.skills}}</div>
             </div>
-            <div class="mb-3 form-group row" >
-                <div class="col-md-3"><label class="form-control"><strong>Admin Id</strong></label></div>
-                <div class="col-md-9">{{form.adm_id}}</div>
+            <div class="mb-3 form-group row">
+                <div class="col-md-3"><label class="form-control"><strong> Recruiting From:</strong></label></div>
+                <div class="col-md-9">{{form.recruiting_from}}</div>
             </div>
+ 
             <div class="mb-3 form-group row">
                 <div class="col-md-3"><label class="form-control"><strong>Domain:</strong></label></div>
                 <div class="col-md-9">{{form.domain}}</div>
@@ -132,12 +133,9 @@
     $("#id_status").val(0)
     $("#id_who_can_apply").val("Null")
     $("#id_work_from_home").removeClass("form-control")
-    // const ad="{{request.user.id}}"
-    // console.log(ad)
-    // $(document).ready(function(){
-    //     $("#id_adm_id").val(ad)
-    // }).prop('selected', true)
 
+
+</script>
 
 </script>
 {% endblock %}

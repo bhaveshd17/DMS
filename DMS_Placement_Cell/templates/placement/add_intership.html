@@ -37,10 +37,6 @@
                 <label class="form-control"><strong>Duration</strong></label>
                 {{form.duration}}
             </div>
-            <div class="mb-3" style="display: none;">
-                <label class="form-control"><strong>Admin Id</strong></label>
-                {{form.adm_id}}
-            </div>
             <div class="mb-3">
                 <label class="form-control"><strong>Domain</strong></label>
                 {{form.domain}}
@@ -85,11 +81,6 @@
     $("#id_apply_by").prop('type', 'date')
     $("#id_work_from_home").removeClass("form-control")
 
-    const ad="{{id}}"
-    
-    $(document).ready(function(){
-        $("#id_adm_id").val(ad)
-    }).prop('selected', true)
 
     
 </script>

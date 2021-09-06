@@ -3,6 +3,9 @@ from django.core.mail import EmailMessage
 from django.conf import settings
 from django.template.loader import render_to_string
 
+from DMS_Student.models import Job
+
+
 def send_accepted_email(student,job,request):
     current_site=get_current_site(request)
     email_subject="Job Offer"
@@ -37,7 +40,8 @@ def send_not_suitable_email(student,job,request):
     email.send()
 
 
-def who_can_apply_text(job):
+def who_can_apply_text(id):
+    job = Job.objects.get(id=id)
     text = ""
     if job.aggregate_sgpi != "NA":
         text = text + f"<li class='text-left'>Minimum {job.aggregate_sgpi} SGPI required</li>"

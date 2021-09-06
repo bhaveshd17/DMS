@@ -4,7 +4,7 @@
 {% block content %}
 <div class="card">
     <div class="card-header text-center">
-    <h1>Add New Job</h1>
+        <h1>Add New Job</h1>
     </div>
     <div class="card-body">
         <form method="POST" action="{% url 'add_job' %}">
@@ -21,6 +21,35 @@
                 <div class="col-md-3"><label class="form-control"><strong>Company Site:</strong></label></div>
                 <div class="col-md-9">{{form.link}}</div>
             </div>
+
+            <div class="mb-3 form-group row">
+                <div class="col-md-3"><label class="form-control"><strong>Recruiting Form:</strong></label></div>
+                <div class="col-md-9">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="inft" value="INFT" name="inft">
+                        <label class="form-check-label" for="inft">INFT</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="cmpn" value="CMPN" name="cmpn">
+                        <label class="form-check-label" for="cmpn">CMPN</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="extc" value="EXTC" name="extc">
+                        <label class="form-check-label" for="extc">EXTC</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="etrx" value="ETRX" name="etrx">
+                        <label class="form-check-label" for="etrx">ETRX</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="biomed" value="BIOMED" name="biomed">
+                        <label class="form-check-label" for="biomed">BIOMED</label>
+                    </div>
+                </div>
+            </div>
+            <div style="display: none;">
+                {{form.recruiting_from}}
+            </div>
             <div class="mb-3 form-group row">
                 <div class="col-md-3"><label class="form-control"><strong>Start Date:</strong></label></div>
                 <div class="col-md-9">{{form.start_date}}</div>
@@ -36,10 +65,6 @@
             <div class="mb-3 form-group row">
                 <div class="col-md-3"><label class="form-control"><strong>Skills:</strong></label></div>
                 <div class="col-md-9">{{form.skills}}</div>
-            </div>
-            <div class="mb-3 form-group row" style="display: none;">
-                <div class="col-md-3"><label class="form-control"><strong>Admin Id</strong></label></div>
-                <div class="col-md-9">{{form.adm_id}}</div>
             </div>
             <div class="mb-3 form-group row">
                 <div class="col-md-3"><label class="form-control"><strong>Domain:</strong></label></div>
@@ -71,7 +96,7 @@
                             <small class="form-text text-muted mb-2">Enter NA if not a criteria</small>
                             <div class="my-2"> {{form.hsc_d_percentage}}</div>
                         </div>
-                 
+
                     </div>
                     <div class="row">
                         <div class="col-md-6">
@@ -87,16 +112,16 @@
 
                     </div>
                     <div class="row">
-                         <div class="col-md-6">
+                        <div class="col-md-6">
                             <label class="my-0">Minimum no. Dead KT/S</label>
-                             <small class="form-text text-muted mb-2">Enter NA if not a criteria</small>
+                            <small class="form-text text-muted mb-2">Enter NA if not a criteria</small>
                             <div class="my-2"> {{form.dead_kt}}</div>
                         </div>
                         <div class="col-md-6">
                             <label class="my-0">Minimum no. of Drop</label>
                             <div class="my-2"> {{form.drop}}</div>
                         </div>
-                        
+
                     </div>
                 </div>
             </div>
@@ -116,7 +141,8 @@
                 <div class="col-md-3"><label class="form-control"><strong>Status:</strong></label></div>
                 <div class="col-md-9">{{form.status}}</div>
             </div>
- 
+
+
             <div class="text-center mb-3">
                 <button type="submit" class="btn btn-primary">Submit</button>
             </div>
@@ -132,12 +158,59 @@
     $("#id_status").val(0)
     $("#id_who_can_apply").val("Null")
     $("#id_work_from_home").removeClass("form-control")
-    const ad="{{id}}"
-    
-    $(document).ready(function(){
-        $("#id_adm_id").val(ad)
-    }).prop('selected', true)
+    $("input:checkbox").removeClass("form-control")
 
+    $(document).ready(function () {
+        let array_value = []
+        function appendValue(branch) {
+            array_value.push($("#" + branch).val())
+            $("#id_recruiting_from").val(array_value)
+            // console.log(array_value)
+        }
+        function removeValue(value, array) {
+            for (var i = 0; i < array.length; i++) {
+                if (array[i] === value) {
+                    array.splice(i, 1);
+                    $("#id_recruiting_from").val(array)
+                }
+            }
+        }
+        $("#inft").change(function () {
+            if ($(this).is(":checked")) {
+                appendValue("inft")
+            } else {
+                removeValue($("#inft").val(), array_value)
+            }
+        })
+        $("#cmpn").change(function () {
+            if ($(this).is(":checked")) {
+                appendValue("cmpn")
+            } else {
+                removeValue($("#cmpn").val(), array_value)
+            }
+        })
+        $("#extc").change(function () {
+            if ($(this).is(":checked")) {
+                appendValue("extc")
+            } else {
+                removeValue($("#extc").val(), array_value)
+            }
+        })
+        $("#etrx").change(function () {
+            if ($(this).is(":checked")) {
+                appendValue("etrx")
+            } else {
+                removeValue($("#etrx").val(), array_value)
+            }
+        })
+        $("#biomed").change(function () {
+            if ($(this).is(":checked")) {
+                appendValue("biomed")
+            } else {
+                removeValue($("#biomed").val(), array_value)
+            }
+        })
+    })
 
 </script>
 {% endblock %}

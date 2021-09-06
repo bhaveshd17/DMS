@@ -135,6 +135,7 @@
                         <div class="mb-3">
                             <label><strong>Aadhar Number:</strong></label>
                             {{student_form.aadhar_no}}
+                            <div style="display: none;" id="aadhar_error"><strong><p class="text-danger" style="font-weight: 500;">Invalid Aadhar Number</p></strong></div>
                         </div>
                         <div class="mb-3">
                             <label class="mb-0"><strong>Passport Number:</strong></label>
@@ -157,6 +158,7 @@
                             <label><strong>Type of Disability:</strong></label>
                             {{student_form.type_of_disability}}
                         </div>
+                        
                         <div class="mb-3">
                             <label><strong>Father Name:</strong></label>
                             {{student_form.father_name}}
@@ -174,6 +176,7 @@
                             {{student_form.mother_occupation}}
                         </div>
                         <div class="float-right">
+                            <button type="button" id="back2" class="btn btn-primary">Back</button>
                             <button type="button" id="next2" class="btn btn-primary">Next</button>
                         </div>
                     </div>
@@ -226,6 +229,7 @@
                         </div>
 
                         <div class="text-center mb-3">
+                            <button type="button" id="back3" class="btn btn-primary">Back</button>
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </div>
                     </div>

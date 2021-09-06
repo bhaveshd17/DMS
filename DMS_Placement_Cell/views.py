@@ -42,8 +42,7 @@ def index(request):
 @allowed_users(allowed_roles=['Placement_Cell'])
 def add_intership(request):
     form=IntershipForm()
-    id=AdminDma.objects.get(name=request.user.username).id
-    content={"form":form,"id":id}
+    content={"form":form}
     return render(request,"placement/add_intership.html",content)
 
 @allowed_users(allowed_roles=['Placement_Cell'])
@@ -59,18 +58,17 @@ def form_intership(request):
 @allowed_users(allowed_roles=['Placement_Cell'])
 def add_job(request):
     form=JobForm()
-    id=AdminDma.objects.get(name=request.user.username).id
     if request.method=="POST":
         form=JobForm(request.POST)
         if form.is_valid():
             form.save()
-            job = Job.objects.filter(adm_id=id).order_by("-id")[0]
-            Job.objects.filter(id=job.id).update(who_can_apply=who_can_apply_text(job))
+            id = Job.objects.filter(comp_name=form.cleaned_data.get("comp_name")).order_by('-id')[0].id
+            Job.objects.filter(id=id).update(who_can_apply=who_can_apply_text(id))
             messages.success(request,"Job Added Successfully.")
             return redirect("placementIndex")
         else:
             messages.error(request,"Form is not valid")
-    content={"form":form,"id":id}
+    content={"form":form}
     return render(request,"placement/add_job.html",content)
 
 @allowed_users(allowed_roles=['Placement_Cell'])
@@ -168,10 +166,10 @@ def Update_Details(request,id):
     form=JobForm(instance=instance)
     if request.method=="POST":
         form=JobForm(request.POST,instance=instance)
+        print(form)
         if form.is_valid():
             form.save()
-            job = Job.objects.filter(id=id).order_by("-id")[0]
-            Job.objects.filter(id=job.id).update(who_can_apply=who_can_apply_text(job))
+            Job.objects.filter(id=id).update(who_can_apply=who_can_apply_text(id))
             messages.success(request, 'Successfully Updated!')
             return redirect('/placement_cell/details/'+str(id)+"/1")
     content={"form":form,"id":id}
