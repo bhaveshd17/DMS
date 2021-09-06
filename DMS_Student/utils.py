@@ -210,3 +210,21 @@ def send_action_email(student, name, request):
     email.fail_silently = False
     email.content_subtype = 'html'
     email.send()
+
+
+def forgot_password_email(student, request):
+    current_site = get_current_site(request)
+    email_subject = "Forgot Password"
+    email_body = render_to_string("authentication/forgot_password_email.html", {
+        'student': student,
+        'domain': current_site,
+        'uid': urlsafe_base64_encode(force_bytes(student.roll_no)),
+    })
+
+    email = EmailMessage(subject=email_subject, body=email_body,
+                         from_email=settings.EMAIL_HOST_USER,
+                         to=[student.gmail]
+                         )
+    email.fail_silently = False
+    email.content_subtype = 'html'
+    email.send()

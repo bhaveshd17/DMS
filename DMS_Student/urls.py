@@ -41,4 +41,6 @@ urlpatterns = [
 
     path('student/update_personal/<str:pk>/', views.update_personal, name="update_personal"),
     path('student/userApplication',views.userApplication,name="userApplication"),
+    path('student/forgot',views.forgot_password,name="forgot_password"),
+    path('student/reset_password/<uidb64>',views.reset_password,name="reset_password"),
 ]
