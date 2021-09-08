@@ -60,26 +60,26 @@ WSGI_APPLICATION = 'DMS.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
-
 DATABASES = {
     'default': {
-        'ENGINE': 'djongo',
-        'NAME': 'vplacement_db',
-        'ENFORCE_SCHEMA': False,
-        'USER':'vplacement',
-        'PASSWORD':'vplacement',
-        'CLIENT': {
-           'host': 'mongodb+srv://vplacement:vplacement@cluster0.fptvs.mongodb.net/vplacement_db?retryWrites=true&w=majority',
-        }
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'djongo',
+#         'NAME': 'vplacement_db',
+#         'ENFORCE_SCHEMA': False,
+#         'USER':'vplacement',
+#         'PASSWORD':'vplacement',
+#         'CLIENT': {
+#            'host': 'mongodb+srv://vplacement:vplacement@cluster0.fptvs.mongodb.net/vplacement_db?retryWrites=true&w=majority',
+#         }
+#     }
+# }
 
 
 # Password validation
