@@ -1,6 +1,11 @@
 {% load custom_tags %}
 
 <div class="tab-pane fade" id="curr-edu" role="tabpanel" aria-labelledby="curr-edu-tab">
+    <div class="d-flex justify-content-center">
+        <div class="spinner-border text-primary  ajaxLoader  mt-5" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
     {% if curr_edu %}
     <div id="curr_edu_card" class="mt-3">
         {% if "diploma" not in prev_deg and curr_edu%}

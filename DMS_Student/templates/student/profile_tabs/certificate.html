@@ -1,5 +1,10 @@
 <div class="tab-pane fade" id="certificates" role="tabpanel" aria-labelledby="certificates-tab">
     <h4 class="h4 text-center my-3">Certificates</h4>
+    <div class="d-flex justify-content-center">
+        <div class="spinner-border text-primary  ajaxLoader  mt-5" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
     <div id="certificate_cards">
         {% for certificate in certificate_list %}
         <div class="card card-body mb-3">
