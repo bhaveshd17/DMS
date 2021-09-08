@@ -28,8 +28,8 @@ def index(request):
         highest_package = 0
         average_package = 0
     if total_student or total_placed:
-        total_placed = total_placed.count()
-        total_student = total_student.count()
+        total_placed = len(total_placed)
+        total_student = len(total_student)
     else:
         total_placed = 0
         total_student = 0
