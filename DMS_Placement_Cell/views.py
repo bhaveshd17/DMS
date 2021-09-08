@@ -184,7 +184,7 @@ def delete_details(request,id):
 
 
 def student_details(request):
-    students = Student.objects.all()
+    students = Student.objects.all().order_by("branch")
     student_dict = {}
     for student in students:
         edu = Add_edu.objects.filter(roll_no=student)
@@ -193,6 +193,7 @@ def student_details(request):
         experience = Add_exp.objects.filter(rollNo=student)
         user = User.objects.filter(username=student.roll_no)
         student_dict[student.roll_no] = [user, student, edu, curr_edu, certificate, experience]
+
     student_dict = sorted(student_dict.items())
     content = {'student_dict':student_dict}
     return render(request, 'placement/student_details.html', content)

@@ -135,7 +135,7 @@ def jobLogic(request):
     content = {'related_job_list': related_job_list,
                'skill_set': skill_set,
                'job_list': job_list1,
-               'department_wise_job': job_list,
+               'department_wise_job_skill_based': job_list,
                'cities': cities,
                }
     return content
