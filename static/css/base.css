@@ -1,22 +1,8 @@
 body{
-    background-image:url('../images/indeximage.jpg');
-    background-repeat:no-repeat; 
-    background-size:cover; 
-    background-attachment:fixed;
+    font-family: 'Source Sans Pro';
     scroll-behavior: smooth;
 }
 ::-webkit-scrollbar{
     display: none;
 }
-/* .bg-dark{
-	background-color: #000b6b!important;
-    font-weight: 400;
-}
-
-.navbar-dark .navbar-nav .nav-link {
-    color: #ffffffef;
-}
-.navbar-dark .navbar-nav .nav-link:hover{
-    color: #ffd000f1;
-} */
 
