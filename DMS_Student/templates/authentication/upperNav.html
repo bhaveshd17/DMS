@@ -1,0 +1,22 @@
+{% load static %}
+<nav style="background-color:#0F2C44;height: 14vh;">
+    <img id="vitLogo" src="{% static 'images/vitLogo.png' %}" alt="vitLogo" style="height: 6vh;margin-top: 4vh;margin-left: 5vw;">
+
+    <div id="sideName" style="float: right;color: white;margin-top: 3vh; margin-right: 5vw;"style="float: right;color: white;margin-top: 4vh; margin-right: 5vw;">
+        <h5 >Vidyalankar Institute of Technology</h5>
+        <img src="{% static 'images/vitMarathi.png' %}" alt="vitLogo" style="width:15vw;float: right;">
+    </div>
+    
+</nav>
+
+<style>
+    @media screen and (max-width:500px){
+
+        #sideName{
+            display: none;
+        }
+        #vitLogo{
+            height: 4rem;
+        }
+    }
+</style>
