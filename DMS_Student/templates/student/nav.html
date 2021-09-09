@@ -1,52 +1,29 @@
 {% load static %}
-<nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top">
-  <img class="navbar-brand" src="{% static 'images/vitwhite.png'%}" height="45" width="150">
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="collapsibleNavbar">
-    <ul class="navbar-nav clear-fix">
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'index' %}">Home</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'internship' %}">Internships</a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="job_dropdown" role="button" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false">
-          Jobs
-        </a>
-        <div class="dropdown-menu" aria-labelledby="job_dropdown">
-          <a class="dropdown-item " href="{% url 'all_job' %}">All Jobs</a>
-          <a class="dropdown-item" href="{% url 'job'%}">Eligible Jobs</a>
-        </div>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link " href="{% url 'preplacement' %}">Preparation</a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="application" role="button" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false">
-          Application
-        </a>
-        <div class="dropdown-menu" aria-labelledby="application">
-          <a class="dropdown-item " href="{% url 'userApplication' %}">Applied</a>
-          <a class="dropdown-item" href="#">Hired</a>
-        </div>
-      </li>
+<style>
+  .nav-links-item{
+    color: #0F2C44;
+  }
+  @media (max-width: 576px) { 
+    .side-nav{
+      display: none;
 
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'profile' %}">{{request.user.username}}</a>
-      </li>
+    }
+  }
+  @media (max-width: 991px) { 
+    .side-nav{
+      display: none;
 
-    </ul>
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item">
-        <a href="{% url 'logout' %}" class="nav-link">Logout</a>
-      </li>
-    </ul>
+    }
+  }
+  
+</style>
 
-    <!-- <p>Entered Course name: <span id="txtHint"></span></p> -->
-  </div>
+<nav class="side-nav" style="width: 50px; height: 100vh; background-color: #D9FAFF;position: fixed; left: 0;">
+<ul style="list-style: none;" class="mt-5 p-0 pt-3">
+  <li class="nav-links-item mb-3 p-2" style="background-color: white;"><span class="iconify" data-icon="fluent:home-20-regular" data-width="30" data-height="30"></span></li>
+  <li class="nav-links-item mb-3 p-2"><span class="iconify" data-icon="fluent:home-20-regular" data-width="30" data-height="30"></span></li>
+  <li class="nav-links-item mb-3 p-2"><span class="iconify" data-icon="fluent:home-20-regular" data-width="30" data-height="30"></span></li>
+  <li class="nav-links-item mb-3 p-2"><span class="iconify" data-icon="fluent:home-20-regular" data-width="30" data-height="30"></span></li>
+  
+</ul>
 </nav>
