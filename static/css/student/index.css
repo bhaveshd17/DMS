@@ -52,15 +52,15 @@
     text-align: center;
 }
 
-
-@media (max-width: 991px) {
-    #search-div {
-        width: 75%;
-    }
-}
-
 @media (max-width: 576px) {
     #search-div {
         width: 100%;
     }
 }
+
+@media (min-width: 576px) and (max-width: 991px){
+    #search-div {
+        width: 75%;
+    }
+}
+

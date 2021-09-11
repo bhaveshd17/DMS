@@ -13,15 +13,6 @@
     transition: all 10s ease-in-out;
   }
 
-  /* #nav:hover + .fullNav{
-    display: block;
-  }
-  img {
-    width: 30;
-    height: 30;
-  } */
-
-  
   li:hover {
     background-color: white;
   }
@@ -42,6 +33,10 @@
     width: 100%;
     text-decoration: none;
   }
+  .nav-item-img{
+    width: 30px;
+    height: 30px;
+  }
 
   @media (max-width: 576px) {
     .side-nav {
@@ -50,7 +45,7 @@
     }
   }
 
-  @media (max-width: 991px) {
+  @media (min-width: 576px) and (max-width: 991px) {
     .side-nav {
       display: none;
 
@@ -58,36 +53,62 @@
   }
 </style>
 
-<nav class="side-nav" style="width: 50px; height: 100vh; background-color: #D9FAFF;position: fixed; left: 0;" id="nav">
-  <ul style="list-style: none;" class="mt-5 p-0 pt-3" >
+<nav class="side-nav" style="max-width: 16.666667%; height: 100vh; background-color: #D9FAFF;position: fixed; left: 0;"
+  id="nav">
+  <ul style="list-style: none;" class="mt-5 p-0 pt-3">
+
     <li class="nav-links-item mb-3 p-2">
       <div class="row">
         <div class="col-md-12 text-center">
-          <span class="iconify" data-icon="fluent:home-20-regular" data-width="30"
-            data-height="30"></span></div>
+          <span class="iconify" data-icon="fluent:home-20-regular" data-width="30" data-height="30"></span>
+        </div>
       </div>
     </li>
-    <li class="nav-links-item mb-3 p-2"><div class="row">
-      <div class="col-md-12 text-center">
-        <img src="{% static 'images/internship.png' %}" alt="img">
+
+    <li class="nav-links-item mb-3 p-2">
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <img src="{% static 'images/internship.png' %}" class="nav-item-img" alt="img">
+        </div>
       </div>
-    </div></li>
-    <li class="nav-links-item mb-3 p-2"><div class="row">
-      <div class="col-md-12 text-center">
-        <img src="{% static 'images/job.png' %}" alt="img">
-      </div></li>
-    <li class="nav-links-item mb-3 p-2"><div class="row">
-      <div class="col-md-12 text-center">
-        <img src="{% static 'images/preparation.png' %}" alt="img">
-      </div></li>
-    <li class="nav-links-item mb-3 p-2"><div class="row">
-      <div class="col-md-12 text-center">
-        <img src="{% static 'images/application.png' %}" alt="img">
-      </div></li>
-    <li class="nav-links-item mb-3 p-2"><div class="row">
-      <div class="col-md-12 text-center">
-        <img src="{% static 'images/logout.png' %}" alt="img">
-      </div></li>
+    </li>
+
+
+    <li class="nav-links-item mb-3 p-2">
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <img src="{% static 'images/jobs.png' %}" class="nav-item-img" alt="img">
+        </div>
+      </div>
+    </li>
+
+
+
+    <li class="nav-links-item mb-3 p-2">
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <img src="{% static 'images/preparation.png' %}" style="width: 20px;" class="nav-item-img" alt="img">
+        </div>
+      </div>
+    </li>
+
+
+    <li class="nav-links-item mb-3 p-2">
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <img src="{% static 'images/application.png' %}" style="width: 23px;" class="nav-item-img" alt="img">
+        </div>
+      </div>
+    </li>
+
+
+    <li class="nav-links-item mb-3 p-2">
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <img src="{% static 'images/logout.png' %}" style="width: 25px;" class="nav-item-img" alt="img">
+        </div>
+      </div>
+    </li>
 
   </ul>
 </nav>
@@ -111,7 +132,7 @@
       <a href="{% url 'internship' %}">
         <div class="row">
           <div class="col-md-2 text-center">
-            <img src="{% static 'images/internship.png' %}" alt="img">
+            <img src="{% static 'images/internship.png' %}" class="nav-item-img" alt="img">
           </div>
           <div class="col-md-10">
             <strong class="pl-5">Internship</strong>
@@ -124,7 +145,7 @@
       <a href="{% url 'all_job' %}">
         <div class="row">
           <div class="col-md-2 text-center">
-            <img src="{% static 'images/job.png' %}" alt="img">
+            <img src="{% static 'images/jobs.png' %}" class="nav-item-img" alt="img">
           </div>
           <div class="col-md-10">
             <strong class="pl-5">Jobs</strong>
@@ -134,40 +155,46 @@
     </li>
 
 
-    <li class="nav-links-item mb-3 p-2"><a href="{% url 'preplacement' %}">
+    <li class="nav-links-item mb-3 p-2">
+      <a href="{% url 'preplacement' %}">
         <div class="row">
-          <div class="col-md-2 text-center">
-            <img src="{% static 'images/preparation.png' %}" alt="img">
+          <div class="col-md-2 pr-2 text-center">
+            <img src="{% static 'images/preparation.png' %}" style="width: 20px;" class="nav-item-img" alt="img">
           </div>
           <div class="col-md-10">
             <strong class="pl-5">Prepartion</strong>
           </div>
         </div>
-      </a></li>
+      </a>
+    </li>
 
 
-    <li class="nav-links-item mb-3 p-2"><a href="{% url 'userApplication' %}">
+    <li class="nav-links-item mb-3 p-2">
+      <a href="{% url 'userApplication' %}">
         <div class="row">
-          <div class="col-md-2 text-center">
-            <img src="{% static 'images/application.png' %}" alt="img">
+          <div class="col-md-2 pr-2 text-center">
+            <img src="{% static 'images/application.png' %}" style="width: 23px;" class="nav-item-img" alt="img">
           </div>
           <div class="col-md-10">
             <strong class="pl-5">Application</strong>
           </div>
         </div>
-      </a></li>
+      </a>
+    </li>
 
 
-    <li class="nav-links-item mb-3 p-2"><a href="{% url 'logout' %}">
+    <li class="nav-links-item mb-3 p-2">
+      <a href="{% url 'logout' %}">
         <div class="row">
-          <div class="col-md-2 text-center">
-            <img src="{% static 'images/logout.png' %}" alt="img">
+          <div class="col-md-2 pr-2 text-center">
+            <img src="{% static 'images/logout.png' %}" style="width: 25px;" class="nav-item-img" alt="img">
           </div>
           <div class="col-md-10">
             <strong class="pl-5">Logout</strong>
           </div>
         </div>
-      </a></li>
+      </a>
+    </li>
 
 
   </ul>
