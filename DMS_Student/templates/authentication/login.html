@@ -14,19 +14,82 @@
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,300;0,400;1,700&display=swap"
         rel="stylesheet">
         <style>
+            fieldset {
+                margin-top: 3rem;
+                margin-left: 10rem;
+                margin-right: 10rem;
+                border: 2px solid #0F2C44;
+                border-radius: 15px;
+                box-shadow: 0 0 10px #666;
+                padding-top: 10px;
+                padding-left: 2.5rem;
+                padding-right: 2.5rem;
+            }
+    
+            legend {
+                padding: 2px 4px;
+                background: #fff;
+                width: auto;
+                color: #0F2C44;
+                font-size: 30px;
+            }
+    
+            input {
+                border-radius: 15px !important;
+                height: 2.9rem;
+    
+            }
             .grid{
                 display: grid;
                 grid-template-columns: auto auto;
-
             }
-            .grid-item{
-                text-align: center;
-            }
-
+            
         </style>
 </head>
 
+<body>
+    {% include 'authentication/upperNav.html' %}
 
+    <div class="grid">
+        <div class="grid-item">
+            <h1 style="text-align: center; margin-top: 2rem;color: #0F2C44;">VPlacements</h1>
+            <img src="{% static 'images/loginPage.png' %}" class="img-fluid" alt="Img"
+                style="height: 32em; margin-left: 5rem;">
+        </div>
+        <div class="grid-item">
+            <fieldset>
+                <legend>Login</legend>
+
+                <form method="post" action="" class="mt-3">
+                    {% csrf_token %}
+                    <div class="username mb-4">
+                        <input type="text" name="username" size="30" placeholder="Username" class="form-control">
+                    </div>
+
+                    <div class="password mb-4 text-right">
+                        <input type="password" name="password" size="30" placeholder="Password" class="form-control">
+                        <p style="float:right"><a href="{% url 'forgot_password' %}">Forgot Password ?</a> </p>
+                    </div>
+                    
+
+
+                    {% if messages %}
+                    {% for message in messages %}
+                    <div style="margin: 10px 20px;">
+                        <strong style="color: red;font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">{{
+                            message }}</strong>
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+
+                    <div class="text-center mt-5 mb-5">
+                        <button type="submit" class="btn btn-primary w-75"  style="border-radius: 15px;background-color: #005792;">Login</button>
+                        <p>Don’t have an account? <a href="{% url 'register' %}"
+                            style="color: #0066cc;">Register</a></p>
+                    </div>
+                </form>
+
+                
 
 <body>
     {% include 'authentication/upperNav.html' %}
@@ -37,11 +100,15 @@
             <div class="grid-item">World</div>
         </div>
 
-    <div style="background-color: #5F4200;height: 2rem">
+    <div style="background-color: #5F4200;height: 5.2rem">
 
     </div>
 
+<<<<<<< HEAD
    
+=======
+    
+>>>>>>> 3838365fce0e103dc23f013dcd7dcb42166d8e5a
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
