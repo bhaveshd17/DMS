@@ -7,97 +7,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- google fonts -->
-    <link rel="stylesheet" href="{% static 'css/login.css' %}">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,300;0,400;1,700&display=swap"
         rel="stylesheet">
+        <style>
+            .grid{
+                display: grid;
+                grid-template-columns: auto auto;
+
+            }
+            .grid-item{
+                text-align: center;
+            }
+
+        </style>
 </head>
+
+
 
 <body>
     {% include 'authentication/upperNav.html' %}
 
-    <div class="row">
-        <div class="col">
-            <h1 style="text-align: center; margin-top: 2rem;color: #0F2C44;">VPlacements</h1>
-            <img src="{% static 'images/loginPage.png' %}" class="img-fluid" alt="Img" style="height: 32em; margin-left: 6rem;">
+    
+        <div class="grid">
+            <div class="grid-item">Hello</div>
+            <div class="grid-item">World</div>
         </div>
-        <div class="col">
-            <fieldset>
-                <legend>Login</legend>
-
-                <form method="post" action="">
-                    {% csrf_token %}
-                    <div class="usernmae mb-4">
-                        <input type="text" name="username" size="30" placeholder="Username" class="form-control">
-                        <i class=" fa fa-user fa-lg fa-fw"></i>
-
-                    </div>
-
-                    <div class="password mb-4">
-                        <input type="password" name="password" size="30" placeholder="Password" class="form-control">
-                        <i class=" fa fa-lock fa-lg fa-fw"></i>
-                    </div>
-                    <p style="text-align:center;"><a href="{% url 'forgot_password' %}"
-                        style="text-decoration:none;">Forgot Password ?</a> </p>
-                    
-
-                    {% if messages %}
-                    {% for message in messages %}
-                    <div style="margin: 10px 20px;">
-                        <strong style="color: red;font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">{{
-                            message }}</strong>
-                    </div>
-                    {% endfor %}
-                    {% endif %}
-
-                    <button type="button" class="btn btn-primary">Logins</button>
-
-                </form>
-                
-                <!-- <p style="text-align: center"><a href="{% url 'register' %}"
-                        style="text-decoration:none;color: #0066cc;">Register
-                        on Portal</a></p> -->
-
-
-            </fieldset>
-        </div>
-    </div>
 
     <div style="background-color: #5F4200;height: 2rem">
 
     </div>
 
-    <style>
-
-        fieldset {
-            margin-top: 2rem;
-            margin-left: 5rem;
-            margin-right: 10rem;
-            border: 2px solid #0F2C44;
-            border-radius: 10px;
-            box-shadow: 0 0 10px #666;
-            padding-top: 10px;
-            padding-left: 2.5rem;
-            padding-right: 2.5rem;
-        }
-
-        legend {
-            padding: 2px 4px;
-            background: #fff;
-            width: auto;
-            color: #0F2C44;
-            font-size: 30px;
-        }
-
-        input {
-            border-radius: 15px!important;
-            height: 2.9rem;
-           
-        }
-    </style>
+   
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
