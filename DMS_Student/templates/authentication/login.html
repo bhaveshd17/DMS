@@ -28,18 +28,20 @@
         .form-control:focus {
             border-color: none;
             box-shadow: none;
-            border: 2px solid #D9FAFF!important;
+            border: 2px solid #D9FAFF !important;
         }
+
         input {
             background-color: #D9FAFF !important;
             color: #0F2C44 !important;
             border-radius: 40px 40px;
             border-radius: 15px !important;
             height: 2.9rem;
-            border: 2px solid #D9FAFF!important;
+            border: 2px solid #D9FAFF !important;
         }
+
         legend {
-            padding: 2px 4px;
+            padding: 0px 15px;
             background: #fff;
             width: auto;
             color: #0F2C44;
@@ -49,6 +51,11 @@
         .grid {
             display: grid;
             grid-template-columns: auto auto;
+        }
+
+        .btn:focus {
+            outline: none;
+            box-shadow: none;
         }
 
         #login-btn {
@@ -63,7 +70,9 @@
             border: none;
         }
 
-    
+        input:-webkit-autofill {
+            -webkit-text-fill-color:#005792;
+        }
 
         @media (max-width: 576px) {
             #login-img {
