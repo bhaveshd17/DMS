@@ -1,29 +1,187 @@
 {% load static %}
 <style>
-  .nav-links-item{
+  .nav-links-item {
     color: #0F2C44;
   }
-  @media (max-width: 576px) { 
-    .side-nav{
-      display: none;
 
-    }
+  a {
+    color: #0F2C44 !important;
+    text-decoration: none;
   }
-  @media (max-width: 991px) { 
-    .side-nav{
-      display: none;
 
-    }
+  #nav {
+    transition: all 10s ease-in-out;
   }
+
+  /* #nav:hover + .fullNav{
+    display: block;
+  }
+  img {
+    width: 30;
+    height: 30;
+  } */
+
   
+  li:hover {
+    background-color: white;
+  }
+
+  .fullNav {
+    background-color: #D9FAFF;
+    width: 300px;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    z-index: 9;
+    display: none;
+  }
+
+  #extendedNav li a {
+    /* font-size: 20px; */
+    color: #0F2C44;
+    width: 100%;
+    text-decoration: none;
+  }
+
+  @media (max-width: 576px) {
+    .side-nav {
+      display: none;
+
+    }
+  }
+
+  @media (max-width: 991px) {
+    .side-nav {
+      display: none;
+
+    }
+  }
 </style>
 
-<nav class="side-nav" style="width: 50px; height: 100vh; background-color: #D9FAFF;position: fixed; left: 0;">
-<ul style="list-style: none;" class="mt-5 p-0 pt-3">
-  <li class="nav-links-item mb-3 p-2" style="background-color: white;"><span class="iconify" data-icon="fluent:home-20-regular" data-width="30" data-height="30"></span></li>
-  <li class="nav-links-item mb-3 p-2"><span class="iconify" data-icon="fluent:home-20-regular" data-width="30" data-height="30"></span></li>
-  <li class="nav-links-item mb-3 p-2"><span class="iconify" data-icon="fluent:home-20-regular" data-width="30" data-height="30"></span></li>
-  <li class="nav-links-item mb-3 p-2"><span class="iconify" data-icon="fluent:home-20-regular" data-width="30" data-height="30"></span></li>
-  
-</ul>
+<nav class="side-nav" style="width: 50px; height: 100vh; background-color: #D9FAFF;position: fixed; left: 0;" id="nav">
+  <ul style="list-style: none;" class="mt-5 p-0 pt-3" >
+    <li class="nav-links-item mb-3 p-2">
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <span class="iconify" data-icon="fluent:home-20-regular" data-width="30"
+            data-height="30"></span></div>
+      </div>
+    </li>
+    <li class="nav-links-item mb-3 p-2"><div class="row">
+      <div class="col-md-12 text-center">
+        <img src="{% static 'images/internship.png' %}" alt="img">
+      </div>
+    </div></li>
+    <li class="nav-links-item mb-3 p-2"><div class="row">
+      <div class="col-md-12 text-center">
+        <img src="{% static 'images/job.png' %}" alt="img">
+      </div></li>
+    <li class="nav-links-item mb-3 p-2"><div class="row">
+      <div class="col-md-12 text-center">
+        <img src="{% static 'images/preparation.png' %}" alt="img">
+      </div></li>
+    <li class="nav-links-item mb-3 p-2"><div class="row">
+      <div class="col-md-12 text-center">
+        <img src="{% static 'images/application.png' %}" alt="img">
+      </div></li>
+    <li class="nav-links-item mb-3 p-2"><div class="row">
+      <div class="col-md-12 text-center">
+        <img src="{% static 'images/logout.png' %}" alt="img">
+      </div></li>
+
+  </ul>
 </nav>
+
+<nav class="fullNav">
+  <ul style="list-style: none;" class="mt-5 p-0 pt-3" id="extendedNav">
+
+    <li class="nav-links-item mb-3 p-2"><a href="{% url 'index' %}">
+        <div class="row">
+          <div class="col-md-2 text-center">
+            <span class="iconify" data-icon="fluent:home-20-regular" data-width="30" data-height="30"></span>
+          </div>
+          <div class="col-md-10">
+            <strong class="pl-5">Home</strong>
+          </div>
+        </div>
+      </a>
+    </li>
+
+    <li class="nav-links-item mb-3 p-2">
+      <a href="{% url 'internship' %}">
+        <div class="row">
+          <div class="col-md-2 text-center">
+            <img src="{% static 'images/internship.png' %}" alt="img">
+          </div>
+          <div class="col-md-10">
+            <strong class="pl-5">Internship</strong>
+          </div>
+        </div>
+      </a>
+    </li>
+
+    <li class="nav-links-item mb-3 p-2">
+      <a href="{% url 'all_job' %}">
+        <div class="row">
+          <div class="col-md-2 text-center">
+            <img src="{% static 'images/job.png' %}" alt="img">
+          </div>
+          <div class="col-md-10">
+            <strong class="pl-5">Jobs</strong>
+          </div>
+        </div>
+      </a>
+    </li>
+
+
+    <li class="nav-links-item mb-3 p-2"><a href="{% url 'preplacement' %}">
+        <div class="row">
+          <div class="col-md-2 text-center">
+            <img src="{% static 'images/preparation.png' %}" alt="img">
+          </div>
+          <div class="col-md-10">
+            <strong class="pl-5">Prepartion</strong>
+          </div>
+        </div>
+      </a></li>
+
+
+    <li class="nav-links-item mb-3 p-2"><a href="{% url 'userApplication' %}">
+        <div class="row">
+          <div class="col-md-2 text-center">
+            <img src="{% static 'images/application.png' %}" alt="img">
+          </div>
+          <div class="col-md-10">
+            <strong class="pl-5">Application</strong>
+          </div>
+        </div>
+      </a></li>
+
+
+    <li class="nav-links-item mb-3 p-2"><a href="{% url 'logout' %}">
+        <div class="row">
+          <div class="col-md-2 text-center">
+            <img src="{% static 'images/logout.png' %}" alt="img">
+          </div>
+          <div class="col-md-10">
+            <strong class="pl-5">Logout</strong>
+          </div>
+        </div>
+      </a></li>
+
+
+  </ul>
+</nav>
+
+<script>
+  $(document).ready(function () {
+    $("#nav").mouseover(function () {
+      $(".fullNav").show();
+      $(".fullNav").mouseleave(function () {
+        $(".fullNav").hide();
+      })
+    })
+
+  })
+
+</script>
