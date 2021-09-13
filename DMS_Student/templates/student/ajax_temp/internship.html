@@ -1,11 +1,12 @@
 {% load custom_tags %}
 {% load static%}
 <style>
-  .mob-tab{
-      display: none;
+  .mob-tab {
+    display: none;
   }
+
   @media (max-width: 576px) {
-    .lap-tab{
+    .lap-tab {
       display: none;
     }
 
@@ -13,7 +14,31 @@
       display: block;
     }
 
-   
+  }
+
+  @media (min-width: 576px) and (max-width: 991px) {
+    #filter_list {
+      width: 87%;
+      margin: auto;
+    }
+
+    .comp_name_div {
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+    }
+
+    #mob-filter-icon {
+      display: block !important;
+      top: 8rem;
+    }
+
+    .close-filter {
+      display: block !important;
+    }
+
+    .view-btn {
+      width: 60% !important;
+    }
   }
 </style>
 <div class="lap-tab">
@@ -47,7 +72,8 @@
         </div>
         <div class="col-md-4 d-flex align-items-end justify-content-center flex-row">
           <div class="text-center w-100">
-            <a href="/student/details/{{internship.id}}/2" class="card-btn btn btn-primary btn-sm w-50 m-auto">VIEW
+            <a href="/student/details/{{internship.id}}/2"
+              class="card-btn btn btn-primary btn-sm w-50 view-btn m-auto">VIEW
               DETAILS</a>
           </div>
         </div>
