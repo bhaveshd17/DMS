@@ -1,0 +1,65 @@
+
+.grid-container {
+display: grid;
+grid-template-columns: auto auto;
+}
+
+.card-btn {
+background-color: #00BBF0;
+border: none;
+color: white !important;
+}
+
+.card-btn:hover {
+background-color: #009ac5;
+}
+
+.grid-container-mob {
+display: grid;
+grid-template-columns: auto auto auto;
+}
+
+.grid-item-mob {
+text-align: center;
+}
+
+.card-fieldset {
+position: absolute;
+top: -13px;
+left: 0;
+right: 0;
+font-size: 1.1em;
+margin-left: auto;
+margin-right: auto;
+text-align: center;
+}
+
+#mobile_View {
+display: none;
+}
+
+@media (max-width: 576px) {
+#filter_list {
+    display: none;
+}
+
+#mobile_View {
+    display: block;
+}
+
+}
+
+
+@media (min-width: 576px) and (max-width: 991px) {
+
+.view-btn {
+    width: 60% !important;
+}
+
+.comp_name_div {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+
+}

@@ -1,46 +1,6 @@
 {% load custom_tags %}
 {% load static%}
-<style>
-    .mob-tab {
-        display: none;
-    }
-
-    @media (max-width: 576px) {
-        .lap-tab {
-            display: none;
-        }
-
-        .mob-tab {
-            display: block;
-        }
-
-
-    }
-
-    @media (min-width: 576px) and (max-width: 991px) {
-        #filter_list {
-            width: 87%;
-            margin: auto;
-        }
-        .comp_name_div {
-            padding-left: 0 !important;
-            padding-right: 0 !important;
-        }
-
-        #mob-filter-icon {
-            display: block !important;
-            top: 8rem;
-        }
-
-        .close-filter {
-            display: block !important;
-        }
-        .view-btn {
-            width: 60% !important;
-        }
-
-    }
-</style>
+<link rel="stylesheet" href="{% static 'css/student/ajax/job.css' %}">
 <div class="lap-tab">
     {% for job in related_job_list %}
     <div class="job my-3" style="color:#0F2C44">

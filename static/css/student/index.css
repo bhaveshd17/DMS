@@ -12,7 +12,9 @@
 #search-btn:hover {
     background-color: #024877;
 }
-
+.int-job-div{
+    margin-left: 1.1rem;
+}
 .form-control:focus {
     border-color: none;
     box-shadow: none;

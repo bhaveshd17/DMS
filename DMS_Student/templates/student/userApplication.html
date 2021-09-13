@@ -3,73 +3,9 @@
 {% block content %}
 {% load static %}
 {% load custom_tags %}
-<style>
 
-  .grid-container {
-    display: grid;
-    grid-template-columns: auto auto;
-  }
+<link rel="stylesheet" href="{% static 'css/student/application.css' %}">
 
-  .card-btn {
-    background-color: #00BBF0;
-    border: none;
-    color: white !important;
-  }
-
-  .card-btn:hover {
-    background-color: #009ac5;
-  }
-
-  .grid-container-mob {
-    display: grid;
-    grid-template-columns: auto auto auto;
-  }
-
-  .grid-item-mob {
-    text-align: center;
-  }
-
-  .card-fieldset {
-    position: absolute;
-    top: -13px;
-    left: 0;
-    right: 0;
-    font-size: 1.1em;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-  }
-
-  #mobile_View {
-    display: none;
-  }
-
-  @media (max-width: 576px) {
-    #filter_list {
-      display: none;
-    }
-
-    #mobile_View {
-      display: block;
-    }
-
-  }
-
-
-  @media (min-width: 576px) and (max-width: 991px) {
-  
-    .view-btn {
-      width: 60% !important;
-    }
-
-    .comp_name_div {
-      padding-left: 0 !important;
-      padding-right: 0 !important;
-    }
-
-
-  }
-</style>
 
 <h4 class="text-center h3 mt-2 mb-5" style="color: #0F2C44;font-size: 1.6rem;">All Applied Jobs/Intertership by: <strong
     class="text-muted">{{request.user.username}}</strong></h4>
