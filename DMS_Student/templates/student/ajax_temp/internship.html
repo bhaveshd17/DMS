@@ -1,35 +1,88 @@
-{% for internship in related_int_list %}
-    <div class="mx-auto mb-5 bg-white rounded-lg p-3 clear-fix shadow internship">
-      <a href="/student/details/{{internship.id}}/2" class="float-right" style="text-decoration: none;">View details</a>
-      <h4>{{internship.comp_name}}</h4>
-      <h6>{{internship.domain}}</h6>
-      {% if internship.work_from_home %}
-      <i class="fas fa-home mr-2"></i><span class="text-muted">Work From Home</span>
-      {% endif %}
+{% load custom_tags %}
+{% load static%}
+<style>
+  .mob-tab{
+      display: none;
+  }
+  @media (max-width: 576px) {
+    .lap-tab{
+      display: none;
+    }
+
+    .mob-tab {
+      display: block;
+    }
+
+   
+  }
+</style>
+<div class="lap-tab">
+  {% for internship in related_int_list %}
+  <div class="internship my-3" style="color:#0F2C44">
+    <div class="card card-body px-0" style="border: none;">
       <div class="row">
-        <div class="col-3">
-          <p class="mt-4"><strong>Stipend:</strong></p>
-          <p>Rs. {{internship.sal}}</p>
+        <div class="col-md-3">
+          <div class="text-center">
+            <strong style="color: #00BBF0;" class="px-2">{{internship.domain}}</strong>
+            <h3 class="card-title text-center mt-1 mb-3">{{internship.comp_name}}</h3>
+            <span style="color: #AEAEAE;">Skills Required</span>
+            <div><span>{{internship.skills}}</span></div>
+          </div>
         </div>
-        <div class="col-3">
-          <p class="mt-4"><strong>Start Date:</strong></p>
-          <p>{{internship.start_date}}</p>
+        <div class="col-md-5">
+          <div class="w-75 m-auto">
+            <!-- <p class="px-2" style="font-weight: 400; font-size: 1.1rem;">Lorem ipsum dolor sit Lorem, ipsum.
+            </p> -->
+            <div class="grid-container mt-2 mb-3">
+              <div class="grid-item">STIPEND</div>
+              <div class="grid-item">Rs. {{internship.sal}}</div>
+              <div class="grid-item">DURATION</div>
+              <div class="grid-item">{{internship.duration}}</div>
+              <div class="grid-item">START DATE</div>
+              <div class="grid-item">{{internship.start_date|date_format}}</div>
+              <div class="grid-item">APPLY BY</div>
+              <div class="grid-item">{{internship.apply_by|date_format}}</div>
+            </div>
+          </div>
         </div>
-        <div class="col-3">
-          <p class="mt-4"><strong>Apply By:</strong></p>
-          <p>{{internship.apply_by}}</p>
+        <div class="col-md-4 d-flex align-items-end justify-content-center flex-row">
+          <div class="text-center w-100">
+            <a href="/student/details/{{internship.id}}/2" class="card-btn btn btn-primary btn-sm w-50 m-auto">VIEW
+              DETAILS</a>
+          </div>
         </div>
-        <div class="col-3">
-          <p class="mt-4"><strong>Duration:</strong></p>
-          <p>{{internship.duration}}</p>
-        </div>
-      </div>
-      <div class="">
-        <p><strong>Skills:</strong>
-        <p>
-      </div>
-      <div class="row bg-primary mx-1 rounded-lg text-white p-1 px-3" style="text-align:center">
-        {{internship.skills}}
       </div>
     </div>
-{% endfor %}
+    <hr>
+  </div>
+  {% endfor %}
+
+</div>
+
+<div class="mob-tab mx-3">
+  {% for internship in related_int_list %}
+
+  <div class="card card-body mb-3" style="border: solid 2px #AEAEAE;">
+    <div class="text-center px-2 card-fieldset">
+      <strong id="text" style="background-color: white;color: #00BBF0;" class="px-2">{{internship.domain}}</strong>
+    </div>
+    <h3 class="card-title text-center mb-0">{{internship.comp_name}}</h3>
+    <div class="card-text">
+      <div class="grid-container-mob mt-2 mb-3">
+        <div class="grid-item-mob text-muted">STIPEND</div>
+        <div class="grid-item-mob text-muted">START DATE</div>
+        <div class="grid-item-mob text-muted">APPLY BY</div>
+        <div class="grid-item-mob">Rs. {{internship.sal}}</div>
+        <div class="grid-item-mob">{{internship.start_date|date_format}}</div>
+        <div class="grid-item" style="display: none;">{{internship.duration}}</div>
+        <div class="grid-item-mob">{{internship.apply_by|date_format}}</div>
+      </div>
+    </div>
+    <div class="text-center">
+      <a href="details/{{internship.id}}/2" class="card-btn btn btn-primary btn-sm w-50 m-auto">VIEW DETAILS</a>
+    </div>
+  </div>
+
+  {% endfor %}
+
+</div>

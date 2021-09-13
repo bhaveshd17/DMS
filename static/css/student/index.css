@@ -32,6 +32,7 @@
 .card-btn {
     background-color: #00BBF0;
     border: none;
+    color: white!important;
 }
 
 .card-btn:hover {
