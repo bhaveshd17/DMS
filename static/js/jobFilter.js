@@ -18,6 +18,7 @@ const ajax_method = {
 	success:function(res){
 		// console.log(res);
 		$("#filter_jobs").html(res.data);
+		$("#mob_filter_jobs").html(res.data);
 		$(".ajaxLoader").hide();
 	}
 }

@@ -15,7 +15,9 @@ const ajax_method = {
 	},
 	success:function(res){
 		// console.log(res);
+		console.log("hello")
 		$("#filter_internships").html(res.data);
+		$("#mob_filter_internships").html(res.data);
 		$(".ajaxLoader").hide();
 	}
 }

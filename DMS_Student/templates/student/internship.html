@@ -1,129 +1,344 @@
 {% extends 'student/base.html' %}
 {% load static %}
+{% load custom_tags %}
 {% block title %}internship{% endblock %}
 {% block content %}
 <style>
   .sort_by_date p {
     cursor: pointer;
-    color: #088bf0;
+    color: #0F2C44;
   }
 
-  .sort_by_date p:hover {
-    color: #1b38db;
+  .form-control {
+    border-radius: 12px;
+    background-color: #eeeeee !important;
+  }
+
+  .form-control:focus {
+    border-color: none;
+    box-shadow: none;
+  }
+
+  .custom-select {
+    background-color: #eeeeee !important;
+    border-radius: 12px;
+  }
+
+  .custom-select:focus {
+    border-color: none;
+    box-shadow: none;
+  }
+
+  input[type='range']::-webkit-slider-thumb {
+    background: #00BBF0;
+  }
+
+  .btn {
+    border: none;
+  }
+
+  .btn:hover {
+    background-color: #009ac5 !important;
+    border: none;
+  }
+
+  .grid-container {
+    display: grid;
+    grid-template-columns: auto auto;
+  }
+
+
+  #filter_list {
+    width: 87%;
+    margin-left: 266px;
+  }
+
+  #filters_div {
+    position: fixed;
+    left: 0;
+    margin-top: -8px;
+    margin-left: 46px;
+    color: #0F2C44;
+  }
+
+  .card-btn {
+    background-color: #00BBF0;
+    border: none;
+    color: white !important;
+  }
+
+  .card-btn:hover {
+    background-color: #009ac5;
+  }
+
+  .grid-container-mob {
+    display: grid;
+    grid-template-columns: auto auto auto;
+  }
+
+  .grid-item-mob {
+    text-align: center;
+  }
+
+  .card-fieldset {
+    position: absolute;
+    top: -13px;
+    left: 0;
+    right: 0;
+    font-size: 1.1em;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+
+  #mobile_View {
+    display: none;
+  }
+
+  @media (max-width: 576px) {
+    #filters_div {
+      display: none;
+    }
+
+    #mobile_View {
+      display: block;
+    }
+
+    #filter_list {
+      display: none;
+    }
+    #filters_div {
+      display: none;
+      position: fixed;
+      left: 0;
+      z-index: 30;
+      margin-left: 0px;
+    }
+    .filter-card{
+      padding: 0px !important;
+      margin-top: -2rem !important;
+    }
+    .close-filter{
+      display: block !important;
+      top: 2.9rem !important;
+    }
+    .filter-card-text{
+      margin-bottom: 0px !important;
+    }
+  }
+
+
+  @media (min-width: 576px) and (max-width: 991px) {
+    #filters_div {
+      display: none;
+      position: fixed;
+      left: 0;
+      z-index: 30;
+      margin-left: 0px;
+    }
+
+    #filter_list {
+      width: 87%;
+      margin: auto;
+    }
+
+    .view-btn {
+      width: 60% !important;
+    }
+
+    .comp_name_div {
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+    }
+
+    #mob-filter-icon {
+      display: block !important;
+      top: 8rem;
+    }
+    .close-filter{
+      display: block !important;
+    }
+
+
   }
 </style>
-<h3 class="text-center h3 mb-5">All Currently Active Internships</h3>
 
-
-<div class="row">
-  <div class="col-md-3 col-xs-3 col-lg-3">
-    <div class="card card-body">
-      <h5 class="card-title text-center">
-        <i class="fas fa-filter text-primary"></i>
+<div id="filters_div">
+  <div class="card card-body filter-card" style="height: 100vh;border: none;border-right:1px solid #eeeeee;padding: 0px 12px;">
+    <div class="card-title filter-card-text">
+      <h5 class="mt-5 card-title filter-card-text text-center">
+        <i class="fas fa-filter"></i>
         Filters
       </h5>
-      <div class="card-text">
-        <div class="mb-3">
-          <label for="skills" class="form-label">Skills</label>
-          <select class="custom-select filter_data" id="skills" name="skills" data-filter="skills">
-            <option selected disabled hidden>e.g. JAVA</option>
-            {% for skills in skill_set %}
-            <option value="{{skills}}">{{skills}}</option>
-            {% endfor %}
-          </select>
-        </div>
-
-
-        <div class="mb-3">
-          <label for="stipend">Desired min stipend</label>
-          <input type="range" value="0" class="custom-range" min="0" max="5" onchange="updateTextInput(this.value)"
-            id="stipend">
-          <div class="d-flex justify-content-center">
-            <span id="stipend_value" class="text-primary">0K</span>
-          </div>
-        </div>
-
-
-
-        <div class="mb-3">
-          <label for="starting_from" class="form-label">Starting from (or after)</label>
-          <input type="date" class="form-control filter_data" name="starting_from" id="starting_from"
-            placeholder="choose date" data-filter="starting_from">
-        </div>
-
-
-        <div class="mb-3">
-          <label for="duration" class="form-label">Max Duration (months)</label>
-          <select class="custom-select filter_data" id="duration" name="duration" data-filter="duration">
-            <option selected disabled hidden>choose duration</option>
-            {% for d in duration %}
-            <option value="{{d}}">{{d}} months</option>
-            {% endfor %}
-          </select>
-        </div>
-        
-        <div class="d-flex justify-content-between mb-3">
-          <label for="work_from_home">Work From Home</label>
-          <input type="checkbox" class="form-check mt-2 filter_data" data-filter="work_from_home" name="work_from_home"
-            id="work_from_home">
-        </div>
-
-        <div class="mb-3 sort_by_date">
-          <p class="float-right">sort by apply date</p>
-        </div>
-
-        <div class="mb-3">
-          <button class="btn btn-secondary w-100" onclick="reset_form()">Reset</button>
-        </div>
-      </div>
+      <p class="close-filter" style="position: absolute; right: 0;margin-right: 27px;top: 1rem;cursor: pointer;display: none;">
+        &#10005;
+      </p>
     </div>
 
+    <div class="card-text w-75 mx-auto mt-3 filter-card-text">
+      <div class="mb-3">
+        <label for="skills" class="form-label">Skills</label>
+        <select class="custom-select filter_data" id="skills" name="skills" data-filter="skills">
+          <option selected disabled hidden>e.g. JAVA</option>
+          {% for skills in skill_set %}
+          <option value="{{skills}}">{{skills}}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+
+      <div class="mb-3">
+        <label for="stipend">Desired min stipend</label>
+        <input type="range" value="0" class="custom-range" min="0" max="5" onchange="updateTextInput(this.value)"
+          id="stipend">
+        <div class="d-flex justify-content-center">
+          <span style="color: #00BBF0;" id="stipend_value">0K</span>
+        </div>
+      </div>
+
+
+
+      <div class="mb-3">
+        <label for="starting_from" class="form-label">Starting from (or after)</label>
+        <input type="date" class="form-control filter_data" name="starting_from" id="starting_from"
+          placeholder="choose date" data-filter="starting_from">
+      </div>
+
+
+      <div class="mb-3">
+        <label for="duration" class="form-label">Max Duration (months)</label>
+        <select class="custom-select filter_data" id="duration" name="duration" data-filter="duration">
+          <option selected disabled hidden>choose duration</option>
+          {% for d in duration %}
+          <option value="{{d}}">{{d}} months</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="d-flex justify-content-between mb-3">
+        <label for="work_from_home">Work From Home</label>
+        <input type="checkbox" class="form-check mt-2 filter_data" data-filter="work_from_home" name="work_from_home"
+          id="work_from_home">
+      </div>
+
+      <div class="mb-3 sort_by_date">
+        <p class="float-right" style="color: #0F2C44;">sort by apply date</p>
+      </div>
+
+      <div class="mb-3">
+        <button class="btn btn-secondary w-50 float-right" style="color: #fff; background-color: #00BBF0;"
+          onclick="reset_form()">Reset</button>
+      </div>
+    </div>
   </div>
 
-  <div class="col-md-9 col-xs-9 col-lg-9" id="filter_internships">
+</div>
+
+<div id="filter_list">
+  <div>
+    <h4 class="mt-3" id="mob-filter-icon"
+      style="position: absolute; left: 0;margin-left: 50px;display: none;cursor: pointer;"><i
+        class="fas fa-filter"></i>Filters</h4>
+    <h4 class="mt-2 mb-5 text-center" style="font-size: 1.6rem;">ALL INTERNSHIPS</h4>
+  </div>
+  <div id="filter_internships">
     <div class="d-flex justify-content-center">
       <div class="spinner-border text-primary  ajaxLoader  mt-5" role="status">
         <span class="sr-only">Loading...</span>
       </div>
     </div>
-    {% for internship in related_int_list %}
-    <div class="mx-auto mb-5 bg-white rounded-lg p-3 clear-fix shadow internship">
-      <a href="/student/details/{{internship.id}}/2" class="float-right" style="text-decoration: none;">View details</a>
-      <h4>{{internship.comp_name}}</h4>
-      <h6>{{internship.domain}}</h6>
-      {% if internship.work_from_home %}
-      <i class="fas fa-home mr-2"></i><span class="text-muted">Work From Home</span>
-      {% endif %}
-      <div class="row">
-        <div class="col-3">
-          <p class="mt-4"><strong>Stipend:</strong></p>
-          <p>Rs. {{internship.sal}}</p>
-        </div>
-        <div class="col-3">
-          <p class="mt-4"><strong>Start Date:</strong></p>
-          <p>{{internship.start_date}}</p>
-        </div>
-        <div class="col-3">
-          <p class="mt-4"><strong>Apply By:</strong></p>
-          <p>{{internship.apply_by}}</p>
-        </div>
-        <div class="col-3">
-          <p class="mt-4"><strong>Duration:</strong></p>
-          <p>{{internship.duration}}</p>
+    <div class="lap-tab">
+      {% for internship in related_int_list %}
+    <div class="internship my-3" style="color:#0F2C44">
+      <div class="card card-body px-0" style="border: none;">
+        <div class="row">
+          <div class="col-md-3 comp_name_div">
+            <div class="text-center">
+              <strong style="color: #00BBF0;" class="px-2">{{internship.domain}}</strong>
+              <h3 class="card-title text-center mt-1 mb-3">{{internship.comp_name}}</h3>
+              <span style="color: #AEAEAE;">Skills Required</span>
+              <div><span>{{internship.skills}}</span></div>
+            </div>
+          </div>
+          <div class="col-md-5">
+            <div class="w-75 m-auto">
+              <!-- <p class="px-2" style="font-weight: 400; font-size: 1.1rem;">Lorem ipsum dolor sit Lorem, ipsum.
+              </p> -->
+              <div class="grid-container mt-2 mb-3">
+                <div class="grid-item">STIPEND</div>
+                <div class="grid-item">Rs. {{internship.sal}}</div>
+                <div class="grid-item">DURATION</div>
+                <div class="grid-item">{{internship.duration}}</div>
+                <div class="grid-item">START DATE</div>
+                <div class="grid-item">{{internship.start_date|date_format}}</div>
+                <div class="grid-item">APPLY BY</div>
+                <div class="grid-item">{{internship.apply_by|date_format}}</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 d-flex align-items-end justify-content-center flex-row">
+            <div class="text-center" style="width: 100%;">
+              <a href="/student/details/{{internship.id}}/2"
+                class="card-btn btn btn-primary btn-sm w-50 m-auto view-btn">VIEW
+                DETAILS</a>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="">
-        <p><strong>Skills:</strong>
-        <p>
-      </div>
-      <div class="row bg-primary mx-1 rounded-lg text-white p-1 px-3" style="text-align:center">
-        {{internship.skills}}
-      </div>
+      <hr>
     </div>
     {% endfor %}
-  </div>
+    </div>
 
+  </div>
 </div>
+
+
+<section id="mobile_View">
+  <div>
+    <h4 class="mt-3" id="mob-filter-icon1"
+      style="position: absolute; left: 0;cursor: pointer;left: 0;margin-left: 15px;top: 7.6rem;font-size: 1.1rem;"><i
+        class="fas fa-filter"></i>Filters</h4>
+    <h4 class="text-center mb-5" style="font-size: 1.6rem;">ALL INTERNSHIPS</h4>
+  </div>
+  <div id="mob_filter_internships">
+
+    <div class="d-flex justify-content-center">
+      <div class="spinner-border text-primary  ajaxLoader  mt-5" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+    
+    <div class="mob-tab mx-3">
+      {% for internship in related_int_list %}
+
+        <div class="card card-body mb-3" style="border: solid 2px #AEAEAE;">
+          <div class="text-center px-2 card-fieldset">
+            <strong id="text" style="background-color: white;color: #00BBF0;" class="px-2">{{internship.domain}}</strong>
+          </div>
+          <h3 class="card-title text-center mb-0">{{internship.comp_name}}</h3>
+          <div class="card-text">
+            <div class="grid-container-mob mt-2 mb-3">
+              <div class="grid-item-mob text-muted">STIPEND</div>
+              <div class="grid-item-mob text-muted">START DATE</div>
+              <div class="grid-item-mob text-muted">APPLY BY</div>
+              <div class="grid-item-mob">Rs. {{internship.sal}}</div>
+              <div class="grid-item-mob">{{internship.start_date|date_format}}</div>
+              <div class="grid-item" style="display: none;">{{internship.duration}}</div>
+              <div class="grid-item-mob">{{internship.apply_by|date_format}}</div>
+            </div>
+          </div>
+          <div class="text-center">
+            <a href="details/{{internship.id}}/2" class="card-btn btn btn-primary btn-sm w-50 m-auto">VIEW DETAILS</a>
+          </div>
+        </div>
+
+      {% endfor %}
+  
+    </div>
+  </div>
+</section>
+
 
 
 <script>
@@ -134,6 +349,22 @@
   function updateTextInput(val) {
     document.getElementById('stipend_value').innerText = String(2 * Number(val)) + 'K (monthly)';
   }
+
+  $(document).ready(function () {
+    $("#mob-filter-icon").click(function () {
+      $("#filters_div").show();
+    })
+    $(".close-filter").click(function(){
+      $("#filters_div").hide();
+    })
+    $("#mob-filter-icon1").click(function () {
+      $("#filters_div").show();
+    })
+    $(".close-filter").click(function(){
+      $("#filters_div").hide();
+    })
+
+  })
 
 
 

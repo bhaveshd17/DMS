@@ -1,136 +1,366 @@
 {% extends 'student/base.html' %}
 {% load static %}
-{% block title %}Jobs{% endblock %}
+{% load custom_tags %}
+{% block title %}Eligible Jobs{% endblock %}
 {% block content %}
 <style>
     .sort_by_date p {
         cursor: pointer;
-        color: #088bf0;
+        color: #0F2C44;
     }
 
-    .sort_by_date p:hover {
-        color: #1b38db;
+    .form-control {
+        border-radius: 12px;
+        background-color: #eeeeee !important;
+    }
+
+    .form-control:focus {
+        border-color: none;
+        box-shadow: none;
+    }
+
+    .custom-select {
+        background-color: #eeeeee !important;
+        border-radius: 12px;
+    }
+
+    .custom-select:focus {
+        border-color: none;
+        box-shadow: none;
+    }
+
+    input[type='range']::-webkit-slider-thumb {
+        background: #00BBF0;
+    }
+
+    .btn {
+        border: none;
+    }
+
+    .btn:hover {
+        background-color: #009ac5 !important;
+        border: none;
+    }
+
+    .grid-container {
+        display: grid;
+        grid-template-columns: auto auto;
+    }
+
+
+    #filter_list {
+        width: 87%;
+        margin-left: 266px;
+    }
+
+    #filters_div {
+        position: fixed;
+        left: 0;
+        margin-top: -8px;
+        margin-left: 46px;
+        color: #0F2C44;
+    }
+
+    .card-btn {
+        background-color: #00BBF0;
+        border: none;
+        color: white !important;
+    }
+
+    .card-btn:hover {
+        background-color: #009ac5;
+    }
+
+    .grid-container-mob {
+        display: grid;
+        grid-template-columns: auto auto auto;
+    }
+
+    .grid-item-mob {
+        text-align: center;
+    }
+
+    .card-fieldset {
+        position: absolute;
+        top: -13px;
+        left: 0;
+        right: 0;
+        font-size: 1.1em;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+    }
+
+    #mobile_View {
+        display: none;
+    }
+
+    @media (max-width: 576px) {
+        #filters_div {
+            display: none;
+        }
+
+        #mobile_View {
+            display: block;
+        }
+
+        #filter_list {
+            display: none;
+        }
+
+        #filters_div {
+            display: none;
+            position: fixed;
+            left: 0;
+            z-index: 30;
+            margin-left: 0px;
+        }
+
+        .filter-card {
+            padding: 0px !important;
+            margin-top: -2rem !important;
+        }
+
+        .close-filter {
+            display: block !important;
+            top: 2.9rem !important;
+        }
+
+        .filter-card-text {
+            margin-bottom: 0px !important;
+        }
+    }
+
+
+    @media (min-width: 576px) and (max-width: 991px) {
+        #filters_div {
+            display: none;
+            position: fixed;
+            left: 0;
+            z-index: 30;
+            margin-left: 0px;
+        }
+
+        #filter_list {
+            width: 87%;
+            margin: auto;
+        }
+
+        .view-btn {
+            width: 60% !important;
+        }
+
+        .comp_name_div {
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+        }
+
+        #mob-filter-icon {
+            display: block !important;
+            top: 8rem;
+        }
+
+        .close-filter {
+            display: block !important;
+        }
+
+
     }
 </style>
 
-{% if related_job_list %}
-<h3 class="text-center h3 mb-5">Eligible Jobs</h3>
 
-<div class="row">
-    <!-- Filter -->
-    <div class="col-md-3 col-xs-3 col-lg-3">
-        <div class="card card-body">
-            <h5 class="card-title text-center">
-                <i class="fas fa-filter text-primary"></i>
+{% if related_job_list %}
+
+<div id="filters_div">
+    <div class="card card-body filter-card"
+        style="height: 100vh;border: none;border-right:1px solid #eeeeee;padding: 0px 12px;width: 119%;">
+        <div class="card-title filter-card-text">
+            <h5 class="mt-5 card-title filter-card-text text-center">
+                <i class="fas fa-filter"></i>
                 Filters
             </h5>
-            <div class="card-text">
-                <div class="mb-3">
-                    <label for="skills" class="form-label">Skills</label>
-                    <select class="custom-select filter_data" id="skills" name="skills" data-filter="skills">
-                        <option selected disabled hidden value="e.g. JAVA">e.g. JAVA</option>
-                        {% for skills in skill_set %}
-                        <option value="{{skills}}">{{skills}}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-
-
-                <div class="mb-3">
-                    <label for="salary">Desired min Salary</label>
-                    <input type="range" value="3" class="custom-range" min="3" max="8"
-                        onchange="updateTextInput(this.value)" id="salary">
-                    <div class="d-flex justify-content-center">
-                        <span id="salary_value" class="text-primary">3 LPA</span>
-                    </div>
-                </div>
-
-                <div class="mb-3">
-                    <label for="location" class="form-label">Location</label>
-                    <select class="custom-select filter_data" id="location" name="location" data-filter="location">
-                        <option selected disabled hidden>e.g. Mumbai</option>
-                        {% for city in cities %}
-                        <option value="{{city}}">{{city}}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-
-
-                <div class="mb-3">
-                    <label for="starting_from" class="form-label">Starting from (or after)</label>
-                    <input type="date" class="form-control filter_data" name="starting_from" id="starting_from"
-                        placeholder="choose date" data-filter="starting_from">
-                </div>
-
-                <div class="d-flex justify-content-between mb-3">
-                    <label for="work_from_home">Work From Home</label>
-                    <input type="checkbox" class="form-check mt-2 filter_data" data-filter="work_from_home" name="work_from_home" id="work_from_home">
-                </div>
-
-                <div class="mb-3 sort_by_date">
-                    <p class="float-right">sort by apply date</p>
-                </div>
-
-                <div class="mb-3">
-                    <button class="btn btn-secondary w-100" onclick="reset_form()">Reset</button>
-                </div>
-            </div>
+            <p class="close-filter"
+                style="position: absolute; right: 0;margin-right: 27px;top: 1rem;cursor: pointer;display: none;">
+                &#10005;
+            </p>
         </div>
 
+        <div class="card-text w-75 mx-auto mt-3 filter-card-text">
+            <div class="mb-3">
+                <label for="skills" class="form-label">Skills</label>
+                <select class="custom-select filter_data" id="skills" name="skills" data-filter="skills">
+                    <option selected disabled hidden value="e.g. JAVA">e.g. JAVA</option>
+                    {% for skills in skill_set %}
+                    <option value="{{skills}}">{{skills}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+
+            <div class="mb-3">
+                <label for="salary">Desired min Salary</label>
+                <input type="range" value="3" class="custom-range" min="3" max="8"
+                    onchange="updateTextInput(this.value)" id="salary">
+                <div class="d-flex justify-content-center">
+                    <span id="salary_value" class="text-primary">3 LPA</span>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="location" class="form-label">Location</label>
+                <select class="custom-select filter_data" id="location" name="location" data-filter="location">
+                    <option selected disabled hidden>e.g. Mumbai</option>
+                    {% for city in cities %}
+                    <option value="{{city}}">{{city}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+
+            <div class="mb-3">
+                <label for="starting_from" class="form-label">Starting from (or after)</label>
+                <input type="date" class="form-control filter_data" name="starting_from" id="starting_from"
+                    placeholder="choose date" data-filter="starting_from">
+            </div>
+
+
+
+            <div class="d-flex justify-content-between mb-3">
+                <label for="work_from_home">Work From Home</label>
+                <input type="checkbox" class="form-check mt-2 filter_data" data-filter="work_from_home"
+                    name="work_from_home" id="work_from_home">
+            </div>
+
+            <div class="mb-3 sort_by_date">
+                <p class="float-right" style="color: #0F2C44;">sort by apply date</p>
+            </div>
+
+            <div class="mb-3">
+                <button class="btn btn-secondary w-50 float-right" style="color: #fff; background-color: #00BBF0;"
+                    onclick="reset_form()">Reset</button>
+            </div>
+        </div>
     </div>
-<!-- List -->
-    <div class="col-md-9 col-xs-9 col-lg-9" id="filter_jobs">
+
+</div>
+
+<div id="filter_list">
+    <div>
+        <h4 class="mt-3" id="mob-filter-icon"
+            style="position: absolute; left: 0;margin-left: 50px;display: none;cursor: pointer;"><i
+                class="fas fa-filter"></i>Filters</h4>
+        <h4 class="mt-2 mb-5 text-center" style="font-size: 1.6rem;">ELIGIBLE JOBS</h4>
+    </div>
+    <div id="filter_jobs">
         <div class="d-flex justify-content-center">
             <div class="spinner-border text-primary  ajaxLoader  mt-5" role="status">
                 <span class="sr-only">Loading...</span>
             </div>
         </div>
-        {% for job in related_job_list %}
-        <div class="mx-auto mb-5 bg-white rounded-lg p-3 clear-fix shadow internship">
-            <a href="/student/details/{{job.id}}/1" class="float-right" style="text-decoration: none;">View
-                details</a>
-            <h4>{{job.comp_name}}</h4>
-            <h6>{{job.domain}}</h6>
-            {% if job.work_from_home %}
-            <i class="fas fa-home mr-2"></i><span class="text-muted">Work From Home</span>
-            {% endif %}
-            <div class="row">
-                <div class="col-3">
-                    <p class="mt-4"><strong>Salary:</strong></p>
-                    <p>Rs. {{job.sal}} LPA</p>
+        <div class="lap-tab">
+            {% for job in related_job_list %}
+            <div class="job my-3" style="color:#0F2C44">
+                <div class="card card-body px-0" style="border: none;">
+                    <div class="row">
+                        <div class="col-md-3 comp_name_div">
+                            <div class="text-center">
+                                <strong style="color: #00BBF0;" class="px-2">{{job.domain}}</strong>
+                                <h3 class="card-title text-center mt-1 mb-3">{{job.comp_name}}</h3>
+                                <span style="color: #AEAEAE;">Skills Required</span>
+                                <div><span>{{job.skills}}</span></div>
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="w-75 m-auto">
+                                <!-- <p class="px-2" style="font-weight: 400; font-size: 1.1rem;">Lorem ipsum dolor sit Lorem, ipsum.
+              </p> -->
+                                <div class="grid-container mt-2 mb-3">
+                                    <div class="grid-item">SALARY</div>
+                                    <div class="grid-item">Rs. {{job.sal}} LPA</div>
+                                    <div class="grid-item">LOCATION</div>
+                                    <div class="grid-item">{{job.location}}</div>
+                                    <div class="grid-item">START DATE</div>
+                                    <div class="grid-item">{{job.start_date|date_format}}</div>
+                                    <div class="grid-item">APPLY BY</div>
+                                    <div class="grid-item">{{job.apply_by|date_format}}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 d-flex align-items-end justify-content-center flex-row">
+                            <div class="text-center" style="width: 100%;">
+                                <a href="/student/details/{{job.id}}/1"
+                                    class="card-btn btn btn-primary btn-sm w-50 m-auto view-btn">VIEW
+                                    DETAILS</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-3">
-                    <p class="mt-4"><strong>Location</strong></p>
-                    <p>{{job.location}}</p>
-                </div>
-                <div class="col-3">
-                    <p class="mt-4"><strong>Start Date:</strong></p>
-                    <p>{{job.start_date}}</p>
-                </div>
-                <div class="col-3">
-                    <p class="mt-4"><strong>Apply By:</strong></p>
-                    <p>{{job.apply_by|safe}}</p>
-                </div>
+                <hr>
             </div>
-            <div class="">
-                <p><strong>Skills:</strong>
-                <p>
-            </div>
-            <div class="row bg-primary mx-1 rounded-lg text-white p-1 px-3" style="text-align:center">
-                {{job.skills}}
+            {% endfor %}
+        </div>
+
+    </div>
+</div>
+
+
+<section id="mobile_View">
+    <div>
+        <h4 class="mt-3" id="mob-filter-icon1"
+            style="position: absolute; left: 0;cursor: pointer;left: 0;margin-left: 15px;top: 7.6rem;font-size: 1.1rem;">
+            <i class="fas fa-filter"></i>Filters
+        </h4>
+        <h4 class="text-center mb-5" style="font-size: 1.6rem;">Eligible Jobs</h4>
+    </div>
+    <div id="mob_filter_jobs">
+
+        <div class="d-flex justify-content-center">
+            <div class="spinner-border text-primary  ajaxLoader  mt-5" role="status">
+                <span class="sr-only">Loading...</span>
             </div>
         </div>
-        {% endfor %}
-    </div>
 
-</div>
+        <div class="mob-tab mx-3">
+            {% for job in related_job_list %}
+
+            <div class="card card-body mb-3" style="border: solid 2px #AEAEAE;">
+                <div class="text-center px-2 card-fieldset">
+                    <strong id="text" style="background-color: white;color: #00BBF0;"
+                        class="px-2">{{job.domain}}</strong>
+                </div>
+                <h3 class="card-title text-center mb-0">{{job.comp_name}}</h3>
+                <div class="card-text">
+                    <div class="grid-container-mob mt-2 mb-3">
+                        <div class="grid-item-mob text-muted">SALARY</div>
+                        <div class="grid-item-mob text-muted">START DATE</div>
+                        <div class="grid-item-mob text-muted">APPLY BY</div>
+                        <div class="grid-item-mob">Rs. {{job.sal}} LPA</div>
+                        <div class="grid-item-mob">{{job.start_date|date_format}}</div>
+                        <div class="grid-item" style="display: none;">{{job.location}}</div>
+                        <div class="grid-item-mob">{{job.apply_by|date_format}}</div>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <a href="details/{{job.id}}/1" class="card-btn btn btn-primary btn-sm w-50 m-auto">VIEW
+                        DETAILS</a>
+                </div>
+            </div>
+
+            {% endfor %}
+
+        </div>
+    </div>
+</section>
+
+
+
 {% else %}
 <div class="card mt-5">
     <div class="card-body">
-      <p class="card-text text-center">Sorry, There is no suitable job to show</p>
+        <p class="card-text text-center">Sorry, There is no suitable job to show</p>
     </div>
-  </div>
-  {% endif %}
+</div>
+{% endif %}
 
 <script>
     function reset_form() {
@@ -148,8 +378,28 @@
     }
     let url_path = '{{request.path}}';
 
+    $(document).ready(function () {
+        $("#mob-filter-icon").click(function () {
+            $("#filters_div").show();
+        })
+        $(".close-filter").click(function () {
+            $("#filters_div").hide();
+        })
+        $("#mob-filter-icon1").click(function () {
+            $("#filters_div").show();
+        })
+        $(".close-filter").click(function () {
+            $("#filters_div").hide();
+        })
+
+    })
+
+
+
+
 
 
 </script>
 <script src="{% static 'js/jobFilter.js'%}"></script>
+
 {% endblock %}
