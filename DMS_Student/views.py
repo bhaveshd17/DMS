@@ -105,9 +105,11 @@ def details(request, id, type):
         try:
             job_user_obj = Job_user.objects.get(job_id=id, roll_no=request.user.username)
             status = job_user_obj.status
+    
 
         except:
             status = '0'
+
         content = {'details': job_obj,
                    'status': status,
                    'type': type,
