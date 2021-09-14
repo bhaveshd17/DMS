@@ -6,83 +6,87 @@
 
 <link rel="stylesheet" href="{% static 'css/student/index.css' %}">
 
-<div class="my-3">
-    <div id="search-div">
-        <form method="GET" action="{%url 'search'%}">
-            <div class="input-group mb-3" id="search-box">
-                <input type="text" name="to_search" style="border: none;border-radius: 40px 0px 0px 40px;"
-                    class="form-control" placeholder="Search for Internships and Jobs..." aria-label=""
-                    aria-describedby="basic-addon1">
-                <div class="input-group-prepend">
-                    <button class="btn btn-outline-secondary" id="search-btn" type="submit"><i
-                            class="fas fa-search"></i></button>
+<div class="int-job-div">
+    <div class="my-3">
+        <div id="search-div">
+            <form method="GET" action="{%url 'search'%}">
+                <div class="input-group mb-3" id="search-box">
+                    <input type="text" name="to_search" style="border: none;border-radius: 40px 0px 0px 40px;"
+                        class="form-control" placeholder="Search for Internships and Jobs..." aria-label=""
+                        aria-describedby="basic-addon1">
+                    <div class="input-group-prepend">
+                        <button class="btn btn-outline-secondary" id="search-btn" type="submit"><i
+                                class="fas fa-search"></i></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <section id="jobs">
+        <h4 class="text-center" style="font-size: 1.6rem;">JOBS</h4>
+        <div class="row mt-3">
+            {% for job in related_job_list %}
+            <div class="col-md-4 mb-4">
+                <div class="card card-body" style="border: solid 2px #AEAEAE;">
+                    <div class="text-center px-2 card-fieldset">
+                        <strong id="text" style="background-color: white;color: #00BBF0;"
+                            class="px-2">{{job.domain}}</strong>
+                    </div>
+                    <h3 class="card-title text-center mb-0">{{job.comp_name}}</h3>
+                    <div class="card-text">
+                        <div class="grid-container mt-2 mb-3">
+                            <div class="grid-item text-muted">SALARY</div>
+                            <div class="grid-item text-muted">START DATE</div>
+                            <div class="grid-item text-muted">APPLY BY</div>
+                            <div class="grid-item">Rs. {{job.sal}} LPA</div>
+                            <div class="grid-item">{{job.start_date|date_format}}</div>
+                            <div class="grid-item">{{job.apply_by|date_format}}</div>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <a href="details/{{job.id}}/1" class="card-btn btn btn-primary btn-sm w-50 m-auto">VIEW
+                            DETAILS</a>
+                    </div>
                 </div>
             </div>
-        </form>
-    </div>
+            {% endfor %}
+
+        </div>
+    </section>
+
+
+    <section id="internship">
+        <h4 class="text-center" style="font-size: 1.6rem;">INTERNSHIPS</h4>
+        <div class="row mt-3">
+            {% for internship in related_int_list %}
+            <div class="col-md-4 mt-3">
+                <div class="card card-body" style="border: solid 2px #AEAEAE;">
+                    <div class="text-center px-2 card-fieldset">
+                        <strong id="text" style="background-color: white;color: #00BBF0;"
+                            class="px-2">{{internship.domain}}</strong>
+                    </div>
+                    <h3 class="card-title text-center mb-0">{{internship.comp_name}}</h3>
+                    <div class="card-text">
+                        <div class="grid-container mt-2 mb-3">
+                            <div class="grid-item text-muted">STIPEND</div>
+                            <div class="grid-item text-muted">START DATE</div>
+                            <div class="grid-item text-muted">APPLY BY</div>
+                            <div class="grid-item">Rs. {{internship.sal}}</div>
+                            <div class="grid-item">{{internship.start_date|date_format}}</div>
+                            <div class="grid-item">{{internship.apply_by|date_format}}</div>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <a href="details/{{internship.id}}/2" class="card-btn btn btn-primary btn-sm w-50 m-auto">VIEW
+                            DETAILS</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+    </section>
 </div>
-
-<section id="jobs">
-    <h4 class="text-center" style="font-size: 1.6rem;">JOBS</h4>
-    <div class="row mt-3">
-        {% for job in related_job_list %}
-        <div class="col-md-4 mb-4">
-            <div class="card card-body" style="border: solid 2px #AEAEAE;">
-                <div class="text-center px-2 card-fieldset">
-                    <strong id="text" style="background-color: white;color: #00BBF0;"
-                        class="px-2">{{job.domain}}</strong>
-                </div>
-                <h3 class="card-title text-center mb-0">{{job.comp_name}}</h3>
-                <div class="card-text">
-                    <div class="grid-container mt-2 mb-3">
-                        <div class="grid-item text-muted">SALARY</div>
-                        <div class="grid-item text-muted">START DATE</div>
-                        <div class="grid-item text-muted">APPLY BY</div>
-                        <div class="grid-item">Rs. {{job.sal}} LPA</div>
-                        <div class="grid-item">{{job.start_date|date_format}}</div>
-                        <div class="grid-item">{{job.apply_by|date_format}}</div>
-                    </div>
-                </div>
-                <div class="text-center">
-                    <a href="details/{{job.id}}/1" class="card-btn btn btn-primary btn-sm w-50 m-auto">VIEW DETAILS</a>
-                </div>
-            </div>
-        </div>
-        {% endfor %}
-
-    </div>
-</section>
-
-
-<section id="internship">
-    <h4 class="text-center" style="font-size: 1.6rem;">INTERNSHIPS</h4>
-    <div class="row mt-3">
-        {% for internship in related_int_list %}
-        <div class="col-md-4 mt-3">
-            <div class="card card-body" style="border: solid 2px #AEAEAE;">
-                <div class="text-center px-2 card-fieldset">
-                    <strong id="text" style="background-color: white;color: #00BBF0;"
-                        class="px-2">{{internship.domain}}</strong>
-                </div>
-                <h3 class="card-title text-center mb-0">{{internship.comp_name}}</h3>
-                <div class="card-text">
-                    <div class="grid-container mt-2 mb-3">
-                        <div class="grid-item text-muted">STIPEND</div>
-                        <div class="grid-item text-muted">START DATE</div>
-                        <div class="grid-item text-muted">APPLY BY</div>
-                        <div class="grid-item">Rs. {{internship.sal}}</div>
-                        <div class="grid-item">{{internship.start_date|date_format}}</div>
-                        <div class="grid-item">{{internship.apply_by|date_format}}</div>
-                    </div>
-                </div>
-                <div class="text-center">
-                    <a href="details/{{internship.id}}/2" class="card-btn btn btn-primary btn-sm w-50 m-auto">VIEW DETAILS</a>
-                </div>
-            </div>
-        </div>
-        {% endfor %}
-
-    </div>
-</section>
 
 {% endblock content %}
