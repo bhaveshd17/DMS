@@ -42,7 +42,8 @@ class Student(models.Model):
     github=models.URLField(null=True)
     other=models.CharField(max_length=150,null=True)
     is_email_verified=models.BooleanField(default=False,null=True)
-
+    
+    # year_of_join
     def __str__(self):
         return self.roll_no
 
