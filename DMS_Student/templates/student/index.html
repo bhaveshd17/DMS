@@ -12,7 +12,7 @@
             <form method="GET" action="{%url 'search'%}">
                 <div class="input-group mb-3" id="search-box">
                     <input type="text" name="to_search" style="border: none;border-radius: 40px 0px 0px 40px;"
-                        class="form-control" placeholder="Search for Internships and Jobs..." aria-label=""
+                        class="form-control " placeholder="Search for Internships and Jobs..." aria-label=""
                         aria-describedby="basic-addon1">
                     <div class="input-group-prepend">
                         <button class="btn btn-outline-secondary" id="search-btn" type="submit"><i
@@ -28,7 +28,7 @@
         <div class="row mt-3">
             {% for job in related_job_list %}
             <div class="col-md-4 mb-4">
-                <div class="card card-body" style="border: solid 2px #AEAEAE;">
+                <div class="card card-body shadow rounded" style="border: solid 2px #AEAEAE;">
                     <div class="text-center px-2 card-fieldset">
                         <strong id="text" style="background-color: white;color: #00BBF0;"
                             class="px-2">{{job.domain}}</strong>
@@ -61,7 +61,7 @@
         <div class="row mt-3">
             {% for internship in related_int_list %}
             <div class="col-md-4 mt-3">
-                <div class="card card-body" style="border: solid 2px #AEAEAE;">
+                <div class="card card-body shadow rounded" style="border: solid 2px #AEAEAE;">
                     <div class="text-center px-2 card-fieldset">
                         <strong id="text" style="background-color: white;color: #00BBF0;"
                             class="px-2">{{internship.domain}}</strong>

@@ -2,17 +2,34 @@
 <nav style="background-color: #0F2C44; height: auto;" id="upper-nav" class="py-2">
     <div class="d-flex justify-content-between">
         <span class="text-center">
-            <img src="{% static 'images/vitLogo.png' %}" class="ml-5"  width="100" height="35" alt="vit">
-            <h4 style="color: #D9FAFF; font-weight: 400;" class="ml-5 mt-2 mb-0" >VPlacements</h4>
+            <img src="{% static 'images/vitLogo.png' %}" class="ml-5" width="100" height="35" alt="vit">
+            <h4 style="color: #D9FAFF; font-weight: 400;" class="ml-5 mt-2 mb-0">VPlacements</h4>
         </span>
-    
-        <a href="{% url 'profile' %}" style="text-decoration: none;" class="text-center" style="cursor: pointer;" id="profile-btn">
-            <img src="{% static 'images/carbon_user-profile.png' %}" class="mr-5 mt-3"  width="35" height="30" alt="profile">
+
+        <a href="{% url 'profile' %}" style="text-decoration: none;" class="text-center" style="cursor: pointer;"
+            id="profile-btn">
+            <img src="{% static 'images/carbon_user-profile.png' %}" class="mr-5 mt-3" width="35" height="30"
+                alt="profile">
             <p style="color: #D9FAFF; font-weight: 300;" class="mb-0  mr-5">{{user.username}}</p>
         </a>
         <span class="text-center mt-3" style="cursor: pointer; display: none;" id="menu-btn">
-           <img src="{% static 'images/menu.png' %}" class="mr-4 mt-3"  width="35" height="25" alt="menu">
+            <img src="{% static 'images/menu.png' %}" class="mr-4 mt-3" width="35" height="25" alt="menu">
+        </span>
+        <span class="text-center mt-3" style="cursor: pointer; display: none;" id="close-btn">
+            <img src="{% static 'images/menu.png' %}" class="mr-4 mt-3" width="35" height="25" alt="menu">
         </span>
     </div>
 </nav>
 
+<script>
+    $("#menu-btn").click(function () {
+        $("#mobile").show();
+        $("#menu-btn").hide();
+        $("#close-btn").show();
+    })
+    $("#close-btn").click(function () {
+        $("#mobile").hide()
+        $("#close-btn").hide();
+        $("#menu-btn").show();
+    })
+</script>

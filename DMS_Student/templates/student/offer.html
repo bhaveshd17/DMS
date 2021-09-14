@@ -1,0 +1,104 @@
+{% extends 'student/base.html' %}
+{% block title %} Applied {% endblock %}
+{% block content %}
+{% load static %}
+{% load custom_tags %}
+
+<link rel="stylesheet" href="{% static 'css/student/application.css' %}">
+
+
+<h4 class="text-center h3 mt-2 mb-5" style="color: #0F2C44;font-size: 1.6rem;">All Applied Jobs/Intertership by: <strong
+    class="text-muted">{{request.user.username}}</strong></h4>
+
+<div id="filter_list">
+  <div class="lap-tab">
+    {% for result, type in hired.items %}
+    <div class="internship my-3" style="color:#0F2C44">
+      <div class="card card-body px-0" style="border: none;">
+        <div class="row">
+          <div class="col-md-3 comp_name_div">
+            <div class="text-center">
+              <strong style="color: #00BBF0;" class="px-2">{{result.domain}}</strong>
+              <h3 class="card-title text-center mt-1 mb-3">{{result.comp_name}}</h3>
+              <span style="color: #AEAEAE;">Skills Required</span>
+              <div><span>{{result.skills}}</span></div>
+            </div>
+          </div>
+          <div class="col-md-5">
+            <div class="w-75 m-auto">
+              <!-- <p class="px-2" style="font-weight: 400; font-size: 1.1rem;">Lorem ipsum dolor sit Lorem, ipsum.
+            </p> -->
+              <div class="grid-container mt-2 mb-3">
+                {% if type == 1 %}
+                <div class="grid-item">SALARY</div>
+                <div class="grid-item">Rs. {{result.sal}} LPA</div>
+                {% elif type == 2 %}
+                <div class="grid-item">STIPEND</div>
+                <div class="grid-item">Rs. {{result.sal}}</div>
+                {% endif %}
+
+
+                {% if type == 1 %}
+                <div class="grid-item">LOCATION</div>
+                <div class="grid-item">{{result.location}}</div>
+                {% elif type == 2 %}
+                <div class="grid-item">DURATION</div>
+                <div class="grid-item">{{result.duration}}</div>
+                {% endif %}
+      
+                <div class="grid-item">START DATE</div>
+                <div class="grid-item">{{result.start_date|date_format}}</div>
+                <div class="grid-item">APPLY BY</div>
+                <div class="grid-item">{{result.apply_by|date_format}}</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 d-flex align-items-end justify-content-center flex-row">
+            <div class="text-center" style="width: 100%;">
+              <a href="details/{{result.id}}/{{type}}" class="card-btn btn btn-primary btn-sm w-50 m-auto view-btn">VIEW
+                DETAILS</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+
+<section id="mobile_View">
+
+  <div class="mob-tab mx-3">
+    {% for result, type in hired.items %}
+
+    <div class="card card-body mb-3" style="border: solid 2px #AEAEAE;">
+      <div class="text-center px-2 card-fieldset">
+        <strong id="text" style="background-color: white;color: #00BBF0;" class="px-2">{{result.domain}}</strong>
+      </div>
+      <h3 class="card-title text-center mb-0">{{result.comp_name}}</h3>
+      <div class="card-text">
+        <div class="grid-container-mob mt-2 mb-3">
+          <div class="grid-item-mob text-muted">STIPEND</div>
+          <div class="grid-item-mob text-muted">START DATE</div>
+          <div class="grid-item-mob text-muted">APPLY BY</div>
+          <div class="grid-item-mob">Rs. {{result.sal}}</div>
+          <div class="grid-item-mob">{{result.start_date|date_format}}</div>
+          <div class="grid-item" style="display: none;">{{result.duration}}</div>
+          <div class="grid-item-mob">{{result.apply_by|date_format}}</div>
+        </div>
+      </div>
+      <div class="text-center">
+        <a href="details/{{result.id}}/{{type}}" class="card-btn btn btn-primary btn-sm w-50 m-auto">VIEW DETAILS</a>
+      </div>
+    </div>
+
+    {% endfor %}
+
+  </div>
+
+</section>
+
+
+{% endblock %}

@@ -447,6 +447,20 @@ def userApplication(request):
     content = {"applied_dict": applied_dict}
     return render(request, 'student/userApplication.html', content)
 
+def offer(request):
+    job_user = Job_user.objects.filter(roll_no=request.user.username,status="3")
+    int_user = Int_user.objects.filter(roll_no=request.user.username,status="3")
+    hired = {}
+    for job_u in job_user:
+        job = Job.objects.get(id=job_u.job_id.id)
+        hired[job] = 1
+    for intern_u in int_user:
+        internship = Intership.objects.get(id=intern_u.int_id.id)
+        hired[internship] = 2
+
+    
+    context={"hired":hired}
+    return render(request,"student/offer.html",context)
 
 # authentication
 @unauthenticated_user
@@ -543,3 +557,4 @@ def reset_password(request,uidb64):
         messages.success(request,"Password Changed")
         return redirect(reverse('login'))
     return render(request,"authentication/change_password.html")
+

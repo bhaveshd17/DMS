@@ -114,7 +114,7 @@
   </ul>
 </nav>
 
-<nav class="fullNav">
+<nav class="fullNav" id="desktop">
   <ul style="list-style: none;" class="mt-5 p-0 pt-3" id="extendedNav">
 
     <li class="nav-links-item mb-3 p-2"><a href="{% url 'index' %}">
@@ -143,32 +143,30 @@
       </a>
     </li>
 
-    <li class="nav-links-item mb-3 p-2">
-      <a class="nav-link collapsed text-truncate d-inline" href="#submenu1" data-toggle="collapse"
-        data-target="#submenu1">
-        <div class="row">
-          <div class="col-md-2 text-center">
-            <img src="{% static 'images/jobs.png' %}" class="nav-item-img text-center" alt="img">
-          </div>
-          <div class="col-md-10">
-            <span class="d-none d-sm-inline">
-              <strong class="pl-5">Jobs</strong>
-              <i class="fa fa-caret-down" style="float:right;padding-right:1.2rem"></i>
-            </span>
-          </div>
+    <li class="nav-links-item mb-3 p-2" data-toggle="collapse" data-target="#submenu1">
+
+      <div class="row">
+        <div class="col-md-2 text-center">
+          <img src="{% static 'images/jobs.png' %}" class="nav-item-img text-center" alt="img">
         </div>
-      </a>
-      <div class="collapse" id="submenu1" aria-expanded="false">
-        <ul class="flex-column pl-2 nav">
-          <li class="nav-item"><a class="nav-link pt-1 text-center" href="{% url 'all_job' %}"><span>All Jobs</span></a>
-          </li>
-          <li class=" nav-item"><a class="nav-link pt-1 text-center" href="{% url 'job'%}"><span>Eligible
-                Jobs</span></a></li>
-        </ul>
-
+        <div class="col-md-10">
+          <span class="d-none d-sm-inline">
+            <strong class="pl-5">Jobs</strong>
+            <i class="fa fa-caret-down" style="float:right;padding-right:1.2rem"></i>
+          </span>
+        </div>
       </div>
-    </li>
 
+    </li>
+    <div class="collapse" id="submenu1" aria-expanded="false">
+      <ul class="flex-column pl-2 nav">
+        <li class="nav-item"><a class="nav-link pt-1 text-center" href="{% url 'all_job' %}"><span>All Jobs</span></a>
+        </li>
+        <li class=" nav-item"><a class="nav-link pt-1 text-center" href="{% url 'job'%}"><span>Eligible
+              Jobs</span></a></li>
+      </ul>
+
+    </div>
 
     <li class="nav-links-item mb-3 p-2">
       <a href="{% url 'preplacement' %}">
@@ -184,33 +182,32 @@
     </li>
 
 
-    <li class="nav-links-item mb-3 p-2">
-      <a class="nav-link collapsed text-truncate d-inline" href="#submenu2" data-toggle="collapse"
-      data-target="#submenu2">
-      <div class="row">
-        <div class="col-md-2 text-center">
-          <img src="{% static 'images/application.png' %}" style="width: 23px;" class="nav-item-img" alt="img">
-        </div>
-        <div class="col-md-10">
-         
+    <li class="nav-links-item mb-3 p-2" data-toggle="collapse"
+    data-target="#submenu2">
+        <div class="row">
+          <div class="col-md-2 text-center">
+            <img src="{% static 'images/application.png' %}" style="width: 23px;" class="nav-item-img" alt="img">
+          </div>
+          <div class="col-md-10">
+
             <span class="d-none d-sm-inline">
               <strong class="pl-5">Application</strong>
               <i class="fa fa-caret-down" style="float:right;padding-right:1.2rem"></i>
             </span>
 
-          
+
+          </div>
         </div>
-      </div></a>
-      <div class="collapse" id="submenu2" aria-expanded="false">
-        <ul class="flex-column pl-2 nav">
-          <li class="nav-item"><a class="nav-link pt-1 text-center"
-              href="{% url 'userApplication' %}"><span>Applied</span></a></li>
-          <li class=" nav-item"><a class="nav-link pt-1 text-center" href="#"><span>Offered</span></a></li>
-        </ul>
-
-      </div>
     </li>
+    <div class="collapse" id="submenu2" aria-expanded="false">
+      <ul class="flex-column pl-2 nav">
+        <li class="nav-item"><a class="nav-link pt-1 text-center"
+            href="{% url 'userApplication' %}"><span>Applied</span></a></li>
+        <li class=" nav-item"><a class="nav-link pt-1 text-center" href="{% url 'offer' %}"><span>Offered</span></a>
+        </li>
+      </ul>
 
+    </div>
 
     <li class="nav-links-item mb-3 p-2">
       <a href="{% url 'logout' %}">
@@ -229,12 +226,89 @@
   </ul>
 </nav>
 
+<nav class="fullNav" id="mobile" >
+  <ul style="list-style: none;" class="mt-4 mb-3 p-2 pt-3" id="extendedNav">
+    <li class="nav-links-item mb-3 p-2"><a href="{% url 'index' %}">
+      <span class="iconify" data-icon="fluent:home-20-regular" data-width="30" data-height="30"></span>
+      <strong class="pl-5">Home</strong>
+      </a>
+    </li>
+
+    <li class="nav-links-item mb-3 p-2">
+      <a href="{% url 'internship' %}">
+        <img src="{% static 'images/internship.png' %}" class="nav-item-img" alt="img">
+        <strong class="pl-5">Internship</strong>
+        
+      </a>
+    </li>
+    <li class="nav-links-item mb-3 p-2" data-toggle="collapse" data-target="#submenu1">
+      <img src="{% static 'images/jobs.png' %}" class="nav-item-img text-center" alt="img">
+      <strong class="pl-5">Jobs</strong>
+            <i class="fa fa-caret-down" style="float:right;padding-right:1.2rem"></i>
+      <div class="row">
+      
+      </div>
+
+    </li>
+    <div class="collapse" id="submenu1" aria-expanded="false">
+      <ul class="flex-column pl-2 nav">
+        <li class="nav-item"><a class="nav-link pt-1 text-center" href="{% url 'all_job' %}"><span>All Jobs</span></a>
+        </li>
+        <li class=" nav-item"><a class="nav-link pt-1 text-center" href="{% url 'job'%}"><span>Eligible
+              Jobs</span></a></li>
+      </ul>
+
+    </div>
+
+    <li class="nav-links-item mb-3 p-2">
+      <a href="{% url 'preplacement' %}">
+        <img src="{% static 'images/preparation.png' %}" style="width: 20px;" class="nav-item-img" alt="img">
+        <strong class="pl-5">Prepartion</strong>
+      </a>
+    </li>
+
+
+    <li class="nav-links-item mb-3 p-2" data-toggle="collapse"
+    data-target="#submenu2">
+    <img src="{% static 'images/application.png' %}" style="width: 23px;" class="nav-item-img" alt="img">
+    <strong class="pl-5">Application</strong>
+              <i class="fa fa-caret-down" style="float:right;padding-right:1.2rem"></i>
+
+    </li>
+    <div class="collapse" id="submenu2" aria-expanded="false">
+      <ul class="flex-column pl-2 nav">
+        <li class="nav-item"><a class="nav-link pt-1 text-center"
+            href="{% url 'userApplication' %}"><span>Applied</span></a></li>
+        <li class=" nav-item"><a class="nav-link pt-1 text-center" href="{% url 'offer' %}"><span>Offered</span></a>
+        </li>
+      </ul>
+
+    </div>
+
+    <li class="nav-links-item mb-3 p-2">
+      <a href="{% url 'profile' %}">
+        <span class="iconify" data-icon="carbon:user-avatar-filled-alt" data-width="32" data-height="32"></span>
+        <strong class="pl-5">Profile</strong>
+      </a>
+    </li>
+
+    <li class="nav-links-item mb-3 p-2">
+      <a href="{% url 'logout' %}">
+        <img src="{% static 'images/logout.png' %}" style="width: 25px;" class="nav-item-img" alt="img">
+        <strong class="pl-5">Logout</strong>
+        
+      </a>
+    </li>
+
+
+  </ul>
+</nav>
 <script>
   $(document).ready(function () {
     $("#nav").mouseover(function () {
-      $(".fullNav").show();
-      $(".fullNav").mouseleave(function () {
-        $(".fullNav").hide();
+      $("#desktop").show();
+      $("#desktop").mouseleave(function () {
+        $("#desktop").hide();
       })
     })
 
