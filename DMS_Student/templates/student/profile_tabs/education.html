@@ -17,91 +17,94 @@
     </div>
     <div id="edu_cards">
         {% for edu in edu_list%}
-        <div class="card card-body mb-3">
-            <div class="card-text">
-                <table class="table table-hover table-responsive-sm">
-                    <tbody>
-                        <tr>
-                            <td>
-                                <strong>
-                                    {% if edu.degree == '10'%}
-                                    School
+        <div class="row">
+            <div class="col-md-10">
+                <div class="card-text">
+                    <table class="table table-hover table-responsive-sm">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <strong>
+                                        {% if edu.degree == '10'%}
+                                        School
+                                        {% else %}
+                                        College
+                                        {% endif %}
+                                    </strong>
+                                </td>
+                                <td>{{edu.clg_name}}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Degree</strong></td>
+                                <td>{{edu.degree}}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Board</strong></td>
+                                <td>{{edu.board}}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Year Drop</strong></td>
+                                <td>{{edu.gap}} 
+                                    {% if edu.gap|to_int <= 1  %}
+                                    Year
                                     {% else %}
-                                    College
+                                    Years
                                     {% endif %}
-                                </strong>
-                            </td>
-                            <td>{{edu.clg_name}}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Degree</strong></td>
-                            <td>{{edu.degree}}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Board</strong></td>
-                            <td>{{edu.board}}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Year Drop</strong></td>
-                            <td>{{edu.gap}} 
-                                {% if edu.gap|to_int <= 1  %}
-                                Year
-                                {% else %}
-                                Years
-                                {% endif %}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><strong>Marks</strong></td>
-                            <td>{{edu.marks}}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Percentage/CGPA</strong></td>
-                            <td>{% if edu.percentage > 12 %}
-                                {{edu.percentage}}%
-                                {% else %}
-                                {{edu.percentage}} CGPA ({% marks_to_percentage edu.marks edu.no_of_subject %} %)
-                                {% endif %}
-                            </td>
-                        </tr>
-                        {% if edu.degree == 'diploma' %}
-                        <div id="diploma">
-                            <tr>
-                                <td><strong>Pattern</strong></td>
-                                <td>{{edu.diploma_pattern}}</td>
+                                </td>
                             </tr>
                             <tr>
-                                <td><strong>Aggregate (marks-wise)</strong></td>
-                                <td>{{edu.diploma_aggregate_mw}}</td>
+                                <td><strong>Marks</strong></td>
+                                <td>{{edu.marks}}</td>
                             </tr>
                             <tr>
-                                <td><strong>Aggregate (percentage-wise)</strong></td>
-                                <td>{{edu.diploma_aggregate_pw}}</td>
+                                <td><strong>Percentage/CGPA</strong></td>
+                                <td>{% if edu.percentage > 12 %}
+                                    {{edu.percentage}}%
+                                    {% else %}
+                                    {{edu.percentage}} CGPA ({% marks_to_percentage edu.marks edu.no_of_subject %} %)
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% if edu.degree == 'diploma' %}
+                            <div id="diploma">
+                                <tr>
+                                    <td><strong>Pattern</strong></td>
+                                    <td>{{edu.diploma_pattern}}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Aggregate (marks-wise)</strong></td>
+                                    <td>{{edu.diploma_aggregate_mw}}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Aggregate (percentage-wise)</strong></td>
+                                    <td>{{edu.diploma_aggregate_pw}}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>No. of Dead KT/S</strong></td>
+                                    <td>{{edu.no_of_dead_kt}}</td>
+                                </tr>
+                            </div>
+                            {% endif %}
+                            <tr>
+                                <td><strong>Starting Year</strong></td>
+                                <td>{{edu.start_year}}</td>
                             </tr>
                             <tr>
-                                <td><strong>No. of Dead KT/S</strong></td>
-                                <td>{{edu.no_of_dead_kt}}</td>
+                                <td><strong>Passing Year</strong></td>
+                                <td>{{edu.end_year}}</td>
                             </tr>
-                        </div>
-                        {% endif %}
-                        <tr>
-                            <td><strong>Starting Year</strong></td>
-                            <td>{{edu.start_year}}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Passing Year</strong></td>
-                            <td>{{edu.end_year}}</td>
-                        </tr>
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-            <div class="d-flex justify-content-center">
+            <div class="col-md-md-2 d-flex justify-content-center">
                 <p class="mr-2"><i data-id="{{edu.id}}" class="edu_update fas fa-edit"
-                        style="color: black;cursor: pointer;"></i></p>
-                <a href="{% url 'deleteEdu' edu.id %}" class="ml-2" style="color: black;"><i
-                        class="fas fa-trash-alt"></i></a>
+                    style="color: #0F2C44;cursor: pointer;"></i></p>
+            <a href="{% url 'deleteEdu' edu.id %}" class="ml-2" style="color: #0F2C44;"><i
+                    class="fas fa-trash-alt"></i></a>
             </div>
         </div>
+        
         {% endfor %}
     </div>
     {% if edu_list.count < 2 %} <center>

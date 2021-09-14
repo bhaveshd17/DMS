@@ -3,13 +3,21 @@
 {% load static %}
 
 {% block content %}
+<!-- <script>
+    $('#base').html('')
+</script> -->
 <style>
-    ul{
-        float: left;
-        padding-left: 0;
+    #profile_page{
+        /* width: 100vw;
+        height: 100%; */
+    }
+    #myTab{
+        background-color:#D9FAFF;
     }
     #profile{
         float: right;
+        background-color:#D9FAFF;
+        border-radius: 0 0 0 20%;
     }
     #profile_img{
         border-radius: 50%;
@@ -24,7 +32,8 @@
        color: #0F2C44;
    }
 </style>
-<div class="row">
+
+<div class="row" id="profile_page">
 
     <div class="col-md-8">
         <ul class="nav nav-tabs  d-flex justify-content-center mb-5" id="myTab" role="tablist">
@@ -76,6 +85,8 @@
 
     
 </div>
+
+
 {% include 'student/profile_modal.html' %}
 <script src="{% static 'js/profile_edu_up.js' %}"></script>
 <script src="{% static 'js/profile_exp_up.js' %}"></script>

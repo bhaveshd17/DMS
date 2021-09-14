@@ -7,30 +7,32 @@
     </div>
     <div id="certificate_cards">
         {% for certificate in certificate_list %}
-        <div class="card card-body mb-3">
-            <div class="card-text">
-                <table class="table table-hover table-responsive-sm">
-                    <tbody>
-                        <tr>
-                            <td><strong>Certificate Name</strong></td>
-                            <td>{{certificate.certificate_name}}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Domain</strong></td>
-                            <td>{{certificate.domain}}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Certificate</strong></td>
-                            <td><a href="{{certificate.file.url}}" target="blank">view</a></td>
-                        </tr>
-                    </tbody>
-                </table>
+        <div class="row">
+            <div class="col-md-10">
+                <div class="card-text">
+                    <table class="table table-hover table-responsive-sm">
+                        <tbody>
+                            <tr>
+                                <td><strong>Certificate Name</strong></td>
+                                <td>{{certificate.certificate_name}}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Domain</strong></td>
+                                <td>{{certificate.domain}}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Certificate</strong></td>
+                                <td><a href="{{certificate.file.url}}" target="blank">view</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-            <div class="d-flex justify-content-center">
+            <div class="col-md-2 d-flex justify-content-right">
                 <p class="mr-2"><i data-id="{{certificate.id}}" class="certificate_update fas fa-edit"
-                        style="color: black;cursor: pointer;"></i></p>
-                <a href="{% url 'deleteCertificates' certificate.id %}" class="ml-2" style="color: black;"><i
-                        class="fas fa-trash-alt"></i></a>
+                    style="color: #0F2C44;cursor: pointer;"></i></p>
+            <a href="{% url 'deleteCertificates' certificate.id %}" class="ml-2" style="color: #0F2C44;"><i
+                    class="fas fa-trash-alt"></i></a>
             </div>
         </div>
         {% endfor %}
