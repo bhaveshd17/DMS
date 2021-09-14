@@ -53,12 +53,18 @@
   .grid-nav-item1{
     float: left;
   }
+  #mob-profile-nav{
+    display: none;
+  }
 
   @media (max-width: 576px) {
     .side-nav {
       display: none;
 
     }
+    #mob-profile-nav{
+    display: block;
+  }
   }
 
   @media (min-width: 576px) and (max-width: 991px) {
@@ -66,6 +72,9 @@
       display: none;
 
     }
+    #mob-profile-nav{
+    display: block;
+  }
   }
 </style>
 
@@ -226,6 +235,19 @@
       </ul>
 
     </div>
+
+    <li class="nav-links-item my-3 p-2" id="mob-profile-nav">
+      <a href="{% url 'profile' %}">
+        <div class="grid-nav">
+          <div class="grid-nav-item">
+            <span class="iconify" data-icon="carbon:user-avatar-filled-alt" data-width="32" data-height="32"></span>
+          </div>
+          <div class="grid-nav-item1">
+            <strong class="pl-1">Profile</strong>
+          </div>
+        </div>
+      </a>
+    </li>
 
 
 
