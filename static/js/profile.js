@@ -16,21 +16,17 @@ document.getElementById('id_end_year').type = 'date';
 
 
 let details_cards = document.getElementById("details_cards")
-let profile_info = document.getElementById("profile_info")
 window.addEventListener("resize", function () {
     if (window.innerWidth < 982) {
         details_cards.classList.remove("w-75")
-        profile_info.classList.remove("w-75")
 
     }
     else {
         details_cards.classList.add("w-75")
-        profile_info.classList.add("w-75")
     }
 });
 if (window.innerWidth < 982) {
     details_cards.classList.remove("w-75")
-    profile_info.classList.remove("w-75")
 }
 
 
