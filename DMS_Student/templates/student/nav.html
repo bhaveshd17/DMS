@@ -38,6 +38,9 @@
     width: 30px;
     height: 30px;
   }
+  .padding-left-6{
+    padding-left: 6.6rem;
+  }
 
   @media (max-width: 576px) {
     .side-nav {
@@ -143,8 +146,8 @@
       </a>
     </li>
 
-    <li class="nav-links-item mb-3 p-2" data-toggle="collapse" data-target="#submenu1">
-
+    <li class="nav-links-item p-2 collapsed text-truncate" href="#submenu1" data-toggle="collapse"
+      data-target="#submenu1">
       <div class="row">
         <div class="col-md-2 text-center">
           <img src="{% static 'images/jobs.png' %}" class="nav-item-img text-center" alt="img">
@@ -166,9 +169,20 @@
               Jobs</span></a></li>
       </ul>
 
+    <div class="collapse" id="submenu1" aria-expanded="false">
+      <ul class="d-flex flex-column nav p-0" style="padding-left: 1rem;">
+        <li class="nav-item">
+          <a class="nav-link pt-1 padding-left-6" href="{% url 'all_job' %}"><span>All Jobs</span></a>
+        </li>
+        <li class=" nav-item">
+          <a class="nav-link pt-1 padding-left-6" href="{% url 'job'%}"><span>Eligible Jobs</span></a>
+        </li>
+      </ul>
+
     </div>
 
-    <li class="nav-links-item mb-3 p-2">
+
+    <li class="nav-links-item my-3 p-2">
       <a href="{% url 'preplacement' %}">
         <div class="row">
           <div class="col-md-2 pr-2 text-center">
@@ -182,34 +196,37 @@
     </li>
 
 
-    <li class="nav-links-item mb-3 p-2" data-toggle="collapse"
+    <li class="nav-links-item p-2 collapsed text-truncate"  href="#submenu2" data-toggle="collapse"
     data-target="#submenu2">
-        <div class="row">
-          <div class="col-md-2 text-center">
-            <img src="{% static 'images/application.png' %}" style="width: 23px;" class="nav-item-img" alt="img">
-          </div>
-          <div class="col-md-10">
-
-            <span class="d-none d-sm-inline">
-              <strong class="pl-5">Application</strong>
-              <i class="fa fa-caret-down" style="float:right;padding-right:1.2rem"></i>
-            </span>
-
-
-          </div>
-        </div>
-    </li>
-    <div class="collapse" id="submenu2" aria-expanded="false">
-      <ul class="flex-column pl-2 nav">
-        <li class="nav-item"><a class="nav-link pt-1 text-center"
-            href="{% url 'userApplication' %}"><span>Applied</span></a></li>
-        <li class=" nav-item"><a class="nav-link pt-1 text-center" href="{% url 'offer' %}"><span>Offered</span></a>
-        </li>
-      </ul>
-
+    <div class="row">
+      <div class="col-md-2 pr-2 text-center">
+        <img src="{% static 'images/application.png' %}" style="width: 23px;" class="nav-item-img" alt="img">
+      </div>
+      <div class="col-md-10">
+        <span class="d-none d-sm-inline">
+          <strong class="pl-5">Application</strong>
+          <i class="fa fa-caret-down" style="float:right;padding-right:1.2rem"></i>
+        </span>
+      </div>
     </div>
+  </li>
 
-    <li class="nav-links-item mb-3 p-2">
+  <div class="collapse" id="submenu2" aria-expanded="false">
+    <ul class="d-flex flex-column nav p-0" style="padding-left: 1rem;">
+      <li class="nav-item">
+        <a class="nav-link pt-1 padding-left-6" href="{% url 'userApplication' %}"><span>Applied</span></a>
+      </li>
+      <li class=" nav-item">
+        <a class="nav-link pt-1 padding-left-6" href=""><span>Offered</span></a>
+      </li>
+    </ul>
+
+  </div>
+
+    
+
+
+    <li class="nav-links-item my-3 p-2">
       <a href="{% url 'logout' %}">
         <div class="row">
           <div class="col-md-2 pr-2 text-center">

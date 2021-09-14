@@ -3,13 +3,12 @@
 {% load static %}
 
 {% block content %}
-<!-- <script>
-    $('#base').html('')
-</script> -->
 <style>
+    #base{
+        padding-top: 2.6rem!important;
+    }
     #profile_page{
-        /* width: 100vw;
-        height: 100%; */
+        padding-left: 3.6rem;
     }
     #myTab{
         background-color:#D9FAFF;
@@ -35,7 +34,7 @@
 
 <div class="row" id="profile_page">
 
-    <div class="col-md-8">
+    <div class="col-md-8 px-0">
         <ul class="nav nav-tabs  d-flex justify-content-center mb-5" id="myTab" role="tablist">
             <li class="nav-item">
                 <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home"
@@ -59,7 +58,7 @@
             </li>
             
         </ul>
-        <div class="m-auto mt-5" id="details_cards">
+        <div class="m-auto mt-5 px-2" id="details_cards">
             <div class="tab-content profile-tab" id="myTabContent">
                 {% include 'student/profile_tabs/personal.html' %}
                 {% include 'student/profile_tabs/education.html' %}
@@ -72,7 +71,7 @@
         </div>
     </div>
 
-    <div class="col-md-4">
+    <div class="col-md-4 px-0">
         <div class="container text-center" id="profile">
             <img src="{{student_info.profile_photo.url}}" id="profile_img" alt="" />
             <h4 class="mt-4"><strong>{{name}}</strong></h4>
@@ -98,6 +97,10 @@
     document.getElementById('id_rollNo').value = '{{request.user}}'
     document.getElementById('id_roll_no_curr').value = '{{request.user}}'
     document.getElementById('id_certificate_issued_to').value = '{{request.user}}'
+
+    $(window).ready(function(){
+        $("#base").removeClass('container')
+    })
 </script>
 <script src="{% static 'js/profile.js' %}"></script>
 {% endblock %}
