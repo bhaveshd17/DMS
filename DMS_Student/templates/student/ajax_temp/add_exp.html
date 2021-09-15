@@ -9,7 +9,7 @@
         background-color: #009ac5;
     }
 </style>
-<div class="card card-body mb-3">
+<div class="card card-body mb-3" style="border: none;">
     <form action="{% url 'updateExp' id %}" method="POST">
         <input type="hidden" name="csrfmiddlewaretoken" value="{{csrf_token_value}}">
         

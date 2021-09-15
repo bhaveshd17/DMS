@@ -68,6 +68,11 @@
 
     .grid-personal-curr-edu {
         text-align: center;
+        padding-bottom: 1rem;
+    }
+
+    .grid-personal-curr-edu1 {
+        padding-bottom: 1rem;
     }
 
     .card-btn {
@@ -80,7 +85,56 @@
         background-color: #009ac5;
     }
 
-    @media (max-width: 576px) {}
+    .grid-personal {
+        padding-bottom: 1rem;
+    }
+
+    @media (max-width: 576px) {
+        #profile_page {
+            padding-left: 0rem;
+        }
+
+        .grid-profile-container {
+            display: flex;
+            flex-direction: column-reverse;
+
+        }
+
+        #nav-tab {
+            position: absolute;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 2fr 2fr 2fr 2fr 2fr;
+            overflow-y: scroll;
+        }
+
+        .nav-link-tab-a {
+            width: 100%;
+        }
+
+        #profile {
+            float: none;
+            border-radius: 0px;
+            margin-left: 0px;
+            margin-right: 0px;
+            padding: 1rem 1rem !important;
+        }
+
+
+        .grid-personal-outercontainer {
+            grid-template-columns: none;
+            grid-template-rows: auto auto;
+            padding: 2rem 1rem;
+        }
+        .grid-personal-outercontainer-item p a{
+            float: none !important;
+        }
+        .grid-personal-outercontainer-item p{
+            text-align: center;
+        }
+
+
+    }
 
     @media (min-width: 576px) and (max-width: 991px) {
         #profile_page {
@@ -90,6 +144,24 @@
         .grid-profile-container {
             display: flex;
             flex-direction: column-reverse;
+
+        }
+
+        #nav-tab {
+            position: absolute;
+            width: 100%;
+        }
+
+        #profile {
+            float: none;
+            border-radius: 0px;
+            margin-left: 0px;
+            margin-right: 0px;
+            padding: 2rem 3rem !important;
+        }
+
+        .grid-personal-outercontainer {
+            padding: 1rem 4rem;
         }
     }
 </style>
@@ -136,7 +208,7 @@
 
     </div>
 
-    <div class="grid-profile-item" style="position: fixed;right: 0;width: 28%;">
+    <div class="grid-profile-item" id="profile-container-div" style="position: fixed;right: 0;width: 28%;">
         <div class="container text-center" id="profile">
             <img src="{{student_info.profile_photo.url}}" class="mt-3" id="profile_img" alt="" />
             <h4 class="mt-4"><strong>{{name}}</strong></h4>
