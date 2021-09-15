@@ -13,7 +13,7 @@
     transition: all 10s ease-in-out;
   }
 
-  li:hover {
+  .nav-li:hover {
     background-color: white;
   }
 
@@ -82,7 +82,7 @@
   id="nav">
   <ul style="list-style: none;" class="mt-5 p-0 pt-3">
 
-    <li class="nav-links-item mb-3 p-2">
+    <li class="nav-li nav-links-item mb-3 p-2">
       <div class="row">
         <div class="col-md-12 text-center">
           <span class="iconify" data-icon="fluent:home-20-regular" data-width="30" data-height="30"></span>
@@ -90,7 +90,7 @@
       </div>
     </li>
 
-    <li class="nav-links-item mb-3 p-2">
+    <li class="nav-li nav-links-item mb-3 p-2">
       <div class="row">
         <div class="col-md-12 text-center">
           <img src="{% static 'images/internship.png' %}" class="nav-item-img" alt="img">
@@ -99,7 +99,7 @@
     </li>
 
 
-    <li class="nav-links-item mb-3 p-2">
+    <li class="nav-li nav-links-item mb-3 p-2">
       <div class="row">
         <div class="col-md-12 text-center">
           <img src="{% static 'images/jobs.png' %}" class="nav-item-img" alt="img">
@@ -109,7 +109,7 @@
 
 
 
-    <li class="nav-links-item mb-3 p-2">
+    <li class="nav-li nav-links-item mb-3 p-2">
       <div class="row">
         <div class="col-md-12 text-center">
           <img src="{% static 'images/preparation.png' %}" style="width: 20px;" class="nav-item-img" alt="img">
@@ -118,7 +118,7 @@
     </li>
 
 
-    <li class="nav-links-item mb-3 p-2">
+    <li class="nav-li nav-links-item mb-3 p-2">
       <div class="row">
         <div class="col-md-12 text-center">
           <img src="{% static 'images/application.png' %}" style="width: 23px;" class="nav-item-img" alt="img">
@@ -127,7 +127,7 @@
     </li>
 
 
-    <li class="nav-links-item mb-3 p-2">
+    <li class="nav-li nav-links-item mb-3 p-2">
       <div class="row">
         <div class="col-md-12 text-center">
           <img src="{% static 'images/logout.png' %}" style="width: 25px;" class="nav-item-img" alt="img">
@@ -141,7 +141,7 @@
 <nav class="fullNav" id="desktop">
   <ul style="list-style: none;" class="mt-5 p-0 pt-3" id="extendedNav">
 
-    <li class="nav-links-item mb-3 p-2"><a href="{% url 'index' %}">
+    <li class="nav-li nav-links-item mb-3 p-2"><a href="{% url 'index' %}">
         <div class="grid-nav">
           <div class="grid-nav-item">
             <span class="iconify" data-icon="fluent:home-20-regular" data-width="30" data-height="30"></span>
@@ -153,7 +153,7 @@
       </a>
     </li>
 
-    <li class="nav-links-item mb-3 p-2">
+    <li class="nav-li nav-links-item mb-3 p-2">
       <a href="{% url 'internship' %}">
         <div class="grid-nav">
           <div class="grid-nav-item">
@@ -167,7 +167,7 @@
       </a>
     </li>
 
-    <li class="nav-links-item p-2 collapsed text-truncate" href="#submenu1" data-toggle="collapse"
+    <li class="nav-li nav-links-item p-2 collapsed text-truncate" href="#submenu1" data-toggle="collapse"
       data-target="#submenu1">
       <div class="grid-nav">
         <div class="grid-nav-item">
@@ -184,10 +184,10 @@
     </li>
     <div class="collapse" id="submenu1" aria-expanded="false">
       <ul class="d-flex flex-column nav p-0" style="padding-left: 1rem;">
-        <li class="nav-item">
+        <li class="nav-li nav-item">
           <a class="nav-link pt-1 padding-left-6" href="{% url 'all_job' %}"><span>All Jobs</span></a>
         </li>
-        <li class=" nav-item">
+        <li class="nav-li  nav-item">
           <a class="nav-link pt-1 padding-left-6" href="{% url 'job'%}"><span>Eligible Jobs</span></a>
         </li>
       </ul>
@@ -195,7 +195,7 @@
     </div>
 
 
-    <li class="nav-links-item my-3 p-2">
+    <li class="nav-li nav-links-item my-3 p-2">
       <a href="{% url 'preplacement' %}">
         <div class="grid-nav">
           <div class="grid-nav-item" style="padding-left:0.3rem;">
@@ -209,7 +209,7 @@
     </li>
 
 
-    <li class="nav-links-item p-2 collapsed text-truncate" href="#submenu2" data-toggle="collapse"
+    <li class="nav-li nav-links-item p-2 collapsed text-truncate" href="#submenu2" data-toggle="collapse"
       data-target="#submenu2">
       <div class="grid-nav">
         <div class="grid-nav-item" style="padding-left:0.2rem;">
@@ -226,17 +226,17 @@
 
     <div class="collapse" id="submenu2" aria-expanded="false">
       <ul class="d-flex flex-column nav p-0" style="padding-left: 1rem;">
-        <li class="nav-item">
+        <li class="nav-li nav-item">
           <a class="nav-link pt-1 padding-left-6" href="{% url 'userApplication' %}"><span>Applied</span></a>
         </li>
-        <li class=" nav-item">
+        <li class="nav-li  nav-item">
           <a class="nav-link pt-1 padding-left-6" href="{% url 'offer' %}"><span>Offered</span></a>
         </li>
       </ul>
 
     </div>
 
-    <li class="nav-links-item my-3 p-2" id="mob-profile-nav">
+    <li class="nav-li nav-links-item my-3 p-2" id="mob-profile-nav">
       <a href="{% url 'profile' %}">
         <div class="grid-nav">
           <div class="grid-nav-item">
@@ -252,7 +252,7 @@
 
 
 
-    <li class="nav-links-item my-3 p-2">
+    <li class="nav-li nav-links-item my-3 p-2">
       <a href="{% url 'logout' %}">
         <div class="grid-nav">
           <div class="grid-nav-item" style="padding-left:2px">

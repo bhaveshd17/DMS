@@ -1,116 +1,127 @@
 {% load custom_tags %}
-<div class="tab-pane fade" id="edu" role="tabpanel" aria-labelledby="edu-tab">
-    {% if edu_list.count < 2 %} 
-    <div class="alert alert-danger mt-2" role="alert">
-        <ol>
-            <li>Add 10th details</li>
-            <li>Add 12th/Diploma details</li>
-        </ol>
-    </div>
-    {% endif %}
-    
-    <h4 class="h4 text-center my-3">Previous Educations</h4>
+<div class="tab-pane fade mt-3 mb-3" id="edu" role="tabpanel" aria-labelledby="edu-tab">
+
+
+
     <div class="d-flex justify-content-center">
         <div class="spinner-border text-primary  ajaxLoader  mt-5" role="status">
             <span class="sr-only">Loading...</span>
         </div>
     </div>
+
+
     <div id="edu_cards">
-        {% for edu in edu_list%}
-        <div class="row">
-            <div class="col-md-10">
-                <div class="card-text">
-                    <table class="table table-hover table-responsive-sm">
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <strong>
-                                        {% if edu.degree == '10'%}
-                                        School
-                                        {% else %}
-                                        College
-                                        {% endif %}
-                                    </strong>
-                                </td>
-                                <td>{{edu.clg_name}}</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Degree</strong></td>
-                                <td>{{edu.degree}}</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Board</strong></td>
-                                <td>{{edu.board}}</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Year Drop</strong></td>
-                                <td>{{edu.gap}} 
-                                    {% if edu.gap|to_int <= 1  %}
-                                    Year
-                                    {% else %}
-                                    Years
-                                    {% endif %}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><strong>Marks</strong></td>
-                                <td>{{edu.marks}}</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Percentage/CGPA</strong></td>
-                                <td>{% if edu.percentage > 12 %}
-                                    {{edu.percentage}}%
-                                    {% else %}
-                                    {{edu.percentage}} CGPA ({% marks_to_percentage edu.marks edu.no_of_subject %} %)
-                                    {% endif %}
-                                </td>
-                            </tr>
-                            {% if edu.degree == 'diploma' %}
-                            <div id="diploma">
-                                <tr>
-                                    <td><strong>Pattern</strong></td>
-                                    <td>{{edu.diploma_pattern}}</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Aggregate (marks-wise)</strong></td>
-                                    <td>{{edu.diploma_aggregate_mw}}</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Aggregate (percentage-wise)</strong></td>
-                                    <td>{{edu.diploma_aggregate_pw}}</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>No. of Dead KT/S</strong></td>
-                                    <td>{{edu.no_of_dead_kt}}</td>
-                                </tr>
-                            </div>
+
+        {% if edu_list.count < 2 %} <div class="alert alert-danger mt-2 mb-3"
+            style="background-color: #D9FAFF;color: #0F2C44;border: none;" role="alert">
+            <ol>
+                <li>Add 10th details</li>
+                <li>Add 12th/Diploma details</li>
+            </ol>
+    </div>
+    {% endif %}
+
+
+
+    {% for edu in edu_list%}
+    <div class="grid-personal-outercontainer mt-3">
+        <div class="grid-personal-outercontainer-item">
+            <div class="card-text">
+
+                <div class="grid-personal-container">
+                    <div class="grid-personal">
+                        <strong>
+                            {% if edu.degree == '10'%}
+                            School
+                            {% else %}
+                            College
                             {% endif %}
-                            <tr>
-                                <td><strong>Starting Year</strong></td>
-                                <td>{{edu.start_year}}</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Passing Year</strong></td>
-                                <td>{{edu.end_year}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                        </strong>
+                    </div>
+                    <div class="grid-personal">{{edu.clg_name}}</div>
+                </div>
+
+
+                <div class="grid-personal-container">
+                    <div class="grid-personal"><strong>Degree</strong></div>
+                    <div class="grid-personal">{{edu.degree}}</div>
+                </div>
+                <div class="grid-personal-container">
+                    <div class="grid-personal"><strong>Board</strong></div>
+                    <div class="grid-personal">{{edu.board}}</div>
+                </div>
+                <div class="grid-personal-container">
+                    <div class="grid-personal"><strong>Year Drop</strong></div>
+                    <div class="grid-personal">{{edu.gap}}
+                        {% if edu.gap|to_int <= 1 %} Year {% else %} Years {% endif %} </div>
+                    </div>
+
+
+                    <div class="grid-personal-container">
+                        <div class="grid-personal"><strong>Marks</strong></div>
+                        <div class="grid-personal">{{edu.marks}}</div>
+                    </div>
+                    <div class="grid-personal-container">
+                        <div class="grid-personal"><strong>Percentage/CGPA</strong></div>
+                        <div class="grid-personal">{% if edu.percentage > 12 %}
+                            {{edu.percentage}}%
+                            {% else %}
+                            {{edu.percentage}} CGPA ({% marks_to_percentage edu.marks edu.no_of_subject %} %)
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% if edu.degree == 'diploma' %}
+                    <div id="diploma">
+                        <div class="grid-personal-container">
+                            <div class="grid-personal"><strong>Pattern</strong></div>
+                            <div class="grid-personal">{{edu.diploma_pattern}}</div>
+                        </div>
+                        <div class="grid-personal-container">
+                            <div class="grid-personal"><strong>Aggregate (marks-wise)</strong></div>
+                            <div class="grid-personal">{{edu.diploma_aggregate_mw}}</div>
+                        </div>
+                        <div class="grid-personal-container">
+                            <div class="grid-personal"><strong>Aggregate (percentage-wise)</strong></div>
+                            <div class="grid-personal">{{edu.diploma_aggregate_pw}}</div>
+                        </div>
+                        <div class="grid-personal-container">
+                            <div class="grid-personal"><strong>No. of Dead KT/S</strong></div>
+                            <div class="grid-personal">{{edu.no_of_dead_kt}}</div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    <div class="grid-personal-container">
+                        <div class="grid-personal"><strong>Starting Year</strong></div>
+                        <div class="grid-personal">{{edu.start_year}}</div>
+                    </div>
+                    <div class="grid-personal-container">
+                        <div class="grid-personal"><strong>Passing Year</strong></div>
+                        <div class="grid-personal">{{edu.end_year}}</div>
+                    </div>
+
                 </div>
             </div>
-            <div class="col-md-md-2 d-flex justify-content-center">
+
+
+            <div class="grid-personal-outercontainer-item d-flex justify-content-center">
                 <p class="mr-2"><i data-id="{{edu.id}}" class="edu_update fas fa-edit"
-                    style="color: #0F2C44;cursor: pointer;"></i></p>
-            <a href="{% url 'deleteEdu' edu.id %}" class="ml-2" style="color: #0F2C44;"><i
-                    class="fas fa-trash-alt"></i></a>
+                        style="color: #0F2C44;cursor: pointer;"></i></p>
+                <a href="{% url 'deleteEdu' edu.id %}" class="ml-2" style="color: #0F2C44;"><i
+                        class="fas fa-trash-alt"></i></a>
             </div>
+
         </div>
-        
+
+        <hr class="my-4">
         {% endfor %}
+
+
+        {% if edu_list.count < 2 %} <center>
+            <div class="card-btn btn btn-primary btn-sm w-25 mt-3 mb-5" data-toggle="modal" data-target="#addedu">Add
+                Education</div>
+            </center>
+            {% endif %}
+
     </div>
-    {% if edu_list.count < 2 %} <center>
-        <div class="border p-2 my-4 btn btn-secondary" data-toggle="modal" data-target="#addedu">Add
-            Education</div>
-        </center>
-        {% endif %}
 
 </div>

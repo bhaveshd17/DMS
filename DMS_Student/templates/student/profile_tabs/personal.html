@@ -1,171 +1,136 @@
 <div class="tab-pane fade show active mt-5" id="home" role="tabpanel" aria-labelledby="home-tab">
-    <a href="{% url 'update_personal' student_info.roll_no %}" class="btn btn-outline-primary float-right">Edit
-        Profile</a>
-    <div>
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }} fade show" id="msg-alert"
+        style="background-color: #D9FAFF;color: #0F2C44;border: none;" role="alert">
+        <strong>{{ message }}</strong>
+    </div>
+    {% endfor %}
+    {% endif %}
+    <div class="grid-personal-outercontainer">
+        <div class="grid-personal-outercontainer-item">
+            <h4 class="text-center mb-4">Personal Details</h4>
+            <div class="grid-personal-container">
+                <div class="grid-personal"><strong>Username</strong></div>
+                <div class="grid-personal">{{ request.user.username }}</div>
+            </div>
+            <div class="grid-personal-container">
+                <div class="grid-personal-container"><strong>Branch</strong></div>
+                <div class="grid-personal-container">{{ student_info.branch }}</div>
+            </div>
+            <div class="grid-personal-container">
+                <div class="grid-personal-container"><strong>Gender</strong></div>
+                <div class="grid-personal-container">{{ student_info.gender }}</div>
+            </div>
+            <div class="grid-personal-container">
+                <div class="grid-personal-container"><strong>Date Of Birth</strong></div>
+                <div class="grid-personal">{{ student_info.date_of_birth }}</div>
+            </div>
+            <div class="grid-personal-container">
+                <div class="grid-personal"><strong>Age</strong></div>
+                <div class="grid-personal">{{ student_info.age }}</div>
+            </div>
+            <div class="grid-personal-container">
+                <div class="grid-personal"><strong>Corresponding Address</strong></div>
+                <div class="grid-personal">{{ student_info.corresponding_address }}</div>
+            </div>
+            <div class="grid-personal-container">
+                <div class="grid-personal"><strong>Permanent Address</strong></div>
+                <div class="grid-personal">{{ student_info.permanent_address }}</div>
+            </div>
 
-        <h5 class="text-center">Personal Details</h5>
+            <hr class="my-4">
 
-        <table class="table table-hover">
-            <tbody>
+            <h4 class="text-center mb-3">Contact Details</h4>
 
-                <tr>
-                    <td><strong>Username</strong></td>
-                    <td></td>
-                    <td></td>
-                    <td>{{ request.user.username }}</td>
-                </tr>
-                <tr>
-                    <td><strong>Branch</strong></td>
-                    <td></td>
-                    <td></td>
-                    <td>{{ student_info.branch }}</td>
-                </tr>
-                <tr>
-                    <td><strong>Gender</strong></td>
-                    <td></td>
-                    <td></td>
-                    <td>{{ student_info.gender }}</td>
-                </tr>
-                <tr>
-                    <td><strong>Date Of Birth</strong></td>
-                    <td></td>
-                    <td></td>
-                    <td>{{ student_info.date_of_birth }}</td>
-                </tr>
-                <tr>
-                    <td><strong>Age</strong></td>
-                    <td></td>
-                    <td></td>
-                    <td>{{ student_info.age }}</td>
-                </tr>
-                <tr>
-                    <td><strong>Corresponding Address</strong></td>
-                    <td></td>
-                    <td></td>
-                    <td>{{ student_info.corresponding_address }}</td>
-                </tr>
-                <tr>
-                    <td><strong>Permanent Address</strong></td>
-                    <td></td>
-                    <td></td>
-                    <td>{{ student_info.permanent_address }}</td>
-                </tr>
-            </tbody>
-        </table>
-        <h5 class="text-center">Contact Details</h5>
-        <table class="table table-hover">
-            <tbody>
-                <tr>
-                    <td><strong>Email (vit.edu.in)</strong></td>
-                    <td></td>
-                    <td></td>
-                    <td>{{ request.user.email }}</td>
-                </tr>
-                <tr>
-                    <td><strong>Email (@gmail.com)</strong></td>
-                    <td></td>
-                    <td></td>
-                    <td>{{ student_info.gmail }}</td>
-                </tr>
-                <tr>
-                    <td><strong>Phone Number</strong></td>
-                    <td></td>
-                    <td></td>
-                    <td>{{ student_info.phone }}</td>
-                </tr>
-                <tr>
-                    <td><strong>Residence Phone Number</strong></td>
-                    <td></td>
-                    <td></td>
-                    <td>{{ student_info.residence_phone }}</td>
-                </tr>
-            </tbody>
-        </table>
+            <div class="grid-personal-container">
+                <div class="grid-personal"><strong>Email (vit.edu.in)</strong></div>
+                <div class="grid-personal">{{ request.user.email }}</div>
+            </div>
+            <div class="grid-personal-container">
+                <div class="grid-personal"><strong>Email (@gmail.com)</strong></div>
+                <div class="grid-personal">{{ student_info.gmail }}</div>
+            </div>
+            <div class="grid-personal-container">
+                <div class="grid-personal"><strong>Phone Number</strong></div>
+                <div class="grid-personal">{{ student_info.phone }}</div>
+            </div>
+            <div class="grid-personal-container">
+                <div class="grid-personal"><strong>Residence Phone Number</strong></div>
+                <div class="grid-personal">{{ student_info.residence_phone }}</div>
+            </div>
 
-        <h5 class="text-center">Other Details</h5>
-        <table class="table table-hover">
-            <tbody>
+            <hr class="my-4">
+            <h4 class="text-center mb-3">Other Details</h4>
 
 
-                <tr>
-                    <td><strong>Year Of Joining</strong></td>
-                    <td></td>
-                    <td></td>
-                    <td>{{ yearOfJoining }}</td>
-                </tr>
-                <tr>
-                    <td><strong>Year Of Graduation</strong></td>
-                    <td></td>
-                    <td></td>
-                    <td>{{ student_info.year_of_graduation }}</td>
-                </tr>
-                <tr>
-                    <td><strong>Pan Card Number</strong></td>
-                    <td></td>
-                    <td></td>
-                    <td>{{ student_info.pan_card_no }}</td>
-                </tr>
-                <tr>
-                    <td><strong>Adhar Card Number</strong></td>
-                    <td></td>
-                    <td></td>
-                    <td>{{ student_info.aadhar_no }}</td>
-                </tr>
-                <tr>
-                    <td><strong>Passport Number</strong></td>
-                    <td></td>
-                    <td></td>
-                    <td>{{ student_info.passport_no }}</td>
-                </tr>
-                {% if student_info.disability == True %}
-                <tr>
-                    <td><strong>Disability</strong></td>
-                    <td></td>
-                    <td></td>
-                    <td>{{ student_info.disability }}</td>
-                </tr>
-                <tr>
-                    <td><strong>Type of Disability</strong></td>
-                    <td></td>
-                    <td></td>
-                    <td>{{ student_info.type_of_disability }}</td>
-                </tr>
-                {% endif %}
+            <div class="grid-personal-container">
+                <div class="grid-personal"><strong>Year Of Joining</strong></div>
+                <div class="grid-personal">{{ yearOfJoining }}</div>
+            </div>
+            <div class="grid-personal-container">
+                <div class="grid-personal"><strong>Year Of Graduation</strong></div>
 
-                <tr>
-                    <td><strong>Co Curriculum Activities</strong></td>
-                    <td></td>
-                    <td></td>
-                    <td>{{ student_info.co_curriculum_activities }}</td>
-                </tr>
-                <tr>
-                    <td><strong>Extra Curriculum Activities</strong></td>
-                    <td></td>
-                    <td></td>
-                    <td>{{ student_info.extra_curriculum_activities }}</td>
-                </tr>
-                <tr>
-                    <td><strong>Hobbies</strong></td>
-                    <td></td>
-                    <td></td>
-                    <td>{{ student_info.hobbies }}</td>
-                </tr>
-                <!-- <tr>
-                                <td><strong>Facebook</strong></td>
-                                <td><a href="{{student_info.facebook}}" style="text-decoration: none;">visit</a></td>
-                            </tr>
-                            <tr>
-                                <td><strong>Github</strong></td>
-                                <td><a href="{{student_info.githib}}" style="text-decoration: none;">visit</a></td>
-                            </tr>
-                            <tr>
-                                <td><strong>Linkdin</strong></td>
-                                <td><a href="{{student_info.linkdin}}" style="text-decoration: none;">visit</a></td>
-                            </tr> -->
-            </tbody>
 
-            </tbody>
-        </table>
+                <div class="grid-personal">{{ student_info.year_of_graduation }}</div>
+            </div>
+            <div class="grid-personal-container">
+                <div class="grid-personal"><strong>Pan Card Number</strong></div>
 
+
+                <div class="grid-personal">{{ student_info.pan_card_no }}</div>
+            </div>
+            <div class="grid-personal-container">
+                <div class="grid-personal"><strong>Adhar Card Number</strong></div>
+
+
+                <div class="grid-personal">{{ student_info.aadhar_no }}</div>
+            </div>
+            <div class="grid-personal-container">
+                <div class="grid-personal"><strong>Passport Number</strong></div>
+
+
+                <div class="grid-personal">{{ student_info.passport_no }}</div>
+            </div>
+            {% if student_info.disability == True %}
+            <div class="grid-personal-container">
+                <div class="grid-personal"><strong>Disability</strong></div>
+
+
+                <div class="grid-personal">{{ student_info.disability }}</div>
+            </div>
+            <div class="grid-personal-container">
+                <div class="grid-personal"><strong>Type of Disability</strong></div>
+
+
+                <div class="grid-personal">{{ student_info.type_of_disability }}</div>
+            </div>
+            {% endif %}
+
+            <div class="grid-personal-container">
+                <div class="grid-personal"><strong>Co Curriculum Activities</strong></div>
+
+                <div class="grid-personal">{{ student_info.co_curriculum_activities }}</div>
+            </div>
+            <div class="grid-personal-container">
+                <div class="grid-personal"><strong>Extra Curriculum Activities</strong></div>
+
+
+                <div class="grid-personal">{{ student_info.extra_curriculum_activities }}</div>
+            </div>
+            <div class="grid-personal-container mb-5">
+                <div class="grid-personal"><strong>Hobbies</strong></div>
+                <div class="grid-personal">{{ student_info.hobbies }}</div>
+            </div>
+
+        </div>
+
+
+
+        <div class="grid-personal-outercontainer-item">
+            <p><a href="{% url 'update_personal' student_info.roll_no %}" style="text-decoration: none;float: right;"><i
+                        data-id="{{curr_edu.0.id}}" class="curr_edu_update fas fa-edit"
+                        style="color: #0F2C44;cursor: pointer;"></i></a></p>
+        </div>
     </div>
 </div>

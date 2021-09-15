@@ -12,7 +12,7 @@ $(document).ready(function(){
                 $("#edu_cards").hide();
             },
             success:function(res){
-                // console.log(res);
+                // console.log(res.data);
                 $(".ajaxLoader").hide();
                 $("#edu_cards").html(res.data);
                 $("#edu_cards").show();

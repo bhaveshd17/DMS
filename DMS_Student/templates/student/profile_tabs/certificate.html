@@ -1,5 +1,4 @@
-<div class="tab-pane fade" id="certificates" role="tabpanel" aria-labelledby="certificates-tab">
-    <h4 class="h4 text-center my-3">Certificates</h4>
+<div class="tab-pane fade mt-5" id="certificates" role="tabpanel" aria-labelledby="certificates-tab">
     <div class="d-flex justify-content-center">
         <div class="spinner-border text-primary  ajaxLoader  mt-5" role="status">
             <span class="sr-only">Loading...</span>
@@ -7,40 +6,39 @@
     </div>
     <div id="certificate_cards">
         {% for certificate in certificate_list %}
-        <div class="row">
-            <div class="col-md-10">
+        <div class="grid-personal-outercontainer">
+            <div class="grid-personal-outercontainer-item">
                 <div class="card-text">
-                    <table class="table table-hover table-responsive-sm">
-                        <tbody>
-                            <tr>
-                                <td><strong>Certificate Name</strong></td>
-                                <td>{{certificate.certificate_name}}</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Domain</strong></td>
-                                <td>{{certificate.domain}}</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Certificate</strong></td>
-                                <td><a href="{{certificate.file.url}}" target="blank">view</a></td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="grid-personal-container">
+                        <div class="grid-personal"><strong>Certificate Name</strong></div>
+                        <div class="grid-personal">{{certificate.certificate_name}}</div>
+                    </div>
+                    <div class="grid-personal-container">
+                        <div class="grid-personal"><strong>Domain</strong></div>
+                        <div class="grid-personal">{{certificate.domain}}</div>
+                    </div>
+                    <div class="grid-personal-container">
+                        <div class="grid-personal"><strong>Certificate</strong></div>
+                        <div class="grid-personal"><a href="{{certificate.file.url}}" style="text-decoration: none;"
+                                target="blank">view</a></div>
+                    </div>
+
                 </div>
             </div>
-            <div class="col-md-2 d-flex justify-content-right">
+            <div class="grid-personal-outercontainer-item d-flex justify-content-right">
                 <p class="mr-2"><i data-id="{{certificate.id}}" class="certificate_update fas fa-edit"
-                    style="color: #0F2C44;cursor: pointer;"></i></p>
-            <a href="{% url 'deleteCertificates' certificate.id %}" class="ml-2" style="color: #0F2C44;"><i
-                    class="fas fa-trash-alt"></i></a>
+                        style="color: #0F2C44;cursor: pointer;"></i></p>
+                <a href="{% url 'deleteCertificates' certificate.id %}" class="ml-2" style="color: #0F2C44;"><i
+                        class="fas fa-trash-alt"></i></a>
             </div>
         </div>
+        <hr class="my-3">
         {% endfor %}
+        <center>
+            <div class="card-btn btn btn-primary btn-sm w-25 mt-4 mb-5" data-toggle="modal" data-target="#addCertificates">Add
+                Certificates</div>
+        </center>
     </div>
-    <center>
-        <div class="border p-2 my-4 btn btn-secondary" data-toggle="modal" data-target="#addCertificates">Add
-            Certificates</div>
-    </center>
 
 
 </div>

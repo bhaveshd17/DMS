@@ -3,12 +3,6 @@
     <div class="modal-dialog">
         <div class="modal-content">
 
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <h4 class="modal-title">Add Education</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-
             <!-- Modal body -->
             <div class="modal-body px-5 my-2">
                 <form method="POST" action="{% url 'addEdu' %}">
@@ -79,9 +73,11 @@
                         {{edu_form.roll_no}}
                     </div>
 
-                    <button class="btn btn-primary w-100">
-                        Add
-                    </button>
+                    <div class="d-flex justify-content-center my-3">
+                        <button class="card-btn btn btn-primary m-auto w-25">
+                            Add
+                        </button>
+                    </div>
                 </form>
             </div>
         </div>
@@ -98,11 +94,6 @@
     <div class="modal-dialog">
         <div class="modal-content">
 
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <h4 class="modal-title">Add Experience</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
 
             <!-- Modal body -->
             <div class="modal-body px-5 my-2">
@@ -129,9 +120,11 @@
                         {{exp_form.rollNo}}
                     </div>
 
-                    <button class="btn btn-primary w-100">
-                        Add
-                    </button>
+                    <div class="d-flex justify-content-center my-3">
+                        <button class="card-btn btn btn-primary m-auto w-25">
+                            Add
+                        </button>
+                    </div>
                 </form>
             </div>
 
@@ -153,12 +146,6 @@
 <div class="modal fade" id="currEdu">
     <div class="modal-dialog">
         <div class="modal-content">
-
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <h4 class="modal-title">Add FE Details</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
 
             <!-- Modal body -->
             <div class="modal-body px-5 my-2">
@@ -251,9 +238,11 @@
                     <div style="display: none;">{{curr_education_form.total_grade}}</div>
                     <div style="display: none;">{{curr_education_form.average_sgpi}}</div>
                     
-                    <button class="btn btn-primary w-100">
-                        Add
-                    </button>
+                    <div class="d-flex justify-content-center my-3">
+                        <button class="card-btn btn btn-primary m-auto w-25">
+                            Add
+                        </button>
+                    </div>
                 </form>
             </div>
 
@@ -268,11 +257,6 @@
     <div class="modal-dialog">
         <div class="modal-content">
 
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <h4 class="modal-title">Add Certificate</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
 
             <!-- Modal body -->
             <div class="modal-body px-5 my-2">
@@ -297,9 +281,11 @@
                         {{certificate_form.certificate_issued_to}}
                     </div>
 
-                    <button class="btn btn-primary w-100">
-                        Add
-                    </button>
+                    <div class="d-flex justify-content-center my-3">
+                        <button class="card-btn btn btn-primary m-auto w-25">
+                            Add
+                        </button>
+                    </div>
                 </form>
             </div>
         </div>

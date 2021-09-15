@@ -1,169 +1,147 @@
 {% load custom_tags %}
 
-<div class="tab-pane fade" id="curr-edu" role="tabpanel" aria-labelledby="curr-edu-tab">
+<div class="tab-pane fade mt-5" id="curr-edu" role="tabpanel" aria-labelledby="curr-edu-tab">
     <div class="d-flex justify-content-center">
         <div class="spinner-border text-primary  ajaxLoader  mt-5" role="status">
             <span class="sr-only">Loading...</span>
         </div>
     </div>
     {% if curr_edu %}
-    <div class="row">
-        <div class="col-md-10">
+    <div class="grid-personal-outercontainer">
+        <div class="grid-personal-outercontainer-item">
             <div id="curr_edu_card">
                 {% if "diploma" not in prev_deg and curr_edu%}
-                <div id="FE" class="mb-3">
-                    <div class="card card-body">
-                        <div class="card-text">
-                            <h5 class="my-2 text-center">First Year </h5>
-                            <table class="table table-hover table-responsive-sm">
-                                <tbody>
-                                    <tr>
-                                        <td><strong>SEM1 SGPI</strong></td>
-                                        <td>{{curr_edu.0.sgpi1}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>SEM2 SGPI</strong></td>
-                                        <td>{{curr_edu.0.sgpi2}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>FE CGPA</strong></td>
-                                        <td>{{curr_edu.0.cgpa1}}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                <div id="FE" class="mb-5">
+
+                    <h4 class="mb-4 text-center">First Year </h4>
+
+                    <div class="grid-personal-container">
+                        <div class="grid-personal-curr-edu1"><strong>SEM1 SGPI</strong></div>
+                        <div class="grid-personal-curr-edu">{{curr_edu.0.sgpi1}}</div>
                     </div>
+                    <div class="grid-personal-container">
+                        <div class="grid-personal-curr-edu1"><strong>SEM2 SGPI</strong></div>
+                        <div class="grid-personal-curr-edu">{{curr_edu.0.sgpi2}}</div>
+                    </div>
+                    <div class="grid-personal-container">
+                        <div class="grid-personal-curr-edu1"><strong>FE CGPA</strong></div>
+                        <div class="grid-personal-curr-edu">{{curr_edu.0.cgpa1}}</div>
+                    </div>
+
+
                 </div>
+                <hr class="my-4">
                 {% endif %}
                 {% if curr_edu.0.sgpi3 != "NA" and curr_edu%}
-                <div id="SE" class="mb-3">
-                    <div class="card card-body mt-3">
-                        <div class="card-text">
-                            <h5 class="my-2 text-center">Second Year </h5>
-                            <table class="table table-hover table-responsive-sm">
-                                <tbody>
-                                    <tr>
-                                        <td><strong>SEM3 SGPI</strong></td>
-                                        <td>{{curr_edu.0.sgpi3}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>SEM4 SGPI</strong></td>
-                                        <td>{{curr_edu.0.sgpi4}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>SE CGPA</strong></td>
-                                        <td>{{curr_edu.0.cgpa2}}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                <div id="SE" class="mb-5">
+
+                    <h4 class="mb-4 text-center">Second Year</h4>
+
+                    <div class="grid-personal-container">
+                        <div class="grid-personal-curr-edu1"><strong>SEM3 SGPI</strong></div>
+                        <div class="grid-personal-curr-edu">{{curr_edu.0.sgpi3}}</div>
                     </div>
+                    <div class="grid-personal-container">
+                        <div class="grid-personal-curr-edu1"><strong>SEM4 SGPI</strong></div>
+                        <div class="grid-personal-curr-edu">{{curr_edu.0.sgpi4}}</div>
+                    </div>
+                    <div class="grid-personal-container">
+                        <div class="grid-personal-curr-edu1"><strong>SE CGPA</strong></div>
+                        <div class="grid-personal-curr-edu">{{curr_edu.0.cgpa2}}</div>
+                    </div>
+
                 </div>
+                <hr class="my-4">
                 {% endif %}
-        
-        
+
+
                 {% if curr_edu.0.sgpi5 != "NA" and curr_edu%}
-                <div id="TE" class="mb-3">
-                    <div class="card card-body mt-3">
-                        <div class="card-text">
-                            <h5 class="my-2 text-center">Third Year </h5>
-                            <table class="table table-hover table-responsive-sm">
-                                <tbody>
-                                    <tr>
-                                        <td><strong>SEM5 SGPI</strong></td>
-                                        <td>{{curr_edu.0.sgpi5}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>SEM6 SGPI</strong></td>
-                                        <td>{{curr_edu.0.sgpi6}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>TE CGPA</strong></td>
-                                        <td>{{curr_edu.0.cgpa3}}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                <div id="TE" class="mb-5">
+
+                    <h4 class="mb-4 text-center">Third Year </h4>
+                    <div class="grid-personal-container">
+                        <div class="grid-personal-curr-edu1"><strong>SEM5 SGPI</strong></div>
+                        <div class="grid-personal-curr-edu">{{curr_edu.0.sgpi5}}</div>
                     </div>
+                    <div class="grid-personal-container">
+                        <div class="grid-personal-curr-edu1"><strong>SEM6 SGPI</strong></div>
+                        <div class="grid-personal-curr-edu">{{curr_edu.0.sgpi6}}</div>
+                    </div>
+                    <div class="grid-personal-container">
+                        <div class="grid-personal-curr-edu1"><strong>TE CGPA</strong></div>
+                        <div class="grid-personal-curr-edu">{{curr_edu.0.cgpa3}}</div>
+                    </div>
+
                 </div>
+                <hr class="my-4">
                 {% endif %}
-        
+
                 {% if curr_edu.0.sgpi7 != "NA" and curr_edu%}
-                <div id="BE" class="mb-3">
-                    <div class="card card-body mt-3">
-                        <div class="card-text">
-                            <h5 class="my-2 text-center">Fourth Year </h5>
-                            <table class="table table-hover table-responsive-sm">
-                                <tbody>
-                                    <tr>
-                                        <td><strong>SEM7 SGPI</strong></td>
-                                        <td>{{curr_edu.0.sgpi7}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>SEM8 SGPI</strong></td>
-                                        <td>{{curr_edu.0.sgpi8}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>BE CGPA</strong></td>
-                                        <td>{{curr_edu.0.cgpa4}}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                <div id="BE" class="mb-5">
+                    <h4 class="mb-4 text-center">Fourth Year </h4>
+
+                    <div class="grid-personal-container">
+                        <div class="grid-personal-curr-edu1"><strong>SEM7 SGPI</strong></div>
+                        <div class="grid-personal-curr-edu">{{curr_edu.0.sgpi7}}</div>
                     </div>
+                    <div class="grid-personal-container">
+                        <div class="grid-personal-curr-edu1"><strong>SEM8 SGPI</strong></div>
+                        <div class="grid-personal-curr-edu">{{curr_edu.0.sgpi8}}</div>
+                    </div>
+                    <div class="grid-personal-container">
+                        <div class="grid-personal-curr-edu1"><strong>BE CGPA</strong></div>
+                        <div class="grid-personal-curr-edu">{{curr_edu.0.cgpa4}}</div>
+                    </div>
+
                 </div>
+                <hr class="my-4">
                 {% endif %}
-        
-        
-                <div class="card card-body mt-3">
-                    <div class="card-text">
-                        <h5 class="my-2 text-center">Status</h5>
-                        <table class="table table-hover table-responsive-sm">
-                            <tbody>
-                                <tr>
-                                    <td><strong>Total Grades</strong></td>
-                                    <td>{{curr_edu.0.total_grade}}</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Average SGPI</strong></td>
-                                    <td>{{curr_edu.0.average_sgpi}} ({{curr_edu.0.average_sgpi|cgpa_percentage_conversion}}%)</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Live KT(S)</strong></td>
-                                    <td>{{curr_edu.0.live_kt}}</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Dead KT(S)</strong></td>
-                                    <td>{{curr_edu.0.dead_kt}}</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Drop year(s)</strong></td>
-                                    <td>{{curr_edu.0.drop}}</td>
-                                </tr>
-        
-                            </tbody>
-                        </table>
-                        
-                    </div>
+
+
+                <h4 class="my-2 text-center">Status</h4>
+                <div class="grid-personal-container">
+                    <div class="grid-personal-curr-edu1"><strong>Total Grades</strong></div>
+                    <div class="grid-personal-curr-edu">{{curr_edu.0.total_grade}}</div>
                 </div>
-        
-        </div>
+
+
+                <div class="grid-personal-container">
+                    <div class="grid-personal-curr-edu1"><strong>Average SGPI</strong></div>
+                    <div class="grid-personal-curr-edu">{{curr_edu.0.average_sgpi}}
+                        ({{curr_edu.0.average_sgpi|cgpa_percentage_conversion}}%)</div>
+                </div>
+                <div class="grid-personal-container">
+                    <div class="grid-personal-curr-edu1"><strong>Live KT(S)</strong></div>
+                    <div class="grid-personal-curr-edu">{{curr_edu.0.live_kt}}</div>
+                </div>
+                <div class="grid-personal-container">
+                    <div class="grid-personal-curr-edu1"><strong>Dead KT(S)</strong></div>
+                    <div class="grid-personal-curr-edu">{{curr_edu.0.dead_kt}}</div>
+                </div>
+                <div class="grid-personal-container mb-5">
+                    <div class="grid-personal-curr-edu1"><strong>Drop year(s)</strong></div>
+                    <div class="grid-personal-curr-edu">{{curr_edu.0.drop}}</div>
+                </div>
+
+
+
+            </div>
         </div>
 
-        <div class="col-md-2 d-flex justify-content-right">
-           <p class="mr-2"><i data-id="{{curr_edu.0.id}}" class="curr_edu_update fas fa-edit"
-                        style="color: #0F2C44;cursor: pointer;"></i></p>
-            <a href="{% url 'deleteCurrEdu' curr_edu.0.id %}"  style="color: #0F2C44;"><i
-                        class="fas fa-trash-alt"></i></a>
-           
+        <div class="grid-personal-outercontainer-item d-flex justify-content-right">
+            <p class="mr-2"><i data-id="{{curr_edu.0.id}}" class="curr_edu_update fas fa-edit"
+                    style="color: #0F2C44;cursor: pointer;"></i></p>
+            <a href="{% url 'deleteCurrEdu' curr_edu.0.id %}" style="color: #0F2C44;"><i
+                    class="fas fa-trash-alt"></i></a>
+
         </div>
     </div>
-    
-    
+
+
     {% endif %}
     <center>
         {% if not curr_edu %}
-        <div class="border p-2 my-4 btn btn-secondary" data-toggle="modal" data-target="#currEdu">Add Current Education
+        <div class="card-btn btn btn-primary btn-sm w-25 mt-3 mb-5" data-toggle="modal" data-target="#currEdu">Add Current Education
         </div>
         {% endif %}
     </center>
