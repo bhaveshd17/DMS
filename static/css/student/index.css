@@ -60,6 +60,9 @@
     #search-div {
         width: 100%;
     }
+    .int-job-div{
+        margin-left: 0rem;
+    }
 }
 
 @media (min-width: 576px) and (max-width: 991px){

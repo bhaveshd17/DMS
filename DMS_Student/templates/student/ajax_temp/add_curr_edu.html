@@ -1,4 +1,16 @@
-<div class="card card-body mb-3">
+<style>
+    .card-btn {
+        background-color: #00BBF0;
+        border: none;
+        color: white !important;
+    }
+
+    .card-btn:hover {
+        background-color: #009ac5;
+    }
+</style>
+
+<div class="card card-body mb-3" style="color: #0F2C44;border: none;">
     <form action="{% url 'updateCurrEdu' id %}" method="POST">
         <input type="hidden" name="csrfmiddlewaretoken" value="{{csrf_token_value}}">
         <div class="card-text">
@@ -137,7 +149,7 @@
             <div style="display: none;">{{form.roll_no_curr}}</div>
         </div>
         <div class="my-3 d-flex justify-content-center">
-            <button class="btn btn-primary">update</button>
+            <button class="card-btn btn btn-primary btn-sm w-25">update</button>
         </div>
     </form>
 </div>
@@ -157,27 +169,27 @@
     let eng_year1 = document.getElementById("year")
     eng_year1.addEventListener('change', (event) => {
         let input = event.target.value;
-        if (input === "1"){
+        if (input === "1") {
             document.getElementById("FE").style.display = ""
             document.getElementById("SE").style.display = "none"
             document.getElementById("TE").style.display = "none"
             document.getElementById("BE").style.display = "none"
 
         }
-        if (input === "2"){
+        if (input === "2") {
             document.getElementById("FE").style.display = "none"
             document.getElementById("SE").style.display = ""
             document.getElementById("TE").style.display = "none"
             document.getElementById("BE").style.display = "none"
         }
-        if (input === "3"){
+        if (input === "3") {
             document.getElementById("FE").style.display = "none"
             document.getElementById("SE").style.display = "none"
             document.getElementById("TE").style.display = ""
             document.getElementById("BE").style.display = "none"
 
         }
-        if (input === "4"){
+        if (input === "4") {
             document.getElementById("FE").style.display = "none"
             document.getElementById("SE").style.display = "none"
             document.getElementById("TE").style.display = "none"

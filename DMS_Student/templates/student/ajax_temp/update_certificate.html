@@ -1,4 +1,15 @@
-<div class="card card-body mb-3">
+<style>
+    .card-btn {
+        background-color: #00BBF0;
+        border: none;
+        color: white !important;
+    }
+
+    .card-btn:hover {
+        background-color: #009ac5;
+    }
+</style>
+<div class="card card-body mb-3" style="border: none;">
     <form action="{% url 'updateCertificate' id %}" method="POST" enctype="multipart/form-data">
         <input type="hidden" name="csrfmiddlewaretoken" value="{{csrf_token_value}}">
 
@@ -24,7 +35,7 @@
             <div style="display: none;">{{form.certificate_issued_to}}</div>
         </div>
         <div class="d-flex justify-content-center">
-            <button type="submit" class="btn btn-primary">Update</button>
+            <button type="submit" class="card-btn btn btn-primary btn-sm w-25">Update</button>
         </div>
     </form>
 </div>

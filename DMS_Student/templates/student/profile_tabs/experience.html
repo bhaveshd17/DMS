@@ -1,5 +1,4 @@
-<div class="tab-pane fade" id="exp" role="tabpanel" aria-labelledby="exp-tab">
-    <h4 class="h4 text-center my-3">Internship Experiences</h4>
+<div class="tab-pane fade mt-5" id="exp" role="tabpanel" aria-labelledby="exp-tab">
     <div class="d-flex justify-content-center">
         <div class="spinner-border text-primary  ajaxLoader  mt-5" role="status">
             <span class="sr-only">Loading...</span>
@@ -7,48 +6,41 @@
     </div>
     <div id="exp_cards">
         {% for exp in exp_list %}
-        <div class="row">
-            <div class="col-md-10">
+        <div class="grid-personal-outercontainer">
+            <div class="grid-personal-outercontainer-item">
                 <div class="card-text">
-                    <table class="table table-hover table-responsive-sm">
-                        <tbody>
-                            <tr>
-                                <td><strong>Company Name</strong></td>
-                                <td>{{exp.comp_name}}</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Role</strong></td>
-                                <td>{{exp.role}}</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Duration</strong></td>
-                                <td>{{exp.duration}}</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Start Date</strong></td>
-                                <td>{{exp.start_date}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
+
+                    <div class="grid-personal-container">
+                        <div class="grid-personal"><strong>Company Name</strong></div>
+                        <div class="grid-personal">{{exp.comp_name}}</div>
+                    </div>
+                    <div class="grid-personal-container">
+                        <div class="grid-personal"><strong>Role</strong></div>
+                        <div class="grid-personal">{{exp.role}}</div>
+                    </div>
+                    <div class="grid-personal-container">
+                        <div class="grid-personal"><strong>Duration</strong></div>
+                        <div class="grid-personal">{{exp.duration}}</div>
+                    </div>
+                    <div class="grid-personal-container">
+                        <div class="grid-personal"><strong>Start Date</strong></div>
+                        <div class="grid-personal">{{exp.start_date}}</div>
+                    </div>
+
                 </div>
             </div>
-            <div class="col-md-2 d-flex justify-content-center">
+
+            <div class="grid-personal-outercontainer-item d-flex justify-content-center">
                 <p class="mr-2"><i data-id="{{exp.id}}" class="exp_update fas fa-edit"
-                    style="color: #0F2C44;cursor: pointer;"></i></p>
-            <a href="{% url 'deleteExp' exp.id %}"  style="color: #0F2C44;"><i
-                    class="fas fa-trash-alt"></i></a>
+                        style="color: #0F2C44;cursor: pointer;"></i></p>
+                <a href="{% url 'deleteExp' exp.id %}" style="color: #0F2C44;"><i class="fas fa-trash-alt"></i></a>
             </div>
         </div>
-        <div class="card card-body mb-3">
-            
-            <div class="">
-                
-            </div>
-        </div>
+        <hr class="my-3">
         {% endfor %}
+        <center>
+            <div class="card-btn btn btn-primary btn-sm w-25 mt-4 mb-5" data-toggle="modal" data-target="#addexp">Add
+                Experience</div>
+        </center>
     </div>
-    <center>
-        <div class="border p-2 my-4 btn btn-secondary" data-toggle="modal" data-target="#addexp">Add
-            Experience</div>
-    </center>
 </div>
