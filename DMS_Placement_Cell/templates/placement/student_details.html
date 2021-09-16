@@ -329,7 +329,7 @@
                     </thead>
                     <tbody>
                         {% for roll_no, details in student_dict %}
-                        {% if details.1.branch == 'BIOMED' %}
+                        {% if details.1.branch == 'BIOM' %}
                         <tr onclick=" window.location.href='/placement_cell/displayProfile/{{ roll_no }}/'">
                             <td>{{details.0.0.username}}</td>
                             <td>{{details.0.0.first_name}}</td>
