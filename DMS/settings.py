@@ -23,6 +23,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'DMS_Student.apps.DmsStudentConfig',
     'DMS_Placement_Cell.apps.DmsPlacementCellConfig',
+
+    'import_export',
 ]
 
 MIDDLEWARE = [
