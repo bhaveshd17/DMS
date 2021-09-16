@@ -5,7 +5,7 @@
 {% block content %}
 <h3 class="text-center mb-5">Students Details</h3>
 
-<table class="table table-hover table-striped table-responsive-sm table-responsive" id="student_table"
+<!-- <table class="table table-hover table-striped table-responsive-sm table-responsive" id="student_table"
     style="display: none;">
     <thead>
         <th scope="col">Roll No</th>
@@ -143,7 +143,7 @@
             <td>{{details.1.extra_curriculum_activities}}</td>
             <td>{{details.1.hobbies}}</td>
             <td><a href="{{details.1.resume.url}}" target="blank">view</a></td>
-            <td><a href="{{details.1.profile_photo.url}}" target="blank">view</a></td>
+            <td><a href="{{details.1.profile_photo.url}}" starget="blank">view</a></td>
             <td><a href="{{details.1.facebook}}" target="blank">view</a></td>
             <td><a href="{{details.1.linkdin}}" target="blank">view</a></td>
             <td><a href="{{details.1.github}}" target="blank">view</a></td>
@@ -152,7 +152,7 @@
         </tr>
         {% endfor %}
     </tbody>
-</table>
+</table> -->
 
 
 <div class="d-flex m-0 p-0">
@@ -329,7 +329,7 @@
                     </thead>
                     <tbody>
                         {% for roll_no, details in student_dict %}
-                        {% if details.1.branch == 'BIOMED' %}
+                        {% if details.1.branch == 'BIOM' %}
                         <tr onclick=" window.location.href='/placement_cell/displayProfile/{{ roll_no }}/'">
                             <td>{{details.0.0.username}}</td>
                             <td>{{details.0.0.first_name}}</td>

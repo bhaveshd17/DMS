@@ -35,14 +35,17 @@ class Student(models.Model):
     co_curriculum_activities=models.CharField(max_length=100,null=True)
     extra_curriculum_activities=models.CharField(max_length=100,null=True)
     hobbies=models.CharField(max_length=150,null=True)
-    profile_photo=models.ImageField(upload_to="profile/",null=True)
-    resume=models.FileField(upload_to="Resume/",null=True)
+    # profile_photo=models.ImageField(upload_to="profile/",null=True)
+    # resume=models.FileField(upload_to="Resume/",null=True)
+    profile_photo=models.URLField(null=True)
+    resume=models.URLField(null=True)
     facebook=models.URLField(null=True)
     linkdin=models.URLField(null=True)
     github=models.URLField(null=True)
     other=models.CharField(max_length=150,null=True)
     is_email_verified=models.BooleanField(default=False,null=True)
-
+    
+    # year_of_join
     def __str__(self):
         return self.roll_no
 

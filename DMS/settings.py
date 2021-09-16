@@ -23,6 +23,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'DMS_Student.apps.DmsStudentConfig',
     'DMS_Placement_Cell.apps.DmsPlacementCellConfig',
+
+    'import_export',
 ]
 
 MIDDLEWARE = [
@@ -135,8 +137,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'vplacement.vit.mumbai@gmail.com'
+# EMAIL_HOST_USER = 'vplacement.vit.mumbai@gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_PASSWORD = 'DMS@12345'
+# EMAIL_HOST_PASSWORD = 'DMS@12345'
 
