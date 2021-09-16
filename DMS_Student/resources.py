@@ -12,3 +12,9 @@ class Add_eduResource(resources.ModelResource):
     class Meta:
         model   =   Add_edu
         # import_id_fields = ['roll_no']
+
+
+class CurrEduResource(resources.ModelResource):
+
+    class Meta:
+        model   =   CurrEdu
