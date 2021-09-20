@@ -25,6 +25,7 @@ class Student(models.Model):
     pan_card_no=models.CharField(max_length=10,null=True)
     aadhar_no=models.CharField(max_length=12,null=True)
     passport_no=models.CharField(max_length=9,null=True)
+    # year_of_graduation=models.CharField(db_index=True,max_length=4,null=True)
     year_of_graduation=models.CharField(max_length=4,null=True)
     disability=models.BooleanField(null=True)
     type_of_disability=models.CharField(max_length=100,null=True)
@@ -58,7 +59,7 @@ class Add_edu(models.Model):
     clg_name = models.CharField(max_length=50,null=False)
     degree = models.CharField(max_length=50, choices=degree_choice, null=True)
     no_of_subject = models.CharField(max_length=20, null=True)
-    board = models.CharField(max_length=50)
+    board = models.CharField(max_length=50,null=True)
     percentage = models.FloatField(null=False)
     start_year= models.DateField(null=False)
     end_year = models.DateField(null=False)
@@ -158,7 +159,7 @@ class Job(models.Model):
     link = models.CharField(max_length=150, null=False)
     start_date = models.DateField(null=False)
     apply_by = models.DateField(null=True)
-    sal = models.FloatField(null=False,validators=[MaxValueValidator(99)])
+    sal = models.CharField(null=False,max_length=150)
     skills = models.TextField(max_length=500, null=False)
     domain = models.CharField(max_length=100)
     # adm_id = models.ForeignKey(AdminDma, on_delete=models.CASCADE, null=False)
@@ -179,17 +180,18 @@ class Job(models.Model):
     work_from_home = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.comp_name
+        return str(self.id)+","+self.comp_name
 
 class Job_user(models.Model):
     status = models.CharField(max_length=10, null=False)
     roll_no = models.ForeignKey(Student, on_delete=models.CASCADE, null=False)
     job_id = models.ForeignKey(Job, on_delete=models.CASCADE, null=False)
     date = models.DateTimeField(auto_now_add=True, null=True)
+    salary=models.CharField(max_length=50,null=True)
     is_mail_send=models.BooleanField(default=False,null=True)
 
     def __str__(self):
-        return str(self.roll_no)
+        return str(self.roll_no)+","+str(self.job_id)
 
 
 class Mock_test(models.Model):

@@ -18,3 +18,13 @@ class CurrEduResource(resources.ModelResource):
 
     class Meta:
         model   =   CurrEdu
+
+class Job_userResource(resources.ModelResource):
+
+    class Meta:
+        model   =   Job_user
+
+class JobResource(resources.ModelResource):
+
+    class Meta:
+        model   =   Job

@@ -9,12 +9,9 @@ from .resources import *
 # admin.site.unregister(User)
 # @admin.register(User)
 # class UserAdmin(ImportExportActionModelAdmin):
-#     list_display=("username","first_name","email","password")
+#     list_display=("username","first_name","email")
 
-# class StudentResource(resources.ModelResource):
 
-#     class Meta:
-#         model =Student
 
 
 
@@ -31,11 +28,16 @@ class CurrEduAdmin(ImportExportModelAdmin):
     resource_class=CurrEduResource
 admin.site.register(CurrEdu,CurrEduAdmin)
 
+class Job_userAdmin(ImportExportModelAdmin):
+    resource_class=Job_userResource
+
+class JobAdmin(ImportExportModelAdmin):
+    resource_class=JobResource 
+admin.site.register(Job,JobAdmin)
+admin.site.register(Job_user,Job_userAdmin)
 admin.site.register(Add_exp)
 admin.site.register(Intership)
 admin.site.register(Int_user)
-admin.site.register(Job)
-admin.site.register(Job_user)
 admin.site.register(Mock_test)
 admin.site.register(Certificates)
 
