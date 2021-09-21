@@ -2,70 +2,70 @@
 {% load static %}
 {% block title %} Placement Cell {% endblock %}
 {% block content %}
-<!-- <link rel="stylesheet" href="{% static 'css/placement_cell/index.css' %}"> -->
 <style>
-    .grid-container-1 {
+    .grid-container {
         display: grid;
         grid-template-columns: 6fr 3fr;
     }
+
 </style>
 
-<div class="grid-container-1 mt-3">
-    <div class="grid-item-gender-ratio">
-        line box
+<div class="grid-container">
+    <div class="grid-graph">
+        <h1>Graph</h1>
     </div>
-    <div class="grid-item-box">
-        <div class="row mb-3">
-            <div class="col-6">
-                <div class="card" id="card-box-1">
-                    <h5 class="card-header text-center">Total Student</h5>
-                    <div class="card-body">
-                        <div class="card-text d-flex justify-content-center">
-                            <span><strong>{{total_student}}</strong></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-6">
-                <div class="card" id="card-box-2">
-                    <h5 class="card-header text-center">Total Placed</h5>
-                    <div class="card-body">
-                        <div class="card-text d-flex justify-content-center">
-                            <span><strong>{{total_placed}}</strong></span>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
+    <div class="grid-card">
         <div class="row">
             <div class="col-6">
-                <div class="card" id="card-box-3">
-                    <h5 class="card-header text-center">Highest Package</h5>
-                    <div class="card-body">
-                        <div class="card-text d-flex justify-content-center">
-                            <span><strong>{{highest_package}}</strong></span>
-                        </div>
+                <div class="card shadow p-3 mb-5 bg-white rounded">
+                    <div class="card-header">
+                        Highest Package
                     </div>
+                    <div class="card-body">
+                        {{highest_package}}
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="col-6">
+                <div class="card shadow p-3 mb-5 bg-white rounded">
+                    <div class="card-header">
+                        Avarage Package
+                    </div>
+                    <div class="card-body">
+                        {{average_package}}
+                    </div>
+
                 </div>
             </div>
-
+        </div>
+        <div class="row">
             <div class="col-6">
-                <div class="card" id="card-box-4">
-                    <h5 class="card-header text-center">Average Package</h5>
-                    <div class="card-body">
-                        <div class="card-text d-flex justify-content-center">
-                            <span><strong>{{average_package}}</strong></span>
-                        </div>
+                <div class="card shadow p-3 mb-5 bg-white rounded">
+                    <div class="card-header">
+                        Total Student
                     </div>
+                    <div class="card-body">
+                        {{total_student}}
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="card shadow p-3 mb-5 bg-white rounded">
+                    <div class="card-header">
+                        Total Placed
+                    </div>
+                    <div class="card-body">
+                        {{total_placed}}
+                    </div>
+
                 </div>
             </div>
         </div>
     </div>
 </div>
-
 
 <script>
     $("#base").removeClass('container')
