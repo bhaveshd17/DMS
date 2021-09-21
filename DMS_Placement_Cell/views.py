@@ -193,7 +193,7 @@ def student_details(request):
         certificate = Certificates.objects.filter(certificate_issued_to=student)
         experience = Add_exp.objects.filter(rollNo=student)
         user = User.objects.filter(username=student.roll_no)
-        student_dict[student.roll_no] = [user, student]
+        student_dict[student.roll_no] = [user, student,edu, curr_edu, certificate, experience]
 
     student_dict = sorted(student_dict.items())
     content = {'student_dict':student_dict}

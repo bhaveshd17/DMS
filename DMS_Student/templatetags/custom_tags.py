@@ -36,4 +36,6 @@ def marks_to_percentage(marks, subject):
 def sal(salary):
     salary=salary[1:len(salary)-1]
     salary=[float(i)/100000 for i in salary.split(",")]
-    return str(max(salary))
+    if min(salary) == max(salary):
+        return str(max(salary))
+    return str(str(min(salary))+'-'+str(max(salary)))
