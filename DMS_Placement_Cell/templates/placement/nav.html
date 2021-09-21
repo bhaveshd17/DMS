@@ -1,46 +1,283 @@
 {% load static %}
-<nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top">
-    <img class="navbar-brand" src="{% static 'images/vitwhite.png' %}" height="45" width="150">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="collapsibleNavbar">
-        <ul class="navbar-nav clear-fix">
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'placementIndex' %}">Home</a>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="internshipDropdown" role="button"
-                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Internships
-                </a>
-                <div class="dropdown-menu" aria-labelledby="internshipDropdown">
-                    <a class="dropdown-item" href="{% url 'add_intership' %}">Add Internship</a>
-                    <a class="dropdown-item" href="#">All Internship</a>
-                </div>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="jobDropdown" role="button" data-toggle="dropdown"
-                   aria-haspopup="true" aria-expanded="false">
-                    Job
-                </a>
-                <div class="dropdown-menu" aria-labelledby="jobDropdown">
-                    <a class="dropdown-item" href="{% url 'add_job' %}">Add Job</a>
-                    <a class="dropdown-item" href="{% url 'recruiting' %}">Company Recruiting</a>
-                    <a class="dropdown-item" href="{% url 'recruited' %}">Company Recruited</a>
-                </div>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'student_details' %}">Students</a>
-            </li>
-        </ul>
+<style>
+  .nav-links-item {
+    color: #0F2C44;
+  }
 
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item display flex">
-                <a class="nav-link" href="{% url 'logout' %}">Logout</a>
-            </li>
-        </ul>
+  a {
+    color: #0F2C44 !important;
+    text-decoration: none;
+  }
 
-        <!-- <p>Entered Course name: <span id="txtHint"></span></p> -->
-    </div>
+  #nav {
+    transition: all 10s ease-in-out;
+  }
+
+  .nav-li:hover {
+    background-color: white;
+  }
+
+  .fullNav {
+    background-color: #D9FAFF;
+    width: 300px;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    z-index: 9;
+    display: none;
+  }
+
+  #extendedNav li a {
+    /* font-size: 20px; */
+    color: #0F2C44;
+    width: 100%;
+    text-decoration: none;
+  }
+
+  .nav-item-img {
+    width: 30px;
+    height: 30px;
+  }
+
+  .padding-left-6 {
+    padding-left: 6.6rem;
+  }
+
+  .grid-nav{
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+  }
+  .grid-nav-item{
+    float: left;
+  }
+  .grid-nav-item1{
+    float: left;
+  }
+  #mob-profile-nav{
+    display: none;
+  }
+
+  @media (max-width: 576px) {
+    .side-nav {
+      display: none;
+
+    }
+    #mob-profile-nav{
+    display: block;
+  }
+  }
+
+  @media (min-width: 576px) and (max-width: 991px) {
+    .side-nav {
+      display: none;
+
+    }
+    #mob-profile-nav{
+    display: block;
+  }
+  }
+</style>
+
+<nav class="side-nav" style="max-width: 16.666667%; height: 100vh; background-color: #D9FAFF;position: fixed; left: 0;"
+  id="nav">
+  <ul style="list-style: none;" class="mt-5 p-0 pt-3">
+
+    <li class="nav-li nav-links-item mb-3 p-2">
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <span class="iconify" data-icon="fluent:home-20-regular" data-width="30" data-height="30"></span>
+        </div>
+      </div>
+    </li>
+
+    <li class="nav-li nav-links-item mb-3 p-2">
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <img src="{% static 'images/internship.png' %}" class="nav-item-img" alt="img">
+        </div>
+      </div>
+    </li>
+
+
+    <li class="nav-li nav-links-item mb-3 p-2">
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <img src="{% static 'images/jobs.png' %}" class="nav-item-img" alt="img">
+        </div>
+      </div>
+    </li>
+
+
+
+    <li class="nav-li nav-links-item mb-3 p-2">
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <img src="{% static 'images/preparation.png' %}" style="width: 20px;" class="nav-item-img" alt="img">
+        </div>
+      </div>
+    </li>
+
+
+    <li class="nav-li nav-links-item mb-3 p-2">
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <img src="{% static 'images/application.png' %}" style="width: 23px;" class="nav-item-img" alt="img">
+        </div>
+      </div>
+    </li>
+
+
+    <li class="nav-li nav-links-item mb-3 p-2">
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <img src="{% static 'images/logout.png' %}" style="width: 25px;" class="nav-item-img" alt="img">
+        </div>
+      </div>
+    </li>
+
+  </ul>
 </nav>
+
+<nav class="fullNav" id="desktop">
+  <ul style="list-style: none;" class="mt-5 p-0 pt-3" id="extendedNav">
+
+    <li class="nav-li nav-links-item mb-3 p-2"><a href="{% url 'index' %}">
+        <div class="grid-nav">
+          <div class="grid-nav-item">
+            <span class="iconify" data-icon="fluent:home-20-regular" data-width="30" data-height="30"></span>
+          </div>
+          <div class="grid-nav-item1">
+            <strong class="pl-1">Home</strong>
+          </div>
+        </div>
+      </a>
+    </li>
+
+    <li class="nav-li nav-links-item mb-3 p-2">
+      <a href="{% url 'internship' %}">
+        <div class="grid-nav">
+          <div class="grid-nav-item">
+            <img src="{% static 'images/internship.png' %}" class="nav-item-img" alt="img">
+          </div>
+
+          <div class="grid-nav-item1">
+            <strong class="pl-1">Internship</strong>
+          </div>
+        </div>
+      </a>
+    </li>
+
+    <li class="nav-li nav-links-item p-2 collapsed text-truncate" href="#submenu1" data-toggle="collapse"
+      data-target="#submenu1">
+      <div class="grid-nav">
+        <div class="grid-nav-item">
+          <img src="{% static 'images/jobs.png' %}" class="nav-item-img text-center" alt="img">
+        </div>
+        <div class="grid-nav-item1">
+          <span>
+            <strong class="pl-1">Jobs</strong>
+            <i class="fa fa-caret-down" style="float:right;padding-right:1.2rem"></i>
+          </span>
+        </div>
+      </div>
+
+    </li>
+    <div class="collapse" id="submenu1" aria-expanded="false">
+      <ul class="d-flex flex-column nav p-0" style="padding-left: 1rem;">
+        <li class="nav-li nav-item">
+          <a class="nav-link pt-1 padding-left-6" href="{% url 'all_job' %}"><span>All Jobs</span></a>
+        </li>
+        <li class="nav-li  nav-item">
+          <a class="nav-link pt-1 padding-left-6" href="{% url 'job'%}"><span>Eligible Jobs</span></a>
+        </li>
+      </ul>
+
+    </div>
+
+
+    <li class="nav-li nav-links-item my-3 p-2">
+      <a href="{% url 'preplacement' %}">
+        <div class="grid-nav">
+          <div class="grid-nav-item" style="padding-left:0.3rem;">
+            <img src="{% static 'images/preparation.png' %}" style="width: 20px;" class="nav-item-img" alt="img">
+          </div>
+          <div class="grid-nav-item1">
+            <strong class="pl-1">Prepartion</strong>
+          </div>
+        </div>
+      </a>
+    </li>
+
+
+    <li class="nav-li nav-links-item p-2 collapsed text-truncate" href="#submenu2" data-toggle="collapse"
+      data-target="#submenu2">
+      <div class="grid-nav">
+        <div class="grid-nav-item" style="padding-left:0.2rem;">
+          <img src="{% static 'images/application.png' %}" style="width: 23px;" class="nav-item-img" alt="img">
+        </div>
+        <div class="grid-nav-item1">
+          <span>
+            <strong class="pl-1">Application</strong>
+            <i class="fa fa-caret-down" style="float:right;padding-right:1.2rem"></i>
+          </span>
+        </div>
+      </div>
+    </li>
+
+    <div class="collapse" id="submenu2" aria-expanded="false">
+      <ul class="d-flex flex-column nav p-0" style="padding-left: 1rem;">
+        <li class="nav-li nav-item">
+          <a class="nav-link pt-1 padding-left-6" href="{% url 'userApplication' %}"><span>Applied</span></a>
+        </li>
+        <li class="nav-li  nav-item">
+          <a class="nav-link pt-1 padding-left-6" href="{% url 'offer' %}"><span>Offered</span></a>
+        </li>
+      </ul>
+
+    </div>
+
+    <li class="nav-li nav-links-item my-3 p-2" id="mob-profile-nav">
+      <a href="{% url 'profile' %}">
+        <div class="grid-nav">
+          <div class="grid-nav-item">
+            <span class="iconify" data-icon="carbon:user-avatar-filled-alt" data-width="32" data-height="32"></span>
+          </div>
+          <div class="grid-nav-item1">
+            <strong class="pl-1">Profile</strong>
+          </div>
+        </div>
+      </a>
+    </li>
+
+
+
+
+    <li class="nav-li nav-links-item my-3 p-2">
+      <a href="{% url 'logout' %}">
+        <div class="grid-nav">
+          <div class="grid-nav-item" style="padding-left:2px">
+            <img src="{% static 'images/logout.png' %}" style="width: 25px;" class="nav-item-img" alt="img">
+          </div>
+          <div class="grid-nav-item1">
+            <strong class="pl-1">Logout</strong>
+          </div>
+        </div>
+      </a>
+    </li>
+
+
+  </ul>
+</nav>
+
+<script>
+  $(document).ready(function () {
+    $("#nav").mouseover(function () {
+      $("#desktop").show();
+      $("#desktop").mouseleave(function () {
+        $("#desktop").hide();
+      })
+    })
+
+  })
+
+</script>
