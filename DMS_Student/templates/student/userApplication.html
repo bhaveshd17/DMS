@@ -31,7 +31,7 @@
               <div class="grid-container mt-2 mb-3">
                 {% if type == 1 %}
                 <div class="grid-item">SALARY</div>
-                <div class="grid-item">Rs. {{result.sal}} LPA</div>
+                <div class="grid-item">Rs. {{result.sal|sal}} LPA</div>
                 {% elif type == 2 %}
                 <div class="grid-item">STIPEND</div>
                 <div class="grid-item">Rs. {{result.sal}}</div>

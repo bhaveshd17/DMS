@@ -170,7 +170,7 @@
                         <div class="grid-item-mob text-muted">SALARY</div>
                         <div class="grid-item-mob text-muted">START DATE</div>
                         <div class="grid-item-mob text-muted">APPLY BY</div>
-                        <div class="grid-item-mob">Rs. {{job.sal}} LPA</div>
+                        <div class="grid-item-mob">Rs. {{job.sal|sal}} LPA</div>
                         <div class="grid-item-mob">{{job.start_date|date_format}}</div>
                         <div class="grid-item" style="display: none;">{{job.location}}</div>
                         <div class="grid-item-mob">{{job.apply_by|date_format}}</div>
