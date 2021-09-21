@@ -73,12 +73,7 @@
     $("#base").addClass('mx-5 px-5')
 
     const data = {
-        labels: [
-            'January',
-            'February',
-            'March',
-            'April'
-        ],
+        labels: {{labelDiv|safe}},
         datasets: [{
             type: 'bar',
             label: 'Bar Dataset',
@@ -88,7 +83,7 @@
         }, {
             type: 'line',
             label: 'Line Dataset',
-            data: [34, 43, 45, 76],
+            data: {{dataDiv|safe}},
             fill: false,
             borderColor: 'rgb(54, 162, 235)'
         }]

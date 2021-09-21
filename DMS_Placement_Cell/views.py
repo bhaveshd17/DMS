@@ -38,9 +38,9 @@ def index(request):
     dataDiv=[]
     inft=Student.objects.filter(branch="INFT")
     cmpn=Student.objects.filter(branch="CMPN")
-    for i in inft:dataDiv.append(i)
-    for i in cmpn:dataDiv.append(i)
-
+    dataDiv.append(len(inft))
+    dataDiv.append(len(cmpn))
+    print(dataDiv)
     content = {"total_student":total_student,
     "total_placed":total_placed,"highest_package":highest_package, 'average_package':average_package,"labelDiv":labelDiv,"dataDiv":dataDiv}
     return render(request, 'placement/index.html', content)
