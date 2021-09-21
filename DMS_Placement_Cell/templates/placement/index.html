@@ -11,11 +11,11 @@
 
 <div class="grid-container">
     <div class="grid-graph">
-        <div>
-            <canvas id="myChart"></canvas>
+        <div class="card shadow p-3 mb-5 bg-white rounded">
+            <canvas id="branchChart"></canvas>
         </div>
     </div>
-    <div class="grid-card">
+    <div class="grid-card ml-5 mt-5">
         <div class="row">
             <div class="col-6">
                 <div class="card shadow p-3 mb-5 bg-white rounded">
@@ -68,24 +68,45 @@
     </div>
 </div>
 
+<div class="grid-container">
+    <div class="grid-graph">
+        <div class="card p-2">
+            <canvas id="rangeChart"></canvas>
+        </div>
+    </div>
+    <div class="grid-card">
+        <div class="card p-2">
+            <canvas id="sectorChart"></canvas>
+        </div>
+    </div>
+</div>
+
 <script>
     $("#base").removeClass('container')
-    $("#base").addClass('mx-5 px-5')
+    $("#base").addClass('mx-3 px-5 mt-3')
 
     const data = {
-        labels: {{labelDiv|safe}},
-        datasets: [{
-            type: 'bar',
-            label: 'Bar Dataset',
-            data: [10, 20, 30, 40],
-            borderColor: 'rgb(255, 99, 132)',
-            backgroundColor: 'rgba(255, 99, 132, 0.2)'
-        }, {
-            type: 'line',
-            label: 'Line Dataset',
-            data: {{dataDiv|safe}},
-            fill: false,
-            borderColor: 'rgb(54, 162, 235)'
+        labels: {{ labelDiv| safe}},
+    datasets: [{
+        type: 'bar',
+        label: 'Male Student',
+        data: {{ dataMale| safe}},
+        borderColor: 'rgb(255, 99, 132)',
+        backgroundColor: 'rgba(75, 192, 192,0.7)'
+        },
+    {
+        type: 'bar',
+        label: 'Female Student',
+        data: {{ dataFemale| safe}},
+        borderColor: 'rgb(255, 99, 132)',
+        backgroundColor: 'rgba(255, 99, 132, 0.7)'
+        },
+    {
+        type: 'line',
+        label: 'Line Dataset',
+        data: {{ dataDiv| safe}},
+        fill: false,
+        borderColor: 'rgb(54, 162, 235)'
         }]
     };
 
@@ -102,10 +123,75 @@
     };
 
     var mixedChart = new Chart(
-        document.getElementById('myChart'),
+        document.getElementById('branchChart'),
         config
     );
 
+    const data1 = {
+        labels: {{ labelCTC| safe}},
+    datasets: [{
+        type: 'bar',
+        label: 'CTC Range',
+        data: {{ ctc| safe}},
+        borderColor: 'rgb(255, 99, 132)',
+        backgroundColor: 'rgba(75, 192, 192,0.7)'
+        }]
+    };
+
+    const config1 = {
+        type: 'bar',
+        data: data1,
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    };
+
+    var rangeChart = new Chart(
+        document.getElementById('rangeChart'),
+        config1
+    );
+
+
+    const data2 = {
+        labels:{{labelSector|safe}},
+        datasets: [{
+            label: 'My First Dataset',
+            data: {{ sectorCount| safe}},
+            backgroundColor: [
+                'rgb(255, 99, 132)',
+                'rgb(54, 162, 235)',
+                'rgb(255, 205, 86)',
+                'rgb(255, 205, 816)',
+                'rgb(255, 205, 186)',
+                'rgb(255, 99, 232)',
+                'rgb(54, 162, 135)',
+                'rgb(255, 205, 186)',
+                'rgb(255, 205, 816)',
+                'rgb(255, 225, 86)',
+                'rgb(255, 94, 132)',
+                'rgb(54, 16, 235)',
+                'rgb(255, 05, 86)',
+                'rgb(255, 105, 816)',
+                'rgb(255, 205, 83)',
+                'rgb(255, 205, 16)',
+
+            ],
+            hoverOffset: 4
+        }]
+    };
+    const config2= {
+        type: 'doughnut',
+        data: data2,
+    };
+
+    var sectorChart = new Chart(
+        document.getElementById('sectorChart'),
+        config2
+    );
 
 </script>
 {% endblock %}

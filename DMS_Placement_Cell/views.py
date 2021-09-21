@@ -34,15 +34,56 @@ def index(request):
         total_placed = 0
         total_student = 0
 
-    labelDiv=["INFT","CMPN"]
+    labelDiv=["INFT","CMPN","EXTC","ETRX","BIOM"]
     dataDiv=[]
-    inft=Student.objects.filter(branch="INFT")
-    cmpn=Student.objects.filter(branch="CMPN")
-    dataDiv.append(len(inft))
-    dataDiv.append(len(cmpn))
-    print(dataDiv)
+    dataMale=[]
+    dataFemale=[]
+    for i in labelDiv:
+        branch=Student.objects.filter(branch=i)
+        dataDiv.append(len(branch))
+        male=0
+        female=0
+        for student in branch:
+            if student.gender=="Male":male=male+1
+            else: female=female+1  
+        dataMale.append(male)
+        dataFemale.append(female)
+    
+
+    labelCTC=["0 to 3.49 LPA","3.50 to 4.99 LPA","5.00 to 7.00 LPA","7.01 and Above"]
+    ctc=[]
+    first=0
+    second=0
+    third=0
+    fourth=0
+    placed_student=Job_user.objects.filter(status="3")
+    for i in placed_student:
+        if float(i.salary)>=0 and float(i.salary)<=349000:
+            first=first+1
+        elif float(i.salary)>=350000 and float(i.salary)<=499000:
+            second=second+1
+        elif float(i.salary)>=500000 and float(i.salary)<=700000:
+            third=third+1
+        elif float(i.salary)>=700000:
+            fourth=fourth+1
+    ctc.append(first)
+    ctc.append(second)
+    ctc.append(third)
+    ctc.append(fourth)
+    # Value missmatch in excel and graph
+
+    labelSector=["Automotive","Banking","EduTech","Financial Services","Information Technology","Logistics & Supply Chain","Retail","Telecommunications","Electrical Manufacturing","Marketing & Advertising","Media Production","Management Consulting","Manufacturing","Health Care","Design","Professional Services"]
+    sectorCount=[None]*16  
+    for s in placed_student:
+        job=Job.objects.get(id=s.job_id.id)
+        i=labelSector.index(job.domain)
+        if sectorCount[i]==None:
+            sectorCount[i]=1
+        else :sectorCount[i]=sectorCount[i]+1       
+
+    
     content = {"total_student":total_student,
-    "total_placed":total_placed,"highest_package":highest_package, 'average_package':average_package,"labelDiv":labelDiv,"dataDiv":dataDiv}
+    "total_placed":total_placed,"highest_package":highest_package, 'average_package':average_package,"labelDiv":labelDiv,"dataDiv":dataDiv,"dataMale":dataMale,"dataFemale":dataFemale,"ctc":ctc,"labelCTC":labelCTC,"labelSector":labelSector,"sectorCount":sectorCount}
     return render(request, 'placement/index.html', content)
 
 

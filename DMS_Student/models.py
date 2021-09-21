@@ -161,7 +161,9 @@ class Job(models.Model):
     apply_by = models.DateField(null=True)
     sal = models.CharField(null=False,max_length=150)
     skills = models.TextField(max_length=500, null=False)
-    domain = models.CharField(max_length=100)
+    domain = models.CharField(max_length=100,choices=sorted({
+        ("Automotive","Automotive"),("Banking","Banking"),("EduTech","EduTech"),("Financial Services","Financial Services"),("Information Technology","Information Technology"),("Logistics & Supply Chain","Logistics & Supply Chain"),("Retail","Retail"),("Telecommunications","Telecommunications"),("Electrical Manufacturing","Electrical Manufacturing"),("Marketing & Advertising","Marketing & Advertising"),("Media Production","Media Production"),("Management Consulting","Management Consulting"),("Manufacturing","Manufacturing"),("Health Care","Health Care"),("Design","Design"),("Professional Services","Professional Services")
+    }))
     # adm_id = models.ForeignKey(AdminDma, on_delete=models.CASCADE, null=False)
     about_comp = models.TextField(max_length=500, null=False)
     about_work = models.TextField(max_length=500, null=False)
