@@ -12,7 +12,9 @@
 
 <div class="grid-container">
     <div class="grid-graph">
-        <h1>Graph</h1>
+        <div>
+            <canvas id="graphDiv"></canvas>
+          </div>
     </div>
     <div class="grid-card">
         <div class="row">
@@ -69,5 +71,43 @@
 <script>
     $("#base").removeClass('container')
     $("#base").addClass('mx-5 px-5')
+
+const data = {
+  labels: [
+    'January',
+    'February',
+    'March',
+    'April'
+  ],
+  datasets: [{
+    type: 'bar',
+    label: 'Bar Dataset',
+    data: [10, 20, 30, 40],
+    borderColor: 'rgb(255, 99, 132)',
+    backgroundColor: 'rgba(255, 99, 132, 0.2)'
+  }, {
+    type: 'line',
+    label: 'Line Dataset',
+    data: [50, 50, 50, 50],
+    fill: false,
+    borderColor: 'rgb(54, 162, 235)'
+  }]
+};
+ const config = {
+  type: 'scatter',
+  data: data,
+  options: {
+    scales: {
+      y: {
+        beginAtZero: true
+      }
+    }
+  }
+};
+
+var mixedChart = new Chart(
+    document.getElementById("graphDiv"),
+    config
+);
 </script>
 {% endblock %}
