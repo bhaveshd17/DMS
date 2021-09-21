@@ -35,5 +35,5 @@ def marks_to_percentage(marks, subject):
 @register.filter(name='sal')
 def sal(salary):
     salary=salary[1:len(salary)-1]
-    salary=[float(i) for i in salary.split(",")]
-    return str(min(salary)/100000)+" to "+str(max(salary)/100000)
+    salary=[float(i)/100000 for i in salary.split(",")]
+    return str(max(salary))
