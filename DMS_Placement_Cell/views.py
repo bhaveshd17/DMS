@@ -7,26 +7,26 @@ from DMS_Student.models import *
 from datetime import date
 from django.contrib.auth.models import User
 import json
+import math
 from .utils import *
 
 
 @allowed_users(allowed_roles=['Placement_Cell'])
 def index(request):
     student_data = Student.objects.all()
-    placed_data = Job_user.objects.filter(status="3").distinct()
+    placed_data = Job_user.objects.filter(status="3")
     package = []
-    highest = Job_user.objects.filter(status="3")
-    for job in highest:
-        salary = Job.objects.get(id=job.job_id.id).sal
-        salary = salary.split(',')
-        for s in salary:
-            package.append(float(s))
 
+    for job in placed_data:
+        package.append(float(job.salary))
+   
     try:
         highest_package = max(package)
-        average_package = round(sum(package) / len(package), 2)
+        lowest_package=min(package)
+        average_package = float(math.ceil(sum(package) / len(package)))
     except:
         highest_package = 0
+        lowest_package=0
         average_package = 0
     if student_data or placed_data:
         total_placed = len(placed_data)
@@ -58,18 +58,14 @@ def index(request):
     second = 0
     third = 0
     fourth = 0
-    placed_student = Job_user.objects.filter(status="3")
-    count = 0
     for i in placed_data:
-        if float(i.salary) >= 0 and float(i.salary) <= 349000:
-            # print(i.salary, count)
-            count += 1
+        if int(i.salary) >= 0 and int(i.salary) <= 349000:
             first = first + 1
-        elif float(i.salary) >= 350000 and float(i.salary) <= 499000:
+        elif int(i.salary) >= 350000 and int(i.salary) <= 499000:
             second = second + 1
-        elif float(i.salary) >= 500000 and float(i.salary) <= 700000:
+        elif int(i.salary) >= 500000 and int(i.salary) <= 700000:
             third = third + 1
-        elif float(i.salary) >= 700000:
+        elif int(i.salary) >= 701000:
             fourth = fourth + 1
     ctc.append(first)
     ctc.append(second)
@@ -77,13 +73,13 @@ def index(request):
     ctc.append(fourth)
     # Value missmatch in excel and graph
 
-    labelSector = ["Automotive", "Banking", "EduTech", "Financial Services", "Information Technology",
-                   "Logistics & Supply Chain", "Retail", "Telecommunications", "Electrical Manufacturing",
+    labelSector = ["Automotive", "Banking", "EduTech", "Financial Services", "Information Technology","Logistics & Supply Chain", "Retail", "Telecommunications", "Electrical Manufacturing",
                    "Marketing & Advertising", "Media Production", "Management Consulting", "Manufacturing",
                    "Health Care", "Design", "Professional Services"]
+
     sectorCount = [None] * 16
 
-    for s in placed_student:
+    for s in placed_data:
         job = Job.objects.get(id=s.job_id.id)
         i = labelSector.index(job.domain)
         if sectorCount[i] == None:
@@ -95,7 +91,7 @@ def index(request):
 
     content = {"total_student": total_student,
                "total_placed": total_placed,
-               "highest_package": highest_package, 'average_package': average_package, "labelDiv": labelDiv,
+               "highest_package": highest_package, "lowest_package":lowest_package,'average_package': average_package, "labelDiv": labelDiv,
                "dataDiv": dataDiv, "dataMale": dataMale, "dataFemale": dataFemale, "ctc": ctc, "labelCTC": labelCTC,
                "labelSector": labelSector, "sectorCount": sectorCount}
     return render(request, 'placement/index.html', content)
