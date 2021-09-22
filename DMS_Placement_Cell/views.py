@@ -41,19 +41,26 @@ def index(request):
     dataDiv = []
     dataMale = []
     dataFemale = []
+    dataPMale=[]
+    dataPFemale=[]
     for i in labelDiv:
         branch = Student.objects.filter(branch=i)
         dataDiv.append(len(branch))
         male = 0
+        Pmale=0
         female = 0
+        Pfemale=0
         for student in branch:
             if student.gender == "Male":
                 male = male + 1
+                if student.placed:Pmale+=1
             else:
                 female = female + 1
+                if student.placed:Pfemale+=1
         dataMale.append(male)
         dataFemale.append(female)
-
+        dataPFemale.append(Pfemale)
+        dataPMale.append(Pmale)
 
     labelCTC = ["0 to 3.49 LPA", "3.50 to 4.99 LPA", "5.00 to 7.00 LPA", "7.01 and Above"]
     ctc = []
@@ -95,7 +102,7 @@ def index(request):
     content = {"total_student": total_student,
                "total_placed": total_placed,
                "highest_package": highest_package, "lowest_package":lowest_package,'average_package': average_package,"total_offer":total_offer, "labelDiv": labelDiv,
-               "dataDiv": dataDiv, "dataMale": dataMale, "dataFemale": dataFemale, "ctc": ctc, "labelCTC": labelCTC,
+               "dataDiv": dataDiv, "dataMale": dataMale, "dataFemale": dataFemale, "dataPMale":dataPMale,"dataPFemale":dataPFemale,"ctc": ctc, "labelCTC": labelCTC,
                "labelSector": labelSector, "sectorCount": sectorCount}
     return render(request, 'placement/index.html', content)
 

@@ -45,7 +45,7 @@
             <div class="col-6">
                 <div class="card shadow p-0 mb-5 bg-white rounded">
                     <div class="card-header">
-                       Lowest Package
+                        Lowest Package
                     </div>
                     <div class="card-body">
                         {{lowest_package}} PA
@@ -56,10 +56,10 @@
             <div class="col-6">
                 <div class="card shadow p-0 mb-5 bg-white rounded">
                     <div class="card-header">
-                       Total Offer
+                        Total Offer
                     </div>
                     <div class="card-body">
-                        {{total_offer}} 
+                        {{total_offer}}
                     </div>
 
                 </div>
@@ -116,45 +116,67 @@
         label: 'Male Student',
         data: {{ dataMale| safe}},
         borderColor: 'rgb(255, 99, 132)',
-        backgroundColor: 'rgba(75, 192, 192,0.7)'
-        },
+        backgroundColor: 'rgba(75, 192, 192,0.7)',
+        stack: 'Stack 0',
+            },
     {
         type: 'bar',
         label: 'Female Student',
         data: {{ dataFemale| safe}},
         borderColor: 'rgb(255, 99, 132)',
-        backgroundColor: 'rgba(255, 99, 132, 0.7)'
-        },
-        {
+        backgroundColor: 'rgba(255, 99, 132, 0.7)',
+        stack: 'Stack 1',
+            },
+    {
         type: 'bar',
         label: 'Placed Male Student',
-        data: {{ dataFemale| safe}},
+        data: {{ dataPMale| safe}},
         borderColor: 'rgb(255, 99, 132)',
-        backgroundColor: 'rgba(255, 99, 152, 0.7)'
-        },
-        {
+        backgroundColor: 'rgba(255, 99, 52, 0.7)',
+        stack: 'Stack 0',
+            },
+    {
         type: 'bar',
         label: 'Placed Female Student',
-        data: {{ dataFemale| safe}},
+        data: {{ dataPFemale| safe}},
         borderColor: 'rgb(255, 99, 132)',
-        backgroundColor: 'rgba(255, 199, 132, 0.7)'
-        },
+        backgroundColor: 'rgba(255, 99, 2, 0.7)',
+        stack:'Stack 1'
+            },
     {
         type: 'line',
         label: 'Line Dataset',
         data: {{ dataDiv| safe}},
         fill: false,
-        borderColor: 'rgb(54, 162, 235)'
-        }]
+        borderColor: 'rgb(54, 162, 235)',
+        stack: 'Stack 1',
+            }
+    ]
     };
 
     const config = {
-        type: 'scatter',
+        type: 'bar',
         data: data,
         options: {
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Chart.js Bar Chart - Stacked'
+                },
+            },
+            responsive: true,
+            interaction: {
+                intersect: false,
+            },
             scales: {
+                x: {
+                    stacked: true,
+                },
                 y: {
-                    beginAtZero: true
+                    stacked: false,
+    ticks: {
+      beginAtZero: true,
+    },
                 }
             }
         }
@@ -195,33 +217,33 @@
 
 
     const data2 = {
-        labels:{{labelSector|safe}},
-        datasets: [{
-            label: 'My First Dataset',
-            data: {{ sectorCount| safe}},
-            backgroundColor: [
-                'rgb(255, 99, 132)',
-                'rgb(54, 162, 235)',
-                'rgb(255, 205, 86)',
-                'rgb(255, 205, 816)',
-                'rgb(255, 205, 186)',
-                'rgb(255, 99, 232)',
-                'rgb(54, 162, 135)',
-                'rgb(255, 205, 186)',
-                'rgb(255, 205, 816)',
-                'rgb(255, 225, 86)',
-                'rgb(255, 94, 132)',
-                'rgb(54, 16, 235)',
-                'rgb(255, 05, 86)',
-                'rgb(255, 105, 816)',
-                'rgb(255, 205, 83)',
-                'rgb(255, 205, 16)',
+        labels: {{ labelSector| safe}},
+    datasets: [{
+        label: 'My First Dataset',
+        data: {{ sectorCount| safe}},
+        backgroundColor: [
+        'rgb(255, 99, 132)',
+        'rgb(54, 162, 235)',
+        'rgb(255, 205, 86)',
+        'rgb(255, 205, 816)',
+        'rgb(255, 205, 186)',
+        'rgb(255, 99, 232)',
+        'rgb(54, 162, 135)',
+        'rgb(255, 205, 186)',
+        'rgb(255, 205, 816)',
+        'rgb(255, 225, 86)',
+        'rgb(255, 94, 132)',
+        'rgb(54, 16, 235)',
+        'rgb(255, 05, 86)',
+        'rgb(255, 105, 816)',
+        'rgb(255, 205, 83)',
+        'rgb(255, 205, 16)',
 
-            ],
-            hoverOffset: 4
+    ],
+        hoverOffset: 4
         }]
     };
-    const config2= {
+    const config2 = {
         type: 'doughnut',
         data: data2,
     };
