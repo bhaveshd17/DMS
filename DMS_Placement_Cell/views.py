@@ -62,7 +62,7 @@ def index(request):
     count = 0
     for i in placed_data:
         if float(i.salary) >= 0 and float(i.salary) <= 349000:
-            print(i.salary, count)
+            # print(i.salary, count)
             count += 1
             first = first + 1
         elif float(i.salary) >= 350000 and float(i.salary) <= 499000:
