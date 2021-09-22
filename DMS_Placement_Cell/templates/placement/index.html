@@ -45,7 +45,7 @@
             <div class="col-6">
                 <div class="card shadow p-0 mb-5 bg-white rounded">
                     <div class="card-header">
-                       Lowest Package
+                        Lowest Package
                     </div>
                     <div class="card-body">
                         {{lowest_package}} PA
@@ -56,10 +56,10 @@
             <div class="col-6">
                 <div class="card shadow p-0 mb-5 bg-white rounded">
                     <div class="card-header">
-                       Total Offer
+                        Total Offer
                     </div>
                     <div class="card-body">
-                        {{total_offer}} 
+                        {{total_offer}}
                     </div>
 
                 </div>
@@ -125,20 +125,8 @@
         borderColor: 'rgb(255, 99, 132)',
         backgroundColor: 'rgba(255, 99, 132, 0.7)'
         },
-        {
-        type: 'bar',
-        label: 'Placed Male Student',
-        data: {{ dataFemale| safe}},
-        borderColor: 'rgb(255, 99, 132)',
-        backgroundColor: 'rgba(255, 99, 152, 0.7)'
-        },
-        {
-        type: 'bar',
-        label: 'Placed Female Student',
-        data: {{ dataFemale| safe}},
-        borderColor: 'rgb(255, 99, 132)',
-        backgroundColor: 'rgba(255, 199, 132, 0.7)'
-        },
+
+
     {
         type: 'line',
         label: 'Line Dataset',
@@ -195,33 +183,33 @@
 
 
     const data2 = {
-        labels:{{labelSector|safe}},
-        datasets: [{
-            label: 'My First Dataset',
-            data: {{ sectorCount| safe}},
-            backgroundColor: [
-                'rgb(255, 99, 132)',
-                'rgb(54, 162, 235)',
-                'rgb(255, 205, 86)',
-                'rgb(255, 205, 816)',
-                'rgb(255, 205, 186)',
-                'rgb(255, 99, 232)',
-                'rgb(54, 162, 135)',
-                'rgb(255, 205, 186)',
-                'rgb(255, 205, 816)',
-                'rgb(255, 225, 86)',
-                'rgb(255, 94, 132)',
-                'rgb(54, 16, 235)',
-                'rgb(255, 05, 86)',
-                'rgb(255, 105, 816)',
-                'rgb(255, 205, 83)',
-                'rgb(255, 205, 16)',
+        labels: {{ labelSector| safe}},
+    datasets: [{
+        label: 'My First Dataset',
+        data: {{ sectorCount| safe}},
+        backgroundColor: [
+        'rgb(255, 99, 132)',
+        'rgb(54, 162, 235)',
+        'rgb(255, 205, 86)',
+        'rgb(255, 205, 816)',
+        'rgb(255, 205, 186)',
+        'rgb(255, 99, 232)',
+        'rgb(54, 162, 135)',
+        'rgb(255, 205, 186)',
+        'rgb(255, 205, 816)',
+        'rgb(255, 225, 86)',
+        'rgb(255, 94, 132)',
+        'rgb(54, 16, 235)',
+        'rgb(255, 05, 86)',
+        'rgb(255, 105, 816)',
+        'rgb(255, 205, 83)',
+        'rgb(255, 205, 16)',
 
-            ],
-            hoverOffset: 4
+    ],
+        hoverOffset: 4
         }]
     };
-    const config2= {
+    const config2 = {
         type: 'doughnut',
         data: data2,
     };
@@ -230,6 +218,8 @@
         document.getElementById('sectorChart'),
         config2
     );
+
+
 
 </script>
 {% endblock %}
