@@ -22,7 +22,7 @@
                     {% if "diploma" not in prev_degree %}
                     <option value="1">First Year</option>
                     {% endif %}
-                    {% if "diploma" in prev_degree or curr_edu.cgpa1 != "NA" %}
+                    {% if "diploma" in prev_degree or curr_edu.sgpi2 != "NA" %}
                     <option value="2">Second Year</option>
                     {% endif %}
                     {% if curr_edu.sgpi4 != "NA" %}
