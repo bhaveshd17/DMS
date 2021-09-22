@@ -116,33 +116,74 @@
         label: 'Male Student',
         data: {{ dataMale| safe}},
         borderColor: 'rgb(255, 99, 132)',
-        backgroundColor: 'rgba(75, 192, 192,0.7)'
-        },
+        backgroundColor: 'rgba(75, 192, 192,0.7)',
+        stack: 'Stack 0',
+            },
     {
         type: 'bar',
         label: 'Female Student',
         data: {{ dataFemale| safe}},
         borderColor: 'rgb(255, 99, 132)',
+<<<<<<< HEAD
         backgroundColor: 'rgba(255, 99, 132, 0.7)'
         },
 
 
+=======
+        backgroundColor: 'rgba(255, 99, 132, 0.7)',
+        stack: 'Stack 1',
+            },
+    {
+        type: 'bar',
+        label: 'Placed Male Student',
+        data: {{ dataPMale| safe}},
+        borderColor: 'rgb(255, 99, 132)',
+        backgroundColor: 'rgba(255, 99, 52, 0.7)',
+        stack: 'Stack 0',
+            },
+    {
+        type: 'bar',
+        label: 'Placed Female Student',
+        data: {{ dataPFemale| safe}},
+        borderColor: 'rgb(255, 99, 132)',
+        backgroundColor: 'rgba(255, 99, 2, 0.7)',
+        stack:'Stack 1'
+            },
+>>>>>>> 5ecac76e4f668f6eb43f79d82c98261095e9ae45
     {
         type: 'line',
         label: 'Line Dataset',
         data: {{ dataDiv| safe}},
         fill: false,
-        borderColor: 'rgb(54, 162, 235)'
-        }]
+        borderColor: 'rgb(54, 162, 235)',
+        stack: 'Stack 1',
+            }
+    ]
     };
 
     const config = {
-        type: 'scatter',
+        type: 'bar',
         data: data,
         options: {
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Chart.js Bar Chart - Stacked'
+                },
+            },
+            responsive: true,
+            interaction: {
+                intersect: false,
+            },
             scales: {
+                x: {
+                    stacked: true,
+                },
                 y: {
-                    beginAtZero: true
+                    stacked: false,
+    ticks: {
+      beginAtZero: true,
+    },
                 }
             }
         }
