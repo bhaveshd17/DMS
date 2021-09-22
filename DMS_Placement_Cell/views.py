@@ -14,10 +14,11 @@ from .utils import *
 @allowed_users(allowed_roles=['Placement_Cell'])
 def index(request):
     student_data = Student.objects.all()
-    placed_data = Job_user.objects.filter(status="3")
+    offer_data = Job_user.objects.filter(status="3")
+    placed_data=Student.objects.filter(placed=True)
     package = []
 
-    for job in placed_data:
+    for job in offer_data:
         package.append(float(job.salary))
    
     try:
@@ -28,7 +29,8 @@ def index(request):
         highest_package = 0
         lowest_package=0
         average_package = 0
-    if student_data or placed_data:
+    if student_data or offer_data or offer_data:
+        total_offer=len(offer_data)
         total_placed = len(placed_data)
         total_student = len(student_data)
     else:
@@ -52,13 +54,14 @@ def index(request):
         dataMale.append(male)
         dataFemale.append(female)
 
+
     labelCTC = ["0 to 3.49 LPA", "3.50 to 4.99 LPA", "5.00 to 7.00 LPA", "7.01 and Above"]
     ctc = []
     first = 0
     second = 0
     third = 0
     fourth = 0
-    for i in placed_data:
+    for i in offer_data:
         if int(i.salary) >= 0 and int(i.salary) <= 349000:
             first = first + 1
         elif int(i.salary) >= 350000 and int(i.salary) <= 499000:
@@ -79,7 +82,7 @@ def index(request):
 
     sectorCount = [None] * 16
 
-    for s in placed_data:
+    for s in offer_data:
         job = Job.objects.get(id=s.job_id.id)
         i = labelSector.index(job.domain)
         if sectorCount[i] == None:
@@ -91,7 +94,7 @@ def index(request):
 
     content = {"total_student": total_student,
                "total_placed": total_placed,
-               "highest_package": highest_package, "lowest_package":lowest_package,'average_package': average_package, "labelDiv": labelDiv,
+               "highest_package": highest_package, "lowest_package":lowest_package,'average_package': average_package,"total_offer":total_offer, "labelDiv": labelDiv,
                "dataDiv": dataDiv, "dataMale": dataMale, "dataFemale": dataFemale, "ctc": ctc, "labelCTC": labelCTC,
                "labelSector": labelSector, "sectorCount": sectorCount}
     return render(request, 'placement/index.html', content)

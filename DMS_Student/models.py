@@ -44,6 +44,7 @@ class Student(models.Model):
     linkdin=models.URLField(null=True)
     github=models.URLField(null=True)
     other=models.CharField(max_length=150,null=True)
+    placed=models.BooleanField(default=False,null=True)
     is_email_verified=models.BooleanField(default=False,null=True)
     
     # year_of_join
