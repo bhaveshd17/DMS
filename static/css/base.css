@@ -2,15 +2,8 @@ body{
     font-family: 'Source Sans Pro';
     scroll-behavior: smooth;
 }
-::-webkit-scrollbar {
-    width: 6px;
-}
-::-webkit-scrollbar-track {
-    background-color: #ffffff;
-}
-::-webkit-scrollbar-thumb {
-    background-color: #00BBF0;
-    border-radius: 20px;
+::-webkit-scrollbar{
+    display: none;
 }
 
 
