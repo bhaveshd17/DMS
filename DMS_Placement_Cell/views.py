@@ -148,7 +148,7 @@ def gender_ratio(request):
             male = 0
             Pmale = 0
             female = 0
-            Pfemale = 0
+            Pfemale =0
             for student in branch:
                 if student.gender == "Male":
                     male = male + 1
