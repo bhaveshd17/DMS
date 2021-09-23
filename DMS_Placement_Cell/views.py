@@ -108,6 +108,63 @@ def index(request):
 
 
 @allowed_users(allowed_roles=['Placement_Cell'])
+def ctcWise(request):
+    offer_data = Job_user.objects.filter(status="3")
+    labelCTC = ["0 to 3.49 LPA", "3.50 to 4.99 LPA", "5.00 to 7.00 LPA", "7.01 and Above"]
+    ctc = []
+    first = 0
+    second = 0
+    third = 0
+    fourth = 0
+    for i in offer_data:
+        if int(i.salary) >= 0 and int(i.salary) <= 349000:
+            first = first + 1
+        elif int(i.salary) >= 350000 and int(i.salary) <= 499000:
+            second = second + 1
+        elif int(i.salary) >= 500000 and int(i.salary) <= 700000:
+            third = third + 1
+        elif int(i.salary) >= 701000:
+            fourth = fourth + 1
+    ctc.append(first)
+    ctc.append(second)
+    ctc.append(third)
+    ctc.append(fourth)
+    content = {'labelCTC':labelCTC, 'ctc':ctc}
+    return render(request, "placement/ctc.html", content)
+
+@allowed_users(allowed_roles=['Placement_Cell'])
+def gender_ratio(request):
+    labelDiv = ["INFT", "CMPN", "EXTC", "ETRX", "BIOM"]
+    division = ['A', 'B', 'C']
+    dataDiv = []
+    dataMale = []
+    dataFemale = []
+    dataPMale = []
+    dataPFemale = []
+    for i in labelDiv:
+        for d in division:
+            branch = Student.objects.filter(branch=i, div=d)
+            dataDiv.append(len(branch))
+            male = 0
+            Pmale = 0
+            female = 0
+            Pfemale = 0
+            for student in branch:
+                if student.gender == "Male":
+                    male = male + 1
+                    if student.placed: Pmale += 1
+                else:
+                    female = female + 1
+                    if student.placed: Pfemale += 1
+            dataMale.append(male)
+            dataFemale.append(female)
+            dataPFemale.append(Pfemale)
+            dataPMale.append(Pmale)
+    labelDiv = ["INFT A","INFT B","INFT C", "CMPN A","CMPN B","CMPN C", "EXTC A","EXTC B","EXTC C", "ETRX A","ETRX B","ETRX C", "BIOM A", "BIOM B", "BIOM C"]
+    content = {'labelDiv':labelDiv, 'dataDiv':dataDiv, 'dataMale':dataMale, 'dataFemale':dataFemale, 'dataPMale':dataPMale, 'dataPFemale':dataPFemale}
+    return render(request, "placement/gender_ratio.html", content)
+
+@allowed_users(allowed_roles=['Placement_Cell'])
 def add_intership(request):
     form = IntershipForm()
     content = {"form": form}

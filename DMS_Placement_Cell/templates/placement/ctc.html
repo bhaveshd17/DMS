@@ -1,0 +1,74 @@
+{% extends 'placement/base.html' %}
+{% load static %}
+{% block title %} Placement Cell {% endblock %}
+{% block content %}
+<style>
+    .grid-container-1 {
+        display: grid;
+        grid-template-columns: 6fr 3fr;
+    }
+</style>
+
+<div class="grid-container-1">
+    <div class="grid-item mr-3">
+        <div class="card shadow p-3 mb-5 bg-white rounded">
+            <canvas id="ctcChart"></canvas>
+        </div>
+    </div>
+    <div class="grid-item ml-3">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Range</th>
+                    <th>Average CTC</th>
+                    <th>Placed</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Bhavesg</td>
+                    <td>Bhavesg</td>
+                    <td>Bhavesg</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    $("#base").removeClass('container')
+    $("#base").addClass('mx-3 px-5 mt-3')
+
+
+
+    const data1 = {
+        labels: {{ labelCTC| safe}},
+    datasets: [{
+        type: 'bar',
+        label: 'CTC Range',
+        data: {{ ctc| safe}},
+        borderColor: 'rgb(255, 99, 132)',
+        backgroundColor: 'rgba(75, 192, 192,0.7)'
+        }]
+    };
+
+    const config1 = {
+        type: 'bar',
+        data: data1,
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    };
+
+    var rangeChart = new Chart(
+        document.getElementById('ctcChart'),
+        config1
+    );
+
+
+</script>
+{% endblock %}
