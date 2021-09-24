@@ -1,11 +1,17 @@
 {% extends 'placement/base.html' %}
 {% load static %}
+{% load custom_tags %}
 {% block title %} Placement Cell {% endblock %}
 {% block content %}
 <style>
     .grid-container-1 {
         display: grid;
         grid-template-columns: 6fr 3fr;
+    }
+
+    .grid-container-2 {
+        display: grid;
+        grid-template-columns: 3fr 3fr;
     }
 </style>
 
@@ -25,15 +31,148 @@
                 </tr>
             </thead>
             <tbody>
+                {% for key, value in ctc_dict.items %}
                 <tr>
-                    <td>Bhavesg</td>
-                    <td>Bhavesg</td>
-                    <td>Bhavesg</td>
+                    <td>{{key}}</td>
+                    <td>Rs. {{value|average_sal}} PA</td>
+                    <td>{{value|no_placed}}</td>
                 </tr>
+                {% endfor %}
             </tbody>
         </table>
     </div>
 </div>
+
+<ul class="nav nav-tabs d-flex justify-content-center" id="myTab" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link active" id="one-tab" data-toggle="tab" href="#one" role="tab" aria-controls="one"
+            aria-selected="true"><strong>0 to 3.49 LPA</strong></a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="two-tab" data-toggle="tab" href="#two" role="tab" aria-controls="two"
+            aria-selected="false"><strong>3.50 to 4.99 LPA</strong></a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="three-tab" data-toggle="tab" href="#three" role="tab" aria-controls="three"
+            aria-selected="false"><strong>5.00 to 7.00 LPA</strong></a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="four-tab" data-toggle="tab" href="#four" role="tab" aria-controls="four"
+            aria-selected="false"><strong>7.01 and Above</strong></a>
+    </li>
+</ul>
+<div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="one" role="tabpanel" aria-labelledby="one-tab">
+        <div class=" w-50 m-auto">
+            <table class="table mt-5">
+                <thead>
+                    <tr>
+                        <th>Company Name</th>
+                        <th>CTC</th>
+                        <th>Placed</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for key, value in ctc_dict.items %}
+                    {% for data in value %}
+                    {% for c_name, sal in data.items %}
+                    {% if sal.0|to_int >= 0 and sal.0|to_int <= 349000 %} <tr>
+                        <td>{{c_name}}</td>
+                        <td>{{sal.0}}</td>
+                        <td>{{sal.1}}</td>
+                        </tr>
+                        {% endif %}
+                        {% endfor %}
+                        {% endfor %}
+                        {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="tab-pane fade" id="two" role="tabpanel" aria-labelledby="two-tab">
+        <div class="w-50 m-auto">
+            <table class="table mt-5">
+                <thead>
+                    <tr>
+                        <th>Company Name</th>
+                        <th>CTC</th>
+                        <th>Placed</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for key, value in ctc_dict.items %}
+                    {% for data in value %}
+                    {% for c_name, sal in data.items %}
+                    {% if sal.0|to_int >= 350000 and sal.0|to_int <= 499000 %} <tr>
+                        <td>{{c_name}}</td>
+                        <td>{{sal.0}}</td>
+                        <td>{{sal.1}}</td>
+                        </tr>
+                        {% endif %}
+                        {% endfor %}
+                        {% endfor %}
+                        {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="tab-pane fade" id="three" role="tabpanel" aria-labelledby="three-tab">
+        <div class="w-50 m-auto">
+            <table class="table mt-5">
+                <thead>
+                    <tr>
+                        <th>Company Name</th>
+                        <th>CTC</th>
+                        <th>Placed</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for key, value in ctc_dict.items %}
+                    {% for data in value %}
+                    {% for c_name, sal in data.items %}
+                    {% if sal.0|to_int >= 500000 and sal.0|to_int <= 700000 %} <tr>
+                        <td>{{c_name}}</td>
+                        <td>{{sal.0}}</td>
+                        <td>{{sal.1}}</td>
+                        </tr>
+                        {% endif %}
+                        {% endfor %}
+                        {% endfor %}
+                        {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="tab-pane fade" id="four" role="tabpanel" aria-labelledby="four-tab">
+        <div class="w-50 m-auto">
+            <table class="table mt-5">
+                <thead>
+                    <tr>
+                        <th>Company Name</th>
+                        <th>CTC</th>
+                        <th>Placed</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for key, value in ctc_dict.items %}
+                    {% for data in value %}
+                    {% for c_name, sal in data.items %}
+                    {% if sal.0|to_int >= 701000 %} <tr>
+                        <td>{{c_name}}</td>
+                        <td>{{sal.0}}</td>
+                        <td>{{sal.1}}</td>
+                        </tr>
+                        {% endif %}
+                        {% endfor %}
+                        {% endfor %}
+                        {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
 
 <script>
     $("#base").removeClass('container')

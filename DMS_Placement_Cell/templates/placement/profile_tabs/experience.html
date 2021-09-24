@@ -1,0 +1,34 @@
+<div class="tab-pane fade mt-5" id="exp" role="tabpanel" aria-labelledby="exp-tab">
+
+    <div id="exp_cards">
+        {% for exp in exp_list %}
+        <div class="grid-personal-outercontainer">
+            <div class="grid-personal-outercontainer-item">
+                <div class="card-text">
+
+                    <div class="grid-personal-container">
+                        <div class="grid-personal"><strong>Company Name</strong></div>
+                        <div class="grid-personal">{{exp.comp_name}}</div>
+                    </div>
+                    <div class="grid-personal-container">
+                        <div class="grid-personal"><strong>Role</strong></div>
+                        <div class="grid-personal">{{exp.role}}</div>
+                    </div>
+                    <div class="grid-personal-container">
+                        <div class="grid-personal"><strong>Duration</strong></div>
+                        <div class="grid-personal">{{exp.duration}}</div>
+                    </div>
+                    <div class="grid-personal-container">
+                        <div class="grid-personal"><strong>Start Date</strong></div>
+                        <div class="grid-personal">{{exp.start_date}}</div>
+                    </div>
+
+                </div>
+            </div>
+
+            
+        </div>
+        <hr class="my-3">
+        {% endfor %}
+    </div>
+</div>

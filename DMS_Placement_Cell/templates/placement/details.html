@@ -2,15 +2,10 @@
 {% load static %}
 {% block title %} Details {% endblock %}
 {% block content %}
-    <style>
-        .row div {
-            background: white;
-        }
-    </style>
     <div class="row">
         <div class="col-7">
             <div class="card">
-                <div class="card-header">
+                <div class="card-body">
                     <h1 class="text-center" style="text-transform: uppercase;">{{ details.comp_name }}</h1>
                     <h3 class="text-center mb-4 ">{{ details.domain }}</h3>
                 </div>
@@ -85,7 +80,7 @@
         <!-- Side Card -->
         <div class="col-5">
             <div class="card">
-                <div class="card-header">
+                <div class="card-body">
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item">
                             <a class="nav-link active " id="applied-tab" data-toggle="tab" href="#applied" role="tab"
