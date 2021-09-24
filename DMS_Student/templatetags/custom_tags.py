@@ -55,3 +55,26 @@ def no_placed(data):
         for key, value in d.items():
             ls.append(value[1])
     return str(sum(ls))
+
+@register.filter(name='data')
+def data(dic):
+    ls = []
+    for key, value in dic.items():
+        ls.append(value['grand_total'])
+    return ls
+
+@register.filter(name='total_count')
+def total_count(dic):
+    gen_dic = {"male":[], "female":[]}
+    for key, value in dic.items():
+        gen_dic["male"].append(value['male'])
+        gen_dic["female"].append(value['female'])
+    return [sum(gen_dic['male']), sum(gen_dic['female'])]
+
+@register.filter(name='total_count_placed')
+def total_count_placed(dic):
+    gen_dic_placed = {"male":[], "female":[]}
+    for key, value in dic.items():
+        gen_dic_placed["male"].append(value['pmale'])
+        gen_dic_placed["female"].append(value['pfemale'])
+    return [sum(gen_dic_placed['male']), sum(gen_dic_placed['female'])]

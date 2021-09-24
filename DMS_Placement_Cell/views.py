@@ -1,3 +1,5 @@
+from collections import OrderedDict
+
 from django.http import JsonResponse
 from django.contrib import messages
 from django.shortcuts import redirect, render
@@ -147,34 +149,49 @@ def ctcWise(request):
 
 @allowed_users(allowed_roles=['Placement_Cell'])
 def gender_ratio(request):
-    labelDiv = ["INFT", "CMPN", "EXTC", "ETRX", "BIOM"]
-    division = ['A', 'B', 'C']
-    dataDiv = []
-    dataMale = []
-    dataFemale = []
-    dataPMale = []
-    dataPFemale = []
-    for i in labelDiv:
-        for d in division:
-            branch = Student.objects.filter(branch=i, div=d)
-            dataDiv.append(len(branch))
-            male = 0
-            Pmale = 0
-            female = 0
-            Pfemale = 0
-            for student in branch:
-                if student.gender == "Male":
-                    male = male + 1
-                    if student.placed: Pmale += 1
-                else:
-                    female = female + 1
-                    if student.placed: Pfemale += 1
-            dataMale.append(male)
-            dataFemale.append(female)
-            dataPFemale.append(Pfemale)
-            dataPMale.append(Pmale)
-    labelDiv = ["INFT A","INFT B","INFT C", "CMPN A","CMPN B","CMPN C", "EXTC A","EXTC B","EXTC C", "ETRX A","ETRX B","ETRX C", "BIOM A", "BIOM B", "BIOM C"]
-    content = {'labelDiv':labelDiv, 'dataDiv':dataDiv, 'dataMale':dataMale, 'dataFemale':dataFemale, 'dataPMale':dataPMale, 'dataPFemale':dataPFemale}
+    student_dataframe = pd.DataFrame([])
+    for student in Student.objects.all():
+        student_dataframe = student_dataframe.append({'roll_no':student.roll_no, 'gender':student.gender, 'placed':student.placed, 'branch': student.branch, 'div':student.div}, ignore_index=True)
+    div_data = student_dataframe[['branch', 'div', 'placed', 'gender']].value_counts()
+    div_data = div_data.to_frame()
+    gender_dict = {}
+    dataMale, dataFemale, dataPMale, dataPFemale = [], [], [], []
+    labelDiv = set([data[0]+' '+data[1] for data, count in div_data.iterrows()])
+    for label in labelDiv:
+        gender_dict[label] = {}
+        gender_dict[label]['ptotal'] = 0
+        gender_dict[label]['grand_total'] = 0
+        gender_dict[label]['male'] = 0
+        gender_dict[label]['female'] = 0
+
+    for data, count in div_data.iterrows():
+        branch = data[0] + ' ' + data[1]
+        gender_dict[branch]['grand_total'] += count[0]
+        if data[3].lower() == 'male':
+            gender_dict[branch]['male'] += count[0]
+        elif data[3].lower() == 'female':
+            gender_dict[branch]['female'] += count[0]
+
+        if data[2] == 1:
+            gender_dict[branch]['ptotal'] += count[0]
+            if data[3].lower() == 'male':
+                gender_dict[branch]['pmale'] = count[0]
+            elif data[3].lower() == 'female':
+                gender_dict[branch]['pfemale'] = count[0]
+
+    total_student = []
+    total_placed = []
+    dic = OrderedDict(sorted(gender_dict.items()))
+    for key, value in dic.items():
+        dataFemale.append(value['female'])
+        dataMale.append(value['male'])
+        dataPFemale.append(value['pfemale'])
+        dataPMale.append(value['pmale'])
+        total_placed.append(value['ptotal'])
+        total_student.append(value['grand_total'])
+
+
+    content = {'labelDiv':sorted(labelDiv), 'dataMale':dataMale, 'dataFemale':dataFemale, 'dataPMale':dataPMale, 'dataPFemale':dataPFemale, 'dic':dic, 'total_student':sum(total_student),'total_placed':sum(total_placed) }
     return render(request, "placement/gender_ratio.html", content)
 
 @allowed_users(allowed_roles=['Placement_Cell'])
