@@ -18,25 +18,26 @@ from .utils import *
 def index(request):
     student_data = Student.objects.all()
     offer_data = Job_user.objects.filter(status="3")
-    placed_data=Student.objects.filter(placed=True)
+    placed_data = Student.objects.filter(placed=True)
     package = []
 
     for job in offer_data:
         package.append(float(job.salary))
-   
+
     try:
         highest_package = max(package)
-        lowest_package=min(package)
+        lowest_package = min(package)
         average_package = float(math.ceil(sum(package) / len(package)))
     except:
         highest_package = 0
-        lowest_package=0
+        lowest_package = 0
         average_package = 0
     if student_data or offer_data or offer_data:
-        total_offer=len(offer_data)
+        total_offer = len(offer_data)
         total_placed = len(placed_data)
         total_student = len(student_data)
     else:
+        total_offer = 0
         total_placed = 0
         total_student = 0
 
@@ -44,22 +45,22 @@ def index(request):
     dataDiv = []
     dataMale = []
     dataFemale = []
-    dataPMale=[]
-    dataPFemale=[]
+    dataPMale = []
+    dataPFemale = []
     for i in labelDiv:
         branch = Student.objects.filter(branch=i)
         dataDiv.append(len(branch))
         male = 0
-        Pmale=0
+        Pmale = 0
         female = 0
-        Pfemale=0
+        Pfemale = 0
         for student in branch:
             if student.gender == "Male":
                 male = male + 1
-                if student.placed:Pmale+=1
+                if student.placed: Pmale += 1
             else:
                 female = female + 1
-                if student.placed:Pfemale+=1
+                if student.placed: Pfemale += 1
         dataMale.append(male)
         dataFemale.append(female)
         dataPFemale.append(Pfemale)
@@ -86,7 +87,8 @@ def index(request):
     ctc.append(fourth)
     # Value missmatch in excel and graph
 
-    labelSector = ["Automotive", "Banking", "EduTech", "Financial Services", "Information Technology","Logistics & Supply Chain", "Retail", "Telecommunications", "Electrical Manufacturing",
+    labelSector = ["Automotive", "Banking", "EduTech", "Financial Services", "Information Technology",
+                   "Logistics & Supply Chain", "Retail", "Telecommunications", "Electrical Manufacturing",
                    "Marketing & Advertising", "Media Production", "Management Consulting", "Manufacturing",
                    "Health Care", "Design", "Professional Services"]
 
@@ -100,12 +102,12 @@ def index(request):
         else:
             sectorCount[i] = sectorCount[i] + 1
 
-
-
     content = {"total_student": total_student,
                "total_placed": total_placed,
-               "highest_package": highest_package, "lowest_package":lowest_package,'average_package': average_package,"total_offer":total_offer, "labelDiv": labelDiv,
-               "dataDiv": dataDiv, "dataMale": dataMale, "dataFemale": dataFemale, "dataPMale":dataPMale,"dataPFemale":dataPFemale,"ctc": ctc, "labelCTC": labelCTC,
+               "highest_package": highest_package, "lowest_package": lowest_package, 'average_package': average_package,
+               "total_offer": total_offer, "labelDiv": labelDiv,
+               "dataDiv": dataDiv, "dataMale": dataMale, "dataFemale": dataFemale, "dataPMale": dataPMale,
+               "dataPFemale": dataPFemale, "ctc": ctc, "labelCTC": labelCTC,
                "labelSector": labelSector, "sectorCount": sectorCount}
     return render(request, 'placement/index.html', content)
 
@@ -115,16 +117,17 @@ def ctcWise(request):
     offer_data = Job_user.objects.filter(status="3")
     labelCTC = ["0 to 3.49 LPA", "3.50 to 4.99 LPA", "5.00 to 7.00 LPA", "7.01 and Above"]
     ctc_dict = {}
-    fl, sl, tl, frl = [],[],[],[]
+    fl, sl, tl, frl = [], [], [], []
     job_dataframe = pd.DataFrame([])
     for data in offer_data:
-        job_dataframe = job_dataframe.append({'salary':data.salary, 'company':data.job_id.comp_name}, ignore_index=True)
+        job_dataframe = job_dataframe.append({'salary': data.salary, 'company': data.job_id.comp_name},
+                                             ignore_index=True)
     data = job_dataframe[["salary", "company"]].value_counts()
     data = data.to_frame()
 
     for i, row in data.iterrows():
         if int(i[0]) >= 0 and int(i[0]) <= 349000:
-            fl.append({i[1]:[i[0], row[0]]})
+            fl.append({i[1]: [i[0], row[0]]})
             ctc_dict[labelCTC[0]] = fl
         elif int(i[0]) >= 350000 and int(i[0]) <= 499000:
             sl.append({i[1]: [i[0], row[0]]})
@@ -136,7 +139,7 @@ def ctcWise(request):
             frl.append({i[1]: [i[0], row[0]]})
             ctc_dict[labelCTC[3]] = frl
 
-    ctc =[]
+    ctc = []
     for key, value in ctc_dict.items():
         ls = []
         for data in value:
@@ -144,19 +147,22 @@ def ctcWise(request):
                 ls.append(j[1])
         ctc.append(sum(ls))
     # print(ctc_dict)
-    content = {'labelCTC':labelCTC, 'ctc':ctc, 'ctc_dict':ctc_dict}
+    content = {'labelCTC': labelCTC, 'ctc': ctc, 'ctc_dict': ctc_dict}
     return render(request, "placement/ctc.html", content)
+
 
 @allowed_users(allowed_roles=['Placement_Cell'])
 def gender_ratio(request):
     student_dataframe = pd.DataFrame([])
     for student in Student.objects.all():
-        student_dataframe = student_dataframe.append({'roll_no':student.roll_no, 'gender':student.gender, 'placed':student.placed, 'branch': student.branch, 'div':student.div}, ignore_index=True)
+        student_dataframe = student_dataframe.append(
+            {'roll_no': student.roll_no, 'gender': student.gender, 'placed': student.placed, 'branch': student.branch,
+             'div': student.div}, ignore_index=True)
     div_data = student_dataframe[['branch', 'div', 'placed', 'gender']].value_counts()
     div_data = div_data.to_frame()
     gender_dict = {}
     dataMale, dataFemale, dataPMale, dataPFemale = [], [], [], []
-    labelDiv = set([data[0]+' '+data[1] for data, count in div_data.iterrows()])
+    labelDiv = set([data[0] + ' ' + data[1] for data, count in div_data.iterrows()])
     for label in labelDiv:
         gender_dict[label] = {}
         gender_dict[label]['ptotal'] = 0
@@ -190,9 +196,11 @@ def gender_ratio(request):
         total_placed.append(value['ptotal'])
         total_student.append(value['grand_total'])
 
-
-    content = {'labelDiv':sorted(labelDiv), 'dataMale':dataMale, 'dataFemale':dataFemale, 'dataPMale':dataPMale, 'dataPFemale':dataPFemale, 'dic':dic, 'total_student':sum(total_student),'total_placed':sum(total_placed) }
+    content = {'labelDiv': sorted(labelDiv), 'dataMale': dataMale, 'dataFemale': dataFemale, 'dataPMale': dataPMale,
+               'dataPFemale': dataPFemale, 'dic': dic, 'total_student': sum(total_student),
+               'total_placed': sum(total_placed)}
     return render(request, "placement/gender_ratio.html", content)
+
 
 @allowed_users(allowed_roles=['Placement_Cell'])
 def add_intership(request):
