@@ -1,3 +1,5 @@
+import math
+
 from django import template
 import datetime
 register = template.Library()
@@ -37,3 +39,42 @@ def sal(salary):
     salary=[float(i) for i in salary.split(",")]
     if min(salary)==max(salary):return min(salary)/100000
     return str(min(salary)/100000)+"-"+str(max(salary)/100000)
+
+@register.filter(name='average_sal')
+def average_sal(data):
+    ls = []
+    for d in data:
+        for key, value in d.items():
+            ls.append(int(value[0]))
+    return str(math.ceil(sum(ls)/len(ls)))
+
+@register.filter(name='no_placed')
+def no_placed(data):
+    ls = []
+    for d in data:
+        for key, value in d.items():
+            ls.append(value[1])
+    return str(sum(ls))
+
+@register.filter(name='data')
+def data(dic):
+    ls = []
+    for key, value in dic.items():
+        ls.append(value['grand_total'])
+    return ls
+
+@register.filter(name='total_count')
+def total_count(dic):
+    gen_dic = {"male":[], "female":[]}
+    for key, value in dic.items():
+        gen_dic["male"].append(value['male'])
+        gen_dic["female"].append(value['female'])
+    return [sum(gen_dic['male']), sum(gen_dic['female'])]
+
+@register.filter(name='total_count_placed')
+def total_count_placed(dic):
+    gen_dic_placed = {"male":[], "female":[]}
+    for key, value in dic.items():
+        gen_dic_placed["male"].append(value['pmale'])
+        gen_dic_placed["female"].append(value['pfemale'])
+    return [sum(gen_dic_placed['male']), sum(gen_dic_placed['female'])]

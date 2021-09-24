@@ -17,4 +17,8 @@ urlpatterns = [
     path("delete_details/<int:id>",views.delete_details,name="delete_details"),
     path("student_details/", views.student_details, name="student_details"),
     path("sector/",views.sector,name="sector"),
+    
+    
+    path("analysis/ctcwise/", views.ctcWise, name='ctcWise'),
+    path("analysis/gender_ratio/", views.gender_ratio, name='gender_ratio'),
 ]

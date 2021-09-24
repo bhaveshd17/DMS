@@ -1,0 +1,218 @@
+{% extends 'placement/base.html' %}
+{% load static %}
+{% block title %} Placement Cell {% endblock %}
+{% block content %}
+{% load custom_tags %}
+<style>
+    .grid-container-1 {
+        display: grid;
+        grid-template-columns: 6fr 3fr;
+    }
+
+    .grid-container-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+</style>
+
+<div class="grid-container-1">
+    <div class="grid-item mr-5">
+        <div class="card shadow p-3 mb-5 bg-white rounded">
+            <canvas id="branchChart"></canvas>
+        </div>
+        <div class="grid-container-2">
+            <div class="grid-item mr-2">
+                <div class="shadow p-3 mb-5 bg-white rounded">
+                    <canvas id="genderChart1"></canvas>
+                </div>
+            </div>
+            <div class="grid-item ml-2">
+                <div class="shadow p-3 mb-5 bg-white rounded">
+                    <canvas id="genderChart2"></canvas>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="grid-item">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Branch</th>
+                    <th>Total Student</th>
+                    <th>Placed Student</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for key, value in dic.items %}
+                <tr>
+                    <td>{{key}}</td>
+                    <td>{{value.grand_total}}</td>
+                    <td>{{value.ptotal}}</td>
+                </tr>
+                {% endfor %}
+                <tr>
+                    <td><strong>Total</strong></td>
+                    <td><strong>{{total_student}}</strong></td>
+                    <td><strong>{{total_placed}}</strong></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+<script>
+    $("#base").removeClass('container')
+    $("#base").addClass('mx-3 px-5 mt-3')
+
+    const data = {
+        labels: {{ labelDiv| safe}},
+    datasets: [{
+        type: 'bar',
+        label: 'Male Student',
+        data: {{ dataMale| safe}},
+        borderColor: 'rgb(255, 99, 132)',
+        backgroundColor: 'rgba(75, 192, 192,0.7)',
+        stack: 'Stack 0',
+            },
+    {
+        type: 'bar',
+        label: 'Female Student',
+        data: {{ dataFemale| safe}},
+        borderColor: 'rgb(255, 99, 132)',
+        backgroundColor: 'rgba(255, 99, 132, 0.7)',
+        stack: 'Stack 1',
+            },
+    {
+        type: 'bar',
+        label: 'Placed Male Student',
+        data: {{ dataPMale| safe}},
+        borderColor: 'rgb(255, 99, 132)',
+        backgroundColor: 'rgba(255, 99, 52, 0.7)',
+        stack: 'Stack 0',
+            },
+    {
+        type: 'bar',
+        label: 'Placed Female Student',
+        data: {{ dataPFemale| safe}},
+        borderColor: 'rgb(255, 99, 132)',
+        backgroundColor: 'rgba(255, 99, 2, 0.7)',
+        stack: 'Stack 1'
+            },
+    {
+        type: 'line',
+        label: 'Total Student',
+        data: {{ dic| data | safe}},
+        fill: false,
+        borderColor: 'rgb(54, 162, 235)',
+        stack: 'Stack 0',
+            }
+    ]
+    };
+
+    const config = {
+        type: 'bar',
+        data: data,
+        options: {
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Department Wise Gender ratio'
+                },
+            },
+            responsive: true,
+            interaction: {
+                intersect: false,
+            },
+            scales: {
+                x: {
+                    stacked: true,
+                },
+                y: {
+                    stacked: false,
+                    ticks: {
+                        beginAtZero: true,
+                    },
+                }
+            }
+        }
+    };
+
+    var mixedChart = new Chart(
+        document.getElementById('branchChart'),
+        config
+    );
+
+
+
+    const data1 = {
+        labels: ["Male", "Female"],
+        datasets: [{
+            label: 'Total Count',
+            data: {{dic|total_count| safe}},
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+            ],
+            borderColor: [
+                'rgb(255, 99, 132)',
+                'rgb(75, 192, 192)',
+            ],
+            borderWidth: 1
+        }]
+    };
+    const config1 = {
+        type: 'bar',
+        data: data1,
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        },
+    };
+
+    const data2 = {
+        labels: ["Male", "Female"],
+        datasets: [{
+            label: 'Total Placed Count',
+            data: {{dic|total_count_placed| safe}},
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+            ],
+            borderColor: [
+                'rgb(255, 99, 132)',
+                'rgb(75, 192, 192)',
+            ],
+            borderWidth: 1
+        }]
+    };
+    const config2 = {
+        type: 'bar',
+        data: data2,
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        },
+    };
+
+    var chart1 = new Chart(
+        document.getElementById('genderChart1'),
+        config1
+    );
+    var chart2 = new Chart(
+        document.getElementById('genderChart2'),
+        config2
+    );
+
+
+
+</script>
+{% endblock %}
