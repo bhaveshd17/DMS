@@ -276,3 +276,33 @@ def student_details(request):
     student_dict = sorted(student_dict.items())
     content = {'student_dict': student_dict}
     return render(request, 'placement/student_details.html', content)
+
+
+def sector(request):
+    companys=Job.objects.all().order_by("domain")
+    offer_data=Job_user.objects.filter(status="3")
+    labelSector = ["Automotive", "Banking", "EduTech", "Financial Services", "Information Technology","Logistics & Supply Chain", "Retail", "Telecommunications", "Electrical Manufacturing",
+                   "Marketing & Advertising", "Media Production", "Management Consulting", "Manufacturing",
+                   "Health Care", "Design", "Professional Services"]
+
+    sectorCount = [None] * 16
+
+    for s in offer_data:
+        job = Job.objects.get(id=s.job_id.id)
+        i = labelSector.index(job.domain)
+        if sectorCount[i] == None:
+            sectorCount[i] = 1
+        else:
+            sectorCount[i] = sectorCount[i] + 1
+    company_offer={}
+    for company in companys:
+        count=0
+        for offer in offer_data:
+            if offer.job_id==company:
+                count+=1
+        company_offer[company]=count
+
+
+
+    context={"labelSector":labelSector,"sectorCount":sectorCount,"companys":companys,"company_offer":company_offer}
+    return render(request,'placement/analysis/sector.html',context)
