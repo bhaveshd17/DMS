@@ -78,3 +78,20 @@ def total_count_placed(dic):
         gen_dic_placed["male"].append(value['pmale'])
         gen_dic_placed["female"].append(value['pfemale'])
     return [sum(gen_dic_placed['male']), sum(gen_dic_placed['female'])]
+
+@register.filter(name='dictAccess')
+def dictAccess(value,key):
+    return value[str(key)]
+
+@register.simple_tag
+def totalOffer(value,labelSector,sector):
+    print("Working")
+    return value[labelSector.index(sector)]
+
+@register.filter(name="dictToList")
+def dictToList(sectorCompany):
+    return list(sectorCompany.values())
+
+@register.filter(name="dictKeys")
+def dictKeys(sectorCompany):
+    return list(sectorCompany.keys())

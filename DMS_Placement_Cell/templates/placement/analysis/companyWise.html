@@ -1,0 +1,75 @@
+{% extends 'placement/base.html' %}
+{% load static %}
+{% load custom_tags %}
+{% block title %} Company wise Analysis  {% endblock %}
+{% block content %}
+
+<h2 class="text-center">Company Wise Data</h2>
+
+<div class="card shadow p-3 mb-5 bg-white rounded">
+    <canvas id="companyChart" height="450px"></canvas>
+</div>
+<div class="grid-list">
+<table class="table" id="sector">
+        <thead class="thead">
+          <tr>
+            <th scope="col">Company</th>
+            <th scope="col">No. of Offer</th>
+            <th scope="col">Salary</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for job in jobs%}
+          <tr>
+            <td>{{job.comp_name}}</td>
+            {% for key, value in company_offer.items %}
+                    {% ifequal key job.comp_name %}
+                        <td>{{ value }}</td>
+                    {% endifequal %}
+                {% endfor %}
+                <td>{{job.sal}}</td>
+          </tr>
+          
+          {% endfor %}
+        </tbody>
+      </table>
+</div>
+
+<script>
+    $("#base").removeClass("container")
+    $("#base").addClass("mx-3 px-5 mt-3")
+
+    const data = {
+        labels: {{company_offer|dictKeys|safe}},
+    datasets: [{
+        type: 'bar',
+        label: 'CTC Range',
+        data: {{ company_offer|dictToList|safe}},
+        borderColor: 'rgb(255, 99, 132)',
+        backgroundColor: 'rgba(75, 192, 192,0.7)'
+        }
+    ]
+    };
+
+    const config = {
+        type: 'bar',
+        data: data,
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    };
+
+    var companyChart = new Chart(
+        document.getElementById('companyChart'),
+        config
+    );
+
+
+    
+
+</script>
+{%endblock%}
