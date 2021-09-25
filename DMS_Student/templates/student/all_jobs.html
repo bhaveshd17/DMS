@@ -35,10 +35,10 @@
 
             <div class="mb-3">
                 <label for="salary">Desired min Salary</label>
-                <input type="range" value="3" class="custom-range" min="3" max="8"
+                <input type="range" value="0" class="custom-range" min="0" max="5"
                     onchange="updateTextInput(this.value)" id="salary">
                 <div class="d-flex justify-content-center">
-                    <span id="salary_value" class="text-primary">3 LPA</span>
+                    <span id="salary_value" class="text-primary">0 LPA</span>
                 </div>
             </div>
 
@@ -50,13 +50,6 @@
                     <option value="{{city}}">{{city}}</option>
                     {% endfor %}
                 </select>
-            </div>
-
-
-            <div class="mb-3">
-                <label for="starting_from" class="form-label">Starting from (or after)</label>
-                <input type="date" class="form-control filter_data" name="starting_from" id="starting_from"
-                    placeholder="choose date" data-filter="starting_from">
             </div>
 
 
@@ -204,7 +197,7 @@
     }
 
     function updateTextInput(val) {
-        if (Number(val) == 3) {
+        if (Number(val) == 0) {
             document.getElementById('salary_value').innerText = String(Number(val)) + ' LPA';
         }
         else {

@@ -70,10 +70,9 @@ def job_filters(request):
     skills = request.GET.getlist('skills[]')
     salary = request.GET.get('salary')
     location = request.GET.getlist('location[]')
-    starting_from = request.GET.get('starting_from')
     sort_by_date = request.GET.get('sort_by_date')
     work_from_home = request.GET.get('work_from_home')
-    print(sort_by_date)
+
     if sort_by_date == 'true':
         if "all_job" in url_path:
             job = Job.objects.all().order_by("-apply_by")
@@ -89,13 +88,15 @@ def job_filters(request):
                     temp_list.append(job_obj)
         job = temp_list
 
-    if salary != '3':
+    if salary != '0':
         temp_list = []
         for job_obj in job:
-            if job_obj.sal >= int(salary) * 2:
-                temp_list.append(job_obj)
-        temp_list.sort(key=lambda x: x.sal)
+            sal = job_obj.sal.split(',')
+            for s in sal:
+                if float(s) >= float(salary)*100000 * 2:
+                    temp_list.append(job_obj)
 
+        temp_list.sort(key=lambda x: x.sal)
         job = temp_list
 
     if location[0] != "e.g. Mumbai":
@@ -105,13 +106,6 @@ def job_filters(request):
                 temp_list.append(job_obj)
         job = temp_list
 
-
-    if starting_from != '':
-        temp_list = []
-        for job_obj in job:
-            if job_obj.start_date >= datetime.strptime(starting_from, "%Y-%m-%d").date():
-                temp_list.append(job_obj)
-        job = temp_list
 
 
     if work_from_home == "true":
