@@ -1,0 +1,176 @@
+{% extends 'placement/base.html' %}
+{% load static %}
+{% load custom_tags %}
+{% block title %} Sector wise Analysis  {% endblock %}
+{% block content %}
+<style>
+    .grid-container {
+        display: grid;
+        grid-template-columns: 6fr 3fr;
+    }
+</style>
+<h2 class="text-center">Sector wise Data</h2>
+
+<div class="grid-container">
+    <div class="grid-graph">
+        <div class="card shadow p-3 mb-5 bg-white rounded">
+            <div class="row">
+                <div class="col-6">
+                    <h5 class="text-center">No. of Offer in each Sector</h5>
+                    <canvas id="chart" ></canvas>
+                </div>
+                <div class="col-6">
+                    <h5 class="text-center">No. of Company in each Sector</h5>
+                    <canvas id="companyChart" ></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="grid-card" style="overflow-y:scroll;max-height: 490px;">
+        <table class="table" id="sector">
+            <thead class="thead">
+              <tr>
+                <th scope="col">Sector</th>
+                <th scope="col">Total Company</th>
+                <th scope="col">Offer</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for sector in labelSector %}
+              <tr>
+                <td>{{sector}}</td>
+                <td>{{sectorCompany|dictAccess:sector }}</td>
+                <td>{% totalOffer sectorCount labelSector sector%}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+    </div>
+</div> 
+<div class="float-right mb-2">
+    <button class="btn btn-primary" onclick="xl_convert()">
+        <i class="fas fa-download" > Download</i>
+    </button>
+</div>
+
+<div class="grid-list">
+   
+       
+        <table class="table" id="sector">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">Sector</th>
+                <th scope="col">Company</th>
+                <th scope="col">Offer</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for company in companys%}
+              <tr>
+                <td>{{company.domain}}</td>
+                <td>{{company.comp_name}}</td>
+                {% for key, value in company_offer.items %}
+                        {% ifequal key company %}
+                            <td>{{ value }}</td>
+                        {% endifequal %}
+                    {% endfor %}
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+       
+    
+</div>
+
+<script>
+    $("#base").removeClass("container")
+    $("#base").addClass("mx-3 px-5 mt-3")
+
+    const data = {
+        labels: {{ labelSector| safe}},
+    datasets: [{
+        label: 'No. of Offer',
+        data: {{ sectorCount|safe}},
+        backgroundColor: [
+        'rgb(255, 99, 132)',
+        'rgb(54, 162, 235)',
+        'rgb(255, 205, 86)',
+        'rgb(255, 205, 816)',
+        'rgb(255, 205, 186)',
+        'rgb(255, 99, 232)',
+        'rgb(54, 162, 135)',
+        'rgb(255, 205, 186)',
+        'rgb(255, 205, 816)',
+        'rgb(255, 225, 86)',
+        'rgb(255, 94, 132)',
+        'rgb(54, 16, 235)',
+        'rgb(255, 05, 86)',
+        'rgb(255, 105, 816)',
+        'rgb(255, 205, 83)',
+        'rgb(255, 205, 16)',
+
+    ],
+        hoverOffset: 4
+        }]
+    };
+    const config = {
+        type: 'doughnut',
+        data: data,
+    };
+
+    var chart = new Chart(
+        document.getElementById('chart'),
+        config
+    );
+
+
+
+    const data1 = {
+        labels: {{ labelSector| safe}},
+    datasets: [{
+        label: 'No. of Company',
+        data: {{ sectorCompany|dictToList}},
+        backgroundColor: [
+        'rgb(255, 99, 132)',
+        'rgb(54, 162, 235)',
+        'rgb(255, 205, 86)',
+        'rgb(255, 205, 816)',
+        'rgb(255, 205, 186)',
+        'rgb(255, 99, 232)',
+        'rgb(54, 162, 135)',
+        'rgb(255, 205, 186)',
+        'rgb(255, 205, 816)',
+        'rgb(255, 225, 86)',
+        'rgb(255, 94, 132)',
+        'rgb(54, 16, 235)',
+        'rgb(255, 05, 86)',
+        'rgb(255, 105, 816)',
+        'rgb(255, 205, 83)',
+        'rgb(255, 205, 16)',
+
+    ],
+        hoverOffset: 4
+        }],
+    };
+    const config1 = {
+        type: 'doughnut',
+        data: data1,
+    };
+
+    var companyChart = new Chart(
+        document.getElementById('companyChart'),
+        config1
+    );
+
+
+    let date = new Date()
+    date = date.getDate().toString()+'-'+(date.getMonth()+1)+'-'+date.getFullYear()
+    function xl_convert() {
+        $("#sector").table2excel({
+            name: "Table2Excel",
+            filename: "SectorWiseData"+date,
+            fileext: ".xlsx"
+        });
+    }
+</script>
+{% endblock %}
