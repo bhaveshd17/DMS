@@ -276,8 +276,8 @@ def details(request, id, type):
     if type == 1:
         jobs = Job.objects.get(id=id)
         applied = Job_user.objects.filter(job_id=id)
-        # print(applied)
-        context = {"details": jobs, "pay": "Salary", "applied": applied, "id": id, "type": type}
+        salary = jobs.sal.split(",")
+        context = {"details": jobs, "pay": "Salary", "applied": applied, "id": id, "type": type, "salary":salary}
     elif type == 2:
         internships = Intership.objects.get(id=id)
         context = {"details": internships, "pay": "Stiped"}
@@ -313,7 +313,8 @@ def status(request):
     data = json.loads(request.body)
     st = data["status"]
     id = data["id"]
-    Job_user.objects.filter(id=id).update(status=st)
+    salary = float(data["salary_update"])
+    Job_user.objects.filter(id=id).update(status=st, salary=salary)
 
     return JsonResponse('Done', safe=False)
 

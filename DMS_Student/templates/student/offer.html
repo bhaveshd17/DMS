@@ -12,7 +12,7 @@
 
 <div id="filter_list">
   <div class="lap-tab">
-    {% for result, type in hired.items %}
+    {% for result, value in hired.items %}
     <div class="internship my-3" style="color:#0F2C44">
       <div class="card card-body px-0" style="border: none;">
         <div class="row">
@@ -29,25 +29,25 @@
               <!-- <p class="px-2" style="font-weight: 400; font-size: 1.1rem;">Lorem ipsum dolor sit Lorem, ipsum.
             </p> -->
               <div class="grid-container mt-2 mb-3">
-                {% if type == 1 %}
+                {% if value.type == 1 %}
                 <div class="grid-item">SALARY</div>
-                <div class="grid-item">Rs. {{result.sal}} LPA</div>
-                {% elif type == 2 %}
+                <div class="grid-item">Rs. {{value.user|offer_sal}} LPA</div>
+                {% elif value.type == 2 %}
                 <div class="grid-item">STIPEND</div>
                 <div class="grid-item">Rs. {{result.sal}}</div>
                 {% endif %}
 
 
-                {% if type == 1 %}
+                {% if value.type == 1 %}
                 <div class="grid-item">LOCATION</div>
                 <div class="grid-item">{{result.location}}</div>
-                {% elif type == 2 %}
+                {% elif value.type == 2 %}
                 <div class="grid-item">DURATION</div>
                 <div class="grid-item">{{result.duration}}</div>
                 {% endif %}
       
-                <div class="grid-item">START DATE</div>
-                <div class="grid-item">{{result.start_date|date_format}}</div>
+                <div class="grid-item">YEAR</div>
+                <div class="grid-item">{{result.year}}</div>
                 <div class="grid-item">APPLY BY</div>
                 <div class="grid-item">{{result.apply_by|date_format}}</div>
               </div>
@@ -80,12 +80,20 @@
       <h3 class="card-title text-center mb-0">{{result.comp_name}}</h3>
       <div class="card-text">
         <div class="grid-container-mob mt-2 mb-3">
+          {% if value.type == 1 %}
+          <div class="grid-item-mob text-muted">SALARY</div>
+          {% elif value.type == 2 %}
           <div class="grid-item-mob text-muted">STIPEND</div>
-          <div class="grid-item-mob text-muted">START DATE</div>
+          {% endif %}
+          <div class="grid-item-mob text-muted">YEAR</div>
           <div class="grid-item-mob text-muted">APPLY BY</div>
-          <div class="grid-item-mob">Rs. {{result.sal}}</div>
-          <div class="grid-item-mob">{{result.start_date|date_format}}</div>
-          <div class="grid-item" style="display: none;">{{result.duration}}</div>
+          {% if value.type == 1 %}
+          <div class="grid-item-mob">Rs. {{value.user|offer_sal}}</div>
+          {% elif value.type == 2 %}
+          <div class="grid-item">Rs. {{result.sal}}</div>
+          {% endif %}
+          <div class="grid-item-mob">{{result.year}}</div>
+          <div class="grid-item" style="display: none;">{{result.location}}</div>
           <div class="grid-item-mob">{{result.apply_by|date_format}}</div>
         </div>
       </div>

@@ -37,6 +37,8 @@
                 <div class="grid-item">Rs. {{result.sal}}</div>
                 {% endif %}
 
+                <div class="grid-item">YEAR</div>
+                <div class="grid-item">{{result.year}}</div>
 
                 {% if type == 1 %}
                 <div class="grid-item">LOCATION</div>
@@ -46,8 +48,6 @@
                 <div class="grid-item">{{result.duration}}</div>
                 {% endif %}
       
-                <div class="grid-item">START DATE</div>
-                <div class="grid-item">{{result.start_date|date_format}}</div>
                 <div class="grid-item">APPLY BY</div>
                 <div class="grid-item">{{result.apply_by|date_format}}</div>
               </div>
@@ -81,10 +81,10 @@
       <div class="card-text">
         <div class="grid-container-mob mt-2 mb-3">
           <div class="grid-item-mob text-muted">STIPEND</div>
-          <div class="grid-item-mob text-muted">START DATE</div>
+          <div class="grid-item-mob text-muted">YEAR</div>
           <div class="grid-item-mob text-muted">APPLY BY</div>
           <div class="grid-item-mob">Rs. {{result.sal}}</div>
-          <div class="grid-item-mob">{{result.start_date|date_format}}</div>
+          <div class="grid-item">{{result.year}}</div>
           <div class="grid-item" style="display: none;">{{result.duration}}</div>
           <div class="grid-item-mob">{{result.apply_by|date_format}}</div>
         </div>
