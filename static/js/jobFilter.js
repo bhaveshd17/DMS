@@ -1,7 +1,6 @@
 var filter_obj={
 	"skills":["e.g. JAVA"],
 	"salary":"0",
-	"starting_from":"",
     "location":["e.g. Mumbai"],
 	"sort_by_date":false,
 	"work_from_home":false,
@@ -38,7 +37,6 @@ $(document).ready(function(){
 
 	$(".filter_data").on('change',function(){
         var starting_from = $('#starting_from').val();
-        filter_obj.starting_from = starting_from;
 		work_from_home = $('#work_from_home').is(":checked");
 		filter_obj.work_from_home = work_from_home;
 
