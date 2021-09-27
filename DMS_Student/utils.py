@@ -12,15 +12,16 @@ from .models import *
 import operator
 import numpy as np
 import math
-import datetime
+
 
 def job_eligibility_logic(job_list, percentage, live_kt, drop, dead_kt, ssc_percentage, hsc_percentage, sal):
     list_j = []
     for job in job_list:
-        if float(job.aggregate_sgpi) <= percentage and float(job.ssc_percentage) <= ssc_percentage and float(
-                job.hsc_d_percentage) <= hsc_percentage and live_kt <= int(job.live_kt) and drop <= int(
-            job.drop) and dead_kt <= int(job.dead_kt) and float(job.sal) > sal:
-            list_j.append(job)
+        salary = job.sal.split(',')
+        for s in salary:
+            if float(job.aggregate_sgpi) <= percentage and float(job.ssc_percentage) <= ssc_percentage and float(
+                job.hsc_d_percentage) <= hsc_percentage and live_kt <= int(job.live_kt) and drop <= int(job.drop) and dead_kt <= int(job.dead_kt) and float(s) > sal:
+                list_j.append(job)
     return list_j
 
 
@@ -28,7 +29,7 @@ def department_sort(request):
     roll_no = request.user.username
     student = Student.objects.get(roll_no=roll_no)
     branch = student.branch
-    jobs = Job.objects.filter(recruiting_from__icontains=branch,year=datetime.datetime.today().year)
+    jobs = Job.objects.filter(recruiting_from__icontains=branch)
     internships = Intership.objects.all()
     mockTests = Mock_test.objects.all()
 

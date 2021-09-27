@@ -57,34 +57,10 @@ def internshipFilter(request):
 @login_required(login_url='login')
 def job(request):
     data = jobLogic(request)
-    jobs=Job.objects.filter(year=datetime.datetime.today().year)
-    student=Student.objects.get(roll_no=request.user.username)
-    
-    currEdu=CurrEdu.objects.get(roll_no_curr=student)
-    addEdu=Add_edu.objects.filter(roll_no=student)
-    ssc=0
-    hsc=0
-    avg=currEdu.average_sgpi*7.1 + 11
-    
-    for edu in addEdu:
-        if edu.degree=="10":ssc=edu.percentage
-        elif edu.degree=="12" or edu.degree=="diploma":hsc=edu.percentage
-    
-    related_job_list=[]
-    for job in jobs:
-        
-        if(int(job.aggregate_sgpi)<int(avg) and int(job.ssc_percentage)<ssc
-         and int(job.hsc_d_percentage)<hsc and int(job.live_kt)>=int(currEdu.live_kt) and int(job.dead_kt)>=int(currEdu.dead_kt) and int(job.drop)>=int(currEdu.drop) ):
-          related_job_list.append(job)
-
-    content = {'related_job_list': related_job_list,
+    content = {'related_job_list': data['related_job_list'],
                'skill_set': data['skill_set'],
                'cities': data['cities'],
                }
-    # content = {'related_job_list': data['related_job_list'],
-    #            'skill_set': data['skill_set'],
-    #            'cities': data['cities'],
-    #            }
     return render(request, 'student/job.html', content)
 
 
