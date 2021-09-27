@@ -12,7 +12,7 @@ from .models import *
 import operator
 import numpy as np
 import math
-
+import datetime
 
 def job_eligibility_logic(job_list, percentage, live_kt, drop, dead_kt, ssc_percentage, hsc_percentage, sal):
     list_j = []
@@ -28,7 +28,7 @@ def department_sort(request):
     roll_no = request.user.username
     student = Student.objects.get(roll_no=roll_no)
     branch = student.branch
-    jobs = Job.objects.filter(recruiting_from__icontains=branch)
+    jobs = Job.objects.filter(recruiting_from__icontains=branch,year=datetime.datetime.today().year)
     internships = Intership.objects.all()
     mockTests = Mock_test.objects.all()
 
