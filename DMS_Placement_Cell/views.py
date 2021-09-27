@@ -422,3 +422,31 @@ def companyWise(request):
         company_offer[job.comp_name]=count
     content={"company_offer":company_offer,"jobs":jobs}
     return render(request,"placement/analysis/companyWise.html",content)
+
+def company_student(request,id):
+    offer=Job_user.objects.filter(job_id=id).order_by("-salary")
+    company=Job.objects.get(id=id).comp_name
+    students={}
+    studentDiv={"INFT-A":0,"INFT-B":0,"INFT-C":0, "CMPN-A":0,"CMPN-B":0,"CMPN-C":0, "EXTC-A":0,"EXTC-B":0,"EXTC-C":0, "ETRX-A":0,"ETRX-B":0,"ETRX-C":0, "BIOM":0}
+    for o in offer:
+        s=Student.objects.get(roll_no=o.roll_no)
+        students[s]=o.salary 
+        if s.branch=="INFT" and s.div=="A":studentDiv["INFT-A"]+=1
+        elif s.branch=="INFT" and s.div=="B":studentDiv["INFT-B"]+=1
+        elif s.branch=="INFT" and s.div=="C":studentDiv["INFT-C"]+=1
+        elif s.branch=="CMPN" and s.div=="A":studentDiv["CMPN-A"]+=1
+        elif s.branch=="CMPN" and s.div=="B":studentDiv["CMPN-B"]+=1
+        elif s.branch=="CMPN" and s.div=="C":studentDiv["CMPN-C"]+=1
+        elif s.branch=="EXTC" and s.div=="A":studentDiv["EXTC-A"]+=1
+        elif s.branch=="EXTC" and s.div=="B":studentDiv["EXTC-B"]+=1
+        elif s.branch=="EXTC" and s.div=="C":studentDiv["EXTC-C"]+=1
+        elif s.branch=="ETRX" and s.div=="A":studentDiv["ETRX-A"]+=1
+        elif s.branch=="ETRX" and s.div=="B":studentDiv["ETRX-B"]+=1
+        elif s.branch=="ETRX" and s.div=="C":studentDiv["ETRX-C"]+=1
+        elif s.branch=="BIOM" :studentDiv["BIOM"]+=1
+    
+    
+    labelDiv = ["INFT-A","INFT-B","INFT-C", "CMPN-A","CMPN-B","CMPN-C", "EXTC-A","EXTC-B","EXTC-C", "ETRX-A","ETRX-B","ETRX-C", "BIOM"]
+    total_placed=len(offer)
+    content={"students":students,"company":company,"offer":offer,"labelDiv":labelDiv,"studentDiv":studentDiv,"total_placed":total_placed}
+    return render(request,"placement/company_student.html",content)

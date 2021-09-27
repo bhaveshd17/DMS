@@ -1,0 +1,126 @@
+{%extends "placement/base.html" %}
+{% load static %}
+{% load custom_tags %}
+{% block title %} Add Intership {% endblock %}
+{% block content %}
+<style>
+    .grid-container{
+        display: grid;
+        grid-template-columns: 6fr 3fr;
+    }
+</style>
+<h3 class="text-center">Placed Student in {{company}}</h3>
+
+
+ <div class="grid-container">
+    <div class="grid-item mr-5">
+        <div class="card shadow p-3 mb-5 bg-white rounded">
+            <canvas id="chart"></canvas>
+        </div>
+        
+    </div>
+    <div class="grid-item" style="overflow-y: scroll;max-height: 450px;">
+        <table class="table" >
+            <thead>
+                <tr class="text-center">
+                    <th>Branch</th>
+                    <th>Placed Student</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for key,value in studentDiv.items %}
+                <tr class="text-center">
+                    {% ifnotequal value 0 %}
+                    <td>{{key}}</td>
+                    <td>{{value}}</td>
+                    {%endifnotequal%}
+                </tr>
+                {% endfor %}
+                <tr class="text-center">
+                    <td><strong>Total</strong></td>
+                    <td><strong>{{total_placed}}</strong></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="grid-list">
+<table class="table" id="sector">
+        <thead class="thead">
+          <tr class="text-center">
+            <th scope="col">Student</th>
+            <th scope="col">Branch</th>
+            <th scope="col">Div</th>
+            <th scope="col">Salary</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for student,sal in students.items %}
+          <tr class="clickable text-center"
+          onclick=" window.location.href='/placement_cell/displayProfile/{{ student.roll_no }}/'">
+            <td>{{student.roll_no}}</td>
+            <td>{{student.branch}}</td>
+            <td>{{student.div}}</td>
+            <td>{{sal}}</td>
+          </tr>
+          
+          {% endfor %}
+        </tbody>
+      </table>
+</div>
+
+<script>
+    $("#base").removeClass("container")
+    $("#base").addClass("mx-3 px-5 mt-3")
+
+    const data = {
+        labels: {{studentDiv|dictKeys|safe}},
+    datasets: [
+    {
+        type: 'line',
+        label: 'Total Student',
+        data: {{ studentDiv|dictToList | safe}},
+        fill: false,
+        borderColor: 'rgb(54, 162, 235)',
+            }
+    ]
+    };
+
+    const config = {
+        type: 'bar',
+        data: data,
+        options: {
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Department Wise Placed Students'
+                },
+            },
+            responsive: true,
+            interaction: {
+                intersect: false,
+            },
+            scales: {
+                x: {
+                    stacked: true,
+                },
+                y: {
+                    stacked: false,
+                    ticks: {
+                        beginAtZero: true,
+                    },
+                }
+            }
+        }
+    };
+
+    var mixedChart = new Chart(
+        document.getElementById('chart'),
+        config
+    );
+    
+
+</script> -->
+
+{%endblock %}

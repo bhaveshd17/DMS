@@ -18,6 +18,7 @@ urlpatterns = [
     path("student_details/", views.student_details, name="student_details"),
     path("sector/",views.sector,name="sector"),
     path("analyssis/companyWise",views.companyWise,name="companyWise"),
+    path("company_student/<int:id>",views.company_student,name="company_student"),
     
     path("analysis/ctcwise/", views.ctcWise, name='ctcWise'),
     path("analysis/gender_ratio/", views.gender_ratio, name='gender_ratio'),
