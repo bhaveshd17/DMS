@@ -90,6 +90,7 @@ input[type='range']::-webkit-slider-thumb {
     display: none;
 }
 
+
 @media (max-width: 576px) {
     #filters_div {
         display: none;

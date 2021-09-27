@@ -158,7 +158,7 @@ class Job(models.Model):
     location = models.CharField(max_length=100)
     recruiting_from = models.CharField(max_length=500, null=True, default="NA")
     link = models.CharField(max_length=150, null=False)
-    start_date = models.DateField(null=False)
+    year = models.CharField(max_length=25,null=False)
     apply_by = models.DateField(null=True)
     sal = models.CharField(null=False,max_length=150)
     skills = models.TextField(max_length=500, null=False)
