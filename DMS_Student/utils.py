@@ -17,10 +17,12 @@ import math
 def job_eligibility_logic(job_list, percentage, live_kt, drop, dead_kt, ssc_percentage, hsc_percentage, sal):
     list_j = []
     for job in job_list:
-        if float(job.aggregate_sgpi) <= percentage and float(job.ssc_percentage) <= ssc_percentage and float(
-                job.hsc_d_percentage) <= hsc_percentage and live_kt <= int(job.live_kt) and drop <= int(
-            job.drop) and dead_kt <= int(job.dead_kt) and float(job.sal) > sal:
-            list_j.append(job)
+        salary = job.sal.split(",")
+        for s in salary:
+            if float(job.aggregate_sgpi) <= percentage and float(job.ssc_percentage) <= ssc_percentage and float(
+                    job.hsc_d_percentage) <= hsc_percentage and live_kt <= int(job.live_kt) and drop <= int(
+                job.drop) and dead_kt <= int(job.dead_kt) and float(s) > sal:
+                list_j.append(job)
     return list_j
 
 
@@ -98,6 +100,7 @@ def jobLogic(request):
                 for job in hired:
                     package.append(Job.objects.get(id=job.job_id.id).sal)
                 sal = max(package)
+                sal = 0
 
                 if sal < 3.0:
                     related_job_list = job_eligibility_logic(job_list=job_list, percentage=percentage,
