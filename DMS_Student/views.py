@@ -454,10 +454,10 @@ def offer(request):
     hired = {}
     for job_u in job_user:
         job = Job.objects.get(id=job_u.job_id.id)
-        hired[job] = {"type":1, "user":Job_user.objects.filter(roll_no=request.user.username, job_id=job.id)}
+        hired[job] = {"type":"1", "user":Job_user.objects.filter(roll_no=request.user.username, job_id=job.id)}
     for intern_u in int_user:
         internship = Intership.objects.get(id=intern_u.int_id.id)
-        hired[internship] = {"type":1, "user":int_user}
+        hired[internship] = {"type":"2", "user":int_user}
         
     print(hired)
     context={"hired":hired}
