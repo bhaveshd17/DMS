@@ -73,13 +73,13 @@ def index(request):
     third = 0
     fourth = 0
     for i in offer_data:
-        if int(i.salary) >= 0 and int(i.salary) <= 349000:
+        if float(i.salary) >= 0 and float(i.salary) <= 349000:
             first = first + 1
-        elif int(i.salary) >= 350000 and int(i.salary) <= 499000:
+        elif float(i.salary) >= 350000 and float(i.salary) <= 499000:
             second = second + 1
-        elif int(i.salary) >= 500000 and int(i.salary) <= 700000:
+        elif float(i.salary) >= 500000 and float(i.salary) <= 700000:
             third = third + 1
-        elif int(i.salary) >= 701000:
+        elif float(i.salary) >= 701000:
             fourth = fourth + 1
     ctc.append(first)
     ctc.append(second)
@@ -126,16 +126,17 @@ def ctcWise(request):
     data = data.to_frame()
 
     for i, row in data.iterrows():
-        if int(i[0]) >= 0 and int(i[0]) <= 349000:
+        print(int(str(i[0])))
+        if int(str(i[0])) >= 0 and int(str(i[0])) <= 349000:
             fl.append({i[1]: [i[0], row[0]]})
             ctc_dict[labelCTC[0]] = fl
-        elif int(i[0]) >= 350000 and int(i[0]) <= 499000:
+        elif int(str(i[0])) >= 350000 and int(str(i[0])) <= 499000:
             sl.append({i[1]: [i[0], row[0]]})
             ctc_dict[labelCTC[1]] = sl
-        elif int(i[0]) >= 500000 and int(i[0]) <= 700000:
+        elif int(str(i[0])) >= 500000 and int(str(i[0])) <= 700000:
             tl.append({i[1]: [i[0], row[0]]})
             ctc_dict[labelCTC[2]] = tl
-        elif int(i[0]) >= 701000:
+        elif int(str(i[0])) >= 701000:
             frl.append({i[1]: [i[0], row[0]]})
             ctc_dict[labelCTC[3]] = frl
 
