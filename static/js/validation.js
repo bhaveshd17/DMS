@@ -2,7 +2,7 @@ function validatePan() {
     var pan_no = document.getElementById("id_pan_card_no").value;
     var regex = /([A-Z]){5}([0-9]){4}([A-Z]){1}$/;
     var regex1 = /([A-Z]){3}([0-9]){6}([A-Z]){1}$/;
-    if (regex.test(pan_no.toUpperCase()) || regex1.test(pan_no.toUpperCase()) || pan_no==='Applied') {
+    if (regex.test(pan_no.toUpperCase()) || regex1.test(pan_no.toUpperCase()) || pan_no==='Applied' || pan_no==='NA') {
         document.getElementById("pan_error").style.display = 'none'
         return true
     } else {
@@ -14,7 +14,7 @@ function validatePan() {
 function validatePassport() {
     var patt = new RegExp("^[A-PR-WYa-pr-wy][1-9]\\d\\s?\\d{4}[1-9]$")
     var pass_no = document.getElementById("id_passport_no").value;
-    if (patt.test(pass_no) || pass_no === 'Applied') {
+    if (patt.test(pass_no) || pass_no === 'Applied' || pass_no === 'NA') {
         document.getElementById("pass_error").style.display = 'none'
         return true
     }
