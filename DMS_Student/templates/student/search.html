@@ -30,7 +30,7 @@
               <div class="grid-container mt-2 mb-3">
                 {% if type == 1 %}
                 <div class="grid-item">SALARY</div>
-                <div class="grid-item">Rs. {{result.sal}} LPA</div>
+                <div class="grid-item">Rs. {{result.sal|sal}} LPA</div>
                 {% elif type == 2 %}
                 <div class="grid-item">STIPEND</div>
                 <div class="grid-item">Rs. {{result.sal}}</div>
@@ -45,8 +45,8 @@
                 <div class="grid-item">{{result.duration}}</div>
                 {% endif %}
 
-                <div class="grid-item">START DATE</div>
-                <div class="grid-item">{{result.start_date|date_format}}</div>
+                <div class="grid-item">YEAR</div>
+                <div class="grid-item">{{result.year}}</div>
                 <div class="grid-item">APPLY BY</div>
                 <div class="grid-item">{{result.apply_by|date_format}}</div>
               </div>
@@ -84,14 +84,14 @@
           {% elif type == 2 %}
           <div class="grid-item-mob text-muted">STIPEND</div>
           {% endif %}
-          <div class="grid-item-mob text-muted">START DATE</div>
+          <div class="grid-item-mob text-muted">YEAR</div>
           <div class="grid-item-mob text-muted">APPLY BY</div>
           {% if type == 1 %}
-          <div class="grid-item-mob">Rs. {{result.sal}} LPA</div>
+          <div class="grid-item-mob">Rs. {{result.sal|sal}} LPA</div>
           {% elif type == 2 %}
           <div class="grid-item-mob">Rs. {{result.sal}}</div>
           {% endif %}
-          <div class="grid-item-mob">{{result.start_date|date_format}}</div>
+          <div class="grid-item-mob">{{result.year}}</div>
           <div class="grid-item-mob">{{result.apply_by|date_format}}</div>
         </div>
       </div>

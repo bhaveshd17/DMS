@@ -327,10 +327,11 @@ def send_email(request, id, comp):
 
     if job_user.status == '3':
 
-        send_accepted_email(student, job, request)
+        # send_accepted_email(student, job, request)
         Job_user.objects.filter(id=job_user.id).update(is_mail_send=True)
     elif job_user.status == '2':
-        send_not_suitable_email(student, job, request)
+        pass
+        # send_not_suitable_email(student, job, request)
     return redirect('/placement_cell/details/' + str(job.id) + "/1")
 
 
