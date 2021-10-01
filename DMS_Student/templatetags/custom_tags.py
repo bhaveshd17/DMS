@@ -95,3 +95,14 @@ def dictToList(sectorCompany):
 @register.filter(name="dictKeys")
 def dictKeys(sectorCompany):
     return list(sectorCompany.keys())
+
+
+
+@register.filter(name="offer_sal")
+def offer_sal(value):
+    ls = []
+    for i in value:
+        ls.append(i.salary)
+    return ls[0]
+
+
