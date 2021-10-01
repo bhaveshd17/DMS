@@ -105,4 +105,10 @@ def offer_sal(value):
         ls.append(i.salary)
     return ls[0]
 
+# @register.filter(name="companyWiseData")
+# def companyWiseData(sectorCompany):
+#     return list(sectorCompany.values()).sort()
 
+# @register.filter(name="companyWiseLabel")
+# def companyWiseLabel(sectorCompany):
+#     return list(sectorCompany.keys())
