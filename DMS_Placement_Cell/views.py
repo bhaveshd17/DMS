@@ -338,7 +338,7 @@ def Update_Details(request, id):
     form = JobForm(instance=instance)
     if request.method == "POST":
         form = JobForm(request.POST, instance=instance)
-        print(form)
+        # print(form)
         if form.is_valid():
             form.save()
             Job.objects.filter(id=id).update(who_can_apply=who_can_apply_text(id))
