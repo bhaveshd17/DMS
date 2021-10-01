@@ -29,19 +29,19 @@
               <!-- <p class="px-2" style="font-weight: 400; font-size: 1.1rem;">Lorem ipsum dolor sit Lorem, ipsum.
             </p> -->
               <div class="grid-container mt-2 mb-3">
-                {% if value.type == 1 %}
+                {% if value.type == '1' %}
                 <div class="grid-item">SALARY</div>
                 <div class="grid-item">Rs. {{value.user|offer_sal}} LPA</div>
-                {% elif value.type == 2 %}
+                {% elif value.type == '2' %}
                 <div class="grid-item">STIPEND</div>
                 <div class="grid-item">Rs. {{result.sal}}</div>
                 {% endif %}
 
 
-                {% if value.type == 1 %}
+                {% if value.type == '1' %}
                 <div class="grid-item">LOCATION</div>
                 <div class="grid-item">{{result.location}}</div>
-                {% elif value.type == 2 %}
+                {% elif value.type == '2' %}
                 <div class="grid-item">DURATION</div>
                 <div class="grid-item">{{result.duration}}</div>
                 {% endif %}
@@ -80,16 +80,16 @@
       <h3 class="card-title text-center mb-0">{{result.comp_name}}</h3>
       <div class="card-text">
         <div class="grid-container-mob mt-2 mb-3">
-          {% if value.type == 1 %}
+          {% if value.type == '1' %}
           <div class="grid-item-mob text-muted">SALARY</div>
-          {% elif value.type == 2 %}
+          {% elif value.type == '2' %}
           <div class="grid-item-mob text-muted">STIPEND</div>
           {% endif %}
           <div class="grid-item-mob text-muted">YEAR</div>
           <div class="grid-item-mob text-muted">APPLY BY</div>
-          {% if value.type == 1 %}
+          {% if value.type == '1' %}
           <div class="grid-item-mob">Rs. {{value.user|offer_sal}}</div>
-          {% elif value.type == 2 %}
+          {% elif value.type == '2' %}
           <div class="grid-item">Rs. {{result.sal}}</div>
           {% endif %}
           <div class="grid-item-mob">{{result.year}}</div>
