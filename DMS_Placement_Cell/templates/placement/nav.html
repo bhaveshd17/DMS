@@ -147,34 +147,19 @@
     </li>
 
 
-    <li class="nav-li nav-links-item p-2 collapsed text-truncate" href="#student-sub" data-toggle="collapse"
-      data-target="#student-sub">
+    <li class="nav-li nav-links-item mb-3 p-2"><a href="{% url 'student_details' %}">
       <div class="grid-nav">
         <div class="grid-nav-item">
           <span class="iconify" data-icon="ph:student" data-width="30" data-height="30"></span>
         </div>
         <div class="grid-nav-item1">
-          <span>
-            <strong class="pl-1">Students</strong>
-            <i class="fa fa-caret-down" style="float:right;padding-right:1.2rem"></i>
-          </span>
+          <strong class="pl-1">Student</strong>
         </div>
       </div>
+    </a>
+  </li>
 
-    </li>
-
-
-    <div class="collapse" id="student-sub" aria-expanded="false">
-      <ul class="d-flex flex-column nav p-0" style="padding-left: 1rem;">
-        <li class="nav-li nav-item">
-          <a class="nav-link pt-1 padding-left-6" href="{% url 'student_details' %}"><span>All Students</span></a>
-        </li>
-        <li class="nav-li  nav-item">
-          <a class="nav-link pt-1 padding-left-6" href=""><span>Placed Students</span></a>
-        </li>
-      </ul>
-
-    </div>
+    
 
 
     <li class="nav-li nav-links-item p-2 mt-3 collapsed text-truncate" href="#job-submenu" data-toggle="collapse"
