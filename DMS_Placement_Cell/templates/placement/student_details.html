@@ -3,348 +3,51 @@
 {% load custom_tags %}
 {% block title %} Students Details {% endblock %}
 {% block content %}
+
+<link rel="stylesheet" href="{% static 'css/placement_cell/student_details.css' %}">
+
 <h3 class="text-center mb-5">Students Details</h3>
 
-<!-- <table class="table table-hover table-striped table-responsive-sm table-responsive" id="student_table"
-    style="display: none;">
-    <thead>
-        <th scope="col">Roll No</th>
-        <th scope="col">Full Name</th>
-        <th scope="col">Email</th>
-        <th scope="col">Gmail</th>
-        <th scope="col">Age</th>
-        <th scope="col">Gender</th>
-        <th scope="col">Branch</th>
-        <th scope="col">Div</th>
-        <th scope="col">Year Of Graduation</th>
-        <th scope="col">Skills</th>
-        <th scope="col">Residence Phone</th>
-        <th scope="col">Mobile Number</th>
-        <th scope="col">DOB</th>
-        <th scope="col">Permanent Address</th>
-        <th scope="col">Corresponding Address</th>
-        <th scope="col">Pan Number</th>
-        <th scope="col">Adhar Number</th>
-        <th scope="col">Passport Number</th>
-        <th scope="col">Disability</th>
-        <th scope="col">Type Of Disability</th>
-        <th scope="col">Father Name</th>
-        <th scope="col">Father Occupation</th>
-        <th scope="col">Mother Name</th>
-        <th scope="col">Mother Occupation</th>
-
-
-        <th scope="col">10th College</th>
-        <th scope="col">10th percentage</th>
-        <th scope="col">12th College</th>
-        <th scope="col">12th percentage</th>
-        <th scope="col">Diploma College</th>
-        <th scope="col">Diploma percentage</th>
-        <th scope="col">Diploma Aggregate (mark-wise)</th>
-        <th scope="col">Diploma percentage (percentage-wise)</th>
-        <th scope="col">Diploma Drop KT</th>
-        <th scope="col">After 12/Diploma Year Drop</th>
-
-        <th scope="col">SGPI1</th>
-        <th scope="col">SGPI2</th>
-        <th scope="col">SGPI3</th>
-        <th scope="col">SGPI4</th>
-        <th scope="col">SGPI5</th>
-        <th scope="col">SGPI6</th>
-        <th scope="col">SGPI7</th>
-        <th scope="col">SGPI8</th>
-        <th scope="col">Live KT</th>
-        <th scope="col">Dead KT</th>
-        <th scope="col">Year Drop</th>
-        <th scope="col">Total Grade</th>
-        <th scope="col">Average SGPI</th>
-
-        <th scope="col">Co curriculum Activities</th>
-        <th scope="col">Extra curriculum Activities</th>
-        <th scope="col">Hobbies</th>
-        <th scope="col">Resume</th>
-        <th scope="col">Photo</th>
-        <th scope="col">Facebook</th>
-        <th scope="col">Linkden</th>
-        <th scope="col">Github</th>
-        <th scope="col">Other</th>
-    </thead>
-    <tbody>
-        {% for roll_no, details in student_dict %}
-        <tr>
-            <td>{{details.0.0.username}}</td>
-            <td>{{details.0.0.first_name}}</td>
-            <td>{{details.0.0.email}}</td>
-            <td>{{details.1.gmail}}</td>
-            <td>{{details.1.age}}</td>
-            <td>{{details.1.gender}}</td>
-            <td>{{details.1.branch}}</td>
-            <td>{{details.1.div}}</td>
-            <td>{{details.1.year_of_graduation}}</td>
-            <td>{{details.1.skills}}</td>
-            <td>{{details.1.residence_phone}}</td>
-            <td>{{details.1.phone}}</td>
-            <td>{{details.1.date_of_birth}}</td>
-            <td>{{details.1.permanent_address}}</td>
-            <td>{{details.1.corresponding_address}}</td>
-            <td>{{details.1.pan_card_no}}</td>
-            <td>{{details.1.aadhar_no}}</td>
-            <td>{{details.1.passport_no}}</td>
-            <td>{{details.1.disability|disability}}</td>
-            <td>{{details.1.type_of_disability}}</td>
-            <td>{{details.1.father_name}}</td>
-            <td>{{details.1.father_occupation}}</td>
-            <td>{{details.1.mother_name}}</td>
-            <td>{{details.1.mother_occupation}}</td>
-
-            <td>{{details.2.0.clg_name}}</td>
-            {% if details.2.0.percentage > 12 %}
-            <td>{{details.2.0.percentage}}</td>
-            {% else %}
-            <td>{% marks_to_percentage details.2.0.marks details.2.0.no_of_subject %}</td>
-            {% endif %}
-
-            {% if details.2.1.degree == 'diploma' %}
-            <td>NA</td>
-            <td>NA</td>
-            <td>{{details.2.1.clg_name}}</td>
-            {% if details.2.1.percentage > 12 %}
-            <td>{{details.2.1.percentage}}</td>
-            {% else %}
-            <td>{% marks_to_percentage details.2.1.marks details.2.1.no_of_subject %}</td>
-            {% endif %}
-            {% else %}
-            <td>{{details.2.1.clg_name}}</td>
-            <td>{{details.2.1.percentage}}</td>
-            <td>NA</td>
-            <td>NA</td>
-            {% endif %}
-            <td>{{details.2.1.diploma_aggregate_mw}}</td>
-            <td>{{details.2.1.diploma_aggregate_pw}}</td>
-            <td>{{details.2.1.no_of_dead_kt}}</td>
-            <td>{{details.2.1.gap}}</td>
-
-            <td>{{details.3.0.sgpi1}}</td>
-            <td>{{details.3.0.sgpi2}}</td>
-            <td>{{details.3.0.sgpi3}}</td>
-            <td>{{details.3.0.sgpi4}}</td>
-            <td>{{details.3.0.sgpi5}}</td>
-            <td>{{details.3.0.sgpi6}}</td>
-            <td>{{details.3.0.sgpi7}}</td>
-            <td>{{details.3.0.sgpi8}}</td>
-            <td>{{details.3.0.live_kt}}</td>
-            <td>{{details.3.0.dead_kt}}</td>
-            <td>{{details.3.0.drop}}</td>
-            <td>{{details.3.0.total_grade}}</td>
-            <td>{{details.3.0.average_sgpi}}</td>
-
-
-            <td>{{details.1.co_curriculum_activities}}</td>
-            <td>{{details.1.extra_curriculum_activities}}</td>
-            <td>{{details.1.hobbies}}</td>
-            <td><a href="{{details.1.resume.url}}" target="blank">view</a></td>
-            <td><a href="{{details.1.profile_photo.url}}" starget="blank">view</a></td>
-            <td><a href="{{details.1.facebook}}" target="blank">view</a></td>
-            <td><a href="{{details.1.linkdin}}" target="blank">view</a></td>
-            <td><a href="{{details.1.github}}" target="blank">view</a></td>
-            <td><a href="{{details.1.other}}" target="blank">view</a></td>
-
-        </tr>
-        {% endfor %}
-    </tbody>
-</table> -->
-
-
-<div class="d-flex m-0 p-0">
-    <ul class="nav nav-tabs" id="myTab" role="tablist">
-        <li class="nav-item">
-            <a class="nav-link active" id="inft-tab" data-toggle="tab" href="#inft" role="tab" aria-controls="inft"
-                aria-selected="true">INFT</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" id="cmpn-tab" data-toggle="tab" href="#cmpn" role="tab" aria-controls="cmpn"
-                aria-selected="false">CMPN</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" id="etrx-tab" data-toggle="tab" href="#etrx" role="tab" aria-controls="etrx"
-                aria-selected="false">ETRX</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" id="extc-tab" data-toggle="tab" href="#extc" role="tab" aria-controls="extc"
-                aria-selected="false">EXTC</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" id="biomed-tab" data-toggle="tab" href="#biomed" role="tab" aria-controls="biomed"
-                aria-selected="false">BIOMED</a>
-        </li>
-    </ul>
-    <ul class="nav nav-tabs ml-auto">
-        <li class="nav-item">
-            <button style="margin-top: 0.3rem !important;" class="btn btn-primary btn-sm" onclick="job_xl_conv()"><i
-                    class="fas fa-download mr-2"></i>All details</button>
-        </li>
-    </ul>
-</div>
-<div class="tab-content" id="myTabContent">
-    <div class="tab-pane fade show active" id="inft" role="tabpanel" aria-labelledby="inft-tab">
-        <div class="card">
-            <div class="card-body">
-                <table class="table table-hover table-striped table-responsive-sm">
-                    <thead>
-                        <tr>
-                            <th>Roll Number</th>
-                            <th>Name</th>
-                            <th>Branch</th>
-                            <th>Average Sgpi</th>
-                            <th>Year Of Graduation</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for roll_no, details in student_dict %}
-                        {% if details.1.branch == 'INFT' %}
-                        <tr onclick=" window.location.href='/placement_cell/displayProfile/{{ roll_no }}/'">
-                            <td>{{details.0.0.username}}</td>
-                            <td>{{details.0.0.first_name}}</td>
-                            <td>{{details.1.branch}}</td>
-                            <td>{{details.3.0.average_sgpi}}</td>
-                            <td>{{details.1.year_of_graduation}}</td>
-                        </tr>
-                        {% endif %}
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
+<div class="int-job-div">
+    <div class="my-5 ">
+        <div id="search-div">
+            <form method="POST" action="{% url 'student_details'%}">
+                {% csrf_token %}
+                <div class="input-group mb-3" id="search-box">
+                    <input type="text" name="to_search"  style="border: none;border-radius: 40px 0px 0px 40px;"
+                        class="form-control " placeholder="Search for Roll Number" aria-label=""
+                        aria-describedby="basic-addon1">
+                    <div class="input-group-prepend">
+                        <button class="btn btn-outline-secondary" id="search-btn" type="submit"><i
+                                class="fas fa-search"></i></button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 
-
-    <div class="tab-pane fade" id="cmpn" role="tabpanel" aria-labelledby="cmpn-tab">
-        <div class="card">
-            <div class="card-body">
-                <table class="table table-hover table-striped table-responsive-sm">
-                    <thead>
-                        <tr>
-                            <th>Roll Number</th>
-                            <th>Name</th>
-                            <th>Branch</th>
-                            <th>Average Sgpi</th>
-                            <th>Year Of Graduation</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for roll_no, details in student_dict %}
-                        {% if details.1.branch == 'CMPN' %}
-                        <tr onclick=" window.location.href='/placement_cell/displayProfile/{{ roll_no }}/'">
-                            <td>{{details.0.0.username}}</td>
-                            <td>{{details.0.0.first_name}}</td>
-                            <td>{{details.1.branch}}</td>
-                            <td>{{details.3.0.average_sgpi}}</td>
-                            <td>{{details.1.year_of_graduation}}</td>
-                        </tr>
-                        {% endif %}
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-
-
-    <div class="tab-pane fade" id="etrx" role="tabpanel" aria-labelledby="etrx-tab">
-        <div class="card">
-            <div class="card-body">
-                <table class="table table-hover table-striped table-responsive-sm">
-                    <thead>
-                        <tr>
-                            <th>Roll Number</th>
-                            <th>Name</th>
-                            <th>Branch</th>
-                            <th>Average Sgpi</th>
-                            <th>Year Of Graduation</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for roll_no, details in student_dict %}
-                        {% if details.1.branch == 'ETRX' %}
-                        <tr onclick=" window.location.href='/placement_cell/displayProfile/{{ roll_no }}/'">
-                            <td>{{details.0.0.username}}</td>
-                            <td>{{details.0.0.first_name}}</td>
-                            <td>{{details.1.branch}}</td>
-                            <td>{{details.3.0.average_sgpi}}</td>
-                            <td>{{details.1.year_of_graduation}}</td>
-                        </tr>
-                        {% endif %}
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-
-
-    <div class="tab-pane fade" id="extc" role="tabpanel" aria-labelledby="extc-tab">
-        <div class="card">
-            <div class="card-body">
-                <table class="table table-hover table-striped table-responsive-sm">
-                    <thead>
-                        <tr>
-                            <th>Roll Number</th>
-                            <th>Name</th>
-                            <th>Branch</th>
-                            <th>Average Sgpi</th>
-                            <th>Year Of Graduation</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for roll_no, details in student_dict %}
-                        {% if details.1.branch == 'EXTC' %}
-                        <tr onclick=" window.location.href='/placement_cell/displayProfile/{{ roll_no }}/'">
-                            <td>{{details.0.0.username}}</td>
-                            <td>{{details.0.0.first_name}}</td>
-                            <td>{{details.1.branch}}</td>
-                            <td>{{details.3.0.average_sgpi}}</td>
-                            <td>{{details.1.year_of_graduation}}</td>
-                        </tr>
-                        {% endif %}
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-
-
-    <div class="tab-pane fade" id="biomed" role="tabpanel" aria-labelledby="biomed-tab">
-        <div class="card">
-            <div class="card-body">
-                <table class="table table-hover table-striped table-responsive-sm">
-                    <thead>
-                        <tr>
-                            <th>Roll Number</th>
-                            <th>Name</th>
-                            <th>Branch</th>
-                            <th>Average Sgpi</th>
-                            <th>Year Of Graduation</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for roll_no, details in student_dict %}
-                        {% if details.1.branch == 'BIOM' %}
-                        <tr onclick=" window.location.href='/placement_cell/displayProfile/{{ roll_no }}/'">
-                            <td>{{details.0.0.username}}</td>
-                            <td>{{details.0.0.first_name}}</td>
-                            <td>{{details.1.branch}}</td>
-                            <td>{{details.3.0.average_sgpi}}</td>
-                            <td>{{details.1.year_of_graduation}}</td>
-                        </tr>
-                        {% endif %}
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-
+    <table class="table table-hover table-striped table-responsive-sm">
+        <thead>
+            <tr>
+                <th>Roll Number</th>
+                <th>Name</th>
+                <th>Branch</th>
+                <th>Year Of Graduation</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in students %}
+            
+            <tr onclick=" window.location.href='/placement_cell/displayProfile/{{ studnet.roll_no }}/'">
+                <td>{{student.roll_no}}</td>
+                <td>{{student.name}}</td>
+                <td>{{student.branch}}</td>
+                <td>{{student.yor}}</td>
+            </tr>
+    
+            {% endfor %}
+        </tbody>
+    </table>
 
 </div>
 
@@ -353,17 +56,4 @@
 
 
 
-
-<script>
-    let date = new Date()
-    date = date.getDate().toString() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear()
-    function job_xl_conv() {
-        $("#student_table").table2excel({
-            name: "Table2Excel",
-            filename: "student_details_" + date,
-            fileext: ".xls"
-        });
-    }
-
-</script>
 {% endblock %}
