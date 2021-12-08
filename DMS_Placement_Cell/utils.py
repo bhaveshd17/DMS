@@ -6,6 +6,10 @@ from django.template.loader import render_to_string
 from DMS_Student.models import Job
 
 
+
+
+
+
 def send_accepted_email(student,job,request):
     current_site=get_current_site(request)
     email_subject="Job Offer"

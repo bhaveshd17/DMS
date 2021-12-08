@@ -25,7 +25,7 @@ class Student(models.Model):
     aadhar_no=models.CharField(max_length=12,null=True)
     passport_no=models.CharField(max_length=9,null=True)
     # year_of_graduation=models.CharField(db_index=True,max_length=4,null=True)
-    year_of_graduation=models.IntegerField(max_length=4,null=True,db_index=True)
+    year_of_graduation=models.IntegerField(null=True,db_index=True)
     disability=models.BooleanField(null=True)
     type_of_disability=models.CharField(max_length=100,null=True)
     father_name = models.CharField(max_length=50, null=True)
@@ -157,6 +157,7 @@ class Job(models.Model):
     location = models.CharField(max_length=100)
     recruiting_from = models.CharField(max_length=500, null=True, default="NA")
     link = models.CharField(max_length=150, null=False)
+    # This is yog
     year = models.CharField(max_length=25,null=True, blank=True)
     apply_by = models.DateField(null=True)
     sal = models.CharField(null=False,max_length=150)
