@@ -120,34 +120,18 @@
                 <form method="post" action="" class="mt-3">
                     {% csrf_token %}
                     <div class="mb-4">
-                        <input type="text" name="username" size="30" placeholder="Username" class="form-control">
+                        
+                        <select class="form-control" name="yog" id="yog">
+                            {% for y in year %}
+                            <option value="{{y.year_of_graduation}}">{{y.year_of_graduation}}</option>
+                            {% endfor %}
+                        </select>
                     </div>
-
-                    <div class="mb-2">
-                        <input type="password" name="password" size="30" placeholder="Password" class="form-control">
+                    <div class="text-center mt-3 mb-5">
+                        <button type="submit" class="btn btn-primary" id="login-btn" >Continue</button>
                     </div>
                     
-
-                    <div class="mb-3"><a style="text-decoration: none;" href="{% url 'forgot_password' %}">Forgot
-                            Password ?</a> </div>
-
-
-                    {% if messages %}
-                    {% for message in messages %}
-                    <div style="margin: 10px 20px;">
-                        <strong style="color: red;font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">{{message }}</strong>
-                    </div>
-                    {% endfor %}
-                    {% endif %}
-
-                    <div class="text-center mt-3 mb-5">
-                        <button type="submit" class="btn btn-primary" id="login-btn">Login</button>
-                        <p class="mt-2">Don’t have an account? <a href="{% url 'register' %}"
-                                style="color: #0066cc;text-decoration: none;">Register</a></p>
-                    </div>
                 </form>
-
-
 
 
             </fieldset>
