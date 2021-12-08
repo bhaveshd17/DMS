@@ -226,10 +226,12 @@ def add_job(request):
     form = JobForm()
     if request.method == "POST":
         form = JobForm(request.POST)
+        print(form)
         if form.is_valid():
-            form.save()
-            id = Job.objects.filter(comp_name=form.cleaned_data.get("comp_name")).order_by('-id')[0].id
-            Job.objects.filter(id=id).update(who_can_apply=who_can_apply_text(id))
+            job = form.save(commit=False)
+            job.year = '2021'
+            job.who_can_apply=who_can_apply_text(job)
+            job.save()
             messages.success(request, "Job Added Successfully.")
             return redirect("placementIndex")
         else:
@@ -343,8 +345,9 @@ def Update_Details(request, id):
         form = JobForm(request.POST, instance=instance)
         # print(form)
         if form.is_valid():
-            form.save()
-            Job.objects.filter(id=id).update(who_can_apply=who_can_apply_text(id))
+            job = form.save(commit=False)
+            job.who_can_apply=who_can_apply_text(job)
+            job.save()
             messages.success(request, 'Successfully Updated!')
             return redirect('/placement_cell/details/' + str(id) + "/1")
     content = {"form": form, "id": id}

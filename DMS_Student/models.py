@@ -157,7 +157,7 @@ class Job(models.Model):
     location = models.CharField(max_length=100)
     recruiting_from = models.CharField(max_length=500, null=True, default="NA")
     link = models.CharField(max_length=150, null=False)
-    year = models.CharField(max_length=25,null=False)
+    year = models.CharField(max_length=25,null=True, blank=True)
     apply_by = models.DateField(null=True)
     sal = models.CharField(null=False,max_length=150)
     skills = models.TextField(max_length=500, null=False)
@@ -175,7 +175,7 @@ class Job(models.Model):
     drop=models.CharField(max_length=15,choices=sorted({
         ("0", "0 year"), ("1", "1 year"), ("2", "2 years"), ("3", "3 years"), ("4", "4 years"), ("5", "5 years")
     }),null=True)
-    who_can_apply = models.TextField(max_length=500, null=False)
+    who_can_apply = models.TextField(max_length=500, null=True, blank=True)
     perks = models.TextField(max_length=500, null=False)
     additional = models.TextField(max_length=500, null=False)
     status=models.CharField(max_length=10, null=True,default=0)
