@@ -348,7 +348,7 @@ def Update_Details(request, id):
             job = form.save(commit=False)
             job.who_can_apply=who_can_apply_text(job)
             job.save()
-            messages.success(request, 'Successfully Updated!')
+            messages.success(request, 'Successfully Updated')
             return redirect('/placement_cell/details/' + str(id) + "/1")
     content = {"form": form, "id": id}
     return render(request, "placement/update_details.html", content)
