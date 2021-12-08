@@ -44,4 +44,5 @@ urlpatterns = [
     path('student/forgot',views.forgot_password,name="forgot_password"),
     path('student/reset_password/<uidb64>',views.reset_password,name="reset_password"),
     path('student/offer',views.offer,name="offer"),
+    
 ]

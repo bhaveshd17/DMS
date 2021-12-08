@@ -482,7 +482,7 @@ def handleLogin(request):
                 login(request, user)
                 request.session.set_expiry(60*60*24)
                 if user.is_staff:
-                    return redirect("placementIndex")
+                    return redirect("yog")
                 return redirect('/student/')
             else:
                 messages.error(request, 'Wrong username or password')

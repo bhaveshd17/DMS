@@ -70,18 +70,6 @@ DATABASES = {
 }
 
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'djongo',
-#         'NAME': 'vplacement_db',
-#         'ENFORCE_SCHEMA': False,
-#         'USER':'vplacement',
-#         'PASSWORD':'vplacement',
-#         'CLIENT': {
-#            'host': 'mongodb+srv://vplacement:vplacement@cluster0.fptvs.mongodb.net/vplacement_db?retryWrites=true&w=majority',
-#         }
-#     }
-# }
 
 
 # Password validation

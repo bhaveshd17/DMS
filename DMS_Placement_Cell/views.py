@@ -14,11 +14,25 @@ import pandas as pd
 from .utils import *
 
 
+
+@allowed_users(allowed_roles=['Placement_Cell'])
+def yog(request):
+    if request.method=="POST":
+        yog=request.POST.get('yog')
+        request.session['yog'] = yog
+        return redirect("placementIndex")
+
+    year=Student.objects.values('year_of_graduation')
+    year=year.distinct()
+    context={"year":year}
+    return render(request, 'authentication/yog.html', context)
+
 @allowed_users(allowed_roles=['Placement_Cell'])
 def index(request):
-    student_data = Student.objects.all()
+    yog=request.session.get('yog')
+    student_data = Student.objects.filter(year_of_graduation=yog)
     offer_data = Job_user.objects.filter(status="3")
-    placed_data = Student.objects.filter(placed=True)
+    placed_data = Student.objects.filter(placed=True , year_of_graduation=yog)
     package = []
 
     for job in offer_data:
@@ -48,7 +62,7 @@ def index(request):
     dataPMale = []
     dataPFemale = []
     for i in labelDiv:
-        branch = Student.objects.filter(branch=i)
+        branch = Student.objects.filter(branch=i,year_of_graduation=yog)
         dataDiv.append(len(branch))
         male = 0
         Pmale = 0
@@ -108,7 +122,7 @@ def index(request):
                "total_offer": total_offer, "labelDiv": labelDiv,
                "dataDiv": dataDiv, "dataMale": dataMale, "dataFemale": dataFemale, "dataPMale": dataPMale,
                "dataPFemale": dataPFemale, "ctc": ctc, "labelCTC": labelCTC,
-               "labelSector": labelSector, "sectorCount": sectorCount}
+               "labelSector": labelSector, "sectorCount": sectorCount,"yog":yog}
     return render(request, 'placement/index.html', content)
 
 
@@ -155,7 +169,7 @@ def ctcWise(request):
 @allowed_users(allowed_roles=['Placement_Cell'])
 def gender_ratio(request):
     student_dataframe = pd.DataFrame([])
-    for student in Student.objects.all():
+    for student in Student.objects.filter(year_of_graduation=2023):
         student_dataframe = student_dataframe.append(
             {'roll_no': student.roll_no, 'gender': student.gender, 'placed': student.placed, 'branch': student.branch,
              'div': student.div}, ignore_index=True)
@@ -223,13 +237,13 @@ def form_intership(request):
 
 @allowed_users(allowed_roles=['Placement_Cell'])
 def add_job(request):
+
     form = JobForm()
     if request.method == "POST":
         form = JobForm(request.POST)
-        print(form)
         if form.is_valid():
             job = form.save(commit=False)
-            job.year = '2021'
+            job.year = request.session.get('yog')
             job.who_can_apply=who_can_apply_text(job)
             job.save()
             messages.success(request, "Job Added Successfully.")
@@ -348,7 +362,7 @@ def Update_Details(request, id):
             job = form.save(commit=False)
             job.who_can_apply=who_can_apply_text(job)
             job.save()
-            messages.success(request, 'Successfully Updated')
+            messages.success(request, 'Successfully Updated!')
             return redirect('/placement_cell/details/' + str(id) + "/1")
     content = {"form": form, "id": id}
     return render(request, "placement/update_details.html", content)

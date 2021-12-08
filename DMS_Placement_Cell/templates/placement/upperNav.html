@@ -6,17 +6,19 @@
             <h4 style="color: #D9FAFF; font-weight: 400;" class="ml-5 mt-2 mb-0">VPlacements</h4>
         </span>
 
+    
         <a href="{% url 'logout' %}" style="text-decoration: none;" class="text-center" style="cursor: pointer;"
             id="profile-btn">
-            <span class="iconify mt-2 mr-5" style="color: #D9FAFF;" data-icon="fe:logout" data-width="30" data-height="30"></span>
+            <span class="iconify mt-2 mr-5" style="color: #D9FAFF;" data-icon="fe:logout" data-width="30"
+                data-height="30"></span>
             <p style="color: #D9FAFF; font-weight: 300;" class="mb-0  mr-5">{{request.user.username}}</p>
         </a>
         <span class="text-center mt-3" style="cursor: pointer; display: none;" id="menu-btn">
             <img src="{% static 'images/menu.png' %}" class="mr-4 mt-3" width="35" height="25" alt="menu">
         </span>
-        <span class="text-center mt-3" style="cursor: pointer; display: none;" id="close-btn">
+        <!-- <span class="text-center mt-3" style="cursor: pointer; display: none;" id="close-btn">
             <img src="{% static 'images/menu.png' %}" class="mr-4 mt-3" width="35" height="25" alt="menu">
-        </span>
+        </span> -->
     </div>
 </nav>
 
