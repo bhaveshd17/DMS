@@ -12,7 +12,7 @@ import json
 import math
 import pandas as pd
 from .utils import *
-
+from django.db.models import Q
 
 
 @allowed_users(allowed_roles=['Placement_Cell'])
@@ -30,14 +30,18 @@ def yog(request):
 @allowed_users(allowed_roles=['Placement_Cell'])
 def index(request):
     yog=request.session.get('yog')
-    student_data = Student.objects.filter(year_of_graduation=yog)
-    offer_data = Job_user.objects.filter(status="3")
-    placed_data = Student.objects.filter(placed=True , year_of_graduation=yog)
-    package = []
 
+    student_data = Student.objects.filter(year_of_graduation=yog)
+
+    offer_data = Job_user.objects.filter(Q(status="3") & 
+    Q(roll_no__year_of_graduation=yog))
+    placed_data =offer_data.values("roll_no").distinct()
+
+    package = []
     for job in offer_data:
         package.append(float(job.salary))
 
+    #Side Card 
     try:
         highest_package = max(package)
         lowest_package = min(package)
@@ -99,7 +103,7 @@ def index(request):
     ctc.append(second)
     ctc.append(third)
     ctc.append(fourth)
-    # Value missmatch in excel and graph
+   
 
     labelSector = ["Automotive", "Banking", "EduTech", "Financial Services", "Information Technology",
                    "Logistics & Supply Chain", "Retail", "Telecommunications", "Electrical Manufacturing",
@@ -109,7 +113,7 @@ def index(request):
     sectorCount = [None] * 16
 
     for s in offer_data:
-        job = Job.objects.get(id=s.job_id.id)
+        job = Job.objects.get(id=s.job_id.id,year=yog)
         i = labelSector.index(job.domain)
         if sectorCount[i] == None:
             sectorCount[i] = 1
@@ -128,7 +132,9 @@ def index(request):
 
 @allowed_users(allowed_roles=['Placement_Cell'])
 def ctcWise(request):
-    offer_data = Job_user.objects.filter(status="3")
+    yog=request.session.get("yog")
+    offer_data = Job_user.objects.filter(Q(status="3")& Q(roll_no__year_of_graduation=yog))
+
     labelCTC = ["0 to 3.49 LPA", "3.50 to 4.99 LPA", "5.00 to 7.00 LPA", "7.01 and Above"]
     ctc_dict = {}
     fl, sl, tl, frl = [], [], [], []
@@ -154,6 +160,7 @@ def ctcWise(request):
             frl.append({i[1]: [i[0], row[0]]})
             ctc_dict[labelCTC[3]] = frl
 
+
     ctc = []
     for key, value in ctc_dict.items():
         ls = []
@@ -161,15 +168,16 @@ def ctcWise(request):
             for i, j in data.items():
                 ls.append(j[1])
         ctc.append(sum(ls))
-    # print(ctc_dict)
+   
     content = {'labelCTC': labelCTC, 'ctc': ctc, 'ctc_dict': ctc_dict}
     return render(request, "placement/ctc.html", content)
 
 
 @allowed_users(allowed_roles=['Placement_Cell'])
 def gender_ratio(request):
+    yog=request.session.get('yog')
     student_dataframe = pd.DataFrame([])
-    for student in Student.objects.filter(year_of_graduation=2023):
+    for student in Student.objects.filter(year_of_graduation=yog):
         student_dataframe = student_dataframe.append(
             {'roll_no': student.roll_no, 'gender': student.gender, 'placed': student.placed, 'branch': student.branch,
              'div': student.div}, ignore_index=True)
@@ -256,9 +264,10 @@ def add_job(request):
 
 @allowed_users(allowed_roles=['Placement_Cell'])
 def recruiting(request):
-    jobs = Job.objects.filter(status=0)
-    curr = Job.objects.filter(status=0, apply_by__gt=date.today())
-    placed = Job_user.objects.filter(status=3)
+    yog=request.session.get("yog")
+    jobs = Job.objects.filter(Q(status=0)& Q(year=yog))
+    curr = Job.objects.filter(Q(status=0)& Q(apply_by__gt=date.today())& Q(year=yog))
+    placed = Job_user.objects.filter(Q(status=3) &Q(roll_no__year_of_graduation=yog))
     hired = {}
     for job in jobs:
         count = 0
@@ -273,8 +282,9 @@ def recruiting(request):
 
 @allowed_users(allowed_roles=['Placement_Cell'])
 def recruited(request):
-    jobs = Job.objects.filter(status=1)
-    placed = Job_user.objects.filter(status=3)
+    yog=request.session.get("yog")
+    jobs = Job.objects.filter(Q(status=1) &Q(year=yog))
+    placed = Job_user.objects.filter(Q(status=3)&Q(roll_no__year_of_graduation=yog))
     hired = {}
     for job in jobs:
         count = 0
@@ -289,10 +299,11 @@ def recruited(request):
 
 @allowed_users(allowed_roles=['Placement_Cell'])
 def details(request, id, type):
+    yog=request.session.get("yog")
     context = None
     if type == 1:
-        jobs = Job.objects.get(id=id)
-        applied = Job_user.objects.filter(job_id=id)
+        jobs = Job.objects.get(Q(id=id)&Q(year=yog))
+        applied = Job_user.objects.filter(Q(job_id=id) & Q(roll_no__year_of_graduation=yog))
         salary = jobs.sal.split(",")
         context = {"details": jobs, "pay": "Salary", "applied": applied, "id": id, "type": type, "salary":salary}
     elif type == 2:
@@ -304,7 +315,8 @@ def details(request, id, type):
 
 @allowed_users(allowed_roles=['Placement_Cell'])
 def displayProfile(request, rollNo):
-    student = Student.objects.get(roll_no=rollNo)
+    yog=request.session.get('yog')
+    student = Student.objects.get(Q(roll_no=rollNo) & Q(year_of_graduation=yog))
     user = User.objects.get(username=student.roll_no)
     name = user.first_name
     yearOfJoining = '20' + rollNo[0:2]
@@ -406,8 +418,9 @@ def student_details(request):
 
 
 def sector(request):
-    companys=Job.objects.all().order_by("domain")
-    offer_data=Job_user.objects.filter(status="3")
+    yog=request.session.get('yog')
+    companys=Job.objects.filter(year=yog).order_by("domain")
+    offer_data=Job_user.objects.filter(Q(status="3") &Q(roll_no__year_of_graduation=yog))
     labelSector = ["Automotive", "Banking", "EduTech", "Financial Services", "Information Technology","Logistics & Supply Chain", "Retail", "Telecommunications", "Electrical Manufacturing",
                    "Marketing & Advertising", "Media Production", "Management Consulting", "Manufacturing",
                    "Health Care", "Design", "Professional Services"]
@@ -416,7 +429,7 @@ def sector(request):
 
     for s in offer_data:
         # job is called for domain
-        job = Job.objects.get(id=s.job_id.id)
+        job = Job.objects.get(Q(id=s.job_id.id)& Q(year=yog))
         i = labelSector.index(job.domain)
         if sectorCount[i] == None:
             sectorCount[i] = 1
@@ -442,8 +455,9 @@ def sector(request):
     return render(request,'placement/analysis/sector.html',content)
 
 def companyWise(request):
-    offers=Job_user.objects.filter(status="3")
-    jobs=Job.objects.all()
+    yog=request.session.get('yog')
+    offers=Job_user.objects.filter(Q(status="3") & Q(roll_no__year_of_graduation=yog))
+    jobs=Job.objects.filter(year=yog)
     company_offer={}
     for job in jobs:
         count=0
@@ -455,12 +469,12 @@ def companyWise(request):
     return render(request,"placement/analysis/companyWise.html",content)
 
 def company_student(request,id):
-    offer=Job_user.objects.filter(job_id=id).order_by("-salary")
-    company=Job.objects.get(id=id).comp_name
+    offer=Job_user.objects.filter(Q(job_id=id) & Q(roll_no__year_of_graduation=yog)).order_by("-salary")
+    company=Job.objects.get(Q(id=id)& Q(year=yog)).comp_name
     students={}
     studentDiv={"INFT-A":0,"INFT-B":0,"INFT-C":0, "CMPN-A":0,"CMPN-B":0,"CMPN-C":0, "EXTC-A":0,"EXTC-B":0,"EXTC-C":0, "ETRX-A":0,"ETRX-B":0,"ETRX-C":0, "BIOM":0}
     for o in offer:
-        s=Student.objects.get(roll_no=o.roll_no)
+        s=Student.objects.get(Q(roll_no=o.roll_no)& Q(year_of_graduation=yog))
         students[s]=o.salary 
         if s.branch=="INFT" and s.div=="A":studentDiv["INFT-A"]+=1
         elif s.branch=="INFT" and s.div=="B":studentDiv["INFT-B"]+=1
