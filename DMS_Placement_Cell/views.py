@@ -360,19 +360,31 @@ def delete_details(request, id):
 
 
 def student_details(request):
-    students = Student.objects.all().order_by("branch")
+    if request.method=="POST":
+        searched=request.POST.get('to_search')
+        student = Student.objects.filter(roll_no__icontains=searched)
+        students=[]
 
-    student_dict = {}
-    for student in students:
-        edu = Add_edu.objects.filter(roll_no=student)
-        curr_edu = CurrEdu.objects.filter(roll_no_curr=student)
-        certificate = Certificates.objects.filter(certificate_issued_to=student)
-        experience = Add_exp.objects.filter(rollNo=student)
-        user = User.objects.filter(username=student.roll_no)
-        student_dict[student.roll_no] = [user, student, edu, curr_edu, certificate, experience]
+        for s in student:
+            student_dir={"roll_no":"","name":"","branch":"","YOG":""}
+            student_dir["roll_no"]=s.roll_no
+            student_dir["name"]=User.objects.get(username=s.roll_no).first_name
+            student_dir['branch']=s.branch
+            student_dir['yor']=s.year_of_graduation
+            students.append(student_dir)
+    else:
+        student = Student.objects.all().order_by('?')[:10]
+        students=[]
 
-    student_dict = sorted(student_dict.items())
-    content = {'student_dict': student_dict}
+        for s in student:
+            student_dir={"roll_no":"","name":"","branch":"","YOG":""}
+            student_dir["roll_no"]=s.roll_no
+            student_dir["name"]=User.objects.get(username=s.roll_no).first_name
+            student_dir['branch']=s.branch
+            student_dir['yor']=s.year_of_graduation
+            students.append(student_dir)
+
+    content = {'students': students}
     return render(request, 'placement/student_details.html', content)
 
 

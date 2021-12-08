@@ -1,0 +1,228 @@
+{% extends "placement/base.html" %}
+{% load static %}
+{% load custom_tags %}
+{% block title %} Students Details {% endblock %}
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'css/placement_cell/student_details.css' %}">
+
+<h3 class="text-center mb-5">Students Details</h3>
+
+<div class="int-job-div">
+    <div class="my-5 ">
+        <div id="search-div">
+            <form method="post" action="#">
+                <div class="input-group mb-3" id="search-box">
+                    <input type="text" name="to_search" style="border: none;border-radius: 40px 0px 0px 40px;"
+                        class="form-control " placeholder="Search for Internships and Jobs..." aria-label=""
+                        aria-describedby="basic-addon1">
+                    <div class="input-group-prepend">
+                        <button class="btn btn-outline-secondary" id="search-btn" type="submit"><i
+                                class="fas fa-search"></i></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="d-flex m-0 p-0">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="inft-tab" data-toggle="tab" href="#inft" role="tab" aria-controls="inft"
+                    aria-selected="true">INFT</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="cmpn-tab" data-toggle="tab" href="#cmpn" role="tab" aria-controls="cmpn"
+                    aria-selected="false">CMPN</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="etrx-tab" data-toggle="tab" href="#etrx" role="tab" aria-controls="etrx"
+                    aria-selected="false">ETRX</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="extc-tab" data-toggle="tab" href="#extc" role="tab" aria-controls="extc"
+                    aria-selected="false">EXTC</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="biomed-tab" data-toggle="tab" href="#biomed" role="tab" aria-controls="biomed"
+                    aria-selected="false">BIOMED</a>
+            </li>
+        </ul>
+        <ul class="nav nav-tabs ml-auto">
+            <li class="nav-item">
+                <button style="margin-top: 0.3rem !important;" class="btn btn-primary btn-sm" onclick="job_xl_conv()"><i
+                        class="fas fa-download mr-2"></i>All details</button>
+            </li>
+        </ul>
+    </div>
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="inft" role="tabpanel" aria-labelledby="inft-tab">
+            <div class="card">
+                <div class="card-body">
+                    <table class="table table-hover table-striped table-responsive-sm">
+                        <thead>
+                            <tr>
+                                <th>Roll Number</th>
+                                <th>Name</th>
+                                <th>Branch</th>
+                                <th>Average Sgpi</th>
+                                <th>Year Of Graduation</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for roll_no, details in student_dict %}
+                            {% if details.1.branch == 'INFT' %}
+                            <tr onclick=" window.location.href='/placement_cell/displayProfile/{{ roll_no }}/'">
+                                <td>{{details.0.0.username}}</td>
+                                <td>{{details.0.0.first_name}}</td>
+                                <td>{{details.1.branch}}</td>
+                                <td>{{details.3.0.average_sgpi}}</td>
+                                <td>{{details.1.year_of_graduation}}</td>
+                            </tr>
+                            {% endif %}
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="tab-pane fade" id="cmpn" role="tabpanel" aria-labelledby="cmpn-tab">
+            <div class="card">
+                <div class="card-body">
+                    <table class="table table-hover table-striped table-responsive-sm">
+                        <thead>
+                            <tr>
+                                <th>Roll Number</th>
+                                <th>Name</th>
+                                <th>Branch</th>
+                                <th>Average Sgpi</th>
+                                <th>Year Of Graduation</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for roll_no, details in student_dict %}
+                            {% if details.1.branch == 'CMPN' %}
+                            <tr onclick=" window.location.href='/placement_cell/displayProfile/{{ roll_no }}/'">
+                                <td>{{details.0.0.username}}</td>
+                                <td>{{details.0.0.first_name}}</td>
+                                <td>{{details.1.branch}}</td>
+                                <td>{{details.3.0.average_sgpi}}</td>
+                                <td>{{details.1.year_of_graduation}}</td>
+                            </tr>
+                            {% endif %}
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="tab-pane fade" id="etrx" role="tabpanel" aria-labelledby="etrx-tab">
+            <div class="card">
+                <div class="card-body">
+                    <table class="table table-hover table-striped table-responsive-sm">
+                        <thead>
+                            <tr>
+                                <th>Roll Number</th>
+                                <th>Name</th>
+                                <th>Branch</th>
+                                <th>Average Sgpi</th>
+                                <th>Year Of Graduation</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for roll_no, details in student_dict %}
+                            {% if details.1.branch == 'ETRX' %}
+                            <tr onclick=" window.location.href='/placement_cell/displayProfile/{{ roll_no }}/'">
+                                <td>{{details.0.0.username}}</td>
+                                <td>{{details.0.0.first_name}}</td>
+                                <td>{{details.1.branch}}</td>
+                                <td>{{details.3.0.average_sgpi}}</td>
+                                <td>{{details.1.year_of_graduation}}</td>
+                            </tr>
+                            {% endif %}
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="tab-pane fade" id="extc" role="tabpanel" aria-labelledby="extc-tab">
+            <div class="card">
+                <div class="card-body">
+                    <table class="table table-hover table-striped table-responsive-sm">
+                        <thead>
+                            <tr>
+                                <th>Roll Number</th>
+                                <th>Name</th>
+                                <th>Branch</th>
+                                <th>Average Sgpi</th>
+                                <th>Year Of Graduation</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for roll_no, details in student_dict %}
+                            {% if details.1.branch == 'EXTC' %}
+                            <tr onclick=" window.location.href='/placement_cell/displayProfile/{{ roll_no }}/'">
+                                <td>{{details.0.0.username}}</td>
+                                <td>{{details.0.0.first_name}}</td>
+                                <td>{{details.1.branch}}</td>
+                                <td>{{details.3.0.average_sgpi}}</td>
+                                <td>{{details.1.year_of_graduation}}</td>
+                            </tr>
+                            {% endif %}
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="tab-pane fade" id="biomed" role="tabpanel" aria-labelledby="biomed-tab">
+            <div class="card">
+                <div class="card-body">
+                    <table class="table table-hover table-striped table-responsive-sm">
+                        <thead>
+                            <tr>
+                                <th>Roll Number</th>
+                                <th>Name</th>
+                                <th>Branch</th>
+                                <th>Average Sgpi</th>
+                                <th>Year Of Graduation</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for roll_no, details in student_dict %}
+                            {% if details.1.branch == 'BIOM' %}
+                            <tr onclick=" window.location.href='/placement_cell/displayProfile/{{ roll_no }}/'">
+                                <td>{{details.0.0.username}}</td>
+                                <td>{{details.0.0.first_name}}</td>
+                                <td>{{details.1.branch}}</td>
+                                <td>{{details.3.0.average_sgpi}}</td>
+                                <td>{{details.1.year_of_graduation}}</td>
+                            </tr>
+                            {% endif %}
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+</div>
+
+
+
+
+
+
+{% endblock %}

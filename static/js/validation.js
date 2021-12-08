@@ -62,7 +62,7 @@ $(document).ready(function () {
             $("#third").hide()
             $("#second").show()
         } else {
-            alert("Password didn't match with Conform Password")
+            alert("Invalid Password")
             $("#id_small").text("password should be same and must be greater than 8 characters.")
         }
 
