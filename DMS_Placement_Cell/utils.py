@@ -40,8 +40,7 @@ def send_not_suitable_email(student,job,request):
     email.send()
 
 
-def who_can_apply_text(id):
-    job = Job.objects.get(id=id)
+def who_can_apply_text(job):
     text = ""
     if job.aggregate_sgpi != "NA":
         text = text + f"<li class='text-left'>Minimum {job.aggregate_sgpi} SGPI required</li>"

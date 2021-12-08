@@ -85,7 +85,7 @@ def dictAccess(value,key):
 
 @register.simple_tag
 def totalOffer(value,labelSector,sector):
-    print("Working")
+    # print("Working")
     return value[labelSector.index(sector)]
 
 @register.filter(name="dictToList")
