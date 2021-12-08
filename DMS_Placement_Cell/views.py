@@ -126,7 +126,7 @@ def ctcWise(request):
     data = data.to_frame()
 
     for i, row in data.iterrows():
-        print(int(str(i[0])))
+        # print(int(str(i[0])))
         if int(str(i[0])) >= 0 and int(str(i[0])) <= 349000:
             fl.append({i[1]: [i[0], row[0]]})
             ctc_dict[labelCTC[0]] = fl
