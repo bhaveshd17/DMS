@@ -19,10 +19,8 @@ from .utils import *
 def yog(request):
     if request.method=="POST":
         yog=request.POST.get('yog')
-        print(yog)
-        # students=Student.objects.all()
-
-        return redirect("placementIndex",yog=yog)
+        request.session['yog'] = yog
+        return redirect("placementIndex")
 
     year=Student.objects.values('year_of_graduation')
     year=year.distinct()
@@ -30,7 +28,8 @@ def yog(request):
     return render(request, 'authentication/yog.html', context)
 
 @allowed_users(allowed_roles=['Placement_Cell'])
-def index(request,yog):
+def index(request):
+    yog=request.session.get('yog')
     student_data = Student.objects.filter(year_of_graduation=yog)
     offer_data = Job_user.objects.filter(status="3")
     placed_data = Student.objects.filter(placed=True , year_of_graduation=yog)
@@ -238,15 +237,14 @@ def form_intership(request):
 
 @allowed_users(allowed_roles=['Placement_Cell'])
 def add_job(request):
+
     form = JobForm()
     if request.method == "POST":
         form = JobForm(request.POST)
-        print(form)
         if form.is_valid():
-            job = form.save(commit=False)
-            job.year = '2021'
-            job.who_can_apply=who_can_apply_text(job)
-            job.save()
+            form.save()
+            id = Job.objects.filter(comp_name=form.cleaned_data.get("comp_name")).order_by('-id')[0].id
+            Job.objects.filter(id=id).update(who_can_apply=who_can_apply_text(id))
             messages.success(request, "Job Added Successfully.")
             return redirect("placementIndex")
         else:
@@ -360,10 +358,9 @@ def Update_Details(request, id):
         form = JobForm(request.POST, instance=instance)
         # print(form)
         if form.is_valid():
-            job = form.save(commit=False)
-            job.who_can_apply=who_can_apply_text(job)
-            job.save()
-            messages.success(request, 'Successfully Updated')
+            form.save()
+            Job.objects.filter(id=id).update(who_can_apply=who_can_apply_text(id))
+            messages.success(request, 'Successfully Updated!')
             return redirect('/placement_cell/details/' + str(id) + "/1")
     content = {"form": form, "id": id}
     return render(request, "placement/update_details.html", content)
