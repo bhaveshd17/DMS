@@ -212,6 +212,22 @@ def send_action_email(student, name, request):
     email.content_subtype = 'html'
     email.send()
 
+def appliedJob(request,gmail,roll_no,comp_name,sal):
+    current_site = get_current_site(request)
+    email_subject = "Successfully Applied"
+    email_body = render_to_string("student/appliedJob.html", {
+        'student': roll_no,
+        'comp_name':comp_name,
+        'sal':sal,
+    })
+
+    email = EmailMessage(subject=email_subject, body=email_body,
+                         from_email=settings.EMAIL_HOST_USER,
+                         to=[gmail]
+                         )
+    email.fail_silently = False
+    email.content_subtype = 'html'
+    email.send()
 
 def forgot_password_email(student, request):
     current_site = get_current_site(request)
