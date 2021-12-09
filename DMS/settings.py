@@ -128,5 +128,7 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'vplacement.vit.mumbai@gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_PASSWORD = 'DMS@12345'
+# email sending function is close because of real data
+# EMAIL_HOST_PASSWORD = 'ucvsrtsbguawprna'
+EMAIL_HOST_PASSWORD = ''
 

@@ -505,12 +505,9 @@ def register(request):
         student_form=StudentForm(request.POST,request.FILES)
         user_form=UserForm(request.POST)
         if student_form.is_valid() and user_form.is_valid():
-            student_form.save()
-            user_form.save()
-            username = user_form.cleaned_data.get("username")
-            student = Student.objects.get(roll_no=username)
-            name = user_form.cleaned_data.get("first_name")
-            send_action_email(student, name, request)
+            student = student_form.save()
+            user = user_form.save()
+            send_action_email(student.roll_no, user.first_name, request)
             messages.success(request, f"your credentials are sent on email")
             return redirect("login")
         else:

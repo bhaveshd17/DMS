@@ -1,169 +1,49 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "authentication/base.html" %}
 {% load static %}
+{% block title %}
+  Forgot Password
+{% endblock title %}
+{% block content %}
+<div class="grid">
+    <div class="grid-item" id="login-img">
+        <h1 style="text-align: center; margin-top: 2rem;color: #0F2C44;">VPlacements</h1>
+        <img src="{% static 'images/loginPage.png' %}" class="img-fluid" alt="Img"
+            style="height: 31em; margin-left: 5rem;">
+    </div>
+    <div class="grid-item" style="align-items: center;">
+        <fieldset>
+            <legend>Forgot Password</legend>
 
-<head>
-    <title>Login</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- google fonts -->
-    <link rel="stylesheet" href="{% static 'css/login.css' %}">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,300;0,400;1,700&display=swap"
-        rel="stylesheet">
-    <style>
-        fieldset {
-            margin-top: 3rem;
-            margin-left: 9rem;
-            margin-right: 11rem;
-            border: 2px solid #0F2C44;
-            border-radius: 7%;
-            /* box-shadow: 0 0 10px #666; */
-            padding: 2.5rem 2.5rem;
-        }
-
-        .form-control:focus {
-            border-color: none;
-            box-shadow: none;
-            border: 2px solid #D9FAFF !important;
-        }
-
-        input {
-            background-color: #D9FAFF !important;
-            color: #0F2C44 !important;
-            border-radius: 40px 40px;
-            border-radius: 15px !important;
-            height: 2.9rem;
-            border: 2px solid #D9FAFF !important;
-        }
-
-        legend {
-            padding: 0px 15px;
-            background: #fff;
-            width: auto;
-            color: #0F2C44;
-            font-size: 30px;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: auto auto;
-        }
-
-        .btn:focus {
-            border-color: none;
-            box-shadow: none;
-        }
-
-        #login-btn {
-            border-radius: 15px;
-            background-color: #005792;
-            border: none;
-            width: 8rem;
-        }
-
-        #login-btn:hover {
-            background-color: #005792;
-            border: none;
-        }
-
-        input:-webkit-autofill {
-            -webkit-text-fill-color:#005792;
-        }
-
-        @media (max-width: 576px) {
-            #login-img {
-                display: none;
-
-            }
-
-            fieldset {
-                margin-top: 1rem;
-                margin-left: 3rem;
-                margin-right: 3rem;
-            }
-
-        }
-
-        @media (min-width: 576px) and (max-width: 991px) {
-            #login-img {
-                display: none;
-
-            }
-
-            fieldset {
-                margin-top: 5rem;
-                margin-left: 9rem;
-                margin-right: 3rem;
-            }
-
-        }
-    </style>
-</head>
-
-<body>
-    {% include 'authentication/upperNav.html' %}
-
-    <div class="grid">
-        <div class="grid-item" id="login-img">
-            <h1 style="text-align: center; margin-top: 2rem;color: #0F2C44;">VPlacements</h1>
-            <img src="{% static 'images/loginPage.png' %}" class="img-fluid" alt="Img"
-                style="height: 31em; margin-left: 5rem;">
-        </div>
-        <div class="grid-item" style="align-items: center;">
-            <fieldset>
-                <legend>Forgot Password</legend>
-
-                <form method="post" action="">
-                    {% csrf_token %}
-                    <div class="inputWithIcon">
-                        <input type="text" name="username" size="30" placeholder="Username...">
-                        <i class=" fa fa-user fa-lg fa-fw"></i>
-        
+            <form method="post" action="">
+                {% csrf_token %}
+                    <div class="mb-4">
+                        <input type="text" name="username" size="30" placeholder="Username" class="form-control">
                     </div>
-        
-                   
-        
-                    {% if messages %}
-                        {% for message in messages %}
-                            <div style="margin: 10px 20px;">
-                                <strong
-                                        style="color: red;font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">{{ message }}</strong>
-                            </div>
-                        {% endfor %}
-                    {% endif %}
-        
-                   <div class="text-center" style="margin: 15px 0;">
-                    <!-- <input type="submit" name="submit" class="Button" value="continue"
-                    style="text-align:center;font-size:20px; cursor: pointer;"> -->
-                    <button type="submit" class="btn btn-primary ">Continue</button>
-                   </div>
-                </form>
+    
+    
+               
+    
+                {% if messages %}
+                    {% for message in messages %}
+                        <div style="margin: 10px 20px;">
+                            <strong
+                                    style="color: red;font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">{{ message }}</strong>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+    
+               <div class="text-center" style="margin: 15px 0;">
+                <button type="submit" class="btn btn-primary" id="login-btn">submit</button>
+               </div>
+            </form>
 
 
 
-            </fieldset>
-        </div>
+        </fieldset>
     </div>
+</div>
 
-    <div class="fixed-bottom" style="background-color: #5F4200;width: 100%;height: 8%;">
-
-    </div>
-
+{% endblock content %}
 
 
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
-</body>
 
-</html>
