@@ -130,5 +130,5 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 # email sending function is close because of real data
 # EMAIL_HOST_PASSWORD = 'ucvsrtsbguawprna'
-EMAIL_HOST_PASSWORD = ''
+# EMAIL_HOST_PASSWORD = ''
 
