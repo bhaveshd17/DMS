@@ -25,4 +25,5 @@ urlpatterns = [
     
     path("analysis/ctcwise/", views.ctcWise, name='ctcWise'),
     path("analysis/gender_ratio/", views.gender_ratio, name='gender_ratio'),
+    path("analysis/branch/<str:branch>",views.branchWise,name="branchWise")
 ]

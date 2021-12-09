@@ -1,0 +1,188 @@
+{% extends 'placement/base.html' %}
+{% load static %}
+{% load custom_tags %}
+{% block title %} Branch wise Analysis  {% endblock %}
+{% block content %}
+<style>
+    .grid-container {
+        display: grid;
+        grid-template-columns: 6fr 3fr;
+    }
+</style>
+
+<div class="grid-container">
+    <div class="grid-graph">
+        <div class="card shadow p-3 mb-5 bg-white rounded">
+            <canvas id="branchChart"></canvas>
+        </div>
+    </div>
+    <div class="grid-card ml-5 mt-2">
+        <div class="row">
+            <div class="col-6">
+                <div class="card shadow p-0 mb-5 bg-white rounded">
+                    <div class="card-header">
+                        Highest Package
+                    </div>
+                    <div class="card-body">
+                        {{highest_package}} PA
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="col-6">
+                <div class="card shadow p-0 mb-5 bg-white rounded">
+                    <div class="card-header">
+                        Average Package
+                    </div>
+                    <div class="card-body">
+                        {{average_package}} PA
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <div class="card shadow p-0 mb-5 bg-white rounded">
+                    <div class="card-header">
+                        Lowest Package
+                    </div>
+                    <div class="card-body">
+                        {{lowest_package}} PA
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="card shadow p-0 mb-5 bg-white rounded">
+                    <div class="card-header">
+                        Total Offer
+                    </div>
+                    <div class="card-body">
+                        {{total_offer}}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <div class="card shadow p-0 mb-5 bg-white rounded">
+                    <div class="card-header">
+                        Total Student
+                    </div>
+                    <div class="card-body">
+                        {{total_student}}
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="card shadow p-0 mb-5 bg-white rounded">
+                    <div class="card-header">
+                        Total Placed
+                    </div>
+                    <div class="card-body">
+                        {{total_placed}}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="grid-list">
+    <table class="table" id="sector">
+            <thead class="thead">
+              <tr class="text-center">
+                <th scope="col">Roll Number</th>
+                <th scope="col">Company</th>
+                <th scope="col">Salary</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for job in offer_data%}
+              <tr class="clickable text-center"
+              onclick=" window.location.href='{% url 'displayProfile' rollNo=job.roll_no %}'">
+                <td>{{job.roll_no}}</td>
+                <td>{{job.job_id}}</td>
+                <td>{{job.salary}}</td>
+                
+              </tr>
+              
+              {% endfor %}
+            </tbody>
+          </table>
+    </div>
+
+<script>
+    $("#base").removeClass('container')
+    $("#base").addClass('mx-3 px-5 mt-3')
+
+    const data = {
+        labels: {{ labelDiv| safe}},
+    datasets: [{
+            type: 'bar',
+            label: 'Male Student',
+            data: {{divMale | safe}},
+            borderColor: 'rgb(255, 99, 132)',
+            backgroundColor: 'rgba(75, 192, 192,0.7)',
+            stack: 'Stack 0',
+        },
+        {
+            type: 'bar',
+            label: 'Female Student',
+            data: {{ divFemale| safe}},
+            borderColor: 'rgb(255, 99, 132)',
+            backgroundColor: 'rgba(255, 99, 132, 0.7)',
+            stack: 'Stack 1',
+                },
+        {
+            type: 'line',
+            label: 'Placed Student',
+            data: {{ divP| safe}},
+            fill: false,
+            borderColor: 'rgb(54, 162, 235)',
+            stack: 'Stack 1',
+        }
+    ]
+    };
+
+    const config = {
+        type: 'bar',
+        data: data,
+        options: {
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Gender Ratio'
+                },
+            },
+            responsive: true,
+            interaction: {
+                intersect: false,
+            },
+            scales: {
+                x: {
+                    stacked: true,
+                },
+                y: {
+                    stacked: false,
+    ticks: {
+      beginAtZero: true,
+    },
+                }
+            }
+        }
+    };
+
+    var mixedChart = new Chart(
+        document.getElementById('branchChart'),
+        config
+    );
+
+</script>
+{%endblock%}
