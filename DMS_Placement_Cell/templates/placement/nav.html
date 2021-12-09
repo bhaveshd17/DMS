@@ -127,6 +127,13 @@
       </div>
     </li>
 
+    <li class="nav-li nav-links-item mb-3 p-2">
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <span class="iconify" data-icon="icon-park-outline:analysis" data-width="30" data-height="30"></span>
+        </div>
+      </div>
+    </li>
 
   </ul>
 </nav>
@@ -240,6 +247,10 @@
     </li>
     <div class="collapse" id="analysis-submenu" aria-expanded="false">
       <ul class="d-flex flex-column nav p-0" style="padding-left: 1rem;">
+        <!-- Branch Wise -->
+        <!-- <li class="nav-li nav-item">
+          <a class="nav-link pt-1 padding-left-6" href="{% url 'branchWise' branch='INFT' %}"><span>INFT Branch</span></a>
+        </li> -->
         <li class="nav-li nav-item">
           <a class="nav-link pt-1 padding-left-6" href="{% url 'sector' %}"><span>Sector Wise</span></a>
         </li>
@@ -261,6 +272,43 @@
 
       </ul>
 
+    </div>
+  </ul>
+
+  <li class="nav-li nav-links-item p-2 mt-3 collapsed text-truncate" href="#analysis-branch" data-toggle="collapse"
+      data-target="#analysis-branch">
+      <div class="grid-nav">
+        <div class="grid-nav-item">
+          <span class="iconify" data-icon="icon-park-outline:analysis" data-width="30" data-height="30"></span>
+        </div>
+        <div class="grid-nav-item1">
+          <span>
+            <strong class="pl-1">Branch Analysis</strong>
+            <i class="fa fa-caret-down" style="float:right;padding-right:1.2rem"></i>
+          </span>
+        </div>
+      </div>
+    </li>
+    <div class="collapse" id="analysis-branch" aria-expanded="false">
+      <ul class="d-flex flex-column nav p-0" style="padding-left: 1rem;">
+        <!-- Branch Wise -->
+        <li class="nav-li nav-item">
+          <a class="nav-link pt-1 padding-left-6" href="{% url 'branchWise' branch='INFT' %}"><span>INFT </span></a>
+        </li>
+        <li class="nav-li nav-item">
+          <a class="nav-link pt-1 padding-left-6" href="{% url 'branchWise' branch='CMPN' %}"><span>CMPN</span></a>
+        </li>
+        <li class="nav-li nav-item">
+          <a class="nav-link pt-1 padding-left-6" href="{% url 'branchWise' branch='EXTC' %}"><span>EXTC </span></a>
+        </li>
+        <li class="nav-li nav-item">
+          <a class="nav-link pt-1 padding-left-6" href="{% url 'branchWise' branch='ETRX' %}"><span>ETRX</span></a>
+        </li>
+        <li class="nav-li nav-item">
+          <a class="nav-link pt-1 padding-left-6" href="{% url 'branchWise' branch='BIOM' %}"><span>BIOM </span></a>
+        </li>
+        
+      </ul>
     </div>
 
 

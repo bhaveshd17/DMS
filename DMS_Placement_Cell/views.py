@@ -299,7 +299,7 @@ def recruited(request):
 
 @allowed_users(allowed_roles=['Placement_Cell'])
 def details(request, id, type):
-    yog=request.session.get("yog")
+    yog=request.session.get('yog')
     context = None
     if type == 1:
         jobs = Job.objects.get(Q(id=id)&Q(year=yog))
@@ -469,6 +469,7 @@ def companyWise(request):
     return render(request,"placement/analysis/companyWise.html",content)
 
 def company_student(request,id):
+    yog=request.session.get('yog')
     offer=Job_user.objects.filter(Q(job_id=id) & Q(roll_no__year_of_graduation=yog)).order_by("-salary")
     company=Job.objects.get(Q(id=id)& Q(year=yog)).comp_name
     students={}
@@ -495,3 +496,67 @@ def company_student(request,id):
     total_placed=len(offer)
     content={"students":students,"company":company,"offer":offer,"labelDiv":labelDiv,"studentDiv":studentDiv,"total_placed":total_placed}
     return render(request,"placement/company_student.html",content)
+
+def branchWise(request,branch):
+    yog=request.session.get('yog')
+    students=Student.objects.filter(Q(year_of_graduation=yog)& Q(branch=branch))
+    offer_data = Job_user.objects.filter(Q(status="3") & Q(roll_no__year_of_graduation=yog) & Q(roll_no__branch=branch))
+    placed_data =offer_data.values("roll_no").distinct()
+    
+    package = []
+    for job in offer_data:
+        package.append(float(job.salary))
+
+    #Side Card 
+    try:
+        highest_package = max(package)
+        lowest_package = min(package)
+        average_package = float(math.ceil(sum(package) / len(package)))
+    except:
+        highest_package = 0
+        lowest_package = 0
+        average_package = 0
+    if students or offer_data or offer_data:
+        total_offer = len(offer_data)
+        total_placed = len(placed_data)
+        total_student = len(students)
+    else:
+        total_offer = 0
+        total_placed = 0
+        total_student = 0 
+    
+    divMale=[]
+    divFemale=[]
+    am,bm,cm=0,0,0
+    af,bf,cf=0,0,0
+    for s in students:
+        if s.div=="A" and s.gender=="Male":am+=1
+        elif s.div=="A" and s.gender=="Female":af+=1
+        elif s.div=="B" and s.gender=="Male":bm+=1
+        elif s.div=="B" and s.gender=="Female":bf+=1
+        elif s.div=="C" and s.gender=="Male":cm+=1
+        elif s.div=="C" and s.gender=="Female":cf+=1
+    divMale.append(am)
+    divMale.append(bm)  
+    divMale.append(cm)  
+    divFemale.append(af)
+    divFemale.append(bf)  
+    divFemale.append(cf)
+
+    divP=[]
+    ap,bp,cp=0,0,0
+    for s in offer_data:
+        rollNo=str(s.roll_no)
+        if rollNo[5]=="A":ap+=1
+        elif rollNo[5]=="B":bp+=1
+        elif rollNo[5]=="C":cp+=1
+    divP.append(ap)
+    divP.append(bp)  
+    divP.append(cp)  
+    
+    labelDiv = ["A","B","C"]
+    content={"total_student": total_student,
+               "total_placed": total_placed,
+               "highest_package": highest_package, "lowest_package": lowest_package, 'average_package': average_package,
+               "total_offer": total_offer,"labelDiv":labelDiv,"divMale":divMale,"divFemale":divFemale,"divP":divP,"offer_data":offer_data}
+    return render(request,"placement/analysis/branchWise.html",content)

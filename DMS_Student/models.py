@@ -183,7 +183,7 @@ class Job(models.Model):
     work_from_home = models.BooleanField(default=False)
 
     def __str__(self):
-        return str(self.id)+","+self.comp_name
+        return self.comp_name
 
 class Job_user(models.Model):
     status = models.CharField(max_length=10, null=False)

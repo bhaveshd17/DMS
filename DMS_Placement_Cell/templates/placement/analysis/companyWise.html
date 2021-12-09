@@ -10,31 +10,31 @@
     <canvas id="companyChart" height="450px"></canvas>
 </div>
 <div class="grid-list">
-<table class="table" id="sector">
-        <thead class="thead">
-          <tr>
-            <th scope="col">Company</th>
-            <th scope="col">No. of Offer</th>
-            <th scope="col">Salary</th>
-          </tr>
-        </thead>
-        <tbody>
-            {% for job in jobs%}
-          <tr class="clickable text-center"
-          onclick=" window.location.href='/placement_cell/company_student/{{ job.id }}'">
-            <td>{{job.comp_name}}</td>
-            {% for key, value in company_offer.items %}
-                    {% ifequal key job.comp_name %}
-                        <td>{{ value }}</td>
-                    {% endifequal %}
-                {% endfor %}
-                <td>{{job.sal}}</td>
-          </tr>
-          
-          {% endfor %}
-        </tbody>
-      </table>
-</div>
+    <table class="table" id="sector">
+            <thead class="thead">
+              <tr>
+                <th scope="col">Company</th>
+                <th scope="col">No. of Offer</th>
+                <th scope="col">Salary</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for job in jobs%}
+              <tr class="clickable text-center"
+              onclick=" window.location.href='/placement_cell/company_student/{{ job.id }}'">
+                <td>{{job.comp_name}}</td>
+                {% for key, value in company_offer.items %}
+                        {% ifequal key job.comp_name %}
+                            <td>{{ value }}</td>
+                        {% endifequal %}
+                    {% endfor %}
+                    <td>{{job.sal}}</td>
+              </tr>
+              
+              {% endfor %}
+            </tbody>
+          </table>
+    </div>
 
 <script>
     $("#base").removeClass("container")
