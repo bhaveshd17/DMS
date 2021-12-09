@@ -469,6 +469,7 @@ def companyWise(request):
     return render(request,"placement/analysis/companyWise.html",content)
 
 def company_student(request,id):
+    yog=request.session.get('yog')
     offer=Job_user.objects.filter(Q(job_id=id) & Q(roll_no__year_of_graduation=yog)).order_by("-salary")
     company=Job.objects.get(Q(id=id)& Q(year=yog)).comp_name
     students={}
