@@ -29,7 +29,7 @@ def department_sort(request):
     roll_no = request.user.username
     student = Student.objects.get(roll_no=roll_no)
     branch = student.branch
-    jobs = Job.objects.filter(recruiting_from__icontains=branch)
+    jobs = Job.objects.filter(recruiting_from__icontains=branch, year=student.year_of_graduation)
     internships = Intership.objects.all()
     mockTests = Mock_test.objects.all()
 
@@ -67,7 +67,7 @@ def jobLogic(request):
     job_list = []
     for id in sorted_related_jobs.keys():
         job_list.append(Job.objects.get(id=id))
-
+  
     try:
         student = Student.objects.get(roll_no=request.user.username)
         curr_edu = CurrEdu.objects.get(roll_no_curr=student)

@@ -81,7 +81,7 @@ def jobFilter(request):
 @login_required(login_url='login')
 def all_job(request):
     data = jobLogic(request)
-    content = {'related_job_list': Job.objects.all(),
+    content = {'related_job_list': Job.objects.filter(year=Student.objects.get(roll_no=request.user.username).year_of_graduation),
                'skill_set': data['skill_set'],
                'cities': data['cities'],
                }

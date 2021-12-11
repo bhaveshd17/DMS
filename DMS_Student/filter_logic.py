@@ -1,4 +1,4 @@
-from .models import Job
+from .models import Job, Student
 from .utils import internshipLogic, department_sort, jobLogic
 from datetime import datetime
 
@@ -64,7 +64,7 @@ def job_filters(request):
     data = jobLogic(request)
     url_path = request.GET.get('path')
     if "all_job" in url_path:
-        job = Job.objects.filter()
+        job = Job.objects.filter(year=Student.objects.get(roll_no=request.user.username).year_of_graduation)
     else:
         job = data['related_job_list']
     skills = request.GET.getlist('skills[]')
@@ -75,7 +75,7 @@ def job_filters(request):
 
     if sort_by_date == 'true':
         if "all_job" in url_path:
-            job = Job.objects.all().order_by("-apply_by")
+            job = Job.objects.filter(year=Student.objects.get(roll_no=request.user.username).year_of_graduation).order_by("-apply_by")
         else:
             job = data['related_job_list']
 
