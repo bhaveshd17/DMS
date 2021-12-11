@@ -149,6 +149,7 @@ def apply(request):
         if type == '1':
             job = Job.objects.get(id=id)
             job_user = Job_user(roll_no=student, job_id=job, status=status)
+            appliedJob(request,student.gmail,job_user.roll_no,job.comp_name,job.sal)
             job_user.save()
 
         elif type == '2':
