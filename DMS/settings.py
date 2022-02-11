@@ -7,7 +7,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-&+m0zlce=4mk9yw-@k#m+^sh)3xm=ygu0mvvwgag*)9u=#50h#'
 
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['vplacement.herokuapp.com', '127.0.0.1']
 
@@ -21,6 +21,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
     'DMS_Student.apps.DmsStudentConfig',
     'DMS_Placement_Cell.apps.DmsPlacementCellConfig',
 
@@ -109,7 +110,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
-# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 STATICFILES_DIRS = [
     BASE_DIR / "static",
@@ -125,10 +126,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'vplacement.vit.mumbai@gmail.com'
+EMAIL_HOST_USER = str(os.getenv("EMAIL"))
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 # email sending function is close because of real data
-EMAIL_HOST_PASSWORD = 'zmvexgastbjgczrn'
-# EMAIL_HOST_PASSWORD = ''
+# EMAIL_HOST_PASSWORD = str(os.getenv("EMAIL_KEY"))
+EMAIL_HOST_PASSWORD = ''
 
