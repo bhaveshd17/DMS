@@ -1,0 +1,65 @@
+.form-control:focus {
+    border-color: none;
+    box-shadow: none;
+    border: 2px solid #D9FAFF !important;
+}
+
+input, select, textarea {
+    background-color: #D9FAFF !important;
+    color: #0F2C44 !important;
+    border-radius: 40px 40px;
+    border-radius: 15px !important;
+    height: 2.9rem;
+    border: 2px solid #D9FAFF !important;
+}
+label, small{
+    color: #0F2C44;
+}
+#upper-nav-id{
+    position: fixed; 
+    top: 0;
+    width: 100%;
+    z-index: 999;
+}
+
+option{
+    background-color: #D9FAFF !important;
+    color: #0F2C44 !important;
+    border-radius: 40px 40px;
+    border-radius: 15px !important;
+}
+
+.btn:focus {
+    border-color: none;
+    box-shadow: none;
+}
+
+.register-btn {
+    border-radius: 15px;
+    background-color: #005792;
+    border: none;
+    width: 8rem;
+}
+
+.register-btn:hover {
+    background-color: #005792;
+    border: none;
+}
+
+input:-webkit-autofill {
+    -webkit-text-fill-color:#005792;
+}
+
+legend {
+    padding: 0px 15px;
+    background: #fff;
+    width: auto;
+    color: #0F2C44;
+    font-size: 30px;
+}
+
+fieldset {
+    border: 2px solid #0F2C44;
+    border-radius: 7%;
+    padding: 2.5rem 2.5rem;
+}
