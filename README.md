@@ -10,7 +10,7 @@ to see website visit: https://vplacement.herokuapp.com/
 
 - clone this repository
 ```
-git clone https://github.com/bhaveshd17/dms.git
+https://github.com/bhaveshd17/DMS.git
 ```
 
 - install required libraries using 
