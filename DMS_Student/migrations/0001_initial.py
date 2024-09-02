@@ -3,7 +3,7 @@
 import django.core.validators
 from django.db import migrations, models
 import django.db.models.deletion
-from typing import Self
+from typing import LiteralString
 
 class Migration(migrations.Migration):
 
