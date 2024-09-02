@@ -4,6 +4,7 @@ from .models import Student, Add_edu, Add_exp, CurrEdu, Certificates
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from typing import Self, LiteralString
+from dataclasses import dataclass
 
 class SkillsForm(ModelForm):
     class Meta:
