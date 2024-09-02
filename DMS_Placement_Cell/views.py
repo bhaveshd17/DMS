@@ -43,7 +43,8 @@ def index(request):
         highest_package = max(package)
         lowest_package = min(package)
         average_package = float(math.ceil(sum(package) / len(package)))
-    except* ValueError:
+    except ValueError as e:
+        e.add_note("Error calculating package statistics.")
         highest_package = 0
         lowest_package = 0
         average_package = 0
@@ -489,7 +490,8 @@ def branchWise(request, branch):
         highest_package = max(package)
         lowest_package = min(package)
         average_package = float(math.ceil(sum(package) / len(package)))
-    except* ValueError:
+    except ValueError as e:
+        e.add_note("Error calculating package statistics.")
         highest_package = 0
         lowest_package = 0
         average_package = 0
