@@ -15,7 +15,7 @@ class StudentAdmin(ImportExportModelAdmin):
     resource_class = StudentResource
 
     @classmethod
-    def create(cls) -> Self:
+    def create(cls) -> 'StudentAdmin':
         return cls()
 
 admin.site.register(Student, StudentAdmin)
@@ -24,7 +24,7 @@ class Add_eduAdmin(ImportExportModelAdmin):
     resource_class = Add_eduResource
 
     @classmethod
-    def create(cls) -> Self:
+    def create(cls) -> 'Add_eduAdmin':
         return cls()
 
 admin.site.register(Add_edu, Add_eduAdmin)
@@ -33,7 +33,7 @@ class CurrEduAdmin(ImportExportModelAdmin):
     resource_class = CurrEduResource
 
     @classmethod
-    def create(cls) -> Self:
+    def create(cls) -> 'CurrEduAdmin':
         return cls()
 
 admin.site.register(CurrEdu, CurrEduAdmin)
@@ -42,14 +42,14 @@ class Job_userAdmin(ImportExportModelAdmin):
     resource_class = Job_userResource
 
     @classmethod
-    def create(cls) -> Self:
+    def create(cls) -> 'Job_userAdmin':
         return cls()
 
 class JobAdmin(ImportExportModelAdmin):
     resource_class = JobResource
 
     @classmethod
-    def create(cls) -> Self:
+    def create(cls) -> 'JobAdmin':
         return cls()
 
 admin.site.register(Job, JobAdmin)
