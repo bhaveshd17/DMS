@@ -13,7 +13,6 @@ import pandas as pd
 from .utils import *
 from django.db.models import Q
 
-
 @allowed_users(allowed_roles=['Placement_Cell'])
 def yog(request):
     if request.method == "POST":
@@ -24,7 +23,6 @@ def yog(request):
     year = Student.objects.values('year_of_graduation').distinct()
     context = {"year": year}
     return render(request, 'authentication/yog.html', context)
-
 
 @allowed_users(allowed_roles=['Placement_Cell'])
 def index(request):
@@ -130,7 +128,6 @@ def index(request):
     }
     return render(request, 'placement/index.html', content)
 
-
 @allowed_users(allowed_roles=['Placement_Cell'])
 def ctcWise(request):
     yog = request.session.get("yog")
@@ -164,7 +161,6 @@ def ctcWise(request):
 
     content = {'labelCTC': labelCTC, 'ctc': ctc, 'ctc_dict': ctc_dict}
     return render(request, "placement/ctc.html", content)
-
 
 @allowed_users(allowed_roles=['Placement_Cell'])
 def gender_ratio(request):
@@ -213,13 +209,11 @@ def gender_ratio(request):
                'total_placed': sum(total_placed)}
     return render(request, "placement/gender_ratio.html", content)
 
-
 @allowed_users(allowed_roles=['Placement_Cell'])
 def add_intership(request):
     form = IntershipForm()
     content = {"form": form}
     return render(request, "placement/add_intership.html", content)
-
 
 @allowed_users(allowed_roles=['Placement_Cell'])
 def form_intership(request):
@@ -230,7 +224,6 @@ def form_intership(request):
             messages.success(request, "Internship Added Successfully.")
             return redirect("placementIndex")
     return redirect("add_intership")
-
 
 @allowed_users(allowed_roles=['Placement_Cell'])
 def add_job(request):
@@ -249,7 +242,6 @@ def add_job(request):
     content = {"form": form}
     return render(request, "placement/add_job.html", content)
 
-
 @allowed_users(allowed_roles=['Placement_Cell'])
 def recruiting(request):
     yog = request.session.get("yog")
@@ -263,7 +255,6 @@ def recruiting(request):
     context = {"jobs": jobs, "curr": curr, "hired": hired}
     return render(request, "placement/recruiting.html", context)
 
-
 @allowed_users(allowed_roles=['Placement_Cell'])
 def recruited(request):
     yog = request.session.get("yog")
@@ -275,7 +266,6 @@ def recruited(request):
         hired[job] = count
     context = {"jobs": jobs, "hired": hired}
     return render(request, "placement/recruited.html", context)
-
 
 @allowed_users(allowed_roles=['Placement_Cell'])
 def details(request, id, type):
@@ -291,7 +281,6 @@ def details(request, id, type):
         context = {"details": internships, "pay": "Stiped"}
 
     return render(request, "placement/details.html", context)
-
 
 @allowed_users(allowed_roles=['Placement_Cell'])
 def displayProfile(request, rollNo):
@@ -316,7 +305,6 @@ def displayProfile(request, rollNo):
                'prev_deg': prev_deg, 'certificate_list': certificate_list, 'curr_edu': curr_edu}
     return render(request, "placement/displayProfile.html", content)
 
-
 @allowed_users(allowed_roles=['Placement_Cell'])
 def status(request):
     data = json.loads(request.body)
@@ -326,7 +314,6 @@ def status(request):
     Job_user.objects.filter(id=id).update(status=st, salary=salary)
 
     return JsonResponse('Done', safe=False)
-
 
 def send_email(request, id, comp):
     job = Job.objects.get(id=comp)
@@ -340,7 +327,6 @@ def send_email(request, id, comp):
         pass
         # send_not_suitable_email(student, job, request)
     return redirect('/placement_cell/details/' + str(job.id) + "/1")
-
 
 @allowed_users(allowed_roles=['Placement_Cell'])
 def Update_Details(request, id):
@@ -357,14 +343,12 @@ def Update_Details(request, id):
     content = {"form": form, "id": id}
     return render(request, "placement/update_details.html", content)
 
-
 @allowed_users(allowed_roles=['Placement_Cell'])
 def delete_details(request, id):
     job = Job.objects.get(id=id)
     job.delete()
     messages.success(request, "Successfully deleted!")
     return redirect('recruiting')
-
 
 def student_details(request):
     if request.method == "POST":
@@ -394,7 +378,6 @@ def student_details(request):
     content = {'students': students}
     return render(request, 'placement/student_details.html', content)
 
-
 def sector(request):
     yog = request.session.get('yog')
     companys = Job.objects.filter(year=yog).order_by("domain")
@@ -422,7 +405,6 @@ def sector(request):
                "company_offer": company_offer, "sectorCompany": sectorCompany}
     return render(request, 'placement/analysis/sector.html', content)
 
-
 def companyWise(request):
     yog = request.session.get('yog')
     offers = Job_user.objects.filter(Q(status="3") & Q(roll_no__year_of_graduation=yog))
@@ -430,7 +412,6 @@ def companyWise(request):
     company_offer = {job.comp_name: sum(1 for offer in offers if offer.job_id == job) for job in jobs}
     content = {"company_offer": company_offer, "jobs": jobs}
     return render(request, "placement/analysis/companyWise.html", content)
-
 
 def company_student(request, id):
     yog = request.session.get('yog')
@@ -474,7 +455,6 @@ def company_student(request, id):
     content = {"students": students, "company": company, "offer": offer, "labelDiv": labelDiv, "studentDiv": studentDiv,
                "total_placed": total_placed}
     return render(request, "placement/company_student.html", content)
-
 
 def branchWise(request, branch):
     yog = request.session.get('yog')
