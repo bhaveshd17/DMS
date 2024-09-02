@@ -19,8 +19,13 @@ def job_eligibility_logic(job_list, percentage, live_kt, drop, dead_kt, ssc_perc
     for job in job_list:
         salary = job.sal.split(',')
         for s in salary:
-            if float(job.aggregate_sgpi) <= percentage and float(job.ssc_percentage) <= ssc_percentage and float(
-                job.hsc_d_percentage) <= hsc_percentage and live_kt <= int(job.live_kt) and drop <= int(job.drop) and dead_kt <= int(job.dead_kt) and float(s) > sal:
+            if (float(job.aggregate_sgpi) <= percentage and 
+                float(job.ssc_percentage) <= ssc_percentage and 
+                float(job.hsc_d_percentage) <= hsc_percentage and 
+                live_kt <= int(job.live_kt) and 
+                drop <= int(job.drop) and 
+                dead_kt <= int(job.dead_kt) and 
+                float(s) > sal):
                 list_j.append(job)
     return list_j
 
@@ -41,9 +46,7 @@ def jobLogic(request):
     student = Student.objects.get(roll_no=request.user.username)
     student_skills = student.skills
     student_skills_split = student_skills.split(',')
-    student_skills_list = []
-    for skills in student_skills_split:
-        student_skills_list.append(skills.strip().lower())
+    student_skills_list = [skills.strip().lower() for skills in student_skills_split]
 
     # job logic
     related_job_list = []
@@ -54,17 +57,14 @@ def jobLogic(request):
         for skills in student_skills_list:
             for job in job_split:
                 if job.strip().lower() == skills:
-                    count = count + 1
+                    count += 1
 
         score = (count * 100) / len(job_split)
-
         related_jobs[job_obj.id] = score
 
     sorted_related_jobs = dict(sorted(related_jobs.items(), key=operator.itemgetter(1), reverse=True))
 
-    job_list = []
-    for id in sorted_related_jobs.keys():
-        job_list.append(Job.objects.get(id=id))
+    job_list = [Job.objects.get(id=id) for id in sorted_related_jobs.keys()]
 
     try:
         student = Student.objects.get(roll_no=request.user.username)
@@ -77,10 +77,7 @@ def jobLogic(request):
         ssc = Add_edu.objects.get(roll_no=student, degree='10')
         ssc_percentage = round(ssc.marks / int(ssc.no_of_subject), 2)
         hsc = Add_edu.objects.filter(roll_no=student).exclude(degree='10')[0]
-        if hsc.degree == 'diploma':
-            hsc_percentage = hsc.percentage
-        else:
-            hsc_percentage = round(hsc.marks / int(hsc.no_of_subject))
+        hsc_percentage = hsc.percentage if hsc.degree == 'diploma' else round(hsc.marks / int(hsc.no_of_subject))
 
         hired = Job_user.objects.filter(roll_no=student, status="3")
         if curr_edu.sgpi5 == "NA":
@@ -91,11 +88,8 @@ def jobLogic(request):
                                                          live_kt=live_kt, dead_kt=dead_kt, drop=drop,
                                                          ssc_percentage=ssc_percentage, hsc_percentage=hsc_percentage,
                                                          sal=0)
-
             else:
-                package = []
-                for job in hired:
-                    package.append(Job.objects.get(id=job.job_id.id).sal)
+                package = [Job.objects.get(id=job.job_id.id).sal for job in hired]
                 sal = max(package)
 
                 if sal < 3.0:
@@ -117,19 +111,13 @@ def jobLogic(request):
                                                                      sal=j)
 
     except Exception as e:
-        print(e)
+        print(f"Error: {e}")
         related_job_list = []
 
     # total available skills
-    skill_set = set()
-    for job in job_list:
-        job_split = job.skills.split(',')
-        for i in job_split:
-            skill_set.add(i.strip().upper())
+    skill_set = {i.strip().upper() for job in job_list for i in job.skills.split(',')}
 
-    cities = set()
-    for job in job_list:
-        cities.add(job.location)
+    cities = {job.location for job in job_list}
 
     content = {'related_job_list': related_job_list,
                'skill_set': skill_set,
@@ -144,9 +132,7 @@ def internshipLogic(request):
     student = Student.objects.get(roll_no=request.user.username)
     student_skills = student.skills
     student_skills_split = student_skills.split(',')
-    student_skills_list = []
-    for skills in student_skills_split:
-        student_skills_list.append(skills.strip().lower())
+    student_skills_list = [skills.strip().lower() for skills in student_skills_split]
 
     int_list = department_sort(request)['int_list']
     # internship logic
@@ -158,22 +144,15 @@ def internshipLogic(request):
         for skills in student_skills_list:
             for intern in int_split:
                 if intern.strip().lower() == skills:
-                    count = count + 1
+                    count += 1
 
         score = (count * 100) / len(int_split)
-
         related_internship[int_obj.id] = score
 
     sorted_related_int = dict(sorted(related_internship.items(), key=operator.itemgetter(1), reverse=True))
-    related_int_list = []
-    for id in sorted_related_int.keys():
-        related_int_list.append(Intership.objects.get(id=id))
+    related_int_list = [Intership.objects.get(id=id) for id in sorted_related_int.keys()]
 
-    skill_set = set()
-    for intern in int_list:
-        intern_split = intern.skills.split(',')
-        for i in intern_split:
-            skill_set.add(i.strip().upper())
+    skill_set = {i.strip().upper() for intern in int_list for i in intern.skills.split(',')}
 
     return {
         'related_int_list': related_int_list,
@@ -199,7 +178,6 @@ def send_action_email(student, name, request):
         'domain': current_site,
         'uid': urlsafe_base64_encode(force_bytes(student.roll_no)),
         'token': generate_token.make_token(student)
-
     })
 
     email = EmailMessage(subject=email_subject, body=email_body,
