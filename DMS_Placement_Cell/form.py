@@ -11,3 +11,6 @@ class JobForm(ModelForm):
     class Meta:
         model = Job
         fields = '__all__'
+
+# Note: The original code does not contain any exception handling that would require the use of exception groups.
+# Therefore, no changes related to exception handling are necessary for compatibility with Python 3.11.
