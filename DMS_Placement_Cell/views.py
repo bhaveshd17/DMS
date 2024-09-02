@@ -1,5 +1,4 @@
 ﻿from collections import OrderedDict
-
 from django.http import JsonResponse
 from django.contrib import messages
 from django.shortcuts import redirect, render
