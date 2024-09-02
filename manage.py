@@ -2,9 +2,11 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
+from typing import TypeVar, Any
 
+Ts = TypeVar('Ts', bound=Any)
 
-def main():
+def main(*args: Ts) -> None:
     """Run administrative tasks."""
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'DMS.settings')
     try:
@@ -16,8 +18,8 @@ def main():
             "forget to activate a virtual environment?"
         )
         raise
-    execute_from_command_line(sys.argv)
+    execute_from_command_line(args)
 
 
 if __name__ == '__main__':
-    main()
+    main(*sys.argv)
