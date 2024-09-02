@@ -1,4 +1,4 @@
-from django.contrib.auth.models import Group, User
+﻿from django.contrib.auth.models import Group, User
 from django.db.models.signals import post_save
 
 
@@ -11,4 +11,5 @@ def student_profile(sender, instance, created, **kwargs):
             name=instance.username,
             email=instance.email
         )
+
 post_save.connect(student_profile, sender=User)
