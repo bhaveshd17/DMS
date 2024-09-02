@@ -12,12 +12,12 @@ import math
 import pandas as pd
 from .utils import *
 from django.db.models import Q
-from typing import Self
+from typing import Self, LiteralString
 
 @allowed_users(allowed_roles=['Placement_Cell'])
 def yog(request):
     if request.method == "POST":
-        yog = request.POST.get('yog')
+        yog: LiteralString = request.POST.get('yog')
         request.session['yog'] = yog
         return redirect("placementIndex")
 
@@ -27,7 +27,7 @@ def yog(request):
 
 @allowed_users(allowed_roles=['Placement_Cell'])
 def index(request):
-    yog = request.session.get('yog')
+    yog: LiteralString = request.session.get('yog')
 
     student_data = Student.objects.filter(year_of_graduation=yog)
 
@@ -131,7 +131,7 @@ def index(request):
 
 @allowed_users(allowed_roles=['Placement_Cell'])
 def ctcWise(request):
-    yog = request.session.get("yog")
+    yog: LiteralString = request.session.get("yog")
     offer_data = Job_user.objects.filter(Q(status="3") & Q(roll_no__year_of_graduation=yog))
 
     labelCTC = ["0 to 3.49 LPA", "3.50 to 4.99 LPA", "5.00 to 7.00 LPA", "7.01 and Above"]
@@ -165,7 +165,7 @@ def ctcWise(request):
 
 @allowed_users(allowed_roles=['Placement_Cell'])
 def gender_ratio(request):
-    yog = request.session.get('yog')
+    yog: LiteralString = request.session.get('yog')
     student_dataframe = pd.DataFrame([])
     for student in Student.objects.filter(year_of_graduation=yog):
         student_dataframe = pd.concat([student_dataframe, pd.DataFrame(
@@ -245,7 +245,7 @@ def add_job(request):
 
 @allowed_users(allowed_roles=['Placement_Cell'])
 def recruiting(request):
-    yog = request.session.get("yog")
+    yog: LiteralString = request.session.get("yog")
     jobs = Job.objects.filter(Q(status=0) & Q(year=yog))
     curr = Job.objects.filter(Q(status=0) & Q(apply_by__gt=date.today()) & Q(year=yog))
     placed = Job_user.objects.filter(Q(status=3) & Q(roll_no__year_of_graduation=yog))
@@ -258,7 +258,7 @@ def recruiting(request):
 
 @allowed_users(allowed_roles=['Placement_Cell'])
 def recruited(request):
-    yog = request.session.get("yog")
+    yog: LiteralString = request.session.get("yog")
     jobs = Job.objects.filter(Q(status=1) & Q(year=yog))
     placed = Job_user.objects.filter(Q(status=3) & Q(roll_no__year_of_graduation=yog))
     hired = {}
@@ -270,7 +270,7 @@ def recruited(request):
 
 @allowed_users(allowed_roles=['Placement_Cell'])
 def details(request, id, type):
-    yog = request.session.get('yog')
+    yog: LiteralString = request.session.get('yog')
     context = None
     if type == 1:
         jobs = Job.objects.get(Q(id=id) & Q(year=yog))
@@ -285,7 +285,7 @@ def details(request, id, type):
 
 @allowed_users(allowed_roles=['Placement_Cell'])
 def displayProfile(request, rollNo):
-    yog = request.session.get('yog')
+    yog: LiteralString = request.session.get('yog')
     student = Student.objects.get(Q(roll_no=rollNo) & Q(year_of_graduation=yog))
     user = User.objects.get(username=student.roll_no)
     name = user.first_name
@@ -380,7 +380,7 @@ def student_details(request):
     return render(request, 'placement/student_details.html', content)
 
 def sector(request):
-    yog = request.session.get('yog')
+    yog: LiteralString = request.session.get('yog')
     companys = Job.objects.filter(year=yog).order_by("domain")
     offer_data = Job_user.objects.filter(Q(status="3") & Q(roll_no__year_of_graduation=yog))
     labelSector = ["Automotive", "Banking", "EduTech", "Financial Services", "Information Technology",
@@ -407,7 +407,7 @@ def sector(request):
     return render(request, 'placement/analysis/sector.html', content)
 
 def companyWise(request):
-    yog = request.session.get('yog')
+    yog: LiteralString = request.session.get('yog')
     offers = Job_user.objects.filter(Q(status="3") & Q(roll_no__year_of_graduation=yog))
     jobs = Job.objects.filter(year=yog)
     company_offer = {job.comp_name: sum(1 for offer in offers if offer.job_id == job) for job in jobs}
@@ -415,7 +415,7 @@ def companyWise(request):
     return render(request, "placement/analysis/companyWise.html", content)
 
 def company_student(request, id):
-    yog = request.session.get('yog')
+    yog: LiteralString = request.session.get('yog')
     offer = Job_user.objects.filter(Q(job_id=id) & Q(roll_no__year_of_graduation=yog)).order_by("-salary")
     company = Job.objects.get(Q(id=id) & Q(year=yog)).comp_name
     students = {Student.objects.get(Q(roll_no=o.roll_no) & Q(year_of_graduation=yog)): o.salary for o in offer}
@@ -458,7 +458,7 @@ def company_student(request, id):
     return render(request, "placement/company_student.html", content)
 
 def branchWise(request, branch):
-    yog = request.session.get('yog')
+    yog: LiteralString = request.session.get('yog')
     students = Student.objects.filter(Q(year_of_graduation=yog) & Q(branch=branch))
     offer_data = Job_user.objects.filter(Q(status="3") & Q(roll_no__year_of_graduation=yog) & Q(roll_no__branch=branch))
     placed_data = offer_data.values("roll_no").distinct()
