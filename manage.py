@@ -2,11 +2,11 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
-from typing import TypeVar, Any, LiteralString
+from typing import TypeVar, Any, Literal
 
 Ts = TypeVar('Ts', bound=Any)
 
-def main(*args: LiteralString) -> None:
+def main(*args: Literal) -> None:
     """Run administrative tasks."""
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'DMS.settings')
     try:
