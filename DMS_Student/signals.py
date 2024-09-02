@@ -13,7 +13,8 @@ def student_profile(sender, instance, created, **kwargs):
                 name=instance.username,
                 email=instance.email
             )
-        except* Group.DoesNotExist as e:
+        except Group.DoesNotExist as e:
             # Handle the case where the 'Student' group does not exist
             # This could involve logging the error or creating the group
+            e.add_note("The 'Student' group does not exist. Consider creating it or checking the group name.")
             pass
