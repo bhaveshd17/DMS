@@ -1,9 +1,8 @@
 ﻿from django.contrib import messages
 from django.contrib.auth.models import User
-from django.contrib.messages.api import error
 from django.core.mail import send_mail
 from django.db.models import Q
-from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
@@ -98,7 +97,7 @@ def details(request, id, type):
             job_user_obj = Job_user.objects.get(job_id=id, roll_no=request.user.username)
             status = job_user_obj.status
 
-        except:
+        except Job_user.DoesNotExist:
             status = '0'
 
         content = {'details': job_obj,
@@ -115,7 +114,7 @@ def details(request, id, type):
         try:
             internship_user = Int_user.objects.get(roll_no=request.user.username, int_id=id)
             status = internship_user.status
-        except:
+        except Int_user.DoesNotExist:
             status = '0'
 
         content = {'details': internship_obj,
@@ -433,7 +432,6 @@ def offer(request):
         internship = Intership.objects.get(id=intern_u.int_id.id)
         hired[internship] = {"type":"2", "user":int_user}
 
-    print(hired)
     context={"hired":hired}
     return render(request,"student/offer.html",context)
 
@@ -483,7 +481,7 @@ def register(request):
             messages.success(request, f"your credentials are sent on email")
             return redirect("login")
         else:
-            messages, error(request, "Failed")
+            messages.error(request, "Failed")
     content = {"student_form": student_form, "user_form": user_form}
     return render(request, "authentication/register.html", content)
 
@@ -491,7 +489,7 @@ def activate_user(request, uidb64, token):
     try:
         uid=force_str(urlsafe_base64_decode(uidb64))
         student=Student.objects.get(roll_no=uid)
-    except Exception as e:
+    except Exception:
         student=None
 
     if student and generate_token.check_token(student,token):
@@ -516,7 +514,7 @@ def reset_password(request,uidb64):
     try:
         uid=force_str(urlsafe_base64_decode(uidb64))
         student=Student.objects.get(roll_no=uid)
-    except Exception as e:
+    except Exception:
         student=None
     if request.method == 'POST':
         password = request.POST.get('password1')
