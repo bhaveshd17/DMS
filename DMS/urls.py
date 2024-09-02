@@ -10,3 +10,6 @@ urlpatterns = [
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+# Note: Python 3.11 introduces fine-grained error locations in tracebacks by default.
+# No changes are needed in this file to utilize this feature.
