@@ -12,9 +12,12 @@ from .models import *
 import operator
 import numpy as np
 import math
+from typing import TypeVar, List, Dict, Any
 
+T = TypeVar('T')
+Ts = TypeVar('Ts')
 
-def job_eligibility_logic(job_list, percentage, live_kt, drop, dead_kt, ssc_percentage, hsc_percentage, sal):
+def job_eligibility_logic(job_list: List[T], percentage: float, live_kt: int, drop: int, dead_kt: int, ssc_percentage: float, hsc_percentage: float, sal: float) -> List[T]:
     list_j = []
     for job in job_list:
         salary = job.sal.split(',')
@@ -30,7 +33,7 @@ def job_eligibility_logic(job_list, percentage, live_kt, drop, dead_kt, ssc_perc
     return list_j
 
 
-def department_sort(request):
+def department_sort(request: Any) -> Dict[str, List[T]]:
     roll_no = request.user.username
     student = Student.objects.get(roll_no=roll_no)
     branch = student.branch
@@ -41,7 +44,7 @@ def department_sort(request):
     return {'job_list': jobs, 'int_list': internships, 'mock_list': mockTests}
 
 
-def jobLogic(request):
+def jobLogic(request: Any) -> Dict[str, Any]:
     job_list1 = department_sort(request)['job_list']
     student = Student.objects.get(roll_no=request.user.username)
     student_skills = student.skills
@@ -129,7 +132,7 @@ def jobLogic(request):
     return content
 
 
-def internshipLogic(request):
+def internshipLogic(request: Any) -> Dict[str, Any]:
     student = Student.objects.get(roll_no=request.user.username)
     student_skills = student.skills
     student_skills_split = student_skills.split(',')
@@ -163,14 +166,14 @@ def internshipLogic(request):
 
 
 class TokenGenerator(PasswordResetTokenGenerator):
-    def _make_hash_value(self, student, timestamp):
+    def _make_hash_value(self, student: T, timestamp: int) -> str:
         return (six.text_type(student.roll_no) + six.text_type(timestamp) + six.text_type(student.is_email_verified))
 
 
 generate_token = TokenGenerator()
 
 
-def send_action_email(student, name, request):
+def send_action_email(student: T, name: str, request: Any) -> None:
     current_site = get_current_site(request)
     email_subject = "Activate your VPlacement Portal"
     email_body = render_to_string("authentication/activate.html", {
@@ -190,7 +193,7 @@ def send_action_email(student, name, request):
     email.send()
 
 
-def appliedJob(request, gmail, roll_no, comp_name, sal):
+def appliedJob(request: Any, gmail: str, roll_no: str, comp_name: str, sal: float) -> None:
     current_site = get_current_site(request)
     email_subject = "Successfully Applied"
     email_body = render_to_string("student/appliedJob.html", {
@@ -208,7 +211,7 @@ def appliedJob(request, gmail, roll_no, comp_name, sal):
     email.send()
 
 
-def forgot_password_email(student, request):
+def forgot_password_email(student: T, request: Any) -> None:
     current_site = get_current_site(request)
     email_subject = "Forgot Password"
     email_body = render_to_string("authentication/forgot_password_email.html", {
