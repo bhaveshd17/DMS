@@ -1,10 +1,17 @@
 ﻿from .models import Job, Student
 from .utils import internshipLogic, department_sort, jobLogic
 from datetime import datetime
-from typing import List, Dict, Any
+from typing import List, Dict, Any, TypedDict, Required, NotRequired
+
+class InternshipData(TypedDict):
+    related_int_list: Required[List[Any]]
+    int_list: NotRequired[List[Any]]
+
+class JobData(TypedDict):
+    related_job_list: Required[List[Any]]
 
 def intern_filters(request: Any) -> Dict[str, Any]:
-    data = internshipLogic(request)
+    data: InternshipData = internshipLogic(request)
     internship = data['related_int_list']
     skills = request.GET.getlist('skills[]')
     duration = request.GET.getlist('duration[]')
@@ -12,9 +19,9 @@ def intern_filters(request: Any) -> Dict[str, Any]:
     starting_from = request.GET.get('starting_from')
     sort_by_date = request.GET.get('sort_by_date')
     work_from_home = request.GET.get('work_from_home')
-    
+
     if sort_by_date == 'true':
-        int_list = data['int_list']
+        int_list = data.get('int_list', [])
         internship = int_list
 
     if skills[0] != 'e.g. JAVA':
@@ -64,7 +71,7 @@ def intern_filters(request: Any) -> Dict[str, Any]:
     return {'internship': internship, 'data': data}
 
 def job_filters(request: Any) -> Dict[str, Any]:
-    data = jobLogic(request)
+    data: JobData = jobLogic(request)
     url_path = request.GET.get('path')
     if "all_job" in url_path:
         job = Job.objects.filter(year=Student.objects.get(roll_no=request.user.username).year_of_graduation)
