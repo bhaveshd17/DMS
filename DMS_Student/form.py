@@ -38,3 +38,5 @@ class UserForm(UserCreationForm):
     class Meta:
         model = User
         fields = ["username", "first_name", "email", "password1", "password2"]
+
+# No exception handling code is present in the original file, so no changes are needed for exception groups.
