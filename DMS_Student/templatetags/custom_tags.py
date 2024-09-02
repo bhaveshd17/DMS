@@ -26,8 +26,8 @@ def disability(value):
 def marks_to_percentage(marks, subject):
     try:
         percentage = int(marks) / int(subject)
-    except* (ValueError, ZeroDivisionError) as e:
-        # Python 3.11 provides more detailed error messages
+    except (ValueError, ZeroDivisionError) as e:
+        e.add_note("Ensure 'marks' and 'subject' are valid integers and 'subject' is not zero.")
         raise ValueError(f"Error calculating percentage: {e}") from e
     return percentage
 
