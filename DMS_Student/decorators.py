@@ -1,5 +1,5 @@
 ﻿from django.shortcuts import redirect, HttpResponse
-from typing import Callable, TypeVar, ParamSpec
+from typing import Callable, TypeVar, ParamSpec, LiteralString
 
 P = ParamSpec('P')
 R = TypeVar('R')
@@ -16,7 +16,7 @@ def unauthenticated_user(view_function: Callable[P, R]) -> Callable[P, R]:
 
     return wrapper_function
 
-def allowed_users(allowed_roles: list[str] = []) -> Callable[[Callable[P, R]], Callable[P, R]]:
+def allowed_users(allowed_roles: list[LiteralString] = []) -> Callable[[Callable[P, R]], Callable[P, R]]:
     def decorator(view_function: Callable[P, R]) -> Callable[P, R]:
         def wrapper_function(request, *args: P.args, **kwargs: P.kwargs) -> R:
             group = None
