@@ -1,7 +1,11 @@
 ﻿from django.shortcuts import redirect, HttpResponse
+from typing import Callable, TypeVar, ParamSpec
 
-def unauthenticated_user(view_function):
-    def wrapper_function(request, *args, **kwargs):
+P = ParamSpec('P')
+R = TypeVar('R')
+
+def unauthenticated_user(view_function: Callable[P, R]) -> Callable[P, R]:
+    def wrapper_function(request, *args: P.args, **kwargs: P.kwargs) -> R:
         if request.user.is_authenticated:
             if request.user.is_staff:
                 return redirect('placementIndex')
@@ -12,9 +16,9 @@ def unauthenticated_user(view_function):
 
     return wrapper_function
 
-def allowed_users(allowed_roles=[]):
-    def decorator(view_function):
-        def wrapper_function(request, *args, **kwargs):
+def allowed_users(allowed_roles: list[str] = []) -> Callable[[Callable[P, R]], Callable[P, R]]:
+    def decorator(view_function: Callable[P, R]) -> Callable[P, R]:
+        def wrapper_function(request, *args: P.args, **kwargs: P.kwargs) -> R:
             group = None
             if request.user.groups.exists():
                 group = request.user.groups.all()[0].name
@@ -30,8 +34,8 @@ def allowed_users(allowed_roles=[]):
         return wrapper_function
     return decorator
 
-def allowed_admin(view_function):
-    def wrapper_function(request, *args, **kwargs):
+def allowed_admin(view_function: Callable[P, R]) -> Callable[P, R]:
+    def wrapper_function(request, *args: P.args, **kwargs: P.kwargs) -> R:
         group = None
         if request.user.groups.exists():
             group = request.user.groups.all()[0].name
