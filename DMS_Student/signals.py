@@ -3,7 +3,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 @receiver(post_save, sender=User)
-def student_profile(sender, instance, created, **kwargs):
+def student_profile(sender, instance: User, created: bool, **kwargs: dict) -> None:
     if created:
         try:
             group = Group.objects.get(name='Student')
