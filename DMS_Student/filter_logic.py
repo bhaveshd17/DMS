@@ -1,8 +1,9 @@
 ﻿from .models import Job, Student
 from .utils import internshipLogic, department_sort, jobLogic
 from datetime import datetime
+from typing import List, Dict, Any
 
-def intern_filters(request):
+def intern_filters(request: Any) -> Dict[str, Any]:
     data = internshipLogic(request)
     internship = data['related_int_list']
     skills = request.GET.getlist('skills[]')
@@ -11,6 +12,7 @@ def intern_filters(request):
     starting_from = request.GET.get('starting_from')
     sort_by_date = request.GET.get('sort_by_date')
     work_from_home = request.GET.get('work_from_home')
+    
     if sort_by_date == 'true':
         int_list = data['int_list']
         internship = int_list
@@ -61,7 +63,7 @@ def intern_filters(request):
 
     return {'internship': internship, 'data': data}
 
-def job_filters(request):
+def job_filters(request: Any) -> Dict[str, Any]:
     data = jobLogic(request)
     url_path = request.GET.get('path')
     if "all_job" in url_path:
