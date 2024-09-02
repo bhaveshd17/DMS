@@ -1,14 +1,13 @@
-from os import name
+﻿from os import name
 from . import views
 from django.urls import path
 
 urlpatterns = [
     path('', views.handleLogin, name='login'),
     path('logout/', views.handelLogout, name='logout'),
-    path('register/',views.register,name="register"),
-    path('activate_user/<uidb64>/<token>/',views.activate_user,name="activate_user"),
+    path('register/', views.register, name="register"),
+    path('activate_user/<uidb64>/<token>/', views.activate_user, name="activate_user"),
 
-    
     path('student/', views.index, name='index'),
     path('student/internship', views.internship, name='internship'),
     path('student/internshipFilter', views.internshipFilter, name="internshipFilter"),
@@ -20,14 +19,14 @@ urlpatterns = [
     path('student/apply/', views.apply, name='apply'),
     path('student/search', views.search, name='search'),
 
-    path('student/profile',views.profile,name='profile'),
-    path('student/UpdateSkills',views.UpdateSkills,name='UpdateSkills'),
+    path('student/profile', views.profile, name='profile'),
+    path('student/UpdateSkills', views.UpdateSkills, name='UpdateSkills'),
 
-    path('student/addEdu',views.add_education,name="addEdu"),
-    path('student/updateEdu/<int:pk>/', views.update_education,name="updateEdu"),
-    path('student/deleteEdu/<int:pk>/', views.delete_education,name="deleteEdu"),
+    path('student/addEdu', views.add_education, name="addEdu"),
+    path('student/updateEdu/<int:pk>/', views.update_education, name="updateEdu"),
+    path('student/deleteEdu/<int:pk>/', views.delete_education, name="deleteEdu"),
 
-    path('student/addExp',views.add_experience,name="addExp"),
+    path('student/addExp', views.add_experience, name="addExp"),
     path('student/updateExp/<int:pk>/', views.update_experience, name="updateExp"),
     path('student/deleteExp/<int:pk>/', views.delete_experience, name="deleteExp"),
 
@@ -40,9 +39,8 @@ urlpatterns = [
     path('student/delete_certificates/<int:pk>/', views.delete_certificates, name='deleteCertificates'),
 
     path('student/update_personal/<str:pk>/', views.update_personal, name="update_personal"),
-    path('student/userApplication',views.userApplication,name="userApplication"),
-    path('student/forgot',views.forgot_password,name="forgot_password"),
-    path('student/reset_password/<uidb64>',views.reset_password,name="reset_password"),
-    path('student/offer',views.offer,name="offer"),
-    
+    path('student/userApplication', views.userApplication, name="userApplication"),
+    path('student/forgot', views.forgot_password, name="forgot_password"),
+    path('student/reset_password/<uidb64>', views.reset_password, name="reset_password"),
+    path('student/offer', views.offer, name="offer"),
 ]
