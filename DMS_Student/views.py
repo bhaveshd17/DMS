@@ -489,7 +489,7 @@ def activate_user(request, uidb64, token):
     try:
         uid=force_str(urlsafe_base64_decode(uidb64))
         student=Student.objects.get(roll_no=uid)
-    except Exception:
+    except* Exception as e:
         student=None
 
     if student and generate_token.check_token(student,token):
@@ -514,7 +514,7 @@ def reset_password(request,uidb64):
     try:
         uid=force_str(urlsafe_base64_decode(uidb64))
         student=Student.objects.get(roll_no=uid)
-    except Exception:
+    except* Exception as e:
         student=None
     if request.method == 'POST':
         password = request.POST.get('password1')
