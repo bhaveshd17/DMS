@@ -38,3 +38,5 @@ admin.site.register(Certificates)
 
 # Note: Python 3.11 introduces fine-grained error locations in tracebacks by default.
 # No specific code changes are required here for compatibility with Python 3.11.
+
+# No exception handling code is present in this file that requires the use of exception groups.
