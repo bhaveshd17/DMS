@@ -12,6 +12,7 @@ import math
 import pandas as pd
 from .utils import *
 from django.db.models import Q
+from typing import Self
 
 @allowed_users(allowed_roles=['Placement_Cell'])
 def yog(request):
