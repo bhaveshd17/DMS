@@ -21,7 +21,11 @@ def allowed_users(allowed_roles=[]):
             if group in allowed_roles:
                 return view_function(request, *args, **kwargs)
             else:
-                return HttpResponse('You are not authorized to view this page')
+                try:
+                    raise PermissionError('You are not authorized to view this page')
+                except PermissionError as e:
+                    e.add_note(f"User group: {group}, Allowed roles: {allowed_roles}")
+                    return HttpResponse(str(e))
 
         return wrapper_function
     return decorator
@@ -38,6 +42,10 @@ def allowed_admin(view_function):
         if group == 'Placement_Cell':
             return view_function(request, *args, **kwargs)
         else:
-            return HttpResponse('You are not authorized to view this page')
+            try:
+                raise PermissionError('You are not authorized to view this page')
+            except PermissionError as e:
+                e.add_note(f"User group: {group}")
+                return HttpResponse(str(e))
 
     return wrapper_function
