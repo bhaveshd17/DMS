@@ -1,7 +1,7 @@
-from django.template.loader import render_to_string
+﻿from django.template.loader import render_to_string
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.contrib.sites.shortcuts import get_current_site
-from django.utils.encoding import force_bytes, force_str, force_text, DjangoUnicodeDecodeError
+from django.utils.encoding import force_bytes, force_str, DjangoUnicodeDecodeError
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.core.mail import EmailMessage
 from django.conf import settings
@@ -33,9 +33,7 @@ def department_sort(request):
     internships = Intership.objects.all()
     mockTests = Mock_test.objects.all()
 
-
     return {'job_list': jobs, 'int_list': internships, 'mock_list': mockTests}
-
 
 
 def jobLogic(request):
@@ -67,7 +65,7 @@ def jobLogic(request):
     job_list = []
     for id in sorted_related_jobs.keys():
         job_list.append(Job.objects.get(id=id))
-  
+
     try:
         student = Student.objects.get(roll_no=request.user.username)
         curr_edu = CurrEdu.objects.get(roll_no_curr=student)
@@ -122,7 +120,7 @@ def jobLogic(request):
         print(e)
         related_job_list = []
 
-    # total avaialable skills
+    # total available skills
     skill_set = set()
     for job in job_list:
         job_split = job.skills.split(',')
@@ -212,13 +210,14 @@ def send_action_email(student, name, request):
     email.content_subtype = 'html'
     email.send()
 
-def appliedJob(request,gmail,roll_no,comp_name,sal):
+
+def appliedJob(request, gmail, roll_no, comp_name, sal):
     current_site = get_current_site(request)
     email_subject = "Successfully Applied"
     email_body = render_to_string("student/appliedJob.html", {
         'student': roll_no,
-        'comp_name':comp_name,
-        'sal':sal,
+        'comp_name': comp_name,
+        'sal': sal,
     })
 
     email = EmailMessage(subject=email_subject, body=email_body,
@@ -228,6 +227,7 @@ def appliedJob(request,gmail,roll_no,comp_name,sal):
     email.fail_silently = False
     email.content_subtype = 'html'
     email.send()
+
 
 def forgot_password_email(student, request):
     current_site = get_current_site(request)
