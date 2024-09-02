@@ -1,4 +1,5 @@
 ﻿from django.apps import AppConfig
+from typing import Self
 
 class DmsStudentConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
@@ -10,3 +11,7 @@ class DmsStudentConfig(AppConfig):
     # Note: If handling multiple exceptions, implement exception groups using the `except*` syntax to manage them in a single block.
 
     # Enrich exceptions with additional details by using the `.add_note()` method to append notes to exceptions.
+
+    def get_instance(self) -> Self:
+        """Example method to demonstrate the use of Self type hint."""
+        return self
