@@ -48,16 +48,14 @@ def intern_filters(request):
                 temp_list.append(int_obj)
         internship = temp_list
 
-
     if work_from_home == "true":
         temp_list = []
         for int_obj in internship:
-            if int_obj.work_from_home == True:
+            if int_obj.work_from_home:
                 temp_list.append(int_obj)
         internship = temp_list
 
-
-    return {'internship':internship, 'data':data}
+    return {'internship': internship, 'data': data}
 
 
 def job_filters(request):
@@ -93,7 +91,7 @@ def job_filters(request):
         for job_obj in job:
             sal = job_obj.sal.split(',')
             for s in sal:
-                if float(s) >= float(salary)*100000 * 2:
+                if float(s) >= float(salary) * 100000 * 2:
                     temp_list.append(job_obj)
 
         temp_list.sort(key=lambda x: x.sal)
@@ -106,15 +104,11 @@ def job_filters(request):
                 temp_list.append(job_obj)
         job = temp_list
 
-
-
     if work_from_home == "true":
         temp_list = []
         for job_obj in job:
-            if job_obj.work_from_home == True:
+            if job_obj.work_from_home:
                 temp_list.append(job_obj)
         job = temp_list
 
-
-    # print(job)
-    return {'job':job, 'data':data}
+    return {'job': job, 'data': data}
