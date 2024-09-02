@@ -35,3 +35,6 @@ admin.site.register(Intership)
 admin.site.register(Int_user)
 admin.site.register(Mock_test)
 admin.site.register(Certificates)
+
+# Note: Python 3.11 introduces fine-grained error locations in tracebacks by default.
+# No specific code changes are required here for compatibility with Python 3.11.
