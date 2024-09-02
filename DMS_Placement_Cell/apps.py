@@ -8,3 +8,5 @@ class DmsPlacementCellConfig(AppConfig):
     # No changes are needed in this file to utilize this feature.
 
     # No exception handling is present in this file, so no changes related to exception groups are necessary.
+
+    # No TypedDict is present in this file, so no changes related to Required[] or NotRequired[] are necessary.
