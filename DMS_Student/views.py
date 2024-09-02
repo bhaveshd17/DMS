@@ -97,7 +97,8 @@ def details(request, id, type):
             job_user_obj = Job_user.objects.get(job_id=id, roll_no=request.user.username)
             status = job_user_obj.status
 
-        except Job_user.DoesNotExist:
+        except Job_user.DoesNotExist as e:
+            e.add_note("Job_user object does not exist for the given job_id and roll_no.")
             status = '0'
 
         content = {'details': job_obj,
@@ -114,7 +115,8 @@ def details(request, id, type):
         try:
             internship_user = Int_user.objects.get(roll_no=request.user.username, int_id=id)
             status = internship_user.status
-        except Int_user.DoesNotExist:
+        except Int_user.DoesNotExist as e:
+            e.add_note("Int_user object does not exist for the given int_id and roll_no.")
             status = '0'
 
         content = {'details': internship_obj,
@@ -489,7 +491,8 @@ def activate_user(request, uidb64, token):
     try:
         uid=force_str(urlsafe_base64_decode(uidb64))
         student=Student.objects.get(roll_no=uid)
-    except* Exception as e:
+    except Exception as e:
+        e.add_note("Failed to decode uidb64 or find the student with the given roll_no.")
         student=None
 
     if student and generate_token.check_token(student,token):
@@ -514,7 +517,8 @@ def reset_password(request,uidb64):
     try:
         uid=force_str(urlsafe_base64_decode(uidb64))
         student=Student.objects.get(roll_no=uid)
-    except* Exception as e:
+    except Exception as e:
+        e.add_note("Failed to decode uidb64 or find the student with the given roll_no.")
         student=None
     if request.method == 'POST':
         password = request.POST.get('password1')
