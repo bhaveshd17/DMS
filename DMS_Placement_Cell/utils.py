@@ -2,13 +2,14 @@
 from django.core.mail import EmailMessage
 from django.conf import settings
 from django.template.loader import render_to_string
+from typing import LiteralString
 
 from DMS_Student.models import Job
 
 def send_accepted_email(student, job, request):
     try:
         current_site = get_current_site(request)
-        email_subject = "Job Offer"
+        email_subject: LiteralString = "Job Offer"
         email_body = render_to_string("placement/accept.html", {
             'student': student,
             'job': job,
@@ -30,7 +31,7 @@ def send_accepted_email(student, job, request):
 def send_not_suitable_email(student, job, request):
     try:
         current_site = get_current_site(request)
-        email_subject = "Job Status."
+        email_subject: LiteralString = "Job Status."
         email_body = render_to_string("placement/not_suitable.html", {
             'student': student,
             'job': job,
