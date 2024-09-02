@@ -121,3 +121,7 @@ EMAIL_USE_TLS = True
 # email sending function is close because of real data
 # EMAIL_HOST_PASSWORD = str(os.getenv("EMAIL_KEY"))
 EMAIL_HOST_PASSWORD = ''
+
+# Python 3.11 compatibility: Utilize fine-grained error locations in tracebacks
+import sys
+sys.tracebacklimit = 0  # Set to 0 to suppress traceback details, adjust as needed
