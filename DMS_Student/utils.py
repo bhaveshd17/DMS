@@ -12,7 +12,7 @@ from .models import *
 import operator
 import numpy as np
 import math
-from typing import TypeVar, List, Dict, Any, Self
+from typing import TypeVar, List, Dict, Any, Self, LiteralString
 
 T = TypeVar('T')
 Ts = TypeVar('Ts')
@@ -173,7 +173,7 @@ class TokenGenerator(PasswordResetTokenGenerator):
 generate_token = TokenGenerator()
 
 
-def send_action_email(student: T, name: str, request: Any) -> None:
+def send_action_email(student: T, name: LiteralString, request: Any) -> None:
     current_site = get_current_site(request)
     email_subject = "Activate your VPlacement Portal"
     email_body = render_to_string("authentication/activate.html", {
@@ -193,7 +193,7 @@ def send_action_email(student: T, name: str, request: Any) -> None:
     email.send()
 
 
-def appliedJob(request: Any, gmail: str, roll_no: str, comp_name: str, sal: float) -> None:
+def appliedJob(request: Any, gmail: str, roll_no: str, comp_name: LiteralString, sal: float) -> None:
     current_site = get_current_site(request)
     email_subject = "Successfully Applied"
     email_body = render_to_string("student/appliedJob.html", {
