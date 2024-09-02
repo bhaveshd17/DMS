@@ -42,8 +42,13 @@ def intern_filters(request):
 
     if starting_from != '':
         temp_list = []
+        try:
+            start_date = datetime.strptime(starting_from, "%Y-%m-%d").date()
+        except ValueError as e:
+            e.add_note(f"Invalid date format for starting_from: {starting_from}. Expected format: YYYY-MM-DD.")
+            raise
         for int_obj in internship:
-            if int_obj.start_date >= datetime.strptime(starting_from, "%Y-%m-%d").date():
+            if int_obj.start_date >= start_date:
                 temp_list.append(int_obj)
         internship = temp_list
 
