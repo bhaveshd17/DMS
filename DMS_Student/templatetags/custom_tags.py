@@ -26,8 +26,9 @@ def disability(value):
 def marks_to_percentage(marks, subject):
     try:
         percentage = int(marks) / int(subject)
-    except (ValueError, ZeroDivisionError):
-        percentage = 0
+    except (ValueError, ZeroDivisionError) as e:
+        # Python 3.11 provides more detailed error messages
+        raise ValueError(f"Error calculating percentage: {e}") from e
     return percentage
 
 @register.filter(name='sal')
