@@ -8,11 +8,10 @@ https://docs.djangoproject.com/en/3.2/howto/deployment/wsgi/
 """
 
 import os
-from typing import LiteralString
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', LiteralString('DMS.settings'))
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'DMS.settings')
 
 application = get_wsgi_application()
 
