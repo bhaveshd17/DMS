@@ -3,7 +3,7 @@ from django.forms import ModelForm
 from .models import Student, Add_edu, Add_exp, CurrEdu, Certificates
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from typing import Self
+from typing import Self, LiteralString
 
 class SkillsForm(ModelForm):
     class Meta:
@@ -38,6 +38,6 @@ class StudentForm(ModelForm):
 class UserForm(UserCreationForm):
     class Meta:
         model = User
-        fields = ["username", "first_name", "email", "password1", "password2"]
+        fields: list[LiteralString] = ["username", "first_name", "email", "password1", "password2"]
 
 # No exception handling code is present in the original file, so no changes are needed for exception groups.
