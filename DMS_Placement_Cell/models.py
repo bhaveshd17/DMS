@@ -1,8 +1,10 @@
 ﻿from django.db import models
 from typing import Self, LiteralString
+from dataclasses import dataclass
 
+@dataclass
 class ExampleModel(models.Model):
-    name = models.CharField(max_length=100)
+    name: models.CharField = models.CharField(max_length=100)
 
     def clone(self) -> Self:
         """
