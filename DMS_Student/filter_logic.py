@@ -1,7 +1,7 @@
 ﻿from .models import Job, Student
 from .utils import internshipLogic, department_sort, jobLogic
 from datetime import datetime
-from typing import List, Dict, Any, TypedDict, Self
+from typing import List, Dict, Any, TypedDict, LiteralString
 
 class InternshipData(TypedDict):
     related_int_list: List[Any]
@@ -13,12 +13,12 @@ class JobData(TypedDict):
 def intern_filters(request: Any) -> Dict[str, Any]:
     data: InternshipData = internshipLogic(request)
     internship = data['related_int_list']
-    skills = request.GET.getlist('skills[]')
-    duration = request.GET.getlist('duration[]')
-    stipend = request.GET.get('stipend')
-    starting_from = request.GET.get('starting_from')
-    sort_by_date = request.GET.get('sort_by_date')
-    work_from_home = request.GET.get('work_from_home')
+    skills: List[LiteralString] = request.GET.getlist('skills[]')
+    duration: List[LiteralString] = request.GET.getlist('duration[]')
+    stipend: LiteralString = request.GET.get('stipend')
+    starting_from: LiteralString = request.GET.get('starting_from')
+    sort_by_date: LiteralString = request.GET.get('sort_by_date')
+    work_from_home: LiteralString = request.GET.get('work_from_home')
 
     if sort_by_date == 'true':
         int_list = data.get('int_list', [])
@@ -72,16 +72,16 @@ def intern_filters(request: Any) -> Dict[str, Any]:
 
 def job_filters(request: Any) -> Dict[str, Any]:
     data: JobData = jobLogic(request)
-    url_path = request.GET.get('path')
+    url_path: LiteralString = request.GET.get('path')
     if "all_job" in url_path:
         job = Job.objects.filter(year=Student.objects.get(roll_no=request.user.username).year_of_graduation)
     else:
         job = data['related_job_list']
-    skills = request.GET.getlist('skills[]')
-    salary = request.GET.get('salary')
-    location = request.GET.getlist('location[]')
-    sort_by_date = request.GET.get('sort_by_date')
-    work_from_home = request.GET.get('work_from_home')
+    skills: List[LiteralString] = request.GET.getlist('skills[]')
+    salary: LiteralString = request.GET.get('salary')
+    location: List[LiteralString] = request.GET.getlist('location[]')
+    sort_by_date: LiteralString = request.GET.get('sort_by_date')
+    work_from_home: LiteralString = request.GET.get('work_from_home')
 
     if sort_by_date == 'true':
         if "all_job" in url_path:
