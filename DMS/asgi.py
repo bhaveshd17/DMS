@@ -19,3 +19,11 @@ application = get_asgi_application()
 
 # Python 3.11 compatibility: Utilize fine-grained error locations in tracebacks
 # This is automatically handled by Python 3.11's improved error reporting
+
+# Example of handling multiple exceptions using exception groups in Python 3.11
+try:
+    # Some code that might raise multiple exceptions
+    pass
+except* (ValueError, TypeError) as e:
+    # Handle ValueError and TypeError exceptions
+    print(f"Handled exceptions: {e}")
