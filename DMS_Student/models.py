@@ -1,5 +1,6 @@
 ﻿from django.db import models
 from django.core.validators import MaxValueValidator
+from typing import Self
 
 
 class Student(models.Model):
@@ -43,7 +44,7 @@ class Student(models.Model):
     placed = models.BooleanField(default=False, null=True)
     is_email_verified = models.BooleanField(default=False, null=True)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.roll_no
 
 
@@ -73,7 +74,7 @@ class Add_edu(models.Model):
     diploma_aggregate_pw = models.CharField(max_length=100, default="NA")
     no_of_dead_kt = models.CharField(max_length=10, default="NA")
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.clg_name
 
 
@@ -84,7 +85,7 @@ class Add_exp(models.Model):
     rollNo = models.ForeignKey(Student, on_delete=models.CASCADE, null=False)
     start_date = models.DateField(null=False)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.comp_name
 
 
@@ -110,7 +111,7 @@ class CurrEdu(models.Model):
     total_grade = models.FloatField(validators=[MaxValueValidator(100)], null=True, default=0)
     average_sgpi = models.FloatField(validators=[MaxValueValidator(10)], null=True, default=0)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return str(self.roll_no_curr)
 
 
@@ -130,7 +131,7 @@ class Intership(models.Model):
     additional = models.TextField(max_length=500, null=False)
     work_from_home = models.BooleanField(default=False)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.comp_name
 
 
@@ -140,7 +141,7 @@ class Int_user(models.Model):
     int_id = models.ForeignKey(Intership, on_delete=models.CASCADE, null=False)
     date = models.DateTimeField(auto_now_add=True, null=True)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return str(self.roll_no)
 
 
@@ -177,7 +178,7 @@ class Job(models.Model):
     status = models.CharField(max_length=10, null=True, default=0)
     work_from_home = models.BooleanField(default=False)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.comp_name
 
 
@@ -189,7 +190,7 @@ class Job_user(models.Model):
     salary = models.CharField(max_length=50, null=True)
     is_mail_send = models.BooleanField(default=False, null=True)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return str(self.roll_no) + "," + str(self.job_id)
 
 
@@ -201,7 +202,7 @@ class Mock_test(models.Model):
     details = models.TextField(max_length=500, null=False)
     link = models.CharField(max_length=50, null=False, default="https")
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.name
 
 
@@ -211,5 +212,5 @@ class Certificates(models.Model):
     file = models.FileField(upload_to='documents/%Y-%m-%d')
     certificate_issued_to = models.ForeignKey(Student, on_delete=models.CASCADE)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.certificate_name
