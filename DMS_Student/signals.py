@@ -1,6 +1,7 @@
 ﻿from django.contrib.auth.models import Group, User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from typing import LiteralString
 
 @receiver(post_save, sender=User)
 def student_profile(sender, instance: User, created: bool, **kwargs: dict) -> None:
