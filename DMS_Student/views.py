@@ -7,6 +7,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.urls import reverse
+from django.utils.http import urlsafe_base64_decode
+from django.utils.encoding import force_str
 
 from .decorators import unauthenticated_user
 from .form import SkillsForm, AddEduForm, AddExpForm, CurrEduForm, StudentForm, CertificateForm, UserForm
@@ -17,7 +19,7 @@ import json
 import operator
 import re
 import datetime
-from typing import Self
+from typing import Self, LiteralString
 
 @login_required(login_url='login')
 def index(request) -> Self:
@@ -87,7 +89,7 @@ def preplacement(request) -> Self:
     return render(request, 'student/preplacement.html', content)
 
 @login_required(login_url='login')
-def details(request, id, type) -> Self:
+def details(request, id: int, type: int) -> Self:
     content = {}
     if type == 1:
         data = jobLogic(request)
@@ -191,7 +193,7 @@ def add_education(request) -> Self:
             return redirect('profile')
 
 @login_required(login_url='login')
-def update_education(request, pk) -> Self:
+def update_education(request, pk: int) -> Self:
     csrf_token_value = request.COOKIES['csrftoken']
     instance = get_object_or_404(Add_edu, id=pk)
     form = AddEduForm(instance=instance)
@@ -210,7 +212,7 @@ def update_education(request, pk) -> Self:
     return JsonResponse({'data': template})
 
 @login_required(login_url='login')
-def delete_education(request, pk) -> Self:
+def delete_education(request, pk: int) -> Self:
     add_edu = Add_edu.objects.get(id=pk)
     add_edu.delete()
     messages.success(request, f"{add_edu} successfully deleted!")
@@ -229,7 +231,7 @@ def add_experience(request) -> Self:
             return redirect('profile')
 
 @login_required(login_url='login')
-def update_experience(request, pk) -> Self:
+def update_experience(request, pk: int) -> Self:
     csrf_token_value = request.COOKIES['csrftoken']
     instance = get_object_or_404(Add_exp, id=pk)
     form = AddExpForm(instance=instance)
@@ -248,7 +250,7 @@ def update_experience(request, pk) -> Self:
     return JsonResponse({'data': template})
 
 @login_required(login_url='login')
-def delete_experience(request, pk) -> Self:
+def delete_experience(request, pk: int) -> Self:
     add_exp = Add_exp.objects.get(id=pk)
     add_exp.delete()
     messages.success(request, f"{add_exp} successfully deleted!")
@@ -280,7 +282,7 @@ def add_curr_education(request) -> Self:
             return redirect('profile')
 
 @login_required(login_url='login')
-def update_curr_education(request, pk) -> Self:
+def update_curr_education(request, pk: int) -> Self:
     csrf_token_value = request.COOKIES['csrftoken']
     instance = get_object_or_404(CurrEdu, id=pk)
     form = CurrEduForm(instance=instance)
@@ -310,7 +312,7 @@ def update_curr_education(request, pk) -> Self:
     return JsonResponse({'data': template})
 
 @login_required(login_url='login')
-def delete_curr_education(request, pk) -> Self:
+def delete_curr_education(request, pk: int) -> Self:
     curr_edu = CurrEdu.objects.get(id=pk)
     curr_edu.delete()
     messages.success(request, f"successfully deleted!")
@@ -329,7 +331,7 @@ def add_certificates(request) -> Self:
             return redirect('profile')
 
 @login_required(login_url='login')
-def update_certificate(request, pk) -> Self:
+def update_certificate(request, pk: int) -> Self:
     csrf_token_value = request.COOKIES['csrftoken']
     instance = get_object_or_404(Certificates, id=pk)
     form = CertificateForm(instance=instance)
@@ -348,7 +350,7 @@ def update_certificate(request, pk) -> Self:
     return JsonResponse({'data': template})
 
 @login_required(login_url='login')
-def delete_certificates(request, pk) -> Self:
+def delete_certificates(request, pk: int) -> Self:
     certificate = Certificates.objects.get(id=pk)
     certificate.delete()
     messages.success(request, f"successfully deleted!")
@@ -375,7 +377,7 @@ def UpdateSkills(request) -> Self:
     return JsonResponse({'data': template})
 
 @login_required(login_url='login')
-def update_personal(request, pk) -> Self:
+def update_personal(request, pk: LiteralString) -> Self:
     student = Student.objects.get(roll_no=pk)
     user = User.objects.get(username=pk)
     student_form = StudentForm(instance=student)
@@ -488,7 +490,7 @@ def register(request) -> Self:
     content = {"student_form": student_form, "user_form": user_form}
     return render(request, "authentication/register.html", content)
 
-def activate_user(request, uidb64, token) -> Self:
+def activate_user(request, uidb64: LiteralString, token: LiteralString) -> Self:
     try:
         uid=force_str(urlsafe_base64_decode(uidb64))
         student=Student.objects.get(roll_no=uid)
@@ -514,7 +516,7 @@ def forgot_password(request) -> Self:
         return redirect(reverse('login'))
     return render(request,'authentication/forgot.html')
 
-def reset_password(request,uidb64) -> Self:
+def reset_password(request,uidb64: LiteralString) -> Self:
     try:
         uid=force_str(urlsafe_base64_decode(uidb64))
         student=Student.objects.get(roll_no=uid)
