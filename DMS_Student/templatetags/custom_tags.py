@@ -1,17 +1,17 @@
-import math
-
+﻿import math
 from django import template
 import datetime
+
 register = template.Library()
 
 @register.filter(name='cgpa_percentage_conversion')
 def cgpa_percentage_conversion(cgpa):
-    percentage = cgpa*7.1 + 11
+    percentage = cgpa * 7.1 + 11
     return round(percentage, 2)
 
 @register.filter(name='date_format')
 def date_formate(value):
-    string = str(value.day)+'-'+str(value.month)+'-'+str(value.year)
+    string = f"{value.day}-{value.month}-{value.year}"
     return string
 
 @register.filter(name='to_int')
@@ -20,52 +20,40 @@ def to_int(value):
 
 @register.filter(name='disability')
 def disability(value):
-    if value == True:
-        text = 'yes'
-    else:
-        text = 'NA'
-    return text
+    return 'yes' if value else 'NA'
 
 @register.simple_tag
 def marks_to_percentage(marks, subject):
     try:
-        percentage = int(marks)/int(subject)
-    except:
-        percentage=0
+        percentage = int(marks) / int(subject)
+    except (ValueError, ZeroDivisionError):
+        percentage = 0
     return percentage
 
 @register.filter(name='sal')
 def sal(salary):
-    salary=[float(i) for i in salary.split(",")]
-    if min(salary)==max(salary):return min(salary)/100000
-    return str(min(salary)/100000)+"-"+str(max(salary)/100000)
+    salary = [float(i) for i in salary.split(",")]
+    if min(salary) == max(salary):
+        return min(salary) / 100000
+    return f"{min(salary) / 100000}-{max(salary) / 100000}"
 
 @register.filter(name='average_sal')
 def average_sal(data):
-    ls = []
-    for d in data:
-        for key, value in d.items():
-            ls.append(int(value[0]))
-    return str(math.ceil(sum(ls)/len(ls)))
+    ls = [int(value[0]) for d in data for key, value in d.items()]
+    return str(math.ceil(sum(ls) / len(ls)))
 
 @register.filter(name='no_placed')
 def no_placed(data):
-    ls = []
-    for d in data:
-        for key, value in d.items():
-            ls.append(value[1])
+    ls = [value[1] for d in data for key, value in d.items()]
     return str(sum(ls))
 
 @register.filter(name='data')
 def data(dic):
-    ls = []
-    for key, value in dic.items():
-        ls.append(value['grand_total'])
-    return ls
+    return [value['grand_total'] for key, value in dic.items()]
 
 @register.filter(name='total_count')
 def total_count(dic):
-    gen_dic = {"male":[], "female":[]}
+    gen_dic = {"male": [], "female": []}
     for key, value in dic.items():
         gen_dic["male"].append(value['male'])
         gen_dic["female"].append(value['female'])
@@ -73,19 +61,18 @@ def total_count(dic):
 
 @register.filter(name='total_count_placed')
 def total_count_placed(dic):
-    gen_dic_placed = {"male":[], "female":[]}
+    gen_dic_placed = {"male": [], "female": []}
     for key, value in dic.items():
         gen_dic_placed["male"].append(value['pmale'])
         gen_dic_placed["female"].append(value['pfemale'])
     return [sum(gen_dic_placed['male']), sum(gen_dic_placed['female'])]
 
 @register.filter(name='dictAccess')
-def dictAccess(value,key):
+def dictAccess(value, key):
     return value[str(key)]
 
 @register.simple_tag
-def totalOffer(value,labelSector,sector):
-    # print("Working")
+def totalOffer(value, labelSector, sector):
     return value[labelSector.index(sector)]
 
 @register.filter(name="dictToList")
@@ -96,14 +83,9 @@ def dictToList(sectorCompany):
 def dictKeys(sectorCompany):
     return list(sectorCompany.keys())
 
-
-
 @register.filter(name="offer_sal")
 def offer_sal(value):
-    ls = []
-    for i in value:
-        ls.append(i.salary)
-    return ls[0]
+    return [i.salary for i in value][0]
 
 # @register.filter(name="companyWiseData")
 # def companyWiseData(sectorCompany):
