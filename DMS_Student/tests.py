@@ -9,3 +9,15 @@
 # No exception handling code was found in this file that requires the use of exception groups.
 
 # No changes were necessary for compatibility with Python 3.11 as the file already meets the requirements.
+
+# Implementing the `Self` type for class methods returning an instance of the class
+from typing import Self
+
+class ExampleTestCase(TestCase):
+    def create_instance(self) -> Self:
+        # Example method that returns an instance of the class
+        return self
+
+    def another_method(self) -> Self:
+        # Another example method that returns an instance of the class
+        return self
