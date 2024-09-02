@@ -26,3 +26,6 @@ urlpatterns = [
     path("analysis/gender_ratio/", views.gender_ratio, name='gender_ratio'),
     path("analysis/branch/<str:branch>", views.branchWise, name="branchWise")
 ]
+
+# Note: The provided code does not contain any exception handling logic that would require the use of exception groups or the `except*` syntax.
+# Therefore, no changes related to exception handling are necessary in this file.
