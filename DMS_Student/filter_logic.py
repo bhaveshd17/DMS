@@ -2,7 +2,6 @@
 from .utils import internshipLogic, department_sort, jobLogic
 from datetime import datetime
 
-
 def intern_filters(request):
     data = internshipLogic(request)
     internship = data['related_int_list']
@@ -56,7 +55,6 @@ def intern_filters(request):
         internship = temp_list
 
     return {'internship': internship, 'data': data}
-
 
 def job_filters(request):
     data = jobLogic(request)
