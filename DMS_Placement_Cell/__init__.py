@@ -3,7 +3,7 @@
 # This module is intended to be compatible with Python 3.11.
 # Implementing the `Self` type for class methods returning an instance of the class.
 
-from typing import Self
+from typing import Self, LiteralString
 
 class ExampleClass:
     def __init__(self, value: int) -> None:
