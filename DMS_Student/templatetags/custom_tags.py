@@ -1,7 +1,7 @@
 ﻿import math
 from django import template
 import datetime
-from typing import Any, Dict, List, Tuple
+from typing import Any, Dict, List, Tuple, LiteralString
 
 register = template.Library()
 
@@ -70,11 +70,11 @@ def total_count_placed(dic: Dict[str, Dict[str, int]]) -> List[int]:
     return [sum(gen_dic_placed['male']), sum(gen_dic_placed['female'])]
 
 @register.filter(name='dictAccess')
-def dictAccess(value: Dict[str, Any], key: str) -> Any:
+def dictAccess(value: Dict[str, Any], key: LiteralString) -> Any:
     return value[str(key)]
 
 @register.simple_tag
-def totalOffer(value: List[int], labelSector: List[str], sector: str) -> int:
+def totalOffer(value: List[int], labelSector: List[str], sector: LiteralString) -> int:
     return value[labelSector.index(sector)]
 
 @register.filter(name="dictToList")
