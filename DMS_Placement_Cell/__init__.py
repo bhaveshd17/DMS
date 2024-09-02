@@ -4,10 +4,11 @@
 # Implementing the `Self` type for class methods returning an instance of the class.
 
 from typing import Self, LiteralString
+from dataclasses import dataclass
 
+@dataclass
 class ExampleClass:
-    def __init__(self, value: int) -> None:
-        self.value = value
+    value: int
 
     def set_value(self, new_value: int) -> Self:
         self.value = new_value
