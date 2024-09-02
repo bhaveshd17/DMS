@@ -17,9 +17,10 @@ import json
 import operator
 import re
 import datetime
+from typing import Self
 
 @login_required(login_url='login')
-def index(request):
+def index(request) -> Self:
     internship = internshipLogic(request)
     job = jobLogic(request)
     content = {'related_job_list': job['department_wise_job_skill_based'][:3],
@@ -27,7 +28,7 @@ def index(request):
     return render(request, 'student/index.html', content)
 
 @login_required(login_url='login')
-def internship(request):
+def internship(request) -> Self:
     data = internshipLogic(request)
 
     content = {'related_int_list': data['related_int_list'],
@@ -37,7 +38,7 @@ def internship(request):
     return render(request, 'student/internship.html', content)
 
 @login_required(login_url='login')
-def internshipFilter(request):
+def internshipFilter(request) -> Self:
     intern_data = intern_filters(request)
     internship_list = intern_data['internship']
     skill_set = intern_data['data']['skill_set']
@@ -49,7 +50,7 @@ def internshipFilter(request):
     return JsonResponse({'data': template})
 
 @login_required(login_url='login')
-def job(request):
+def job(request) -> Self:
     data = jobLogic(request)
     content = {'related_job_list': data['related_job_list'],
                'skill_set': data['skill_set'],
@@ -58,7 +59,7 @@ def job(request):
     return render(request, 'student/job.html', content)
 
 @login_required(login_url='login')
-def jobFilter(request):
+def jobFilter(request) -> Self:
     job_data = job_filters(request)
     job_list = job_data['job']
     skill_set = job_data['data']['skill_set']
@@ -71,7 +72,7 @@ def jobFilter(request):
     return JsonResponse({'data': template})
 
 @login_required(login_url='login')
-def all_job(request):
+def all_job(request) -> Self:
     data = jobLogic(request)
     content = {'related_job_list': Job.objects.filter(year=Student.objects.get(roll_no=request.user.username).year_of_graduation),
                'skill_set': data['skill_set'],
@@ -80,13 +81,13 @@ def all_job(request):
     return render(request, 'student/all_jobs.html', content)
 
 @login_required(login_url='login')
-def preplacement(request):
+def preplacement(request) -> Self:
     data = department_sort(request)
     content = {'mock_test': data['mock_list']}
     return render(request, 'student/preplacement.html', content)
 
 @login_required(login_url='login')
-def details(request, id, type):
+def details(request, id, type) -> Self:
     content = {}
     if type == 1:
         data = jobLogic(request)
@@ -129,7 +130,7 @@ def details(request, id, type):
     return render(request, "student/details.html", content)
 
 @login_required(login_url='login')
-def apply(request):
+def apply(request) -> Self:
     data = json.loads(request.body)
     type = data['user_details']['type']
     id = data['user_details']['id']
@@ -150,7 +151,7 @@ def apply(request):
     return JsonResponse('Done', safe=False)
 
 @login_required(login_url='login')
-def profile(request):
+def profile(request) -> Self:
     rollNo = request.user.username
     student = Student.objects.get(roll_no=rollNo)
     name = request.user.first_name.upper()
@@ -178,7 +179,7 @@ def profile(request):
     return render(request, "student/profile.html", content)
 
 @login_required(login_url='login')
-def add_education(request):
+def add_education(request) -> Self:
     if request.method == "POST":
         form = AddEduForm(request.POST)
         if form.is_valid():
@@ -190,7 +191,7 @@ def add_education(request):
             return redirect('profile')
 
 @login_required(login_url='login')
-def update_education(request, pk):
+def update_education(request, pk) -> Self:
     csrf_token_value = request.COOKIES['csrftoken']
     instance = get_object_or_404(Add_edu, id=pk)
     form = AddEduForm(instance=instance)
@@ -209,14 +210,14 @@ def update_education(request, pk):
     return JsonResponse({'data': template})
 
 @login_required(login_url='login')
-def delete_education(request, pk):
+def delete_education(request, pk) -> Self:
     add_edu = Add_edu.objects.get(id=pk)
     add_edu.delete()
     messages.success(request, f"{add_edu} successfully deleted!")
     return redirect('profile')
 
 @login_required(login_url='login')
-def add_experience(request):
+def add_experience(request) -> Self:
     if request.method == "POST":
         form = AddExpForm(request.POST)
         if form.is_valid():
@@ -228,7 +229,7 @@ def add_experience(request):
             return redirect('profile')
 
 @login_required(login_url='login')
-def update_experience(request, pk):
+def update_experience(request, pk) -> Self:
     csrf_token_value = request.COOKIES['csrftoken']
     instance = get_object_or_404(Add_exp, id=pk)
     form = AddExpForm(instance=instance)
@@ -247,14 +248,14 @@ def update_experience(request, pk):
     return JsonResponse({'data': template})
 
 @login_required(login_url='login')
-def delete_experience(request, pk):
+def delete_experience(request, pk) -> Self:
     add_exp = Add_exp.objects.get(id=pk)
     add_exp.delete()
     messages.success(request, f"{add_exp} successfully deleted!")
     return redirect('profile')
 
 @login_required(login_url='login')
-def add_curr_education(request):
+def add_curr_education(request) -> Self:
     if request.method == 'POST':
         form = CurrEduForm(request.POST)
         if form.is_valid():
@@ -279,7 +280,7 @@ def add_curr_education(request):
             return redirect('profile')
 
 @login_required(login_url='login')
-def update_curr_education(request, pk):
+def update_curr_education(request, pk) -> Self:
     csrf_token_value = request.COOKIES['csrftoken']
     instance = get_object_or_404(CurrEdu, id=pk)
     form = CurrEduForm(instance=instance)
@@ -309,14 +310,14 @@ def update_curr_education(request, pk):
     return JsonResponse({'data': template})
 
 @login_required(login_url='login')
-def delete_curr_education(request, pk):
+def delete_curr_education(request, pk) -> Self:
     curr_edu = CurrEdu.objects.get(id=pk)
     curr_edu.delete()
     messages.success(request, f"successfully deleted!")
     return redirect('profile')
 
 @login_required(login_url='login')
-def add_certificates(request):
+def add_certificates(request) -> Self:
     if request.method == "POST":
         form = CertificateForm(request.POST, request.FILES)
         if form.is_valid():
@@ -328,7 +329,7 @@ def add_certificates(request):
             return redirect('profile')
 
 @login_required(login_url='login')
-def update_certificate(request, pk):
+def update_certificate(request, pk) -> Self:
     csrf_token_value = request.COOKIES['csrftoken']
     instance = get_object_or_404(Certificates, id=pk)
     form = CertificateForm(instance=instance)
@@ -347,14 +348,14 @@ def update_certificate(request, pk):
     return JsonResponse({'data': template})
 
 @login_required(login_url='login')
-def delete_certificates(request, pk):
+def delete_certificates(request, pk) -> Self:
     certificate = Certificates.objects.get(id=pk)
     certificate.delete()
     messages.success(request, f"successfully deleted!")
     return redirect('profile')
 
 @login_required(login_url='login')
-def UpdateSkills(request):
+def UpdateSkills(request) -> Self:
     csrf_token_value = request.COOKIES['csrftoken']
     rollNo = request.user.username
     student = Student.objects.get(roll_no=rollNo)
@@ -374,7 +375,7 @@ def UpdateSkills(request):
     return JsonResponse({'data': template})
 
 @login_required(login_url='login')
-def update_personal(request, pk):
+def update_personal(request, pk) -> Self:
     student = Student.objects.get(roll_no=pk)
     user = User.objects.get(username=pk)
     student_form = StudentForm(instance=student)
@@ -392,7 +393,7 @@ def update_personal(request, pk):
     return render(request, 'student/update_personal.html', content)
 
 @login_required(login_url='login')
-def search(request):
+def search(request) -> Self:
     search_list = {}
     search = request.GET['to_search']
     query = search.lower()
@@ -409,7 +410,7 @@ def search(request):
     return render(request, "student/search.html", content)
 
 @login_required(login_url='login')
-def userApplication(request):
+def userApplication(request) -> Self:
     job_user = Job_user.objects.filter(roll_no=request.user.username)
     int_user = Int_user.objects.filter(roll_no=request.user.username)
     applied_dict = {}
@@ -423,7 +424,7 @@ def userApplication(request):
     content = {"applied_dict": applied_dict}
     return render(request, 'student/userApplication.html', content)
 
-def offer(request):
+def offer(request) -> Self:
     job_user = Job_user.objects.filter(roll_no=request.user.username,status="3")
     int_user = Int_user.objects.filter(roll_no=request.user.username,status="3")
     hired = {}
@@ -439,7 +440,7 @@ def offer(request):
 
 # authentication
 @unauthenticated_user
-def handleLogin(request):
+def handleLogin(request) -> Self:
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -466,11 +467,11 @@ def handleLogin(request):
 
     return render(request, 'authentication/login.html')
 
-def handelLogout(request):
+def handelLogout(request) -> Self:
     logout(request)
     return redirect('login')
 
-def register(request):
+def register(request) -> Self:
     student_form=StudentForm()
     user_form=UserForm()
     if request.method=="POST":
@@ -487,7 +488,7 @@ def register(request):
     content = {"student_form": student_form, "user_form": user_form}
     return render(request, "authentication/register.html", content)
 
-def activate_user(request, uidb64, token):
+def activate_user(request, uidb64, token) -> Self:
     try:
         uid=force_str(urlsafe_base64_decode(uidb64))
         student=Student.objects.get(roll_no=uid)
@@ -504,7 +505,7 @@ def activate_user(request, uidb64, token):
     content={"student":student}
     return render(request,'authentication/activate_fail.html',content)
 
-def forgot_password(request):
+def forgot_password(request) -> Self:
     if request.method == 'POST':
         username = request.POST.get('username')
         student=Student.objects.get(roll_no=username)
@@ -513,7 +514,7 @@ def forgot_password(request):
         return redirect(reverse('login'))
     return render(request,'authentication/forgot.html')
 
-def reset_password(request,uidb64):
+def reset_password(request,uidb64) -> Self:
     try:
         uid=force_str(urlsafe_base64_decode(uidb64))
         student=Student.objects.get(roll_no=uid)
