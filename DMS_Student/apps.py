@@ -8,3 +8,5 @@ class DmsStudentConfig(AppConfig):
     # If debugging errors, utilize fine-grained error locations in tracebacks to provide specific line numbers and code snippets in error messages.
 
     # Note: If handling multiple exceptions, implement exception groups using the `except*` syntax to manage them in a single block.
+
+    # Enrich exceptions with additional details by using the `.add_note()` method to append notes to exceptions.
