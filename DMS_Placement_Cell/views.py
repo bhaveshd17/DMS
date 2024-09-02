@@ -141,8 +141,7 @@ def ctcWise(request):
     fl, sl, tl, frl = [], [], [], []
     job_dataframe = pd.DataFrame([])
     for data in offer_data:
-        job_dataframe = job_dataframe.append({'salary': data.salary, 'company': data.job_id.comp_name},
-                                             ignore_index=True)
+        job_dataframe = pd.concat([job_dataframe, pd.DataFrame({'salary': [data.salary], 'company': [data.job_id.comp_name]})], ignore_index=True)
     data = job_dataframe[["salary", "company"]].value_counts()
     data = data.to_frame()
 
@@ -172,9 +171,9 @@ def gender_ratio(request):
     yog = request.session.get('yog')
     student_dataframe = pd.DataFrame([])
     for student in Student.objects.filter(year_of_graduation=yog):
-        student_dataframe = student_dataframe.append(
-            {'roll_no': student.roll_no, 'gender': student.gender, 'placed': student.placed, 'branch': student.branch,
-             'div': student.div}, ignore_index=True)
+        student_dataframe = pd.concat([student_dataframe, pd.DataFrame(
+            {'roll_no': [student.roll_no], 'gender': [student.gender], 'placed': [student.placed], 'branch': [student.branch],
+             'div': [student.div]})], ignore_index=True)
     div_data = student_dataframe[['branch', 'div', 'placed', 'gender']].value_counts()
     div_data = div_data.to_frame()
     gender_dict = {}
