@@ -132,4 +132,6 @@ try:
     pass
 except* (ValueError, TypeError) as e:
     # Handle ValueError and TypeError exceptions
-    print(f"Handled exception: {e}")
+    for exc in e.exceptions:
+        exc.add_note("This exception was part of a group of exceptions.")
+        print(f"Handled exception: {exc}")
