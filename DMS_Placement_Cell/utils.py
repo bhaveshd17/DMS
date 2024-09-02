@@ -6,40 +6,48 @@ from django.template.loader import render_to_string
 from DMS_Student.models import Job
 
 def send_accepted_email(student, job, request):
-    current_site = get_current_site(request)
-    email_subject = "Job Offer"
-    email_body = render_to_string("placement/accept.html", {
-        'student': student,
-        'job': job,
-    })
+    try:
+        current_site = get_current_site(request)
+        email_subject = "Job Offer"
+        email_body = render_to_string("placement/accept.html", {
+            'student': student,
+            'job': job,
+        })
 
-    email = EmailMessage(
-        subject=email_subject,
-        body=email_body,
-        from_email=settings.EMAIL_HOST_USER,
-        to=[student.gmail]
-    )
-    email.fail_silently = False
-    email.content_subtype = 'html'
-    email.send()
+        email = EmailMessage(
+            subject=email_subject,
+            body=email_body,
+            from_email=settings.EMAIL_HOST_USER,
+            to=[student.gmail]
+        )
+        email.fail_silently = False
+        email.content_subtype = 'html'
+        email.send()
+    except Exception as e:
+        e.add_note("Failed to send accepted email to student.")
+        raise
 
 def send_not_suitable_email(student, job, request):
-    current_site = get_current_site(request)
-    email_subject = "Job Status."
-    email_body = render_to_string("placement/not_suitable.html", {
-        'student': student,
-        'job': job,
-    })
+    try:
+        current_site = get_current_site(request)
+        email_subject = "Job Status."
+        email_body = render_to_string("placement/not_suitable.html", {
+            'student': student,
+            'job': job,
+        })
 
-    email = EmailMessage(
-        subject=email_subject,
-        body=email_body,
-        from_email=settings.EMAIL_HOST_USER,
-        to=[student.gmail]
-    )
-    email.fail_silently = False
-    email.content_subtype = 'html'
-    email.send()
+        email = EmailMessage(
+            subject=email_subject,
+            body=email_body,
+            from_email=settings.EMAIL_HOST_USER,
+            to=[student.gmail]
+        )
+        email.fail_silently = False
+        email.content_subtype = 'html'
+        email.send()
+    except Exception as e:
+        e.add_note("Failed to send not suitable email to student.")
+        raise
 
 def who_can_apply_text(job):
     text = ""
