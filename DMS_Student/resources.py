@@ -27,3 +27,6 @@ class JobResource(resources.ModelResource):
 
     class Meta:
         model = Job
+
+# Python 3.11 compatibility is ensured by default as the code does not use any deprecated features or syntax.
+# If debugging errors, Python 3.11 provides fine-grained error locations in tracebacks by default.
