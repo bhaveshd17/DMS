@@ -1,4 +1,5 @@
 ﻿from django.test import TestCase
+from typing import Self, LiteralString
 
 # Create your tests here.
 
@@ -21,8 +22,6 @@ def example_function():
         print(f"Unhandled exception: {e}")
 
 # Implementing a class with Self type hint for methods returning an instance of the class
-from typing import Self
-
 class ExampleClass:
     def __init__(self, value: int):
         self.value = value
@@ -34,3 +33,8 @@ class ExampleClass:
     def decrement(self) -> Self:
         self.value -= 1
         return self
+
+# Example function using LiteralString for constrained string literals
+def process_literal_string(input_string: LiteralString) -> str:
+    # Process the input string in some way
+    return input_string.upper()
