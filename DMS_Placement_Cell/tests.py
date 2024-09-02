@@ -13,7 +13,9 @@ def example_function():
         pass
     except* (ValueError, TypeError) as e:
         # Handle ValueError and TypeError exceptions
+        e.add_note("This exception was raised due to invalid value or type.")
         print(f"Handled exceptions: {e}")
     except Exception as e:
         # Handle any other exceptions
+        e.add_note("An unexpected exception occurred.")
         print(f"Unhandled exception: {e}")
