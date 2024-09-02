@@ -28,3 +28,6 @@ except* (ValueError, TypeError) as e:
     # Handle ValueError and TypeError exceptions
     e.add_note("This error occurred during the ASGI application setup.")
     print(f"Handled exceptions: {e}")
+
+# Note: The instruction about using `Self` type in class methods is not applicable here
+# as this file does not contain any class definitions.
