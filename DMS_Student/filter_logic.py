@@ -1,14 +1,14 @@
 ﻿from .models import Job, Student
 from .utils import internshipLogic, department_sort, jobLogic
 from datetime import datetime
-from typing import List, Dict, Any, TypedDict, Required, NotRequired
+from typing import List, Dict, Any, TypedDict, Self
 
 class InternshipData(TypedDict):
-    related_int_list: Required[List[Any]]
-    int_list: NotRequired[List[Any]]
+    related_int_list: List[Any]
+    int_list: List[Any]
 
 class JobData(TypedDict):
-    related_job_list: Required[List[Any]]
+    related_job_list: List[Any]
 
 def intern_filters(request: Any) -> Dict[str, Any]:
     data: InternshipData = internshipLogic(request)
