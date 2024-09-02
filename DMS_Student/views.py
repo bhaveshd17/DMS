@@ -1,4 +1,4 @@
-from django.contrib import messages
+﻿from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.messages.api import error
 from django.core.mail import send_mail
@@ -19,8 +19,6 @@ import operator
 import re
 import datetime
 
-
-
 @login_required(login_url='login')
 def index(request):
     internship = internshipLogic(request)
@@ -28,7 +26,6 @@ def index(request):
     content = {'related_job_list': job['department_wise_job_skill_based'][:3],
                'related_int_list': internship['related_int_list'][:3]}
     return render(request, 'student/index.html', content)
-
 
 @login_required(login_url='login')
 def internship(request):
@@ -39,7 +36,6 @@ def internship(request):
                'duration': [1, 2, 3, 4, 6, 12, 24, 36],
                }
     return render(request, 'student/internship.html', content)
-
 
 @login_required(login_url='login')
 def internshipFilter(request):
@@ -53,7 +49,6 @@ def internshipFilter(request):
                                  })
     return JsonResponse({'data': template})
 
-
 @login_required(login_url='login')
 def job(request):
     data = jobLogic(request)
@@ -62,7 +57,6 @@ def job(request):
                'cities': data['cities'],
                }
     return render(request, 'student/job.html', content)
-
 
 @login_required(login_url='login')
 def jobFilter(request):
@@ -77,7 +71,6 @@ def jobFilter(request):
                                  })
     return JsonResponse({'data': template})
 
-
 @login_required(login_url='login')
 def all_job(request):
     data = jobLogic(request)
@@ -87,13 +80,11 @@ def all_job(request):
                }
     return render(request, 'student/all_jobs.html', content)
 
-
 @login_required(login_url='login')
 def preplacement(request):
     data = department_sort(request)
     content = {'mock_test': data['mock_list']}
     return render(request, 'student/preplacement.html', content)
-
 
 @login_required(login_url='login')
 def details(request, id, type):
@@ -106,7 +97,6 @@ def details(request, id, type):
         try:
             job_user_obj = Job_user.objects.get(job_id=id, roll_no=request.user.username)
             status = job_user_obj.status
-    
 
         except:
             status = '0'
@@ -137,7 +127,6 @@ def details(request, id, type):
 
     return render(request, "student/details.html", content)
 
-
 @login_required(login_url='login')
 def apply(request):
     data = json.loads(request.body)
@@ -158,7 +147,6 @@ def apply(request):
             int_user.save()
 
     return JsonResponse('Done', safe=False)
-
 
 @login_required(login_url='login')
 def profile(request):
@@ -188,7 +176,6 @@ def profile(request):
                'prev_deg': prev_deg, 'certificate_list': certificate_list, 'curr_edu': curr_edu}
     return render(request, "student/profile.html", content)
 
-
 @login_required(login_url='login')
 def add_education(request):
     if request.method == "POST":
@@ -200,7 +187,6 @@ def add_education(request):
         else:
             messages.error(request, 'Invalid Addition')
             return redirect('profile')
-
 
 @login_required(login_url='login')
 def update_education(request, pk):
@@ -221,14 +207,12 @@ def update_education(request, pk):
                                 {'id': pk, 'csrf_token_value': csrf_token_value, 'edu': instance, 'form': form})
     return JsonResponse({'data': template})
 
-
 @login_required(login_url='login')
 def delete_education(request, pk):
     add_edu = Add_edu.objects.get(id=pk)
     add_edu.delete()
     messages.success(request, f"{add_edu} successfully deleted!")
     return redirect('profile')
-
 
 @login_required(login_url='login')
 def add_experience(request):
@@ -241,7 +225,6 @@ def add_experience(request):
         else:
             messages.error(request, 'Invalid Addition')
             return redirect('profile')
-
 
 @login_required(login_url='login')
 def update_experience(request, pk):
@@ -262,14 +245,12 @@ def update_experience(request, pk):
                                 {'id': pk, 'csrf_token_value': csrf_token_value, 'form': form})
     return JsonResponse({'data': template})
 
-
 @login_required(login_url='login')
 def delete_experience(request, pk):
     add_exp = Add_exp.objects.get(id=pk)
     add_exp.delete()
     messages.success(request, f"{add_exp} successfully deleted!")
     return redirect('profile')
-
 
 @login_required(login_url='login')
 def add_curr_education(request):
@@ -295,7 +276,6 @@ def add_curr_education(request):
         else:
             messages.error(request, 'Invalid Addition')
             return redirect('profile')
-
 
 @login_required(login_url='login')
 def update_curr_education(request, pk):
@@ -327,14 +307,12 @@ def update_curr_education(request, pk):
                                  'prev_degree': prev_degree, 'curr_edu': instance})
     return JsonResponse({'data': template})
 
-
 @login_required(login_url='login')
 def delete_curr_education(request, pk):
     curr_edu = CurrEdu.objects.get(id=pk)
     curr_edu.delete()
     messages.success(request, f"successfully deleted!")
     return redirect('profile')
-
 
 @login_required(login_url='login')
 def add_certificates(request):
@@ -347,7 +325,6 @@ def add_certificates(request):
         else:
             messages.error(request, 'Invalid Addition')
             return redirect('profile')
-
 
 @login_required(login_url='login')
 def update_certificate(request, pk):
@@ -368,14 +345,12 @@ def update_certificate(request, pk):
                                 {'id': pk, 'csrf_token_value': csrf_token_value, 'form': form})
     return JsonResponse({'data': template})
 
-
 @login_required(login_url='login')
 def delete_certificates(request, pk):
     certificate = Certificates.objects.get(id=pk)
     certificate.delete()
     messages.success(request, f"successfully deleted!")
     return redirect('profile')
-
 
 @login_required(login_url='login')
 def UpdateSkills(request):
@@ -415,7 +390,6 @@ def update_personal(request, pk):
 
     return render(request, 'student/update_personal.html', content)
 
-
 @login_required(login_url='login')
 def search(request):
     search_list = {}
@@ -432,7 +406,6 @@ def search(request):
 
     content = {"search_list": search_list, "query": query}
     return render(request, "student/search.html", content)
-
 
 @login_required(login_url='login')
 def userApplication(request):
@@ -459,7 +432,7 @@ def offer(request):
     for intern_u in int_user:
         internship = Intership.objects.get(id=intern_u.int_id.id)
         hired[internship] = {"type":"2", "user":int_user}
-        
+
     print(hired)
     context={"hired":hired}
     return render(request,"student/offer.html",context)
@@ -493,11 +466,9 @@ def handleLogin(request):
 
     return render(request, 'authentication/login.html')
 
-
 def handelLogout(request):
     logout(request)
     return redirect('login')
-
 
 def register(request):
     student_form=StudentForm()
@@ -516,14 +487,13 @@ def register(request):
     content = {"student_form": student_form, "user_form": user_form}
     return render(request, "authentication/register.html", content)
 
-
 def activate_user(request, uidb64, token):
     try:
-        uid=force_text(urlsafe_base64_decode(uidb64))
+        uid=force_str(urlsafe_base64_decode(uidb64))
         student=Student.objects.get(roll_no=uid)
     except Exception as e:
         student=None
-    
+
     if student and generate_token.check_token(student,token):
         student.is_email_verified=True
         student.save()
@@ -544,7 +514,7 @@ def forgot_password(request):
 
 def reset_password(request,uidb64):
     try:
-        uid=force_text(urlsafe_base64_decode(uidb64))
+        uid=force_str(urlsafe_base64_decode(uidb64))
         student=Student.objects.get(roll_no=uid)
     except Exception as e:
         student=None
@@ -556,4 +526,3 @@ def reset_password(request,uidb64):
         messages.success(request,"Password Changed")
         return redirect(reverse('login'))
     return render(request,"authentication/change_password.html")
-
