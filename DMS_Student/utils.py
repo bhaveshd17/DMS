@@ -13,6 +13,7 @@ import operator
 import numpy as np
 import math
 from typing import TypeVar, List, Dict, Any, Self, LiteralString
+from dataclasses import dataclass
 
 T = TypeVar('T')
 Ts = TypeVar('Ts')
