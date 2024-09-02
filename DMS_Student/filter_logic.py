@@ -1,4 +1,4 @@
-from .models import Job, Student
+﻿from .models import Job, Student
 from .utils import internshipLogic, department_sort, jobLogic
 from datetime import datetime
 
