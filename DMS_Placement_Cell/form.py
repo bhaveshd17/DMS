@@ -1,14 +1,14 @@
 ﻿from django.db.models import fields
 from django.forms import ModelForm
 from DMS_Student.models import Intership, Job
-from typing import Self
+from typing import Self, LiteralString
 
 class IntershipForm(ModelForm):
     class Meta:
         model = Intership
         fields = '__all__'
 
-    def save(self, *args, **kwargs) -> Self:
+    def save(self, *args: LiteralString, **kwargs: LiteralString) -> Self:
         return super().save(*args, **kwargs)
 
 class JobForm(ModelForm):
@@ -16,7 +16,7 @@ class JobForm(ModelForm):
         model = Job
         fields = '__all__'
 
-    def save(self, *args, **kwargs) -> Self:
+    def save(self, *args: LiteralString, **kwargs: LiteralString) -> Self:
         return super().save(*args, **kwargs)
 
 # Note: The original code does not contain any exception handling that would require the use of exception groups.
