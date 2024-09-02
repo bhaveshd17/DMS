@@ -110,7 +110,8 @@ def jobLogic(request):
                                                                      hsc_percentage=hsc_percentage,
                                                                      sal=j)
 
-    except* Exception as e:
+    except Exception as e:
+        e.add_note("An error occurred while processing job logic.")
         print(f"Error: {e}")
         related_job_list = []
 
