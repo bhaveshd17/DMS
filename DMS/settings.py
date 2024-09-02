@@ -1,5 +1,6 @@
 ﻿from pathlib import Path
 import os
+import sys
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -123,7 +124,6 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_PASSWORD = ''
 
 # Python 3.11 compatibility: Utilize fine-grained error locations in tracebacks
-import sys
 sys.tracebacklimit = 0  # Set to 0 to suppress traceback details, adjust as needed
 
 # Example of handling multiple exceptions using exception groups
