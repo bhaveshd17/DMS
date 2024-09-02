@@ -2,7 +2,9 @@
 from django.forms import ModelForm
 from DMS_Student.models import Intership, Job
 from typing import Self, LiteralString
+from dataclasses import dataclass
 
+@dataclass
 class IntershipForm(ModelForm):
     class Meta:
         model = Intership
@@ -11,6 +13,7 @@ class IntershipForm(ModelForm):
     def save(self, *args: LiteralString, **kwargs: LiteralString) -> Self:
         return super().save(*args, **kwargs)
 
+@dataclass
 class JobForm(ModelForm):
     class Meta:
         model = Job
