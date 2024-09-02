@@ -12,7 +12,7 @@ from .models import *
 import operator
 import numpy as np
 import math
-from typing import TypeVar, List, Dict, Any
+from typing import TypeVar, List, Dict, Any, Self
 
 T = TypeVar('T')
 Ts = TypeVar('Ts')
