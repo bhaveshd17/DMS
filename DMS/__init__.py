@@ -10,7 +10,8 @@ def process_data(data):
     try:
         # Simulate processing data
         result = data / 0  # This will raise a ZeroDivisionError
-    except* (ZeroDivisionError, TypeError) as e:
+    except (ZeroDivisionError, TypeError) as e:
+        e.add_note("Error occurred during data processing.")
         logger.error(f"An error occurred: {e}")
         # Handle specific exceptions
         if isinstance(e, ZeroDivisionError):
@@ -18,6 +19,7 @@ def process_data(data):
         elif isinstance(e, TypeError):
             logger.error("Invalid data type for division.")
     except Exception as e:
+        e.add_note("Unexpected error during data processing.")
         logger.error(f"An unexpected error occurred: {e}")
     else:
         logger.info("Data processed successfully.")
