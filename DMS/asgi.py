@@ -26,4 +26,5 @@ try:
     pass
 except* (ValueError, TypeError) as e:
     # Handle ValueError and TypeError exceptions
+    e.add_note("This error occurred during the ASGI application setup.")
     print(f"Handled exceptions: {e}")
