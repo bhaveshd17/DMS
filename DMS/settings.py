@@ -1,10 +1,11 @@
 ﻿from pathlib import Path
 import os
 import sys
+from typing import LiteralString
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'django-insecure-&+m0zlce=4mk9yw-@k#m+^sh)3xm=ygu0mvvwgag*)9u=#50h#'
+SECRET_KEY: LiteralString = 'django-insecure-&+m0zlce=4mk9yw-@k#m+^sh)3xm=ygu0mvvwgag*)9u=#50h#'
 
 DEBUG = False
 
@@ -115,13 +116,13 @@ MEDIA_URL = '/images/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = str(os.getenv("EMAIL"))
+EMAIL_HOST: LiteralString = 'smtp.gmail.com'
+EMAIL_HOST_USER: LiteralString = str(os.getenv("EMAIL"))
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 # email sending function is close because of real data
 # EMAIL_HOST_PASSWORD = str(os.getenv("EMAIL_KEY"))
-EMAIL_HOST_PASSWORD = ''
+EMAIL_HOST_PASSWORD: LiteralString = ''
 
 # Python 3.11 compatibility: Utilize fine-grained error locations in tracebacks
 sys.tracebacklimit = 0  # Set to 0 to suppress traceback details, adjust as needed
