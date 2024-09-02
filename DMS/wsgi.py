@@ -14,3 +14,6 @@ from django.core.wsgi import get_wsgi_application
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'DMS.settings')
 
 application = get_wsgi_application()
+
+# Note: The original code does not handle multiple exceptions, and the provided instructions
+# do not specify any exceptions to handle. Therefore, no changes are necessary for exception handling.
