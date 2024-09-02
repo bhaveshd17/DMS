@@ -1,5 +1,4 @@
 ﻿from django.db import models
-from django.db.models import fields
 from django.forms import ModelForm
 from .models import Student, Add_edu, Add_exp, CurrEdu, Certificates
 from django.contrib.auth.models import User
