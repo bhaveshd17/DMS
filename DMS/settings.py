@@ -125,3 +125,11 @@ EMAIL_HOST_PASSWORD = ''
 # Python 3.11 compatibility: Utilize fine-grained error locations in tracebacks
 import sys
 sys.tracebacklimit = 0  # Set to 0 to suppress traceback details, adjust as needed
+
+# Example of handling multiple exceptions using exception groups
+try:
+    # Some code that might raise multiple exceptions
+    pass
+except* (ValueError, TypeError) as e:
+    # Handle ValueError and TypeError exceptions
+    print(f"Handled exception: {e}")
